@@ -1,6 +1,27 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+    --ease-in-out-luxury: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* Universal Smooth Ease-In-And-Out for all interactive transitions */
+  *, *::before, *::after {
+    --tw-ease: cubic-bezier(0.42, 0, 0.58, 1);
+  }
+
+  [class*="transition-"],
+  .transition,
+  .transition-all,
+  .transition-colors,
+  .transition-opacity,
+  .transition-transform,
+  .transition-shadow,
+  a, button, input, select, textarea {
+    transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  }
+
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -244,7 +265,7 @@ header {
   border-radius: 0 !important;
   box-shadow: none !important;
   border: none !important;
-  transition: color 0.25s ease, text-shadow 0.25s ease !important;
+  transition: color 0.25s cubic-bezier(0.42, 0, 0.58, 1), text-shadow 0.25s cubic-bezier(0.42, 0, 0.58, 1) !important;
 }
 
 [data-theme="luxury"] header .header-logo-title {
@@ -270,7 +291,7 @@ header {
   font-family: var(--luxury-nav-font) !important;
   letter-spacing: var(--luxury-nav-spacing) !important;
   text-transform: var(--luxury-nav-transform) !important;
-  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease !important;
+  transition: color 0.25s cubic-bezier(0.42, 0, 0.58, 1), text-shadow 0.25s cubic-bezier(0.42, 0, 0.58, 1), transform 0.25s cubic-bezier(0.42, 0, 0.58, 1) !important;
 }
 
 [data-theme="luxury"] .viewport-nav-link:hover {
@@ -283,94 +304,346 @@ header {
   text-shadow: 0 0 24px rgba(212, 175, 55, 0.6) !important;
 }
 
-/* Cards & containers in Luxury */
-[data-theme="luxury"] .bg-white,
-[data-theme="luxury"].dark .bg-zinc-900,
-[data-theme="luxury"].dark .bg-zinc-950,
-[data-theme="luxury"] .bg-zinc-50,
-[data-theme="luxury"] .dark\:bg-zinc-900\/70,
-[data-theme="luxury"] .dark\:bg-zinc-900\/60,
-[data-theme="luxury"] .dark\:bg-zinc-900 {
-  background-color: #080808 !important;
-  border-color: rgba(212, 175, 55, 0.18) !important;
+/* =========================================================================
+   ✦ LUXURY THEME: ARCHITECTURAL & BORDERLESS EDITORIAL SYSTEM
+   No boxes, no backgrounds, no rounded borders. Seamless dark canvas with 
+   pure metallic hairlines, high-contrast ivory typography & radiant gold links.
+   ========================================================================= */
+
+/* Seamless Dark Canvas & Zero Section Backgrounds */
+[data-theme="luxury"] .luxury-editorial-section,
+[data-theme="luxury"] .luxury-skills-section,
+[data-theme="luxury"] .bg-zinc-100\/40,
+[data-theme="luxury"] .dark\:bg-zinc-900\/30 {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.14) !important;
+}
+
+/* Section Headings & Subtitles */
+[data-theme="luxury"] .luxury-section-title {
+  font-family: var(--luxury-heading-font, 'Cinzel', serif) !important;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #f7eed2 !important;
+  text-shadow: 0 0 25px rgba(212, 175, 55, 0.15) !important;
+}
+
+[data-theme="luxury"] .luxury-section-subtitle {
+  font-family: var(--luxury-body-font, 'Cormorant Garamond', Georgia, serif) !important;
+  font-size: 1.15rem !important;
+  color: #b0aaa0 !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.65 !important;
+}
+
+[data-theme="luxury"] .luxury-view-all-link {
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.80rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #d4af37 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
+  text-decoration: none !important;
+  padding-bottom: 2px !important;
+  transition: all 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-view-all-link:hover {
+  color: #ffffff !important;
+  border-bottom-color: #d4af37 !important;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.6) !important;
+  transform: translateX(3px) !important;
+}
+
+/* -------------------------------------------------------------------------
+   FEATURED PROJECTS & RECENT WRITINGS: BORDERLESS EDITORIAL SHOWCASE
+   ------------------------------------------------------------------------- */
+[data-theme="luxury"] .luxury-project-card,
+[data-theme="luxury"] .luxury-blog-card {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 1.85rem !important;
+  padding-bottom: 1.85rem !important;
+  transition: border-top-color 0.35s cubic-bezier(0.42, 0, 0.58, 1), transform 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-project-card:hover,
+[data-theme="luxury"] .luxury-blog-card:hover {
+  background: transparent !important;
+  border-top-color: rgba(212, 175, 55, 0.65) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: none !important;
+}
+
+/* Project & Article Titles */
+[data-theme="luxury"] .luxury-card-title,
+[data-theme="luxury"] .luxury-card-title a {
+  font-family: var(--luxury-heading-font, 'Cinzel', serif) !important;
+  color: #f7eed2 !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.3 !important;
+  transition: color 0.3s cubic-bezier(0.42, 0, 0.58, 1), text-shadow 0.3s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-project-card:hover .luxury-card-title,
+[data-theme="luxury"] .luxury-project-card:hover .luxury-card-title a,
+[data-theme="luxury"] .luxury-blog-card:hover .luxury-card-title,
+[data-theme="luxury"] .luxury-blog-card:hover .luxury-card-title a {
+  color: #d4af37 !important;
+  text-shadow: 0 0 18px rgba(212, 175, 55, 0.45) !important;
+}
+
+/* Project & Article Descriptions */
+[data-theme="luxury"] .luxury-card-desc {
+  color: #b5afa4 !important;
+  font-family: var(--luxury-body-font, 'Cormorant Garamond', Georgia, serif) !important;
+  font-size: 1.08rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Category & Status Typography (No Pill Bubbles) */
+[data-theme="luxury"] .luxury-card-category {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #d4af37 !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="luxury"] .luxury-card-status {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.70rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #86efac !important;
+}
+
+/* Tag Pills -> Clean Stardust Typography (No Backgrounds) */
+[data-theme="luxury"] .luxury-card-tags,
+[data-theme="luxury"] .luxury-tag-pill {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 0.5rem 0 0 !important;
+  color: #8c857b !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 0.75rem !important;
+  transition: color 0.25s ease-in-out !important;
+}
+
+[data-theme="luxury"] .luxury-tag-pill:hover {
+  color: #d4af37 !important;
+}
+
+/* Card Footer & Editorial Links */
+[data-theme="luxury"] .luxury-card-footer {
+  border-top: 1px solid rgba(212, 175, 55, 0.12) !important;
+  background: transparent !important;
+  padding-top: 1rem !important;
+}
+
+[data-theme="luxury"] .luxury-card-date {
+  color: #8c857b !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+[data-theme="luxury"] .luxury-card-link {
+  color: #d4af37 !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.10em !important;
+  font-size: 0.75rem !important;
+  text-decoration: none !important;
+  transition: all 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-card-link:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.6) !important;
+  transform: translateX(3px) !important;
+}
+
+/* -------------------------------------------------------------------------
+   SKILLS MATRIX: ARCHITECTURAL COLUMNS (NO CARDS, NO GREY BAND)
+   ------------------------------------------------------------------------- */
+[data-theme="luxury"] .luxury-skill-card {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 2rem 0 !important;
+  transition: border-top-color 0.4s ease-in-out !important;
+}
+
+[data-theme="luxury"] .luxury-skill-card:hover {
+  border-top-color: rgba(212, 175, 55, 0.65) !important;
+}
+
+[data-theme="luxury"] .luxury-skill-category {
+  font-family: var(--luxury-heading-font, 'Cinzel', serif) !important;
+  color: #f7eed2 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 1.25rem !important;
+}
+
+[data-theme="luxury"] .luxury-skill-dot {
+  background-color: #d4af37 !important;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8) !important;
+}
+
+[data-theme="luxury"] .luxury-skill-num {
+  display: inline !important;
+}
+
+[data-theme="luxury"] .luxury-skill-pill {
+  background: transparent !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-radius: 0 !important;
+  color: #ded8cb !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.74rem !important;
+  letter-spacing: 0.08em !important;
+  padding: 0.35rem 0.75rem !important;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-skill-pill:hover {
+  border-color: #d4af37 !important;
+  color: #ffffff !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.45) !important;
+}
+
+/* -------------------------------------------------------------------------
+   QUICK CTA BANNER: OPEN EDITORIAL STATEMENT (NO INDIGO GRADIENT BOX)
+   ------------------------------------------------------------------------- */
+[data-theme="luxury"] .luxury-cta-banner {
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 4.5rem 0 !important;
+}
+
+[data-theme="luxury"] .luxury-cta-title {
+  font-family: var(--luxury-heading-font, 'Cinzel', serif) !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #f7eed2 !important;
+  font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.2) !important;
+}
+
+[data-theme="luxury"] .luxury-cta-desc {
+  font-family: var(--luxury-body-font, 'Cormorant Garamond', Georgia, serif) !important;
+  font-size: 1.2rem !important;
+  color: #ded8cb !important;
+  line-height: 1.7 !important;
 }
 
 [data-theme="luxury"] footer {
-  background-color: #040404 !important;
-  border-top-color: rgba(212, 175, 55, 0.15) !important;
+  background-color: #000000 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
 }
 
-/* Luxury hairline borders */
-[data-theme="luxury"] .border-zinc-200,
-[data-theme="luxury"] .border-zinc-700,
-[data-theme="luxury"] .border-zinc-800,
-[data-theme="luxury"] .border-zinc-800\/80 {
-  border-color: rgba(212, 175, 55, 0.18) !important;
+/* Luxury Theme: ONLY EDITORIAL LINKS — NO BUTTONS */
+[data-theme="luxury"] .luxury-editorial-divider {
+  display: inline-block !important;
 }
 
-/* Luxury Hero & Accent Action Buttons (Border-free seamless luxury pills) */
-[data-theme="luxury"] .luxury-hero-btn-primary {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.10) 100%) !important;
+[data-theme="luxury"] .luxury-link-group,
+[data-theme="luxury"] .luxury-seq-4 {
+  gap: 1.5rem !important;
+  row-gap: 0.75rem !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-primary,
+[data-theme="luxury"] .luxury-hero-btn-secondary,
+[data-theme="luxury"] .luxury-hero-btn-tertiary,
+[data-theme="luxury"] .luxury-cta-link-primary,
+[data-theme="luxury"] .luxury-cta-link-secondary {
+  background: none !important;
+  background-color: transparent !important;
   border: none !important;
-  color: #f7eed2 !important;
-  box-shadow: 0 0 28px rgba(212, 175, 55, 0.20) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0.2rem 0 0.35rem 0 !important;
   font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
-  font-size: 0.85rem !important;
-  letter-spacing: 0.09em !important;
+  font-size: 0.86rem !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-[data-theme="luxury"] .luxury-hero-btn-primary:hover {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0.18) 100%) !important;
-  border: none !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.40) !important;
-  transform: translateY(-2px) scale(1.02) !important;
-  text-decoration: none !important;
-}
-
-[data-theme="luxury"] .luxury-hero-btn-secondary {
-  background: rgba(22, 22, 28, 0.75) !important;
-  border: none !important;
+  font-weight: 500 !important;
   color: #ded8cb !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
-  font-size: 0.85rem !important;
-  letter-spacing: 0.09em !important;
-  text-transform: uppercase !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
+  transition: all 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
 }
 
-[data-theme="luxury"] .luxury-hero-btn-secondary:hover {
-  background: rgba(32, 32, 40, 0.95) !important;
-  border: none !important;
+/* Primary Link Distinction */
+[data-theme="luxury"] .luxury-hero-btn-primary,
+[data-theme="luxury"] .luxury-cta-link-primary {
+  color: #f7eed2 !important;
+  border-bottom-color: rgba(212, 175, 55, 0.65) !important;
+}
+
+/* Hover States: Smooth ease-in-out glide, gold hairline illumination & text bloom */
+[data-theme="luxury"] .luxury-hero-btn-primary:hover,
+[data-theme="luxury"] .luxury-hero-btn-secondary:hover,
+[data-theme="luxury"] .luxury-hero-btn-tertiary:hover,
+[data-theme="luxury"] .luxury-cta-link-primary:hover,
+[data-theme="luxury"] .luxury-cta-link-secondary:hover {
+  background: none !important;
+  background-color: transparent !important;
   color: #ffffff !important;
-  box-shadow: 0 0 24px rgba(212, 175, 55, 0.25) !important;
-  transform: translateY(-2px) scale(1.02) !important;
+  border-bottom-color: #d4af37 !important;
+  text-shadow: 0 0 16px rgba(212, 175, 55, 0.55) !important;
+  transform: translateX(4px) !important;
   text-decoration: none !important;
 }
 
-[data-theme="luxury"] .luxury-hero-btn-tertiary {
-  border: none !important;
-  color: #a8a295 !important;
-  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
-  font-size: 0.85rem !important;
-  letter-spacing: 0.09em !important;
-  text-transform: uppercase !important;
-  transition: all 0.25s ease !important;
-}
-
-[data-theme="luxury"] .luxury-hero-btn-tertiary:hover {
-  border: none !important;
+[data-theme="luxury"] .luxury-link-arrow {
   color: #d4af37 !important;
-  text-shadow: 0 0 14px rgba(212, 175, 55, 0.5) !important;
-  transform: translateX(2px) !important;
-  text-decoration: none !important;
+  display: inline-block !important;
+  transition: transform 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-primary:hover .luxury-link-arrow,
+[data-theme="luxury"] .luxury-hero-btn-secondary:hover .luxury-link-arrow,
+[data-theme="luxury"] .luxury-hero-btn-tertiary:hover .luxury-link-arrow,
+[data-theme="luxury"] .luxury-cta-link-primary:hover .luxury-link-arrow,
+[data-theme="luxury"] .luxury-cta-link-secondary:hover .luxury-link-arrow {
+  transform: translateX(3px) !important;
 }
 
 /* Luxury Hero Headline & Bio Typographic Polish */
@@ -401,30 +674,35 @@ html:not([data-theme="luxury"]) #replay-luxury-btn {
   display: none !important;
 }
 
-[data-theme="luxury"] #replay-luxury-btn {
-  background: rgba(14, 14, 18, 0.92) !important;
-  color: #d4af37 !important;
-  border: 1px solid rgba(212, 175, 55, 0.35) !important;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 16px rgba(212, 175, 55, 0.15) !important;
-  font-family: 'Cinzel', serif !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.08em !important;
+[data-theme="luxury"] #replay-luxury-btn,
+[data-theme="luxury"] #particle-studio-btn {
+  background: transparent !important;
+  color: #ded8cb !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow: none !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  border-radius: 9999px !important;
-  padding: 0.45rem 0.9rem !important;
-  backdrop-filter: blur(16px) !important;
+  border-radius: 0 !important;
+  padding: 0.2rem 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.5rem !important;
-  transition: all 0.25s ease !important;
+  gap: 0.4rem !important;
+  transition: all 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
 }
 
-[data-theme="luxury"] #replay-luxury-btn:hover {
-  background: rgba(22, 22, 28, 0.98) !important;
-  border-color: #d4af37 !important;
-  color: #fff9ea !important;
-  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.9), 0 0 24px rgba(212, 175, 55, 0.35) !important;
-  transform: translateY(-2px) scale(1.03) !important;
+[data-theme="luxury"] #replay-luxury-btn:hover,
+[data-theme="luxury"] #particle-studio-btn:hover {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-bottom-color: #d4af37 !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.5) !important;
+  transform: translateY(-2px) !important;
   text-decoration: none !important;
 }
 
@@ -447,17 +725,36 @@ html:not([data-theme="luxury"]) #replay-luxury-btn {
   border-color: #d4af37 !important;
 }
 
-/* Refined rounded corners */
-[data-theme="luxury"] .rounded-3xl {
-  border-radius: 12px !important;
+/* Zero rounded corners in luxury editorial theme */
+[data-theme="luxury"] .rounded-3xl,
+[data-theme="luxury"] .rounded-2xl,
+[data-theme="luxury"] .rounded-xl,
+[data-theme="luxury"] .rounded-lg,
+[data-theme="luxury"] .rounded-md,
+[data-theme="luxury"] .rounded {
+  border-radius: 0 !important;
 }
 
-[data-theme="luxury"] .rounded-2xl {
-  border-radius: 10px !important;
+/* Force dark theme typography colors in luxury theme regardless of class specificity */
+[data-theme="luxury"] .text-zinc-900,
+[data-theme="luxury"] .text-zinc-800,
+[data-theme="luxury"] .text-zinc-700 {
+  color: #edebe8 !important;
 }
 
-[data-theme="luxury"] .rounded-xl {
-  border-radius: 8px !important;
+[data-theme="luxury"] .text-zinc-600,
+[data-theme="luxury"] .text-zinc-500 {
+  color: #a8a29e !important;
+}
+
+[data-theme="luxury"] .bg-white,
+[data-theme="luxury"] .bg-zinc-100,
+[data-theme="luxury"] .bg-zinc-50,
+[data-theme="luxury"] .bg-indigo-50,
+[data-theme="luxury"] .bg-emerald-50,
+[data-theme="luxury"] .bg-amber-50 {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* Gold glow accents */
@@ -485,7 +782,7 @@ html:not([data-theme="luxury"]) #replay-luxury-btn {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s !important;
+  transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), transform 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.8s !important;
 }
 
 [data-theme="luxury"].luxury-animating header,
@@ -509,7 +806,7 @@ html:not([data-theme="luxury"]) #replay-luxury-btn {
   visibility: visible !important;
   pointer-events: auto !important;
   transform: translateY(0) !important;
-  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: opacity 1.1s cubic-bezier(0.65, 0, 0.35, 1), transform 1.1s cubic-bezier(0.65, 0, 0.35, 1) !important;
 }
 
 /* Shimmering gold text gradient for Luxury headline */

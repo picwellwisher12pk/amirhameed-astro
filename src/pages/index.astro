@@ -84,42 +84,36 @@ const skills = [
             engineering.
           </p>
 
-          <!-- Action Buttons with Glass-Gold Tactile Pills (No borders) -->
+          <!-- Editorial Action Links (Styled as pure links in Luxury theme) -->
           <div
-            class="luxury-seq-4 mt-9 flex flex-wrap items-center justify-start gap-4"
+            class="luxury-seq-4 mt-9 flex flex-wrap items-center justify-start gap-4 sm:gap-6 luxury-link-group"
           >
             <a
               href="/projects"
-              class="luxury-hero-btn-primary group relative inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 transition-all"
+              class="luxury-hero-btn-primary group relative inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 transition-all"
             >
               <span>Explore Projects</span>
-              <svg
-                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
+              <span class="luxury-link-arrow text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </a>
+
+            <span class="luxury-editorial-divider hidden text-[#d4af37]/40 text-xs select-none">/</span>
 
             <a
               href="/blog"
-              class="luxury-hero-btn-secondary inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-semibold text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all"
+              class="luxury-hero-btn-secondary group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-semibold text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all"
             >
               <span>Read Articles</span>
+              <span class="luxury-link-arrow text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </a>
+
+            <span class="luxury-editorial-divider hidden text-[#d4af37]/40 text-xs select-none">/</span>
 
             <a
               href="/about"
-              class="luxury-hero-btn-tertiary inline-flex items-center gap-1.5 px-4 py-3.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-sm font-medium transition-colors"
+              class="luxury-hero-btn-tertiary group inline-flex items-center gap-1.5 px-4 py-3.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-sm font-medium transition-colors"
             >
               <span>My Story</span>
-              <span class="text-xs">&rarr;</span>
+              <span class="luxury-link-arrow text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </a>
           </div>
         </div>
@@ -185,30 +179,31 @@ const skills = [
 
   <!-- Featured Projects Section -->
   <section
-    class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80"
+    class="luxury-seq-rest py-16 sm:py-20 border-t border-zinc-200/80 dark:border-zinc-800/80 luxury-editorial-section"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between mb-8">
         <div>
           <h2
-            class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white"
+            class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white luxury-section-title"
           >
             Featured Projects
           </h2>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 luxury-section-subtitle">
             Recent tools, applications, and architectures built across multiple
             disciplines.
           </p>
         </div>
         <a
           href="/projects"
-          class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+          class="luxury-view-all-link text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
         >
-          View all ({allProjects.length}) &rarr;
+          <span>View all ({allProjects.length})</span>
+          <span class="luxury-link-arrow text-xs">&rarr;</span>
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
         {featuredProjects.map((project) => <ProjectCard project={project} />)}
       </div>
     </div>
@@ -216,31 +211,32 @@ const skills = [
 
   <!-- Skills Matrix -->
   <section
-    class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100/40 dark:bg-zinc-900/30"
+    class="luxury-seq-rest py-16 sm:py-20 border-t border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100/40 dark:bg-zinc-900/30 luxury-editorial-section luxury-skills-section"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-xl mx-auto mb-10">
+      <div class="text-center max-w-xl mx-auto mb-12">
         <h2
-          class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white"
+          class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white luxury-section-title"
         >
-          Skills & Technologies
+          Skills &amp; Technologies
         </h2>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 luxury-section-subtitle">
           A blend of engineering precision, user-centric design, and automation.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
         {
-          skills.map((s) => (
-            <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800">
-              <h3 class="text-base font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-indigo-500" />
-                {s.category}
+          skills.map((s, idx) => (
+            <div class="luxury-skill-card p-6 rounded-2xl bg-white dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800">
+              <h3 class="luxury-skill-category text-base font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
+                <span class="luxury-skill-dot w-2 h-2 rounded-full bg-indigo-500" />
+                <span class="luxury-skill-num hidden font-mono text-[10px] text-[#d4af37]/60 mr-1">{['01', '02', '03'][idx]}.</span>
+                <span>{s.category}</span>
               </h3>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-2 luxury-skill-pills-wrap">
                 {s.items.map((item) => (
-                  <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                  <span class="luxury-skill-pill px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
                     {item}
                   </span>
                 ))}
@@ -255,26 +251,27 @@ const skills = [
   <!-- Recent Writings -->
   {
     recentPosts.length > 0 && (
-      <section class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80">
+      <section class="luxury-seq-rest py-16 sm:py-20 border-t border-zinc-200/80 dark:border-zinc-800/80 luxury-editorial-section">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
           <div class="flex items-center justify-between mb-8">
             <div>
-              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                Recent Writings & Ideas
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white luxury-section-title">
+                Recent Writings &amp; Ideas
               </h2>
-              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 luxury-section-subtitle">
                 Reflections on tech, cloud systems, and design.
               </p>
             </div>
             <a
               href="/blog"
-              class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+              class="luxury-view-all-link text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
             >
-              View all posts &rarr;
+              <span>View all posts</span>
+              <span class="luxury-link-arrow text-xs">&rarr;</span>
             </a>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {recentPosts.map((post) => (
               <BlogCard post={post} />
             ))}
@@ -286,33 +283,36 @@ const skills = [
 
   <!-- Quick CTA Banner -->
   <section
-    class="luxury-seq-rest py-16 border-t border-zinc-200/80 dark:border-zinc-800/80"
+    class="luxury-seq-rest py-20 sm:py-24 border-t border-zinc-200/80 dark:border-zinc-800/80 luxury-editorial-section luxury-cta-section"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div
-        class="rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl"
+        class="luxury-cta-banner rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl"
       >
         <div class="relative z-10 max-w-2xl">
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 class="luxury-cta-title text-2xl sm:text-3xl font-extrabold tracking-tight">
             Want to collaborate or discuss an idea?
           </h2>
-          <p class="mt-3 text-indigo-200 text-sm sm:text-base leading-relaxed">
+          <p class="luxury-cta-desc mt-3 text-indigo-200 text-sm sm:text-base leading-relaxed">
             Whether you're looking for frontend architecture consulting, UI/UX
             systems, or exploring automated AI workflows, feel free to reach
             out.
           </p>
-          <div class="mt-6 flex flex-wrap gap-4">
+          <div class="mt-6 flex flex-wrap gap-4 sm:gap-6 items-center">
             <a
               href="/contact"
-              class="px-6 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow hover:bg-zinc-100 transition-colors"
+              class="luxury-cta-link-primary group px-6 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow hover:bg-zinc-100 transition-colors inline-flex items-center gap-1.5"
             >
-              Get in Touch &rarr;
+              <span>Get in Touch</span>
+              <span class="luxury-link-arrow text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </a>
+            <span class="luxury-editorial-divider hidden text-[#d4af37]/40 text-xs select-none">/</span>
             <a
               href="/about"
-              class="px-6 py-3 rounded-xl border border-white/30 text-white font-medium text-sm hover:bg-white/10 transition-colors"
+              class="luxury-cta-link-secondary group px-6 py-3 rounded-xl border border-white/30 text-white font-medium text-sm hover:bg-white/10 transition-colors inline-flex items-center gap-1.5"
             >
-              Learn More About Me
+              <span>Learn More About Me</span>
+              <span class="luxury-link-arrow text-xs transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </a>
           </div>
         </div>

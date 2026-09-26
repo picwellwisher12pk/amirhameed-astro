@@ -1,6 +1,6 @@
 ---
 // Luxury Classical Cinematic Fullscreen High-Density Nano-Particle Cloud Intro (WebGL GPU-Accelerated)
-// Features Divergence-Free Curl Noise Fluid Wake, Velocity Impulse, and Interactive Placement Studio
+// 5 Switchable Organic Interaction Modes: 3D Hologram, Silk Ripple, Celestial Lantern, Gravity Lens, Fluid Wake
 ---
 
 <!-- Pitch-black cinematic veil (active during luxury theme entrance) -->
@@ -14,6 +14,13 @@
 <canvas 
   id="luxury-particle-canvas" 
   class="fixed inset-0 z-[5] pointer-events-none hidden"
+  aria-hidden="true"
+></canvas>
+
+<!-- Neural Constellation synaptic filaments canvas (Overlay 2D) -->
+<canvas 
+  id="luxury-constellation-canvas" 
+  class="fixed inset-0 z-[6] pointer-events-none hidden"
   aria-hidden="true"
 ></canvas>
 
@@ -58,11 +65,117 @@
   <div class="gizmo-handle e absolute top-1/2 -right-2 -translate-y-1/2 w-3 h-6 bg-[#d4af37] border border-zinc-950 rounded cursor-ew-resize shadow-lg hover:scale-110 transition-transform"></div>
 </div>
 
+<!-- Floating Luxury Effect Showcase Dock (Bottom Center) -->
+<div 
+  id="luxury-mode-dock" 
+  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 p-1.5 rounded-full bg-zinc-950/90 border border-[#d4af37]/40 shadow-[0_12px_45px_rgba(0,0,0,0.85)] backdrop-blur-xl text-xs font-mono select-none transition-all duration-300 ease-in-out pointer-events-auto opacity-0 translate-y-4"
+  style="box-shadow: 0 10px 35px -5px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.18);"
+>
+  <!-- Badge Label -->
+  <div class="hidden md:flex items-center gap-2 pl-3 pr-2 py-1 text-[#d4af37]">
+    <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+    <span class="text-[11px] font-serif font-bold uppercase tracking-wider">Effect Showcase</span>
+  </div>
+
+  <!-- 8 Mode Switch Buttons -->
+  <div class="flex items-center gap-1">
+    <button type="button" data-dock-mode="1" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="1. Volumetric Quantum Aura (Press 1)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">1</span>
+      <span>Quantum Aura</span>
+    </button>
+    <button type="button" data-dock-mode="2" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="2. Silk Surface Ripple (Press 2)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">2</span>
+      <span>Silk Ripple</span>
+    </button>
+    <button type="button" data-dock-mode="3" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="3. Celestial Lantern (Press 3)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">3</span>
+      <span>Celestial Lantern</span>
+    </button>
+    <button type="button" data-dock-mode="4" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="4. Gravitational Lens (Press 4)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">4</span>
+      <span>Gravity Lens</span>
+    </button>
+    <button type="button" data-dock-mode="5" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="5. Fluid Stardust Wake (Press 5)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">5</span>
+      <span>Fluid Wake</span>
+    </button>
+    <button type="button" data-dock-mode="6" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="6. Simple Soft Physics Displace (Press 6)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">6</span>
+      <span>Soft Physics</span>
+    </button>
+    <button type="button" data-dock-mode="7" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="7. Neural Constellation (Press 7)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">7</span>
+      <span>Neural Web</span>
+    </button>
+    <button type="button" data-dock-mode="8" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="8. Holographic Cyber Scanlines (Press 8)">
+      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">8</span>
+      <span>Cyber Scanlines</span>
+    </button>
+  </div>
+
+  <!-- Divider -->
+  <div class="h-4 w-[1px] bg-zinc-800 mx-1"></div>
+
+  <!-- Randomize on Load Button -->
+  <button
+    id="dock-random-btn"
+    type="button"
+    class="px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800/80 border border-transparent"
+    title="Play random effect on each page load (Press R)"
+  >
+    <span class="text-xs">🎲</span>
+    <span id="dock-random-text">Random Load</span>
+  </button>
+
+  <!-- Keep This One Button -->
+  <button
+    id="dock-lock-btn"
+    type="button"
+    class="px-3 py-1.5 rounded-full bg-[#d4af37]/20 hover:bg-[#d4af37] text-[#d4af37] hover:text-zinc-950 border border-[#d4af37]/60 font-semibold text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap"
+    title="Keep this selected effect permanently on every load"
+  >
+    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+    <span id="dock-lock-text">Keep This</span>
+  </button>
+
+  <!-- Minimize / Close Button -->
+  <button
+    id="dock-minimize-btn"
+    type="button"
+    class="w-6 h-6 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors duration-200 ease-in-out ml-0.5"
+    title="Minimize dock"
+  >
+    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<!-- Minimized Dock Pill (Appears when dock is minimized) -->
+<button
+  id="luxury-mode-dock-minimized"
+  type="button"
+  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-950/90 border border-[#d4af37]/40 shadow-xl backdrop-blur-xl text-xs font-mono text-[#d4af37] hover:border-[#d4af37] transition-all duration-300 ease-in-out cursor-pointer"
+  title="Click to reopen Effect Showcase Dock"
+>
+  <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+  <span class="font-semibold">🔮 Try Effects (Keys 1–8, R to Randomize)</span>
+</button>
+
+<!-- Floating Mode Guidance Toast -->
+<div 
+  id="luxury-mode-toast" 
+  class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 ease-in-out opacity-0 -translate-y-2 flex flex-col items-center"
+>
+  <div class="px-4 py-2 rounded-2xl bg-zinc-950/95 border border-[#d4af37]/60 shadow-[0_10px_30px_rgba(0,0,0,0.85)] backdrop-blur-xl text-center max-w-lg">
+    <div id="toast-title" class="text-xs font-serif font-bold text-[#d4af37] uppercase tracking-wider mb-0.5">Mode 1: 3D Holographic Parallax</div>
+    <div id="toast-desc" class="text-[11px] text-zinc-300 font-sans">Move cursor across screen to see 3D head tilt and depth perspective relief.</div>
+  </div>
+</div>
+
 <!-- Floating Particle Studio Trigger Button (Stacked at bottom-right above Replay button) -->
 <button
   id="particle-studio-btn"
   type="button"
-  class="fixed bottom-[122px] right-6 z-50 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-[#d4af37] shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all hover:scale-105 cursor-pointer hidden"
+  class="fixed bottom-[122px] right-6 z-50 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-[#d4af37] shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer hidden"
   title="Open Particle Placement Studio (Alt+P)"
 >
   <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
@@ -72,13 +185,13 @@
 <!-- Interactive Floating Particle Placement Studio HUD Panel -->
 <div
   id="particle-studio-panel"
-  class="fixed bottom-24 right-6 z-50 hidden w-[380px] max-w-[calc(100vw-32px)] bg-zinc-950/95 border border-[#d4af37]/35 rounded-2xl shadow-2xl backdrop-blur-xl text-zinc-200 text-xs font-sans overflow-hidden select-none transition-opacity duration-200"
+  class="fixed bottom-24 right-6 z-50 hidden w-[390px] max-w-[calc(100vw-32px)] bg-zinc-950/95 border border-[#d4af37]/35 rounded-2xl shadow-2xl backdrop-blur-xl text-zinc-200 text-xs font-sans overflow-hidden select-none transition-all duration-300 ease-in-out"
 >
   <!-- Studio Header with Drag Bar & Close Button -->
   <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800/80 bg-zinc-900/60 cursor-grab active:cursor-grabbing" id="studio-drag-header">
     <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-[#d4af37] shadow-[0_0_8px_#d4af37]"></span>
-      <span class="font-serif tracking-wider font-semibold text-[#d4af37] uppercase text-[11px]">Particle Placement Studio</span>
+      <span class="font-serif tracking-wider font-semibold text-[#d4af37] uppercase text-[11px]">Particle Physics &amp; Layout Studio</span>
     </div>
     <div class="flex items-center gap-1.5">
       <span class="text-[10px] font-mono text-zinc-500 hidden sm:inline">Alt+P</span>
@@ -88,12 +201,115 @@
     </div>
   </div>
 
-  <div class="p-4 space-y-4 max-h-[75vh] overflow-y-auto">
+  <div class="p-4 space-y-4 max-h-[78vh] overflow-y-auto">
+    <!-- 🔮 INTERACTIVE EFFECT MODE SWITCHER (Try All 5 One by One!) -->
+    <div class="space-y-1.5">
+      <div class="text-[10px] uppercase tracking-wider font-mono text-zinc-400 flex items-center justify-between">
+        <span class="text-[#d4af37] font-semibold">🔮 Interactive Effect Mode</span>
+        <span class="text-zinc-500 font-normal">Click to test live</span>
+      </div>
+      <div id="studio-mode-buttons" class="grid grid-cols-1 gap-1.5 p-1.5 bg-zinc-900/90 rounded-xl border border-zinc-800">
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="1">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">1. Volumetric Quantum Aura</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Pure Harmonic Drift &amp; Aura</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="2">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">2. Silk Surface Ripple</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Liquid Gold Waves</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="3">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">3. Celestial Lantern</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Bioluminescent Glow</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="4">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">4. Gravitational Lens</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Cosmic Curvature</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="5">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">5. Fluid Stardust Wake</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Curl Turbulence</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="6">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">6. Soft Physics Displace</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Elastic Damped Membrane</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="7">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">7. Neural Constellation</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Synaptic Filaments</span>
+        </button>
+
+        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="8">
+          <div class="flex items-center gap-2">
+            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span class="font-semibold">8. Holographic Cyber Scanlines</span>
+          </div>
+          <span class="text-[10px] text-zinc-400">Laser Sweep &amp; Prismatic Slices</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mode Tuning Sliders -->
+    <div class="pt-2 border-t border-zinc-800/80 space-y-3">
+      <!-- Intensity / Amplitude Slider -->
+      <div>
+        <div class="flex items-center justify-between text-xs mb-1">
+          <span id="studio-intensity-label" class="text-zinc-300 font-medium">Effect Intensity</span>
+          <span id="studio-intensity-val" class="font-mono text-[#d4af37] font-bold">1.00x</span>
+        </div>
+        <input id="studio-intensity-slider" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
+      </div>
+
+      <!-- Frequency / Speed Slider -->
+      <div>
+        <div class="flex items-center justify-between text-xs mb-1">
+          <span id="studio-speed-label" class="text-zinc-300 font-medium">Speed / Frequency</span>
+          <span id="studio-speed-val" class="font-mono text-[#d4af37] font-bold">1.00x</span>
+        </div>
+        <input id="studio-speed-slider" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
+      </div>
+
+      <!-- Wake / Radius Slider -->
+      <div>
+        <div class="flex items-center justify-between text-xs mb-1">
+          <span class="text-zinc-300 font-medium">Influence Radius</span>
+          <span id="studio-radius-val" class="font-mono text-[#d4af37] font-bold">140px</span>
+        </div>
+        <input id="studio-radius-slider" type="range" min="60" max="260" step="5" value="140" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
+      </div>
+    </div>
+
     <!-- Image Selector Tabs -->
-    <div>
+    <div class="pt-2 border-t border-zinc-800/80">
       <div class="text-[10px] uppercase tracking-wider font-mono text-zinc-400 mb-1.5 flex items-center justify-between">
-        <span>Active Image</span>
-        <span class="text-[#d4af37]/80 font-normal">Select image to configure</span>
+        <span>Active Image Layout</span>
+        <span class="text-[#d4af37]/80 font-normal">Select image to position</span>
       </div>
       <div id="studio-image-tabs" class="grid grid-cols-3 gap-1.5 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800">
         <!-- Rendered dynamically for each image in PARTICLE_CONFIG.images -->
@@ -135,46 +351,6 @@
       </div>
     </div>
 
-    <!-- 🌊 Organic Fluid Stardust Dynamics Section -->
-    <div class="pt-3 border-t border-zinc-800/80 space-y-3">
-      <div class="text-[10px] uppercase tracking-wider font-mono text-zinc-400 flex items-center justify-between">
-        <span class="text-[#d4af37] font-semibold">🌊 Fluid Dynamics &amp; Turbulence</span>
-        <span class="text-zinc-500 font-normal">Kinetic Wake &amp; Curl</span>
-      </div>
-
-      <!-- Fluid Turbulence (Curl Noise) -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Curl Turbulence (Organic Swirls)</span>
-          <span id="studio-turbulence-val" class="font-mono text-[#d4af37] font-bold">1.45</span>
-        </div>
-        <input id="studio-turbulence-slider" type="range" min="0.0" max="3.0" step="0.05" value="1.45" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-        <div class="flex justify-between text-[10px] text-zinc-500 font-mono mt-0.5">
-          <span>0 (Calm)</span>
-          <span>1.45 (Natural)</span>
-          <span>3.0 (Storm)</span>
-        </div>
-      </div>
-
-      <!-- Kinetic Impulse (Cursor Swipe Force) -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Kinetic Impulse (Swipe Wake)</span>
-          <span id="studio-impulse-val" class="font-mono text-[#d4af37] font-bold">0.85</span>
-        </div>
-        <input id="studio-impulse-slider" type="range" min="0.0" max="2.0" step="0.05" value="0.85" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-
-      <!-- Influence Radius -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Wake Influence Radius</span>
-          <span id="studio-radius-val" class="font-mono text-[#d4af37] font-bold">140px</span>
-        </div>
-        <input id="studio-radius-slider" type="range" min="60" max="260" step="5" value="140" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-    </div>
-
     <!-- On-Screen Drag Gizmo Toggle -->
     <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between">
       <label class="flex items-center gap-2 cursor-pointer">
@@ -213,7 +389,7 @@
         </button>
       </div>
       <button id="studio-reset-btn" type="button" class="w-full py-1 text-[10px] text-zinc-500 hover:text-rose-400 font-mono transition-colors text-center cursor-pointer">
-        Reset All Images to Default Positions
+        Reset All Settings to Defaults
       </button>
     </div>
   </div>
@@ -242,39 +418,64 @@
   ];
 
   const PARTICLE_CONFIG = {
-    // 1. POSITIONING & SIZING PER IMAGE (Interactive Placement Studio updates these live!)
+    // 1. POSITIONING & SIZING PER IMAGE
     imageLayouts: JSON.parse(JSON.stringify(DEFAULT_IMAGE_LAYOUTS)),
 
-    // 2. 🌊 FLUID STARDUST KINETIC & DIVERGENCE-FREE CURL TURBULENCE PARAMETERS
-    cursorRadius: 140.0,       // Organic fluid wake reach around cursor (in pixels)
-    fluidTurbulence: 1.45,     // Divergence-free curl noise fluid swirls & eddies
-    kineticImpulse: 0.85,      // Momentum inherited from cursor swipe velocity
-    repelStrength: 25.0,       // Gentle fluid pressure cushion
-    returnSpeed: 0.035,        // Magnetic elastic return speed when cursor moves away
-    dragDamping: 0.90,         // Fluid inertia decay (smooth coasting after swipe)
+    // 2. 🔮 7 SWITCHABLE ORGANIC INTERACTIVE MODES
+    // 1: 3D Holographic Parallax (Tilt & Depth Relief)
+    // 2: Silk Surface Ripple (Liquid Gold Waves)
+    // 3: Celestial Lantern (Bioluminescent Light)
+    // 4: Gravitational Lens (Cosmic Curvature)
+    // 5: Fluid Stardust Wake (Curl Turbulence)
+    // 6: Soft Physics Displace (Elastic Damped Membrane)
+    // 7: Neural Constellation (Synaptic Filaments)
+    interactiveMode: 1,
+    isRandomMode: true,
+    effectIntensity: 1.0,
+    effectSpeed: 1.0,
+    cursorRadius: 140.0,
+    repelStrength: 20.0,
+    returnSpeed: 0.035,
+    dragDamping: 0.90,
 
     // 3. OPACITY & TEXT CONTRAST (50% dimming after animation completes)
-    initialOpacity: 1.0,       // 100% full vibrant particle brightness during intro gathering
-    settledDimOpacity: 0.50,   // 50% opacity reduction once elements finish animating in so text is crisp
-    dimTransitionDuration: 1.4,// Duration in seconds to smoothly transition from 100% to 50%
+    initialOpacity: 1.0,
+    settledDimOpacity: 0.50,
+    dimTransitionDuration: 1.4,
 
     // 4. TIMING & GRADUAL SEQUENTIAL REVEAL
-    introGatherDuration: 2200, // Duration in ms for particle flight and assembly
-    elementStaggerDelay: 320,  // Stagger interval between each element fading/drifting in
+    introGatherDuration: 2200,
+    elementStaggerDelay: 320,
 
     // 5. SCROLL ARCHITECTURE & MULTI-PICTURE MORPHING
-    fixedInViewport: true,     // Particles always remain in sight when scrolling (don't scroll off screen)
-    morphPlateau: 0.20,        // Resting share for each picture (20% settled zone, 60% morphing zone)
+    fixedInViewport: true,
+    morphPlateau: 0.20,
     images: [
-      "/images/amir-portrait-luxury.jpg", // Screen 1 picture (current portrait)
-      "/images/2.jpg",                   // Screen 2 picture
-      "/images/3.jpg",                   // Screen 3 picture
+      "/images/amir-portrait-luxury.jpg",
+      "/images/2.jpg",
+      "/images/3.jpg",
     ],
   };
 
-  // Restore saved layouts from localStorage if available
-  function restoreSavedLayouts() {
+  // Restore saved layouts & mode from localStorage
+  function restoreSavedSettings() {
     try {
+      const lockedMode = localStorage.getItem('luxury_particle_locked_mode');
+      if (lockedMode) {
+        const modeNum = parseInt(lockedMode, 10);
+        if (modeNum >= 1 && modeNum <= 7) {
+          PARTICLE_CONFIG.interactiveMode = modeNum;
+          PARTICLE_CONFIG.isRandomMode = false;
+        }
+      } else {
+        // Random mode selected fresh on each page load!
+        PARTICLE_CONFIG.interactiveMode = Math.floor(Math.random() * 7) + 1;
+        PARTICLE_CONFIG.isRandomMode = true;
+      }
+
+      // Clear legacy single-mode storage so it doesn't freeze the random selection
+      localStorage.removeItem('luxury_particle_mode');
+
       const raw = localStorage.getItem('luxury_particle_layouts');
       if (raw) {
         const parsed = JSON.parse(raw);
@@ -291,16 +492,21 @@
         }
       }
     } catch (e) {
-      console.warn('Could not restore particle layouts from localStorage', e);
+      console.warn('Could not restore particle settings from localStorage', e);
     }
   }
-  restoreSavedLayouts();
+  restoreSavedSettings();
 
-  function saveLayoutsToStorage() {
+  function saveSettingsToStorage() {
     try {
       localStorage.setItem('luxury_particle_layouts', JSON.stringify(PARTICLE_CONFIG.imageLayouts));
+      if (!PARTICLE_CONFIG.isRandomMode) {
+        localStorage.setItem('luxury_particle_locked_mode', String(PARTICLE_CONFIG.interactiveMode));
+      } else {
+        localStorage.removeItem('luxury_particle_locked_mode');
+      }
     } catch (e) {
-      console.warn('Could not save particle layouts to localStorage', e);
+      console.warn('Could not save particle settings to localStorage', e);
     }
   }
 
@@ -316,7 +522,7 @@
   // Expose configuration globally for testing & tweaking: window.PARTICLE_CONFIG
   (window as any).PARTICLE_CONFIG = PARTICLE_CONFIG;
 
-  // WebGL Shaders with Divergence-Free Curl Noise & Kinetic Fluid Wake
+  // WebGL Shaders with 5 Switchable Organic Interaction Modes
   const VS_SOURCE = `
     attribute vec2 a_targetA;
     attribute vec3 a_colorA;
@@ -332,11 +538,14 @@
     uniform float u_mouse_speed;
     uniform float u_mouse_active;
     uniform float u_cursor_radius;
-    uniform float u_fluid_turbulence;
-    uniform float u_kinetic_impulse;
-    uniform float u_repel_strength;
     uniform float u_dim_factor;
     uniform float u_morph_t; // 0.0 to 1.0 morph between Image A and Image B
+
+    // Interactive Mode & Parameters
+    uniform int u_interactive_mode; // 1: Hologram, 2: Ripple, 3: Lantern, 4: Gravity, 5: Fluid
+    uniform float u_param_intensity;
+    uniform float u_param_speed;
+    uniform float u_repel_strength;
 
     // Dynamic Live Transforms (Scale and Center per Image)
     uniform vec2 u_centerA;
@@ -413,6 +622,8 @@
       vec2 morphPerp = vec2(-morphDiff.y, morphDiff.x) * 0.18 * curl;
       vec2 morphedTarget = mix(targetPosA, targetPosB, u_morph_t) + morphPerp * morphSwirl;
       vec3 morphedColor = mix(a_colorA, a_colorB, u_morph_t);
+      vec3 finalColor = morphedColor;
+      float pointSize = size * (1.0 + (1.0 - progress) * 0.6);
 
       // Organic bidirectional vortex curl during gathering flight
       float swirlAngle = (1.0 - ease) * curl;
@@ -432,38 +643,173 @@
         pos.y += shimmer;
       }
 
-      // 🌊 ORGANIC FLUID STARDUST WAKE DYNAMICS
+      // =====================================================================
+      // 🔮 8 SWITCHABLE ORGANIC INTERACTIVE MODES
+      // =====================================================================
       if (u_mouse_active > 0.01) {
         vec2 toMouse = pos - u_mouse;
         float d = length(toMouse);
-        if (d < u_cursor_radius && d > 0.01) {
-          float normD = d / u_cursor_radius;
-          // Smooth Hermite cubic S-curve falloff
-          float falloff = 1.0 - normD;
-          falloff = falloff * falloff * (3.0 - 2.0 * falloff);
 
-          // 1. Kinetic impulse along cursor velocity direction (whips particles with swipe)
-          vec2 velocityWake = u_mouse_vel * (u_kinetic_impulse * 0.38) * falloff;
+        // -------------------------------------------------------------
+        // MODE 1: Volumetric Quantum Aura (Pure Particle Movements Only)
+        // -------------------------------------------------------------
+        if (u_interactive_mode == 1) {
+          vec2 center = mix(u_centerA, u_centerB, u_morph_t);
+          float curSize = mix(u_sizeA, u_sizeB, u_morph_t);
+          float distToCenter = length(pos - center);
+          float normFaceDist = distToCenter / max(1.0, curSize * 0.45);
 
-          // 2. Incompressible Curl Noise fluid turbulence (organic swirling eddies)
-          vec2 curlCoord = pos * 0.0065 + vec2(u_time * 0.0006, -u_time * 0.0005);
-          vec2 fluidVortex = curlNoise(curlCoord) * (u_fluid_turbulence * 46.0) * falloff;
+          // 1. Concentric Quantum Interference Wave
+          float waveSpeed = u_time * 0.0055 * u_param_speed;
+          float ringWave = sin(d * 0.048 - waveSpeed);
+          float ringDecay = exp(-d * 0.0070);
+          float ringIntensity = ringWave * ringDecay * u_param_intensity;
 
-          // 3. Gentle elastic radial cushion
-          vec2 radialPush = normalize(toMouse) * (u_repel_strength * falloff * (1.0 - normD * 0.5));
+          // 2. Silhouette Aura Factor: Keeps facial core (eyes/nose/mouth) 100% solid & unwarped
+          float outerFactor = smoothstep(0.18, 0.95, normFaceDist);
+          vec2 tangent = vec2(-toMouse.y, toMouse.x);
+          vec2 normTangent = length(tangent) > 0.001 ? normalize(tangent) : vec2(0.0, 1.0);
+          vec2 normRadial = d > 0.001 ? (toMouse / d) : vec2(1.0, 0.0);
+          
+          // Pure particle movements: Orbital quantum harmonic drift + radial breathing wave
+          vec2 orbitalPush = normTangent * (sin(d * 0.04 + waveSpeed * 1.5) * 7.5 * outerFactor * ringDecay * u_param_intensity);
+          vec2 radialPulse = normRadial * (ringIntensity * 5.5 * outerFactor);
+          pos += (orbitalPush + radialPulse) * u_mouse_active;
+          // Note: Zero color bloom/glow and zero pointSize change. Pure particle displacement only.
+        }
 
-          // 4. Individual particle mass & inertia variation (via unique particle curl attribute)
-          float particleInertia = 0.75 + 0.5 * abs(curl);
-          vec2 totalDisplacement = (velocityWake + fluidVortex + radialPush) * particleInertia;
+        // -------------------------------------------------------------
+        // MODE 2: Silk Surface Ripple (Liquid Gold Waves)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 2) {
+          float maxRippleDist = u_cursor_radius * 2.2;
+          if (d < maxRippleDist && d > 0.01) {
+            float wavePhase = d * 0.075 - u_time * 0.007 * u_param_speed;
+            float wave = sin(wavePhase);
+            float decay = exp(-d * 0.011) * (1.0 - smoothstep(u_cursor_radius * 0.6, maxRippleDist, d));
+            vec2 rippleDisplace = normalize(toMouse) * (wave * 20.0 * decay * u_param_intensity);
+            pos += rippleDisplace * u_mouse_active;
+          }
+        }
 
-          pos += totalDisplacement * u_mouse_active;
+        // -------------------------------------------------------------
+        // MODE 3: Celestial Lantern (Physical Micro Attraction)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 3) {
+          float lanternRadius = u_cursor_radius * 1.6;
+          if (d < lanternRadius && d > 0.01) {
+            float lightFalloff = max(0.0, 1.0 - d / lanternRadius);
+            lightFalloff = lightFalloff * lightFalloff * (3.0 - 2.0 * lightFalloff);
+            // Subtle ambient physical attraction toward cursor
+            pos += normalize(-toMouse) * (lightFalloff * 8.0 * u_param_intensity) * u_mouse_active;
+          }
+        }
 
-          // 5. 3D Depth displacement & golden stardust specular sparkle
-          float zLift = falloff * (1.0 + u_mouse_speed * 0.04);
-          size *= (1.0 + zLift * 0.85);
+        // -------------------------------------------------------------
+        // MODE 4: Gravitational Lens (Cosmic Curvature)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 4) {
+          float maxGravDist = u_cursor_radius * 1.8;
+          if (d < maxGravDist && d > 1.0) {
+            float r0 = u_cursor_radius * 0.45;
+            vec2 tangent = vec2(-toMouse.y, toMouse.x);
+            float deflection = (r0 / (d + 25.0)) * (34.0 * u_param_intensity);
+            float falloff = 1.0 - smoothstep(r0, maxGravDist, d);
+            vec2 gravDisplace = (normalize(tangent) * deflection + normalize(-toMouse) * (deflection * 0.35)) * falloff;
+            pos += gravDisplace * u_mouse_active;
+          }
+        }
 
-          vec3 sparkleGold = vec3(1.0, 0.94, 0.72);
-          morphedColor = mix(morphedColor, sparkleGold, falloff * 0.60);
+        // -------------------------------------------------------------
+        // MODE 5: Fluid Stardust Wake (Curl Turbulence)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 5) {
+          if (d < u_cursor_radius && d > 0.01) {
+            float normD = d / u_cursor_radius;
+            float falloff = 1.0 - normD;
+            falloff = falloff * falloff * (3.0 - 2.0 * falloff);
+
+            vec2 velocityWake = u_mouse_vel * (0.38 * u_param_intensity) * falloff;
+            vec2 curlCoord = pos * 0.0065 + vec2(u_time * 0.0006, -u_time * 0.0005);
+            vec2 fluidVortex = curlNoise(curlCoord) * (46.0 * u_param_intensity) * falloff;
+            vec2 radialPush = normalize(toMouse) * (u_repel_strength * falloff * (1.0 - normD * 0.5));
+
+            float particleInertia = 0.75 + 0.5 * abs(curl);
+            vec2 totalDisplacement = (velocityWake + fluidVortex + radialPush) * particleInertia;
+            pos += totalDisplacement * u_mouse_active;
+          }
+        }
+
+        // -------------------------------------------------------------
+        // MODE 6: Simple Soft Physics (Elastic Damped Membrane)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 6) {
+          float sigma = u_cursor_radius * 0.58;
+          float gaussian = exp(- (d * d) / (2.0 * sigma * sigma));
+          
+          if (gaussian > 0.0008) {
+            vec2 pushDir = (d > 0.01) ? (toMouse / d) : vec2(0.0, 1.0);
+            float softPush = gaussian * (22.0 * u_param_intensity);
+            vec2 viscousDrag = u_mouse_vel * (0.16 * u_param_intensity) * gaussian;
+            float springPhase = u_time * 0.005 * u_param_speed - d * 0.025;
+            float springWave = sin(springPhase) * gaussian * (3.0 * u_param_intensity);
+            
+            vec2 displacement = pushDir * softPush + viscousDrag + pushDir * springWave;
+            pos += displacement * u_mouse_active;
+          }
+        }
+
+        // -------------------------------------------------------------
+        // MODE 7: Neural Constellation (Synaptic Web & Nodal Beacons)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 7) {
+          float constellRadius = u_cursor_radius * 1.5;
+          if (d < constellRadius && d > 0.01) {
+            float normD = d / constellRadius;
+            float falloff = 1.0 - normD;
+            falloff = falloff * falloff * (3.0 - 2.0 * falloff);
+
+            // Subtle magnetic synaptic tension toward cursor
+            pos += normalize(-toMouse) * (falloff * 7.0 * u_param_intensity) * u_mouse_active;
+
+            // Micro electrical twitch / synaptic shimmer
+            float twitch = sin(u_time * 0.02 + pos.x * 0.15 + pos.y * 0.15) * (falloff * 2.0 * u_param_intensity);
+            pos.y += twitch * u_mouse_active;
+          }
+        }
+
+        // -------------------------------------------------------------
+        // MODE 8: Holographic Cyber Scanlines (Laser Sweep & Prismatic Slices)
+        // -------------------------------------------------------------
+        else if (u_interactive_mode == 8) {
+          // 1. Continuous Vertical Holographic Laser Sweep
+          float sweepProgress = fract(u_time * 0.00035 * u_param_speed);
+          float laserY = sweepProgress * u_resolution.y;
+          float beamDist = abs(pos.y - laserY);
+          float laserBeam = smoothstep(55.0, 0.0, beamDist) * u_param_intensity;
+
+          // 2. High-Tech Horizontal Micro-Scanline Frequency (Quantum comb)
+          float scanFreq = sin(pos.y * 0.75 + u_time * 0.015);
+          float glitchJitter = step(0.94, sin(pos.y * 0.25 + u_time * 0.04)) * 3.5;
+          
+          // Subtle horizontal slice shimmer only when beam passes or cursor is near
+          float cursorProximity = max(0.0, 1.0 - d / (u_cursor_radius * 1.3));
+          float activeSlice = max(laserBeam, cursorProximity * 0.75);
+          pos.x += (scanFreq * 2.2 + glitchJitter) * activeSlice * u_param_intensity * u_mouse_active;
+
+          // 3. Interactive Cursor Interference Beam (Cross-field laser)
+          if (abs(pos.x - u_mouse.x) < 2.5 && d < u_cursor_radius * 1.2) {
+            pointSize += 1.5 * u_mouse_active;
+          }
+
+          // 4. Prismatic Cyan-Gold Chromatic Holographic Shimmer
+          if (activeSlice > 0.05) {
+            vec3 cyberHolo = vec3(0.55, 0.92, 1.0); // Cyan laser
+            vec3 goldHolo = vec3(1.0, 0.88, 0.52);  // Champagne gold
+            vec3 holoGlint = mix(goldHolo, cyberHolo, sin(pos.y * 0.1 + u_time * 0.008) * 0.5 + 0.5);
+            finalColor = mix(finalColor, holoGlint, activeSlice * 0.65 * u_mouse_active);
+            pointSize += activeSlice * 1.4 * u_mouse_active;
+          }
         }
       }
 
@@ -474,9 +820,9 @@
       clipSpace.y = -clipSpace.y; // Invert Y for screen
 
       gl_Position = vec4(clipSpace, 0.0, 1.0);
-      gl_PointSize = size * (1.0 + (1.0 - progress) * 0.6);
+      gl_PointSize = pointSize;
 
-      v_color = morphedColor;
+      v_color = finalColor;
       v_alpha = min(1.0, pElapsed / 250.0) * u_dim_factor;
     }
   `;
@@ -499,24 +845,30 @@
   `;
 
   let currentAnimId: number | null = null;
+  let constellCanvas: HTMLCanvasElement | null = null;
+  let constellCtx: CanvasRenderingContext2D | null = null;
   let targetMouseX = -9999;
   let targetMouseY = -9999;
   let mouseX = -9999;
   let mouseY = -9999;
+  let interpVelX = 0;
+  let interpVelY = 0;
   let mouseVelX = 0;
   let mouseVelY = 0;
   let smoothVelX = 0;
   let smoothVelY = 0;
+  let rawMouseActive = 0.0;
+  let modeTransitionProgress = 1.0;
+  let pendingMode: number | null = null;
   let lastMoveTime = performance.now();
 
-  // Window-level mouse tracking for kinetic fluid velocity interaction
+  // Window-level mouse tracking for kinetic velocity & parallax interaction
   window.addEventListener('pointermove', (e: MouseEvent | PointerEvent) => {
     const now = performance.now();
     const dt = Math.max(1, now - lastMoveTime);
     lastMoveTime = now;
 
     if (targetMouseX > -5000) {
-      // Raw velocity scaled to standard 60fps frame delta
       const vx = (e.clientX - targetMouseX) / (dt / 16.6);
       const vy = (e.clientY - targetMouseY) / (dt / 16.6);
       const maxV = 80;
@@ -572,7 +924,6 @@
     const buffer = new Float32Array(particleCount * 5); // 5 floats: nx, ny, r, g, b
 
     if (!offCtx || imgW === 0 || imgH === 0) {
-      // Fallback
       for (let i = 0; i < particleCount; i++) {
         buffer[i * 5] = (Math.random() - 0.5) * imgAspect;
         buffer[i * 5 + 1] = Math.random() - 0.5;
@@ -637,8 +988,6 @@
       const subY = py + Math.random();
 
       // Normalized coordinates centered at (0, 0):
-      // nx ranges from -0.5 * imgAspect to +0.5 * imgAspect
-      // ny ranges from -0.5 to +0.5
       const nx = (subX / sampleW - 0.5) * imgAspect;
       const ny = (subY / sampleH - 0.5);
 
@@ -660,6 +1009,10 @@
       buffer[base + 2] = finalR;
       buffer[base + 3] = finalG;
       buffer[base + 4] = finalB;
+
+      if (p % 110 === 0 && constellationNodes.length < 500) {
+        constellationNodes.push({ nx, ny });
+      }
     }
 
     return buffer;
@@ -671,6 +1024,7 @@
   let studioManualMorph: number | null = null;
   let selectedImageIdx = 0;
   let activeImageAspects: number[] = [];
+  let constellationNodes: { nx: number; ny: number }[] = [];
 
   async function initLuxuryCinematicIntro() {
     if (currentAnimId) {
@@ -681,14 +1035,19 @@
     const isLuxury = document.documentElement.getAttribute('data-theme') === 'luxury';
     const veil = document.getElementById('luxury-veil');
     const canvas = document.getElementById('luxury-particle-canvas') as HTMLCanvasElement | null;
+    constellCanvas = document.getElementById('luxury-constellation-canvas') as HTMLCanvasElement | null;
+    constellCtx = constellCanvas?.getContext('2d') || null;
     const portraitImg = document.getElementById('luxury-portrait-img') as HTMLImageElement | null;
     const morpher = document.getElementById('luxury-morphing-container');
     const studioBtn = document.getElementById('particle-studio-btn');
+
+    constellationNodes = [];
 
     if (!isLuxury || !canvas) {
       document.documentElement.classList.remove('luxury-animating');
       veil?.classList.add('hidden');
       canvas?.classList.add('hidden');
+      constellCanvas?.classList.add('hidden');
       studioBtn?.classList.add('hidden');
       closeStudioPanel();
       if (portraitImg) {
@@ -699,16 +1058,18 @@
       return;
     }
 
-    // Set initial black screen & animating state
     document.documentElement.classList.add('luxury-animating');
     veil?.classList.remove('hidden');
     veil?.classList.remove('opacity-0');
     veil?.classList.add('opacity-100');
     canvas.classList.remove('hidden');
     canvas.style.opacity = '1';
+    if (constellCanvas) {
+      constellCanvas.classList.remove('hidden');
+      constellCanvas.style.opacity = '1';
+    }
     studioBtn?.classList.remove('hidden');
 
-    // Keep final JPEG hidden in luxury mode - live particles are the portrait
     if (portraitImg) {
       portraitImg.style.opacity = '0';
       portraitImg.style.display = 'none';
@@ -727,19 +1088,15 @@
       return;
     }
 
-    // Load ALL pictures configured in PARTICLE_CONFIG.images
     const loadedImages = await loadAllConfigImages(PARTICLE_CONFIG.images);
     if (!loadedImages || loadedImages.length === 0) {
       fallbackCanvas2D(canvas, veil);
       return;
     }
 
-    // Store aspect ratios
     activeImageAspects = loadedImages.map((img) => (img.naturalWidth || 1800) / (img.naturalHeight || 1800));
 
-    // Setup Interactive Studio UI listeners
     setupInteractiveStudioUI();
-
     runWebGLMultiPointCloud(gl, canvas, loadedImages, veil);
   }
 
@@ -783,12 +1140,10 @@
     const isMobile = screenW < 768;
     const TARGET_PARTICLES = isMobile ? 48000 : 92000;
 
-    // 1. Sample target buffers in NORMALIZED image coordinates
     const targetBuffers = loadedImages.map((img) =>
       sampleImageTargets(img, TARGET_PARTICLES)
     );
 
-    // 2. Upload target VBOs for each image
     const targetVBOs = targetBuffers.map((buffer) => {
       const vbo = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
@@ -796,7 +1151,6 @@
       return vbo;
     });
 
-    // 3. Base buffer: origins (ox, oy) and flight params (delay, duration, size, curl)
     const baseBuffer = new Float32Array(TARGET_PARTICLES * 6);
     for (let p = 0; p < TARGET_PARTICLES; p++) {
       const ox = (Math.random() * 1.3 - 0.15) * screenW;
@@ -835,11 +1189,14 @@
     const uMouseSpeedLoc = gl.getUniformLocation(program, 'u_mouse_speed');
     const uMouseActiveLoc = gl.getUniformLocation(program, 'u_mouse_active');
     const uCursorRadiusLoc = gl.getUniformLocation(program, 'u_cursor_radius');
-    const uFluidTurbulenceLoc = gl.getUniformLocation(program, 'u_fluid_turbulence');
-    const uKineticImpulseLoc = gl.getUniformLocation(program, 'u_kinetic_impulse');
-    const uRepelStrengthLoc = gl.getUniformLocation(program, 'u_repel_strength');
     const uDimFactorLoc = gl.getUniformLocation(program, 'u_dim_factor');
     const uMorphTLoc = gl.getUniformLocation(program, 'u_morph_t');
+
+    // Mode uniforms
+    const uInteractiveModeLoc = gl.getUniformLocation(program, 'u_interactive_mode');
+    const uParamIntensityLoc = gl.getUniformLocation(program, 'u_param_intensity');
+    const uParamSpeedLoc = gl.getUniformLocation(program, 'u_param_speed');
+    const uRepelStrengthLoc = gl.getUniformLocation(program, 'u_repel_strength');
 
     // Dynamic Live Transform Uniforms
     const uCenterALoc = gl.getUniformLocation(program, 'u_centerA');
@@ -859,7 +1216,6 @@
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
 
-      // Handle window resize dynamically without re-sampling
       const curW = window.innerWidth;
       const curH = window.innerHeight;
       if (canvas.width !== curW || canvas.height !== curH) {
@@ -867,7 +1223,7 @@
         canvas.height = curH;
       }
 
-      // Smooth kinetic velocity with exponential coasting drag
+      // Smooth kinetic velocity with exponential drag
       smoothVelX += (mouseVelX - smoothVelX) * 0.22;
       smoothVelY += (mouseVelY - smoothVelY) * 0.22;
       mouseVelX *= (PARTICLE_CONFIG.dragDamping || 0.90);
@@ -875,28 +1231,59 @@
 
       const cursorSpeed = Math.hypot(smoothVelX, smoothVelY);
 
-      // Smooth mouse position for fluid cursor interaction
+      // Critically Damped Spring Follower: Accelerates smoothly (ease in) and decelerates smoothly (ease out)
       if (targetMouseX > -5000) {
         if (mouseX < -5000) {
           mouseX = targetMouseX;
           mouseY = targetMouseY;
+          interpVelX = 0;
+          interpVelY = 0;
         } else {
-          mouseX += (targetMouseX - mouseX) * PARTICLE_CONFIG.returnSpeed;
-          mouseY += (targetMouseY - mouseY) * PARTICLE_CONFIG.returnSpeed;
+          const springK = Math.max(0.04, Math.min(0.24, (PARTICLE_CONFIG.returnSpeed || 0.12) * 1.15));
+          const damping = 0.74;
+          interpVelX = (interpVelX + (targetMouseX - mouseX) * springK) * damping;
+          interpVelY = (interpVelY + (targetMouseY - mouseY) * springK) * damping;
+          mouseX += interpVelX;
+          mouseY += interpVelY;
         }
       } else {
-        mouseX = -9999;
-        mouseY = -9999;
+        // Pointer off-screen: smoothly decelerate tracking and preserve position during ease-out
+        interpVelX *= 0.8;
+        interpVelY *= 0.8;
+        mouseX += interpVelX;
+        mouseY += interpVelY;
+        if (rawMouseActive <= 0.002) {
+          mouseX = -9999;
+          mouseY = -9999;
+        }
         smoothVelX = 0;
         smoothVelY = 0;
       }
 
-      // Smoothly activate cursor interaction as particles finish assembling
-      if (elapsed > 1600) {
-        mouseActive = Math.min(1.0, mouseActive + 0.03);
+      // Smooth Ease-In and Ease-Out for Pointer Force Field Activation & Deactivation
+      const isPointerOnscreen = targetMouseX > -5000 && elapsed > 1600;
+      const targetMouseActive = isPointerOnscreen ? 1.0 : 0.0;
+      if (rawMouseActive < targetMouseActive) {
+        rawMouseActive = Math.min(targetMouseActive, rawMouseActive + 0.035);
+      } else if (rawMouseActive > targetMouseActive) {
+        rawMouseActive = Math.max(targetMouseActive, rawMouseActive - 0.035);
       }
+      // Smooth S-Curve Ease In & Out: Hermite cubic 3t^2 - 2t^3
+      const easedMouseActive = rawMouseActive * rawMouseActive * (3.0 - 2.0 * rawMouseActive);
 
-      // Smooth 50% opacity dimming after all elements animate in
+      // Smooth Ease-In and Ease-Out Mode Transitions
+      if (pendingMode !== null) {
+        modeTransitionProgress = Math.max(0.0, modeTransitionProgress - 0.075);
+        if (modeTransitionProgress <= 0.0) {
+          PARTICLE_CONFIG.interactiveMode = pendingMode;
+          pendingMode = null;
+        }
+      } else if (modeTransitionProgress < 1.0) {
+        modeTransitionProgress = Math.min(1.0, modeTransitionProgress + 0.065);
+      }
+      // Cubic Hermite Ease-In & Out for Mode Switching
+      const modeEase = modeTransitionProgress * modeTransitionProgress * (3.0 - 2.0 * modeTransitionProgress);
+
       let currentDim = PARTICLE_CONFIG.initialOpacity;
       if (dimStartTime !== null) {
         const dimElapsed = (timestamp - dimStartTime) / 1000;
@@ -905,7 +1292,6 @@
         currentDim = PARTICLE_CONFIG.initialOpacity + (PARTICLE_CONFIG.settledDimOpacity - PARTICLE_CONFIG.initialOpacity) * dimEase;
       }
 
-      // Calculate scroll fraction or use Studio manual scrub
       const numImages = targetVBOs.length;
       let imgIndexA = 0;
       let imgIndexB = 0;
@@ -928,9 +1314,8 @@
         const rawSegmentPos = scrollFraction * totalSegments;
         imgIndexA = Math.min(numImages - 2, Math.floor(rawSegmentPos));
         imgIndexB = imgIndexA + 1;
-        const localSegmentT = rawSegmentPos - imgIndexA; // 0.0 to 1.0
+        const localSegmentT = rawSegmentPos - imgIndexA;
 
-        // Plateau zone where picture is settled, and smooth morph in between
         const plateau = PARTICLE_CONFIG.morphPlateau || 0.20;
         if (localSegmentT <= plateau) {
           morphT = 0.0;
@@ -942,7 +1327,6 @@
         }
       }
 
-      // Compute dynamic scale and center for Image A and Image B
       const layoutA = getImageLayout(imgIndexA);
       const layoutB = getImageLayout(imgIndexB);
 
@@ -963,21 +1347,24 @@
       gl.uniform2f(uMouseLoc, mouseX, mouseY);
       gl.uniform2f(uMouseVelLoc, smoothVelX, smoothVelY);
       gl.uniform1f(uMouseSpeedLoc, cursorSpeed);
-      gl.uniform1f(uMouseActiveLoc, mouseActive);
+      gl.uniform1f(uMouseActiveLoc, easedMouseActive);
       gl.uniform1f(uCursorRadiusLoc, PARTICLE_CONFIG.cursorRadius);
-      gl.uniform1f(uFluidTurbulenceLoc, PARTICLE_CONFIG.fluidTurbulence);
-      gl.uniform1f(uKineticImpulseLoc, PARTICLE_CONFIG.kineticImpulse);
-      gl.uniform1f(uRepelStrengthLoc, PARTICLE_CONFIG.repelStrength);
       gl.uniform1f(uDimFactorLoc, currentDim);
       gl.uniform1f(uMorphTLoc, morphT);
 
-      // Pass Dynamic Live Transform Uniforms to GPU
+      // Active Interactive Mode & Tuning Parameters (Eased during mode transition)
+      gl.uniform1i(uInteractiveModeLoc, PARTICLE_CONFIG.interactiveMode);
+      gl.uniform1f(uParamIntensityLoc, PARTICLE_CONFIG.effectIntensity * modeEase);
+      gl.uniform1f(uParamSpeedLoc, PARTICLE_CONFIG.effectSpeed);
+      gl.uniform1f(uRepelStrengthLoc, PARTICLE_CONFIG.repelStrength * modeEase);
+
+      // Transforms
       gl.uniform2f(uCenterALoc, centerAX, centerAY);
       gl.uniform1f(uSizeALoc, sizeA);
       gl.uniform2f(uCenterBLoc, centerBX, centerBY);
       gl.uniform1f(uSizeBLoc, sizeB);
 
-      // Bind Target A (nx, ny, r, g, b)
+      // Bind Target A
       const vboA = targetVBOs[imgIndexA];
       gl.bindBuffer(gl.ARRAY_BUFFER, vboA);
       gl.enableVertexAttribArray(aTargetALoc);
@@ -985,7 +1372,7 @@
       gl.enableVertexAttribArray(aColorALoc);
       gl.vertexAttribPointer(aColorALoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
 
-      // Bind Target B (nx, ny, r, g, b)
+      // Bind Target B
       const vboB = targetVBOs[imgIndexB];
       gl.bindBuffer(gl.ARRAY_BUFFER, vboB);
       gl.enableVertexAttribArray(aTargetBLoc);
@@ -993,7 +1380,7 @@
       gl.enableVertexAttribArray(aColorBLoc);
       gl.vertexAttribPointer(aColorBLoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
 
-      // Bind Base (ox, oy, delay, duration, size, curl)
+      // Bind Base
       gl.bindBuffer(gl.ARRAY_BUFFER, baseVBO);
       gl.enableVertexAttribArray(aOriginLoc);
       gl.vertexAttribPointer(aOriginLoc, 2, gl.FLOAT, false, 6 * 4, 0);
@@ -1002,12 +1389,93 @@
 
       gl.drawArrays(gl.POINTS, 0, TARGET_PARTICLES);
 
-      // Keep gizmo overlay synced with selected image
+      // Render Neural Constellation Synaptic Filaments
+      if (constellCtx && constellCanvas) {
+        if (constellCanvas.width !== curW || constellCanvas.height !== curH) {
+          constellCanvas.width = curW;
+          constellCanvas.height = curH;
+        }
+        constellCtx.clearRect(0, 0, curW, curH);
+
+        if (PARTICLE_CONFIG.interactiveMode === 7 && mouseActive > 0.01 && mouseX > -100 && constellationNodes.length > 0) {
+          const maxConnDist = PARTICLE_CONFIG.cursorRadius * 1.35;
+          const activeLayout = getImageLayout(imgIndexA);
+          const activeSize = curH * activeLayout.scale;
+          const activeCX = curW * activeLayout.alignX;
+          const activeCY = curH * activeLayout.alignY;
+
+          // Find active nodes in cursor vicinity
+          const activeNodes: { x: number; y: number; dist: number }[] = [];
+          for (let i = 0; i < constellationNodes.length; i++) {
+            const node = constellationNodes[i];
+            const px = activeCX + node.nx * activeSize;
+            const py = activeCY + node.ny * activeSize;
+            const d = Math.hypot(px - mouseX, py - mouseY);
+            if (d < maxConnDist) {
+              activeNodes.push({ x: px, y: py, dist: d });
+            }
+          }
+
+          if (activeNodes.length > 0) {
+            activeNodes.sort((a, b) => a.dist - b.dist);
+            const maxMouseLinks = Math.min(activeNodes.length, 14);
+
+            constellCtx.save();
+            constellCtx.lineWidth = 1.0;
+
+            // 1. Draw glowing synaptic axon filaments to mouse
+            for (let i = 0; i < maxMouseLinks; i++) {
+              const n = activeNodes[i];
+              const alpha = (1.0 - n.dist / maxConnDist) * 0.75 * PARTICLE_CONFIG.effectIntensity;
+              constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
+              constellCtx.beginPath();
+              constellCtx.moveTo(mouseX, mouseY);
+              constellCtx.lineTo(n.x, n.y);
+              constellCtx.stroke();
+
+              // Action potential traveling spark pulse
+              const pulseT = (elapsed * 0.0028 * PARTICLE_CONFIG.effectSpeed + i * 0.18) % 1.0;
+              const sx = mouseX + (n.x - mouseX) * pulseT;
+              const sy = mouseY + (n.y - mouseY) * pulseT;
+              constellCtx.fillStyle = `rgba(255, 245, 180, ${(alpha * 1.3).toFixed(3)})`;
+              constellCtx.beginPath();
+              constellCtx.arc(sx, sy, 1.8, 0, Math.PI * 2);
+              constellCtx.fill();
+            }
+
+            // 2. Inter-node synaptic mesh
+            const nodeConnLimit = 48;
+            for (let i = 0; i < activeNodes.length; i++) {
+              for (let j = i + 1; j < activeNodes.length; j++) {
+                const d = Math.hypot(activeNodes[i].x - activeNodes[j].x, activeNodes[i].y - activeNodes[j].y);
+                if (d < nodeConnLimit) {
+                  const alpha = (1.0 - d / nodeConnLimit) * 0.42 * (1.0 - activeNodes[i].dist / maxConnDist) * PARTICLE_CONFIG.effectIntensity;
+                  if (alpha > 0.02) {
+                    constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
+                    constellCtx.beginPath();
+                    constellCtx.moveTo(activeNodes[i].x, activeNodes[i].y);
+                    constellCtx.lineTo(activeNodes[j].x, activeNodes[j].y);
+                    constellCtx.stroke();
+                  }
+                }
+              }
+            }
+
+            // 3. Central neural cursor core
+            constellCtx.fillStyle = 'rgba(212, 175, 55, 0.45)';
+            constellCtx.beginPath();
+            constellCtx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
+            constellCtx.fill();
+
+            constellCtx.restore();
+          }
+        }
+      }
+
       if (studioActive && studioGizmoVisible) {
         updateGizmoPosition(curW, curH);
       }
 
-      // Once particles assemble to make the picture (~2200ms)
       if (elapsed > PARTICLE_CONFIG.introGatherDuration && !elementsRevealed) {
         elementsRevealed = true;
         if (veil) {
@@ -1015,7 +1483,6 @@
           setTimeout(() => veil.classList.add('hidden'), 1000);
         }
 
-        // Gradually reveal header & hero elements one by one!
         revealSequentialElements(() => {
           setTimeout(() => {
             dimStartTime = performance.now();
@@ -1040,7 +1507,6 @@
     revealSequentialElements();
   }
 
-  // Gradual, graceful sequential reveal of header and hero elements
   function revealSequentialElements(onAllRevealed?: () => void) {
     const header = document.querySelector('header');
     const seq1 = document.querySelector('.luxury-seq-1');
@@ -1067,6 +1533,16 @@
       seq5?.classList.add('luxury-revealed');
       replayBtn?.classList.add('luxury-revealed');
       studioBtn?.classList.add('luxury-revealed');
+      const modeDock = document.getElementById('luxury-mode-dock');
+      if (modeDock) {
+        modeDock.classList.remove('opacity-0', 'translate-y-4');
+        modeDock.classList.add('opacity-100', 'translate-y-0');
+        if (typeof (window as any).showLuxuryModeToast === 'function') {
+          setTimeout(() => {
+            (window as any).showLuxuryModeToast?.(PARTICLE_CONFIG.interactiveMode, false, PARTICLE_CONFIG.isRandomMode);
+          }, 350);
+        }
+      }
     }, 100 + stagger * 5);
 
     const finalDelay = 100 + stagger * 6;
@@ -1085,7 +1561,7 @@
   }
 
   // =========================================================================
-  // 🛠️ INTERACTIVE PARTICLE PLACEMENT STUDIO & GIZMO CONTROLLER
+  // 🛠️ INTERACTIVE PARTICLE PLACEMENT STUDIO & MODE CONTROLLER
   // =========================================================================
   function setupInteractiveStudioUI() {
     const studioBtn = document.getElementById('particle-studio-btn');
@@ -1105,9 +1581,79 @@
     const gizmo = document.getElementById('particle-placement-gizmo');
     const dragHeader = document.getElementById('studio-drag-header');
 
-    // Fluid Dynamics Sliders
-    const turbulenceSlider = document.getElementById('studio-turbulence-slider') as HTMLInputElement | null;
-    const impulseSlider = document.getElementById('studio-impulse-slider') as HTMLInputElement | null;
+    // Dock & Toast Elements
+    const modeDock = document.getElementById('luxury-mode-dock');
+    const modeDockMinimized = document.getElementById('luxury-mode-dock-minimized');
+    const dockMinimizeBtn = document.getElementById('dock-minimize-btn');
+    const dockLockBtn = document.getElementById('dock-lock-btn');
+    const dockRandomBtn = document.getElementById('dock-random-btn');
+    const toastEl = document.getElementById('luxury-mode-toast');
+    const toastTitle = document.getElementById('toast-title');
+    const toastDesc = document.getElementById('toast-desc');
+    let toastTimer: any = null;
+
+    const MODE_DESCRIPTIONS = [
+      {
+        name: 'Volumetric Quantum Aura',
+        desc: 'Move cursor — concentric holographic orbital drift and breathing aura around silhouette with pristine face stability.',
+      },
+      {
+        name: 'Silk Surface Ripple',
+        desc: 'Move cursor over face — generates soft, concentric liquid gold waves radiating outwards.',
+      },
+      {
+        name: 'Celestial Lantern',
+        desc: 'Cursor acts as a bioluminescent light wand — igniting particles with warm stardust bloom without distortion.',
+      },
+      {
+        name: 'Gravitational Lens',
+        desc: 'Move cursor around face — cosmic space-time curvature bends particles along Einstein ring orbits.',
+      },
+      {
+        name: 'Fluid Stardust Wake',
+        desc: 'Swipe or flick cursor — leaves swirling fluid curl-noise eddies and velocity momentum behind.',
+      },
+      {
+        name: 'Soft Physics Displace',
+        desc: 'Simple, velvety soft displacement with Gaussian decay, viscous fluid drag, and elastic spring recovery.',
+      },
+      {
+        name: 'Neural Constellation',
+        desc: 'Luminous synaptic filaments connect particles to cursor with traveling neural action potentials.',
+      },
+      {
+        name: 'Holographic Cyber Scanlines',
+        desc: 'Vertical scanning laser sweep, horizontal quantum comb slices, and chromatic holographic nano-particle glints.',
+      },
+    ];
+
+    function showModeToast(mode: number, isLock = false, isRandom = false) {
+      if (!toastEl || !toastTitle || !toastDesc) return;
+      const info = MODE_DESCRIPTIONS[mode - 1] || MODE_DESCRIPTIONS[0];
+      if (isLock) {
+        toastTitle.textContent = `⭐ Mode ${mode} Locked: ${info.name}`;
+        toastDesc.textContent = `Saved as your permanent choice! This mode will stay active across all visits.`;
+      } else if (isRandom) {
+        toastTitle.textContent = `🎲 Random Effect Active: Mode ${mode} — ${info.name}`;
+        toastDesc.textContent = `${info.desc} (Randomized on every page load — press R to shuffle!)`;
+      } else {
+        toastTitle.textContent = `Mode ${mode}: ${info.name}`;
+        toastDesc.textContent = `${info.desc} (Click 'Keep This' to lock, or 'Random Load' to shuffle)`;
+      }
+      toastEl.classList.remove('opacity-0', '-translate-y-2');
+      toastEl.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.remove('opacity-100', 'translate-y-0');
+        toastEl.classList.add('opacity-0', '-translate-y-2');
+      }, 3400);
+    }
+    (window as any).showLuxuryModeToast = showModeToast;
+
+    // Mode Sliders
+    const intensitySlider = document.getElementById('studio-intensity-slider') as HTMLInputElement | null;
+    const speedSlider = document.getElementById('studio-speed-slider') as HTMLInputElement | null;
     const radiusSlider = document.getElementById('studio-radius-slider') as HTMLInputElement | null;
 
     if (!studioBtn || !studioPanel) return;
@@ -1123,12 +1669,201 @@
       toggleStudioPanel(false);
     });
 
-    // Keyboard shortcut: Alt+P to toggle
+    // Mode Buttons Click Handlers
+    function updateActiveModeUI() {
+      // 1. Update Studio Panel Buttons
+      document.querySelectorAll('#studio-mode-buttons .mode-btn').forEach((btn) => {
+        const mode = parseInt(btn.getAttribute('data-mode') || '1', 10);
+        const dot = btn.querySelector('.mode-dot');
+        if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
+          btn.className = 'mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer bg-[#d4af37] text-zinc-950 font-bold shadow-md';
+          dot?.classList.remove('bg-zinc-600');
+          dot?.classList.add('bg-zinc-950');
+        } else {
+          btn.className = 'mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800';
+          dot?.classList.remove('bg-zinc-950');
+          dot?.classList.add('bg-zinc-600');
+        }
+      });
+
+      // 2. Update Floating Dock Buttons
+      document.querySelectorAll('.dock-mode-btn').forEach((btn) => {
+        const mode = parseInt(btn.getAttribute('data-dock-mode') || '1', 10);
+        const badge = btn.querySelector('.dock-badge');
+        if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
+          btn.className = 'dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37] text-zinc-950 font-bold shadow-md';
+          badge?.classList.remove('bg-zinc-800');
+          badge?.classList.add('bg-zinc-950', 'text-[#d4af37]');
+        } else {
+          btn.className = 'dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800';
+          badge?.classList.remove('bg-zinc-950', 'text-[#d4af37]');
+          badge?.classList.add('bg-zinc-800');
+        }
+      });
+
+      // 3. Update Random vs Lock Button State in Dock
+      const randomText = document.getElementById('dock-random-text');
+      const lockText = document.getElementById('dock-lock-text');
+      const currentOrPendingMode = pendingMode || PARTICLE_CONFIG.interactiveMode;
+      if (PARTICLE_CONFIG.isRandomMode) {
+        if (dockRandomBtn) {
+          dockRandomBtn.className = 'px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] font-semibold shadow-sm';
+        }
+        if (randomText) randomText.textContent = 'Random: ON';
+        if (dockLockBtn) {
+          dockLockBtn.className = 'px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-[#d4af37] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 font-medium text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap';
+        }
+        if (lockText) lockText.textContent = 'Keep This';
+      } else {
+        if (dockRandomBtn) {
+          dockRandomBtn.className = 'px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-transparent';
+        }
+        if (randomText) randomText.textContent = 'Random Load';
+        if (dockLockBtn) {
+          dockLockBtn.className = 'px-3 py-1.5 rounded-full bg-[#d4af37] text-zinc-950 font-bold border border-[#d4af37] text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-md whitespace-nowrap';
+        }
+        if (lockText) lockText.textContent = `✓ Kept (Mode ${currentOrPendingMode})`;
+      }
+
+      // Update dynamic slider labels based on active mode
+      const intensityLabel = document.getElementById('studio-intensity-label');
+      const speedLabel = document.getElementById('studio-speed-label');
+      if (intensityLabel && speedLabel) {
+        const displayMode = currentOrPendingMode;
+        if (displayMode === 1) {
+          intensityLabel.textContent = 'Quantum Aura Field Strength';
+          speedLabel.textContent = 'Laser Ring Wave Speed';
+        } else if (displayMode === 2) {
+          intensityLabel.textContent = 'Liquid Wave Amplitude';
+          speedLabel.textContent = 'Ripple Wave Speed';
+        } else if (displayMode === 3) {
+          intensityLabel.textContent = 'Lantern Radiance & Bloom';
+          speedLabel.textContent = 'Bioluminescent Ambient Lift';
+        } else if (displayMode === 4) {
+          intensityLabel.textContent = 'Gravitational Curvature Strength';
+          speedLabel.textContent = 'Einstein Radius Streamlines';
+        } else if (displayMode === 5) {
+          intensityLabel.textContent = 'Curl Turbulence & Wake';
+          speedLabel.textContent = 'Swipe Force Momentum';
+        } else if (displayMode === 6) {
+          intensityLabel.textContent = 'Soft Elastic Cushion Strength';
+          speedLabel.textContent = 'Viscous Drag & Fluid Momentum';
+        } else if (displayMode === 7) {
+          intensityLabel.textContent = 'Synaptic Filament Density';
+          speedLabel.textContent = 'Neural Pulse Signal Speed';
+        } else if (displayMode === 8) {
+          intensityLabel.textContent = 'Scanline Laser Slice Width';
+          speedLabel.textContent = 'Laser Sweep Velocity';
+        }
+      }
+    }
+
+    function switchMode(mode: number, showToast = true) {
+      if (mode === PARTICLE_CONFIG.interactiveMode && pendingMode === null) return;
+      pendingMode = mode;
+      updateActiveModeUI();
+      saveSettingsToStorage();
+      if (showToast) {
+        showModeToast(mode);
+      }
+    }
+
+    function triggerRandomMode() {
+      localStorage.removeItem('luxury_particle_locked_mode');
+      PARTICLE_CONFIG.isRandomMode = true;
+      let nextMode = Math.floor(Math.random() * 8) + 1;
+      if (nextMode === PARTICLE_CONFIG.interactiveMode) {
+        nextMode = (nextMode % 8) + 1;
+      }
+      switchMode(nextMode, false);
+      showModeToast(nextMode, false, true);
+    }
+
+    // Studio panel buttons listener
+    document.querySelectorAll('#studio-mode-buttons .mode-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const mode = parseInt((e.currentTarget as HTMLElement).getAttribute('data-mode') || '1', 10);
+        switchMode(mode);
+      });
+    });
+
+    // Dock buttons listener
+    document.querySelectorAll('.dock-mode-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const mode = parseInt((e.currentTarget as HTMLElement).getAttribute('data-dock-mode') || '1', 10);
+        switchMode(mode);
+      });
+    });
+
+    // Randomize on Load Button Listener
+    dockRandomBtn?.addEventListener('click', () => {
+      triggerRandomMode();
+    });
+
+    // Dock Minimize & Restore
+    dockMinimizeBtn?.addEventListener('click', () => {
+      modeDock?.classList.add('hidden');
+      modeDockMinimized?.classList.remove('hidden');
+      modeDockMinimized?.classList.add('flex');
+    });
+
+    modeDockMinimized?.addEventListener('click', () => {
+      modeDockMinimized?.classList.add('hidden');
+      modeDockMinimized?.classList.remove('flex');
+      modeDock?.classList.remove('hidden');
+    });
+
+    // Lock Mode Button
+    dockLockBtn?.addEventListener('click', () => {
+      const mode = PARTICLE_CONFIG.interactiveMode;
+      localStorage.setItem('luxury_particle_locked_mode', String(mode));
+      PARTICLE_CONFIG.isRandomMode = false;
+      saveSettingsToStorage();
+      updateActiveModeUI();
+      showModeToast(mode, true);
+    });
+
+    // Keyboard Shortcuts: Keys 1 to 8 to switch modes live, R to randomize, Alt+P for Studio
     window.addEventListener('keydown', (e) => {
+      const activeTag = (document.activeElement?.tagName || '').toUpperCase();
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+
       if (e.altKey && (e.key === 'p' || e.key === 'P')) {
         studioActive = !studioActive;
         toggleStudioPanel(studioActive);
+        return;
       }
+
+      if (e.key === 'r' || e.key === 'R') {
+        triggerRandomMode();
+        return;
+      }
+
+      if (['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key)) {
+        const mode = parseInt(e.key, 10);
+        switchMode(mode);
+      }
+    });
+
+    updateActiveModeUI();
+
+    // Mode Sliders Listeners
+    intensitySlider?.addEventListener('input', () => {
+      PARTICLE_CONFIG.effectIntensity = parseFloat(intensitySlider.value);
+      const valEl = document.getElementById('studio-intensity-val');
+      if (valEl) valEl.textContent = `${PARTICLE_CONFIG.effectIntensity.toFixed(2)}x`;
+    });
+
+    speedSlider?.addEventListener('input', () => {
+      PARTICLE_CONFIG.effectSpeed = parseFloat(speedSlider.value);
+      const valEl = document.getElementById('studio-speed-val');
+      if (valEl) valEl.textContent = `${PARTICLE_CONFIG.effectSpeed.toFixed(2)}x`;
+    });
+
+    radiusSlider?.addEventListener('input', () => {
+      PARTICLE_CONFIG.cursorRadius = parseFloat(radiusSlider.value);
+      const valEl = document.getElementById('studio-radius-val');
+      if (valEl) valEl.textContent = `${Math.round(PARTICLE_CONFIG.cursorRadius)}px`;
     });
 
     // Render image selector tabs
@@ -1160,7 +1895,6 @@
       });
     }
 
-    // Sync input sliders with selected image layout
     syncControlsToActiveImage();
 
     // Scale slider input
@@ -1170,7 +1904,7 @@
       const valEl = document.getElementById('studio-scale-val');
       if (valEl) valEl.textContent = `${layout.scale.toFixed(2)}x`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveLayoutsToStorage();
+      saveSettingsToStorage();
     });
 
     // Align X slider input
@@ -1180,7 +1914,7 @@
       const valEl = document.getElementById('studio-alignx-val');
       if (valEl) valEl.textContent = `${Math.round(layout.alignX * 100)}%`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveLayoutsToStorage();
+      saveSettingsToStorage();
     });
 
     // Align Y slider input
@@ -1190,10 +1924,10 @@
       const valEl = document.getElementById('studio-aligny-val');
       if (valEl) valEl.textContent = `${Math.round(layout.alignY * 100)}%`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveLayoutsToStorage();
+      saveSettingsToStorage();
     });
 
-    // Preset buttons for X and Y
+    // Preset buttons for X
     document.querySelectorAll('.preset-x-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
@@ -1204,27 +1938,8 @@
         const valEl = document.getElementById('studio-alignx-val');
         if (valEl) valEl.textContent = `${Math.round(val * 100)}%`;
         updateGizmoPosition(window.innerWidth, window.innerHeight);
-        saveLayoutsToStorage();
+        saveSettingsToStorage();
       });
-    });
-
-    // Fluid Dynamics & Turbulence Sliders
-    turbulenceSlider?.addEventListener('input', () => {
-      PARTICLE_CONFIG.fluidTurbulence = parseFloat(turbulenceSlider.value);
-      const valEl = document.getElementById('studio-turbulence-val');
-      if (valEl) valEl.textContent = PARTICLE_CONFIG.fluidTurbulence.toFixed(2);
-    });
-
-    impulseSlider?.addEventListener('input', () => {
-      PARTICLE_CONFIG.kineticImpulse = parseFloat(impulseSlider.value);
-      const valEl = document.getElementById('studio-impulse-val');
-      if (valEl) valEl.textContent = PARTICLE_CONFIG.kineticImpulse.toFixed(2);
-    });
-
-    radiusSlider?.addEventListener('input', () => {
-      PARTICLE_CONFIG.cursorRadius = parseFloat(radiusSlider.value);
-      const valEl = document.getElementById('studio-radius-val');
-      if (valEl) valEl.textContent = `${Math.round(PARTICLE_CONFIG.cursorRadius)}px`;
     });
 
     // Toggle gizmo visibility checkbox
@@ -1262,7 +1977,7 @@
 
     // Copy Configuration Code
     copyBtn?.addEventListener('click', () => {
-      const code = `imageLayouts: ${JSON.stringify(PARTICLE_CONFIG.imageLayouts, null, 2)},\nfluidTurbulence: ${PARTICLE_CONFIG.fluidTurbulence},\nkineticImpulse: ${PARTICLE_CONFIG.kineticImpulse},\ncursorRadius: ${PARTICLE_CONFIG.cursorRadius},`;
+      const code = `interactiveMode: ${PARTICLE_CONFIG.interactiveMode},\nimageLayouts: ${JSON.stringify(PARTICLE_CONFIG.imageLayouts, null, 2)},\neffectIntensity: ${PARTICLE_CONFIG.effectIntensity},\ncursorRadius: ${PARTICLE_CONFIG.cursorRadius},`;
       navigator.clipboard.writeText(code).then(() => {
         const textEl = document.getElementById('studio-copy-text');
         if (textEl) textEl.textContent = '✓ Copied!';
@@ -1274,7 +1989,7 @@
 
     // Save to Browser button
     saveBtn?.addEventListener('click', () => {
-      saveLayoutsToStorage();
+      saveSettingsToStorage();
       const textEl = document.getElementById('studio-save-text');
       if (textEl) textEl.textContent = '✓ Saved!';
       setTimeout(() => {
@@ -1284,18 +1999,18 @@
 
     // Reset Defaults
     resetBtn?.addEventListener('click', () => {
-      if (confirm('Reset all particle image positions and scales back to default?')) {
+      if (confirm('Reset all particle settings to defaults?')) {
         localStorage.removeItem('luxury_particle_layouts');
+        localStorage.removeItem('luxury_particle_mode');
         PARTICLE_CONFIG.imageLayouts = JSON.parse(JSON.stringify(DEFAULT_IMAGE_LAYOUTS));
+        PARTICLE_CONFIG.interactiveMode = 1;
+        updateActiveModeUI();
         syncControlsToActiveImage();
         updateGizmoPosition(window.innerWidth, window.innerHeight);
       }
     });
 
-    // Setup Gizmo Dragging and Resizing
     setupGizmoInteractions();
-
-    // Setup Panel Dragging
     setupPanelDrag(dragHeader, studioPanel);
   }
 
@@ -1334,7 +2049,6 @@
       }
     });
 
-    // Morph preview smoothly to this image
     const numImages = PARTICLE_CONFIG.images.length;
     if (numImages > 1) {
       studioManualMorph = idx / (numImages - 1);
@@ -1397,7 +2111,6 @@
     }
   }
 
-  // Interactive On-Screen Gizmo Drag & Scale
   function setupGizmoInteractions() {
     const gizmo = document.getElementById('particle-placement-gizmo');
     if (!gizmo) return;
@@ -1420,7 +2133,6 @@
       const screenW = window.innerWidth;
       const screenH = window.innerHeight;
 
-      // Temporarily pull cursor away so particles don't swirl away during positioning
       targetMouseX = -9999;
       targetMouseY = -9999;
       mouseVelX = 0;
@@ -1471,7 +2183,7 @@
 
     function onPointerUp() {
       if (isDragging || isScaling) {
-        saveLayoutsToStorage();
+        saveSettingsToStorage();
       }
       isDragging = false;
       isScaling = false;
@@ -1480,7 +2192,6 @@
     }
   }
 
-  // Draggable Studio Panel Window
   function setupPanelDrag(header: HTMLElement | null, panel: HTMLElement) {
     if (!header) return;
 
@@ -1512,7 +2223,7 @@
       if (!isDragging) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
-      panel.style.left = `${Math.max(10, Math.min(window.innerWidth - 390, initialLeft + dx))}px`;
+      panel.style.left = `${Math.max(10, Math.min(window.innerWidth - 410, initialLeft + dx))}px`;
       panel.style.top = `${Math.max(10, Math.min(window.innerHeight - 150, initialTop + dy))}px`;
     }
 
@@ -1523,7 +2234,6 @@
     }
   }
 
-  // Global listener for Replay button
   window.addEventListener('replay-luxury-intro', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.documentElement.classList.add('luxury-animating');
@@ -1531,7 +2241,6 @@
     setTimeout(initLuxuryCinematicIntro, 350);
   });
 
-  // Watch for theme changes from ThemeSwitcher
   const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
@@ -1557,7 +2266,6 @@
 
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  // Run on initial page load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLuxuryCinematicIntro);
   } else {
