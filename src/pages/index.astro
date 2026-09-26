@@ -1,0 +1,453 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const allPosts = await getCollection("blog");
+const recentPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const skills = [
+  {
+    category: "Frontend & Architecture",
+    items: ["Astro", "React", "Next.js", "TypeScript", "Tailwind CSS", "Vite"],
+  },
+  {
+    category: "Design & Creative",
+    items: [
+      "UI/UX Architecture",
+      "Design Systems",
+      "3D Modeling & Animation",
+      "Branding",
+    ],
+  },
+  {
+    category: "Backend, Cloud & Automation",
+    items: [
+      "Python",
+      "Bun / Node.js",
+      "AI Agents",
+      "AWS & Cloud Architecture",
+      "PHP",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Amir Hameed — UI/UX Architect & Full-Stack Builder"
+  description="Personal portfolio, engineering projects, and technical writings of Amir Hameed."
+>
+  <!-- Hero Section -->
+  <section
+    class="luxury-hero-track relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24"
+  >
+    <!-- Subtle gradient glow in background -->
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-gradient-to-tr from-indigo-500/10 to-violet-500/10 dark:from-[#d4af37]/10 dark:to-transparent blur-[100px] -z-10 rounded-full pointer-events-none"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div
+        class="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-8 md:gap-12"
+      >
+        <!-- Hero Text -->
+        <div class="flex-1 text-center md:text-left">
+          <!-- Status pill -->
+
+          <h1
+            class="luxury-seq-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-[1.1]"
+          >
+            Hi, I'm <span
+              class="bg-gradient-to-r from-indigo-600 via-violet-500 to-indigo-400 luxury-gold-shimmer bg-clip-text text-transparent"
+              >Amir Hameed</span
+            >.
+          </h1>
+
+          <p
+            class="luxury-seq-3 mt-5 text-lg sm:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl font-light"
+          >
+            UI/UX Architect, Senior Frontend Developer & Technical Educator with
+            over a decade of blending creative design with robust software
+            engineering.
+          </p>
+
+          <!-- Action buttons -->
+          <div
+            class="luxury-seq-4 mt-8 flex flex-wrap items-center justify-center md:justify-start gap-4"
+          >
+            <a
+              href="/projects"
+              class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 transition-all hover:scale-[1.02]"
+            >
+              Explore Projects &rarr;
+            </a>
+
+            <a
+              href="/blog"
+              class="px-6 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-semibold text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all"
+            >
+              Read Articles
+            </a>
+
+            <a
+              href="/about"
+              class="px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-sm font-medium transition-colors"
+            >
+              My Story
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Avatar Dock Target (Image recedes here on scroll) -->
+        <div class="relative shrink-0 flex flex-col items-center">
+          <div
+            id="luxury-dock-target"
+            class="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full p-1.5 transition-all duration-300"
+          >
+            <!-- Morphing container: at scroll 0 is fullscreen, then recedes to circle on scroll -->
+            <div
+              id="luxury-morphing-container"
+              class="overflow-hidden shadow-2xl pointer-events-none transition-none"
+            >
+              <img
+                id="luxury-portrait-img"
+                src="/images/amir-portrait-luxury.jpg"
+                alt="Amir Hameed"
+                class="w-full h-full object-cover object-center transition-opacity duration-700"
+                loading="eager"
+              />
+              <div
+                id="luxury-morphing-vignette"
+                class="absolute inset-0 pointer-events-none transition-opacity duration-300"
+              >
+              </div>
+            </div>
+
+            <!-- Experience badge -->
+            <div
+              class="luxury-seq-5 hero-exp-badge absolute bottom-0 right-0 z-30 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 px-3 py-1 rounded-full shadow-lg text-[11px] font-mono font-bold text-indigo-600 dark:text-indigo-400"
+            >
+              10+ Yrs Exp
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Scroll Indicator for Fullscreen Luxury Theme -->
+    <div
+      id="luxury-scroll-indicator"
+      class="luxury-seq-rest absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 text-[#d4af37] text-xs font-mono tracking-widest uppercase transition-opacity duration-300 pointer-events-none"
+    >
+      <span class="text-[10px] tracking-[0.25em] font-medium opacity-80"
+        >Scroll to explore</span
+      >
+      <svg
+        class="w-4 h-4 animate-bounce text-[#d4af37]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section
+    class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80"
+  >
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2
+            class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white"
+          >
+            Featured Projects
+          </h2>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+            Recent tools, applications, and architectures built across multiple
+            disciplines.
+          </p>
+        </div>
+        <a
+          href="/projects"
+          class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+        >
+          View all ({allProjects.length}) &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Matrix -->
+  <section
+    class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-100/40 dark:bg-zinc-900/30"
+  >
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <h2
+          class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white"
+        >
+          Skills & Technologies
+        </h2>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+          A blend of engineering precision, user-centric design, and automation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          skills.map((s) => (
+            <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800">
+              <h3 class="text-base font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-indigo-500" />
+                {s.category}
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                {s.items.map((item) => (
+                  <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Writings -->
+  {
+    recentPosts.length > 0 && (
+      <section class="luxury-seq-rest py-12 border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                Recent Writings & Ideas
+              </h2>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                Reflections on tech, cloud systems, and design.
+              </p>
+            </div>
+            <a
+              href="/blog"
+              class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              View all posts &rarr;
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {recentPosts.map((post) => (
+              <BlogCard post={post} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Quick CTA Banner -->
+  <section
+    class="luxury-seq-rest py-16 border-t border-zinc-200/80 dark:border-zinc-800/80"
+  >
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div
+        class="rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl"
+      >
+        <div class="relative z-10 max-w-2xl">
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Want to collaborate or discuss an idea?
+          </h2>
+          <p class="mt-3 text-indigo-200 text-sm sm:text-base leading-relaxed">
+            Whether you're looking for frontend architecture consulting, UI/UX
+            systems, or exploring automated AI workflows, feel free to reach
+            out.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-4">
+            <a
+              href="/contact"
+              class="px-6 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow hover:bg-zinc-100 transition-colors"
+            >
+              Get in Touch &rarr;
+            </a>
+            <a
+              href="/about"
+              class="px-6 py-3 rounded-xl border border-white/30 text-white font-medium text-sm hover:bg-white/10 transition-colors"
+            >
+              Learn More About Me
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Replay Intro Button (Bottom Right, directly above Font Studio) -->
+  <button
+    id="replay-luxury-btn"
+    class="fixed bottom-[74px] right-6 z-50 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-[#d4af37] shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all hover:scale-105 cursor-pointer"
+    title="Replay cinematic particle gathering intro"
+  >
+    <svg
+      class="w-3.5 h-3.5 text-indigo-600 dark:text-[#d4af37]"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+      ></path>
+    </svg>
+    <span>Replay Intro</span>
+  </button>
+
+  <script>
+    const replayBtn = document.getElementById("replay-luxury-btn");
+    replayBtn?.addEventListener("click", () => {
+      window.dispatchEvent(new CustomEvent("replay-luxury-intro"));
+    });
+
+    function updateMorphing() {
+      const isLuxury =
+        document.documentElement.getAttribute("data-theme") === "luxury";
+      const morpher = document.getElementById("luxury-morphing-container");
+      const dock = document.getElementById("luxury-dock-target");
+      const vignette = document.getElementById("luxury-morphing-vignette");
+      const scrollInd = document.getElementById("luxury-scroll-indicator");
+
+      if (isLuxury) {
+        // In luxury theme, live particle cloud is the portrait: hide picture container
+        if (morpher) morpher.style.display = "none";
+        if (dock) dock.style.display = "none";
+        if (vignette) vignette.style.display = "none";
+        if (scrollInd) {
+          const scrollY = window.scrollY;
+          scrollInd.style.opacity = String(Math.max(0, 1 - scrollY / 180));
+        }
+        return;
+      }
+
+      if (!morpher || !dock) {
+        if (morpher) {
+          morpher.style.cssText = "";
+        }
+        if (vignette) vignette.style.opacity = "0";
+        return;
+      }
+
+      morpher.style.display = "";
+      dock.style.display = "";
+      if (vignette) vignette.style.display = "";
+
+      const scrollY = window.scrollY;
+      const maxScroll = 380; // distance over which it recedes to circle
+      const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+      // Fade scroll indicator out quickly
+      if (scrollInd) {
+        scrollInd.style.opacity = String(Math.max(0, 1 - progress * 2.5));
+      }
+
+      // Fade vignette out as it shrinks
+      if (vignette) {
+        vignette.style.opacity = String(1 - progress);
+      }
+
+      const dockRect = dock.getBoundingClientRect();
+      const targetW = dockRect.width || 208;
+      const targetH = dockRect.height || 208;
+      const targetTop = dockRect.top;
+      const targetLeft = dockRect.left;
+
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+
+      if (progress < 1) {
+        // Interpolate between fullscreen (0, 0, screenW, screenH) and dockRect
+        const curTop = 0 * (1 - progress) + targetTop * progress;
+        const curLeft = 0 * (1 - progress) + targetLeft * progress;
+        const curW = screenW * (1 - progress) + targetW * progress;
+        const curH = screenH * (1 - progress) + targetH * progress;
+        const curRadius = 0 * (1 - progress) + 50 * progress;
+        const borderWidth = progress * 2;
+        const glowAlpha = progress * 0.35;
+
+        morpher.style.position = "fixed";
+        morpher.style.top = `${curTop}px`;
+        morpher.style.left = `${curLeft}px`;
+        morpher.style.width = `${curW}px`;
+        morpher.style.height = `${curH}px`;
+        morpher.style.borderRadius = `${curRadius}%`;
+        morpher.style.border = `${borderWidth}px solid rgba(212, 175, 55, ${progress * 0.7})`;
+        morpher.style.boxShadow = `0 0 35px rgba(212, 175, 55, ${glowAlpha})`;
+        morpher.style.zIndex = progress > 0.85 ? "10" : "20";
+      } else {
+        // Fully receded: smoothly track dockRect coordinates
+        morpher.style.position = "fixed";
+        morpher.style.top = `${targetTop}px`;
+        morpher.style.left = `${targetLeft}px`;
+        morpher.style.width = `${targetW}px`;
+        morpher.style.height = `${targetH}px`;
+        morpher.style.borderRadius = "50%";
+        morpher.style.border = "2px solid rgba(212, 175, 55, 0.7)";
+        morpher.style.boxShadow = "0 0 35px rgba(212, 175, 55, 0.35)";
+        morpher.style.zIndex = "10";
+      }
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        requestAnimationFrame(updateMorphing);
+      },
+      { passive: true },
+    );
+
+    window.addEventListener("resize", () => {
+      requestAnimationFrame(updateMorphing);
+    });
+
+    window.addEventListener("replay-luxury-intro", () => {
+      requestAnimationFrame(updateMorphing);
+    });
+
+    const observer = new MutationObserver(() => {
+      updateMorphing();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", updateMorphing);
+    } else {
+      updateMorphing();
+    }
+  </script>
+</BaseLayout>

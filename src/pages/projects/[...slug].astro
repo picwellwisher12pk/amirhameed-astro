@@ -1,0 +1,111 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+---
+
+<BaseLayout 
+  title={`${data.title} — Amir Hameed`}
+  description={data.description}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400">
+      <a href="/projects" class="hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a>
+      <span>/</span>
+      <span class="text-zinc-900 dark:text-zinc-200">{data.category}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="pb-8 border-b border-zinc-200 dark:border-zinc-800">
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/50">
+          {data.category}
+        </span>
+        {data.status && (
+          <span class="px-2.5 py-0.5 rounded text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+            Status: {data.status}
+          </span>
+        )}
+        <span class="text-xs font-mono text-zinc-400 ml-auto">
+          {data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight">
+        {data.title}
+      </h1>
+
+      <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+        {data.description}
+      </p>
+
+      <!-- Action buttons -->
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        {data.demoUrl && (
+          <a 
+            href={data.demoUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.02]"
+          >
+            <span>Live Demo</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        )}
+
+        {data.repoUrl && (
+          <a 
+            href={data.repoUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-semibold text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            <span>Source Code</span>
+          </a>
+        )}
+      </div>
+
+      <!-- Tech stack pills -->
+      <div class="mt-6 flex flex-wrap items-center gap-2">
+        <span class="text-xs font-mono text-zinc-400">Tech Stack:</span>
+        {data.tags.map((tag) => (
+          <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <!-- Content Body -->
+    <div class="prose prose-zinc dark:prose-invert max-w-none mt-10 prose-headings:font-bold prose-a:text-indigo-600 dark:prose-a:text-indigo-400">
+      <Content />
+    </div>
+
+    <!-- Back to projects footer -->
+    <div class="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
+      <a href="/projects" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+        &larr; Back to all projects
+      </a>
+      <a href="/contact" class="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+        Discuss this project &rarr;
+      </a>
+    </div>
+  </article>
+</BaseLayout>

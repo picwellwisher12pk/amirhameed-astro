@@ -1,0 +1,110 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+const isUrdu = data.language === 'ur';
+---
+
+<BaseLayout 
+  title={`${data.title} — Amir Hameed`}
+  description={data.description}
+  image={data.heroImage}
+>
+  <article 
+    class:list={[
+      "max-w-3xl mx-auto px-4 sm:px-6 py-12",
+      isUrdu ? "font-urdu text-right" : ""
+    ]}
+    dir={isUrdu ? "rtl" : "ltr"}
+  >
+    <!-- Breadcrumb -->
+    <nav class="mb-8 flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400" dir="ltr">
+      <a href="/blog" class="hover:text-indigo-600 dark:hover:text-indigo-400">Blog</a>
+      <span>/</span>
+      <span>{data.categories[0] || 'Article'}</span>
+    </nav>
+
+    <!-- Post Header -->
+    <header class="pb-8 border-b border-zinc-200 dark:border-zinc-800">
+      <div class="flex flex-wrap items-center gap-2 mb-4 text-xs font-mono text-zinc-500 dark:text-zinc-400" dir="ltr">
+        <time datetime={data.pubDate.toISOString()}>
+          {data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <span>&bull;</span>
+        <span>By Amir Hameed</span>
+        {data.categories.map((cat) => (
+          <span class="ml-2 px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      <h1 class:list={[
+        "text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight",
+        isUrdu ? "font-urdu leading-normal pt-2" : ""
+      ]}>
+        {data.title}
+      </h1>
+
+      {data.description && (
+        <p class:list={[
+          "mt-4 text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed",
+          isUrdu ? "font-urdu leading-relaxed" : ""
+        ]}>
+          {data.description}
+        </p>
+      )}
+
+      {data.heroImage && (
+        <div class="mt-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800">
+          <img 
+            src={data.heroImage} 
+            alt={data.title} 
+            class="w-full max-h-[500px] object-cover" 
+          />
+        </div>
+      )}
+    </header>
+
+    <!-- Post Content -->
+    <div class:list={[
+      "prose prose-zinc dark:prose-invert max-w-none mt-10 prose-headings:font-bold prose-a:text-indigo-600 dark:prose-a:text-indigo-400",
+      isUrdu ? "font-urdu text-right text-lg leading-loose prose-headings:font-urdu prose-p:font-urdu prose-li:font-urdu" : "leading-relaxed"
+    ]}>
+      <Content />
+    </div>
+
+    <!-- Tags footer -->
+    {data.tags && data.tags.length > 0 && (
+      <div class="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-2">
+        <span class="text-xs font-mono text-zinc-400 self-center">Tags:</span>
+        {data.tags.map((t) => (
+          <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+            #{t}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Navigation footer -->
+    <div class="mt-8 flex justify-between items-center text-sm">
+      <a href="/blog" class="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+        &larr; Back to all writings
+      </a>
+      <a href="/about" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+        About the author &rarr;
+      </a>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const allCategories = ['All', ...new Set(allPosts.flatMap((p) => p.data.categories))].filter(Boolean);
+---
+
+<BaseLayout 
+  title="Blog & Articles — Amir Hameed"
+  description="Technical articles, architectural roadmaps, design principles, and reflections by Amir Hameed."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <!-- Header -->
+    <div class="max-w-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/40 mb-4">
+        Articles & Thoughts
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+        Writings & Insights
+      </h1>
+      <p class="mt-3 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        Deep dives into frontend architecture, cloud platforms, UX decisions, and bilingual writings in English and Urdu.
+      </p>
+    </div>
+
+    <!-- Controls: Search bar & Filters -->
+    <div class="mt-8 space-y-4">
+      <!-- Search input -->
+      <div class="relative">
+        <input 
+          type="text" 
+          id="blog-search"
+          placeholder="Search articles by title, topic, or keyword..."
+          class="w-full pl-11 pr-4 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/70 text-zinc-900 dark:text-white placeholder:text-zinc-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all"
+        />
+        <svg class="w-5 h-5 absolute left-3.5 top-3.5 text-zinc-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+
+      <!-- Categories & Language Row -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+        <!-- Category pills -->
+        <div class="flex flex-wrap gap-1.5" id="blog-categories">
+          {allCategories.map((cat, idx) => (
+            <button 
+              data-cat={cat}
+              class:list={[
+                "blog-cat-btn px-3 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all border",
+                idx === 0 
+                  ? "active bg-indigo-600 text-white border-indigo-600 shadow-sm" 
+                  : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+              ]}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <!-- Language toggle pills -->
+        <div class="flex items-center gap-1 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-mono" id="lang-filter">
+          <button data-lang="all" class="lang-btn active px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold shadow-xs">All</button>
+          <button data-lang="en" class="lang-btn px-2.5 py-1 rounded-lg text-zinc-500 hover:text-zinc-900 dark:hover:text-white">EN</button>
+          <button data-lang="ur" class="lang-btn px-2.5 py-1 rounded-lg text-zinc-500 hover:text-zinc-900 dark:hover:text-white font-serif">اردو</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active counter -->
+    <div class="mt-6 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+      <span id="post-counter">Showing {sortedPosts.length} of {sortedPosts.length} articles</span>
+    </div>
+
+    <!-- Blog Posts List -->
+    <div class="mt-6 space-y-4" id="posts-container">
+      {sortedPosts.map((post) => (
+        <div 
+          class="post-wrapper"
+          data-title={post.data.title.toLowerCase()}
+          data-categories={post.data.categories.join(',')}
+          data-lang={post.data.language || 'en'}
+        >
+          <BlogCard post={post} />
+        </div>
+      ))}
+    </div>
+
+    <!-- No results state -->
+    <div id="no-posts" class="hidden text-center py-16 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl mt-6">
+      <p class="text-zinc-500 dark:text-zinc-400 text-sm">No articles match your search or filter.</p>
+      <button id="reset-filter-btn" class="mt-3 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+        Reset filters
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let activeCat = 'All';
+    let activeLang = 'all';
+    let searchQuery = '';
+
+    const searchInput = document.getElementById('blog-search') as HTMLInputElement | null;
+    const catButtons = document.querySelectorAll('.blog-cat-btn');
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const postItems = document.querySelectorAll('.post-wrapper');
+    const counter = document.getElementById('post-counter');
+    const noPosts = document.getElementById('no-posts');
+    const resetBtn = document.getElementById('reset-filter-btn');
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      postItems.forEach((item) => {
+        const title = item.getAttribute('data-title') || '';
+        const cats = (item.getAttribute('data-categories') || '').split(',');
+        const lang = item.getAttribute('data-lang') || 'en';
+
+        const matchesSearch = !searchQuery || title.includes(searchQuery);
+        const matchesCat = activeCat === 'All' || cats.includes(activeCat);
+        const matchesLang = activeLang === 'all' || lang === activeLang;
+
+        if (matchesSearch && matchesCat && matchesLang) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (counter) {
+        counter.textContent = `Showing ${visibleCount} of ${postItems.length} articles`;
+      }
+
+      if (noPosts) {
+        if (visibleCount === 0) {
+          noPosts.classList.remove('hidden');
+        } else {
+          noPosts.classList.add('hidden');
+        }
+      }
+    }
+
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      applyFilters();
+    });
+
+    catButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach((b) => {
+          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
+          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400', 'border-zinc-200', 'dark:border-zinc-800');
+        });
+        btn.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
+        btn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+
+        activeCat = btn.getAttribute('data-cat') || 'All';
+        applyFilters();
+      });
+    });
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        langButtons.forEach((b) => {
+          b.classList.remove('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
+          b.classList.add('text-zinc-500');
+        });
+        btn.classList.add('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
+        btn.classList.remove('text-zinc-500');
+
+        activeLang = btn.getAttribute('data-lang') || 'all';
+        applyFilters();
+      });
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      searchQuery = '';
+      activeCat = 'All';
+      activeLang = 'all';
+
+      catButtons[0]?.dispatchEvent(new Event('click'));
+      langButtons[0]?.dispatchEvent(new Event('click'));
+    });
+  </script>
+</BaseLayout>

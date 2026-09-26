@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const fontsList = [
+  { id: 'cinzel', name: 'Cinzel', family: "'Cinzel', Georgia, serif", query: 'Cinzel:wght@400..900', category: 'Classical Serif', desc: 'Imperial classical Roman inscriptional serif, timeless and authoritative.' },
+  { id: 'bodoni-moda', name: 'Bodoni Moda', family: "'Bodoni Moda', Georgia, serif", query: 'Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900', category: 'Classical Serif', desc: 'High-contrast luxury editorial aesthetic seen in Vogue and haute couture.' },
+  { id: 'marcellus', name: 'Marcellus', family: "'Marcellus', Georgia, serif", query: 'Marcellus', category: 'Classical Serif', desc: 'Ancient Roman monumental proportions with subtle flared serifs.' },
+  { id: 'cormorant', name: 'Cormorant', family: "'Cormorant', Georgia, serif", query: 'Cormorant:ital,wght@0,300..700;1,300..700', category: 'Classical Serif', desc: 'Aristocratic French traditional elegance, extremely slender and delicate.' },
+  { id: 'crimson-pro', name: 'Crimson Pro', family: "'Crimson Pro', Georgia, serif", query: 'Crimson+Pro:ital,wght@0,300..900;1,300..900', category: 'Classical Serif', desc: 'Scholarly bookish renaissance serif with high legibility and dignity.' },
+  { id: 'dm-serif-display', name: 'DM Serif Display', family: "'DM Serif Display', Georgia, serif", query: 'DM+Serif+Display:ital@0;1', category: 'Classical Serif', desc: 'Dramatic high-contrast poster serif with sharp refined terminals.' },
+  { id: 'playfair', name: 'Playfair Display', family: "'Playfair Display', Georgia, serif", query: 'Playfair+Display:ital,wght@0,400..900;1,400..900', category: 'Classical Serif', desc: 'European Enlightenment transitional serif with rounded delicacy.' },
+  { id: 'source-serif-4', name: 'Source Serif 4', family: "'Source Serif 4', Georgia, serif", query: 'Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900', category: 'Classical Serif', desc: 'Robust engineering-grade serif designed by Adobe for clarity and precision.' },
+  { id: 'bitter', name: 'Bitter', family: "'Bitter', Georgia, serif", query: 'Bitter:ital,wght@0,300..900;1,300..900', category: 'Classical Serif', desc: 'Contemporary slab-influenced serif tailored for comfortable digital reading.' },
+  { id: 'arvo', name: 'Arvo', family: "'Arvo', Georgia, serif", query: 'Arvo:ital,wght@0,400;0,700;1,400;1,700', category: 'Heavy & Slab', desc: 'Clean geometric slab-serif combining modern structure with classical heritage.' },
+  { id: 'alfa-slab-one', name: 'Alfa Slab One', family: "'Alfa Slab One', serif", query: 'Alfa+Slab+One', category: 'Heavy & Slab', desc: 'Ultra-heavy black display typeface based on 19th-century Six-line Pica Egyptian.' },
+  { id: 'changa-one', name: 'Changa One', family: "'Changa One', cursive, sans-serif", query: 'Changa+One:ital@0;1', category: 'Heavy & Slab', desc: 'Chunky, punchy poster font with memorable angular rhythm and boldness.' },
+  { id: 'baloo-2', name: 'Baloo 2', family: "'Baloo 2', cursive, sans-serif", query: 'Baloo+2:wght@400..800', category: 'Heavy & Slab', desc: 'Warm, personable and expressive headline font with rounded curves.' },
+  { id: 'unbounded', name: 'Unbounded', family: "'Unbounded', sans-serif", query: 'Unbounded:wght@300..900', category: 'Modern Geometric', desc: 'Ultra-wide futuristic grotesque with daring architectural presence.' },
+  { id: 'geologica', name: 'Geologica', family: "'Geologica', sans-serif", query: 'Geologica:wght@300..900', category: 'Modern Geometric', desc: 'High-precision modern sans with mathematical proportions and human warmth.' },
+  { id: 'exo-2', name: 'Exo 2', family: "'Exo 2', sans-serif", query: 'Exo+2:ital,wght@0,300..900;1,300..900', category: 'Modern Geometric', desc: 'Contemporary technological grotesque with forward-leaning cyber vitality.' },
+  { id: 'oxygen', name: 'Oxygen', family: "'Oxygen', sans-serif", query: 'Oxygen:wght@300;400;700', category: 'Modern Geometric', desc: 'Clean, airy, neutral humanist sans-serif designed for desktop interfaces.' },
+  { id: 'merriweather-sans', name: 'Merriweather Sans', family: "'Merriweather Sans', sans-serif", query: 'Merriweather+Sans:ital,wght@0,300..800;1,300..800', category: 'Modern Geometric', desc: 'Warm humanist companion designed specifically for modern screens.' },
+  { id: 'asap', name: 'Asap', family: "'Asap', sans-serif", query: 'Asap:ital,wght@0,300..900;1,300..900', category: 'Modern Geometric', desc: 'Contemporary rounded-corner sans designed for seamless multi-screen flow.' },
+];
+---
+
+<BaseLayout 
+  title="Typography Studio & Font Comparison — Amir Hameed"
+  description="Compare 19 Google Fonts live for Amir Hameed's portfolio theme."
+>
+  <!-- Load all 19 Google Fonts for this page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Asap:ital,wght@0,300..900;1,300..900&family=Baloo+2:wght@400..800&family=Bitter:ital,wght@0,300..900;1,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Changa+One:ital@0;1&family=Cinzel:wght@400..900&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Crimson+Pro:ital,wght@0,300..900;1,300..900&family=DM+Serif+Display:ital@0;1&family=Exo+2:ital,wght@0,300..900;1,300..900&family=Geologica:wght@300..900&family=Marcellus&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Oxygen:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=Unbounded:wght@300..900&display=swap" 
+    rel="stylesheet"
+  >
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    
+    <!-- Header banner -->
+    <div class="mb-10 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30 mb-4">
+        <span>✦</span> Interactive Typography Playground (19 Fonts)
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-serif">
+        Font Tester Studio
+      </h1>
+      <p class="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed">
+        Test and compare all 19 requested Google Fonts across your name, subheadings, navigation links, and buttons. Click <strong>"Apply to Website"</strong> on any font to instantly activate it across your entire site.
+      </p>
+    </div>
+
+    <!-- Live Customizer Toolbar -->
+    <div class="sticky top-20 z-30 mb-10 p-4 sm:p-5 rounded-2xl border border-zinc-800 bg-zinc-950/90 backdrop-blur-xl shadow-2xl space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- Live Test Text Input -->
+        <div class="md:col-span-1">
+          <label class="block text-xs font-mono font-bold text-zinc-400 mb-1.5 uppercase">Test Custom Text</label>
+          <input 
+            type="text" 
+            id="global-test-input" 
+            value="Amir Hameed" 
+            class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:border-[#d4af37] outline-hidden font-mono"
+            placeholder="Type your name or headline..."
+          />
+        </div>
+
+        <!-- Global Spacing & Weight -->
+        <div class="flex items-center gap-6 md:col-span-2">
+          <div class="flex-1 font-mono">
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-zinc-400">Letter Spacing:</span>
+              <span id="gallery-val-spacing" class="text-[#d4af37] font-bold">0.03em</span>
+            </div>
+            <input type="range" id="gallery-slider-spacing" min="-0.05" max="0.30" step="0.01" value="0.03" class="w-full accent-[#d4af37] cursor-pointer" />
+          </div>
+
+          <div class="flex-1 font-mono">
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-zinc-400">Font Weight:</span>
+              <span id="gallery-val-weight" class="text-[#d4af37] font-bold">700</span>
+            </div>
+            <input type="range" id="gallery-slider-weight" min="300" max="900" step="100" value="700" class="w-full accent-[#d4af37] cursor-pointer" />
+          </div>
+
+          <!-- Quick Home link -->
+          <div class="shrink-0 flex items-end">
+            <a 
+              href="/" 
+              class="px-4 py-2 rounded-xl bg-[#d4af37] hover:bg-[#c5a059] text-black font-semibold text-xs font-mono transition-colors shadow"
+            >
+              &larr; View On Homepage
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 19 Font Showcase Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="fonts-cards-grid">
+      {fontsList.map((f) => (
+        <div class="p-6 rounded-2xl border border-zinc-800/90 bg-zinc-950/70 hover:border-[#d4af37]/60 transition-all flex flex-col justify-between group shadow-xl">
+          
+          <div>
+            <!-- Card Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-800/60 mb-5">
+              <div>
+                <span class="text-[10px] font-mono text-[#d4af37] uppercase tracking-wider block font-semibold">{f.category}</span>
+                <h3 class="text-lg font-bold text-white tracking-tight">{f.name}</h3>
+              </div>
+              <span class="px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-400">
+                Google Fonts
+              </span>
+            </div>
+
+            <!-- Big Headline Preview -->
+            <div class="mb-4">
+              <div 
+                class="font-preview-headline text-3xl sm:text-4xl text-white font-bold leading-tight tracking-tight transition-all"
+                style={`font-family: ${f.family}; letter-spacing: 0.03em;`}
+              >
+                Amir Hameed
+              </div>
+              <p 
+                class="font-preview-sub mt-2 text-xs sm:text-sm text-zinc-400 font-light leading-relaxed"
+                style={`font-family: ${f.family};`}
+              >
+                UI/UX Architect, Senior Frontend Developer & Technical Educator
+              </p>
+            </div>
+
+            <!-- Navigation Links Preview -->
+            <div class="py-3 px-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800/70 mb-4 font-mono text-[11px] text-zinc-400 flex items-center justify-between">
+              <span class="text-zinc-500 text-[10px]">NAV:</span>
+              <span style={`font-family: ${f.family};`} class="text-white text-xs">Home</span>
+              <span style={`font-family: ${f.family};`} class="text-[#d4af37] font-semibold text-xs">Projects</span>
+              <span style={`font-family: ${f.family};`} class="text-white text-xs">Blog</span>
+              <span style={`font-family: ${f.family};`} class="text-white text-xs">Contact</span>
+            </div>
+
+            <!-- Classical Button Link Preview -->
+            <div class="mb-4">
+              <span 
+                class="inline-flex items-center gap-1.5 text-xs text-[#d4af37] uppercase tracking-widest font-semibold hover:underline"
+                style={`font-family: ${f.family}; letter-spacing: 0.12em;`}
+              >
+                Explore Projects &rarr;
+              </span>
+            </div>
+
+            <p class="text-[11px] text-zinc-500 font-mono leading-relaxed mb-6">
+              {f.desc}
+            </p>
+          </div>
+
+          <!-- Card Actions -->
+          <div class="pt-4 border-t border-zinc-800/60 flex items-center justify-between font-mono gap-2">
+            <button
+              data-apply-font={f.id}
+              class="apply-font-btn flex-1 py-2 px-3 rounded-xl bg-zinc-900 hover:bg-[#d4af37] hover:text-black text-white text-xs font-semibold border border-zinc-700 hover:border-[#d4af37] transition-all cursor-pointer text-center"
+            >
+              Apply to Website
+            </button>
+
+            <button
+              data-copy-css={`font-family: ${f.family};`}
+              class="copy-css-btn py-2 px-3 rounded-xl border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white text-xs transition-colors cursor-pointer"
+              title="Copy CSS rule"
+            >
+              CSS
+            </button>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <script>
+    const textInput = document.getElementById('global-test-input') as HTMLInputElement | null;
+    const sliderSpacing = document.getElementById('gallery-slider-spacing') as HTMLInputElement | null;
+    const sliderWeight = document.getElementById('gallery-slider-weight') as HTMLInputElement | null;
+    const valSpacing = document.getElementById('gallery-val-spacing');
+    const valWeight = document.getElementById('gallery-val-weight');
+
+    const headlines = document.querySelectorAll('.font-preview-headline');
+
+    textInput?.addEventListener('input', () => {
+      const val = textInput.value.trim() || 'Amir Hameed';
+      headlines.forEach(h => {
+        h.textContent = val;
+      });
+    });
+
+    sliderSpacing?.addEventListener('input', () => {
+      const spacing = `${sliderSpacing.value}em`;
+      if (valSpacing) valSpacing.textContent = spacing;
+      headlines.forEach(h => {
+        (h as HTMLElement).style.letterSpacing = spacing;
+      });
+    });
+
+    sliderWeight?.addEventListener('input', () => {
+      const weight = sliderWeight.value;
+      if (valWeight) valWeight.textContent = weight;
+      headlines.forEach(h => {
+        (h as HTMLElement).style.fontWeight = weight;
+      });
+    });
+
+    // Apply font to website
+    document.querySelectorAll('.apply-font-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fontId = btn.getAttribute('data-apply-font');
+        if (fontId) {
+          localStorage.setItem('tester-font-id', fontId);
+          localStorage.setItem('tester-scope', 'everything');
+          btn.textContent = '✓ Applied!';
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 600);
+        }
+      });
+    });
+
+    // Copy CSS
+    document.querySelectorAll('.copy-css-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const css = btn.getAttribute('data-copy-css');
+        if (css) {
+          navigator.clipboard.writeText(css).then(() => {
+            const original = btn.textContent;
+            btn.textContent = '✓';
+            setTimeout(() => {
+              btn.textContent = original;
+            }, 1500);
+          });
+        }
+      });
+    });
+  </script>
+</BaseLayout>

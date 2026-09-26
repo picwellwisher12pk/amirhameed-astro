@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categories = ['All', ...new Set(allProjects.map((p) => p.data.category))];
+---
+
+<BaseLayout 
+  title="Projects & Innovations — Amir Hameed"
+  description="Showcase of engineering projects, developer tools, AI workflows, and cloud architectures built by Amir Hameed."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <!-- Header -->
+    <div class="max-w-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/40 mb-4">
+        Portfolio & Work
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+        Projects & Innovations
+      </h1>
+      <p class="mt-3 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        A collection of web applications, AI automation tools, cloud blueprints, and digital experiments built over recent months and years.
+      </p>
+    </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="mt-8 flex flex-wrap items-center gap-2" id="filter-container">
+      {categories.map((cat, idx) => (
+        <button 
+          data-category={cat}
+          class:list={[
+            "filter-btn px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer",
+            idx === 0 
+              ? "active bg-indigo-600 text-white shadow-sm shadow-indigo-600/20" 
+              : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+          ]}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project Grid -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+      {sortedProjects.map((project) => (
+        <div data-item-category={project.data.category} class="project-item">
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty state for filter -->
+    <div id="no-projects" class="hidden text-center py-16">
+      <p class="text-zinc-500 dark:text-zinc-400 text-sm">No projects found in this category.</p>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.project-item');
+    const noProjects = document.getElementById('no-projects');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category');
+
+        // Update active class
+        buttons.forEach((b) => {
+          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
+          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+        });
+
+        btn.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
+        btn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+
+        let visibleCount = 0;
+        items.forEach((item) => {
+          const itemCat = item.getAttribute('data-item-category');
+          if (cat === 'All' || itemCat === cat) {
+            item.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        if (noProjects) {
+          if (visibleCount === 0) {
+            noProjects.classList.remove('hidden');
+          } else {
+            noProjects.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</BaseLayout>

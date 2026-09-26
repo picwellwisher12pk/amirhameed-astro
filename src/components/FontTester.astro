@@ -1,0 +1,713 @@
+---
+// Interactive Typography & Font Tester Utility for Amir Hameed's Portfolio
+---
+
+<!-- Font Tester Floating Trigger Button (Bottom Right) -->
+<div id="font-tester-root" class="fixed bottom-6 right-6 z-50 font-sans">
+  <div class="relative">
+    <button
+      id="font-tester-toggle-btn"
+      class="flex items-center gap-2 px-3.5 py-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-zinc-200 shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all hover:scale-105 cursor-pointer"
+      title="Test & Compare Fonts Live (Alt + F)"
+    >
+      <span class="w-4 h-4 rounded flex items-center justify-center font-serif font-bold text-xs bg-[#d4af37]/20 text-[#d4af37]">Aa</span>
+      <span class="font-semibold" id="current-active-font-label">Fonts</span>
+      <span id="font-tester-badge" class="px-1.5 py-0.5 rounded text-[10px] bg-zinc-100 dark:bg-zinc-800 text-zinc-500 font-mono">19</span>
+    </button>
+
+    <!-- Font Tester Panel Modal -->
+    <div
+      id="font-tester-panel"
+      class="hidden absolute bottom-12 right-0 w-[380px] sm:w-[440px] max-h-[82vh] flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 shadow-2xl backdrop-blur-2xl text-zinc-900 dark:text-zinc-100 overflow-hidden text-xs"
+    >
+      <!-- Panel Header -->
+      <div class="flex items-center justify-between p-3.5 border-b border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="w-5 h-5 rounded flex items-center justify-center font-serif font-bold text-xs bg-[#d4af37] text-black">Aa</span>
+          <div>
+            <h3 class="font-bold text-sm tracking-tight">Typography Studio</h3>
+            <p class="text-[10px] text-zinc-500 font-mono">Test 19 Google Fonts Live</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="/font-tester"
+            class="px-2 py-1 rounded border border-zinc-200 dark:border-zinc-800 hover:border-[#d4af37] text-[10px] font-mono text-zinc-600 dark:text-zinc-400 hover:text-[#d4af37] transition-colors"
+            title="Open Side-by-Side Gallery"
+          >
+            Gallery ↗
+          </a>
+          <button id="close-font-tester" class="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-white text-base leading-none cursor-pointer">
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Body (Scrollable) -->
+      <div class="p-4 space-y-4 overflow-y-auto flex-grow max-h-[calc(82vh-120px)]">
+        
+        <!-- Live Target Scope -->
+        <div>
+          <label class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider block mb-1.5 font-mono">Target Elements</label>
+          <div class="grid grid-cols-2 gap-1.5" id="font-target-scope-group">
+            <button data-scope="everything" class="scope-btn px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800/80 text-zinc-900 dark:text-white font-medium text-left transition-colors cursor-pointer">
+              Entire Site & Header
+            </button>
+            <button data-scope="header-nav" class="scope-btn px-2.5 py-1.5 rounded-lg border border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left transition-colors cursor-pointer">
+              Header & Nav Only
+            </button>
+            <button data-scope="headings" class="scope-btn px-2.5 py-1.5 rounded-lg border border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left transition-colors cursor-pointer">
+              Headings & Logo
+            </button>
+            <button data-scope="hero-only" class="scope-btn px-2.5 py-1.5 rounded-lg border border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left transition-colors cursor-pointer">
+              Hero Name Only
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div>
+          <label class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider block mb-1.5 font-mono">Category</label>
+          <div class="flex flex-wrap gap-1" id="font-category-filters">
+            <button data-cat="all" class="cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-[#d4af37] text-black">All (19)</button>
+            <button data-cat="classical" class="cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-white">Classical Serif</button>
+            <button data-cat="modern" class="cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-white">Modern Sans</button>
+            <button data-cat="display" class="cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-white">Heavy / Slab</button>
+          </div>
+        </div>
+
+        <!-- Fonts List with Live Preview Cards -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider font-mono">Select Font</label>
+            <span id="font-selected-indicator" class="text-[10px] text-[#d4af37] font-mono font-semibold">Cinzel (Default)</span>
+          </div>
+
+          <div class="space-y-1 max-h-56 overflow-y-auto pr-1" id="font-selection-list">
+            <!-- Dynamic font items will be rendered here -->
+          </div>
+        </div>
+
+        <!-- Real-Time Sliders: Spacing, Weight & Transform -->
+        <div class="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 space-y-3 font-mono">
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-500">Letter Spacing:</span>
+              <span id="val-spacing" class="text-[#d4af37] font-bold">0.03em</span>
+            </div>
+            <input type="range" id="slider-spacing" min="-0.05" max="0.30" step="0.01" value="0.03" class="w-full accent-[#d4af37] cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-500">Font Weight:</span>
+              <span id="val-weight" class="text-[#d4af37] font-bold">700</span>
+            </div>
+            <input type="range" id="slider-weight" min="300" max="900" step="100" value="700" class="w-full accent-[#d4af37] cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-500">Header Font Size:</span>
+              <span id="val-size" class="text-[#d4af37] font-bold">0.875rem</span>
+            </div>
+            <input type="range" id="slider-size" min="0.65" max="2.00" step="0.025" value="0.875" class="w-full accent-[#d4af37] cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-zinc-500">Case Transform:</span>
+              <div class="flex gap-2 text-[10px]">
+                <button data-transform="none" class="transform-btn text-zinc-400 hover:text-white cursor-pointer">Normal</button>
+                <button data-transform="uppercase" class="transform-btn text-[#d4af37] font-bold underline cursor-pointer">UPPERCASE</button>
+                <button data-transform="capitalize" class="transform-btn text-zinc-400 hover:text-white cursor-pointer">Title</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Panel Footer Actions -->
+      <div class="p-3 border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/50 flex items-center justify-between shrink-0 font-mono">
+        <button
+          id="btn-copy-font-css"
+          class="px-3 py-1.5 rounded-lg bg-[#d4af37] hover:bg-[#c5a059] text-black font-semibold text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
+        >
+          <span>📋</span> Copy CSS
+        </button>
+
+        <button
+          id="btn-reset-font"
+          class="px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-red-500/50 text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  interface FontItem {
+    id: string;
+    name: string;
+    family: string;
+    googleQuery: string;
+    category: 'classical' | 'modern' | 'display';
+    tagline: string;
+    recommendedWeight: number;
+    recommendedSpacing: string;
+  }
+
+  const FONTS_CATALOG: FontItem[] = [
+    {
+      id: 'cinzel',
+      name: 'Cinzel',
+      family: "'Cinzel', Georgia, serif",
+      googleQuery: 'Cinzel:wght@400..900',
+      category: 'classical',
+      tagline: 'Imperial Classical Serif',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.03em'
+    },
+    {
+      id: 'bodoni-moda',
+      name: 'Bodoni Moda',
+      family: "'Bodoni Moda', Georgia, serif",
+      googleQuery: 'Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900',
+      category: 'classical',
+      tagline: 'Vogue & Luxury Editorial',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.05em'
+    },
+    {
+      id: 'marcellus',
+      name: 'Marcellus',
+      family: "'Marcellus', Georgia, serif",
+      googleQuery: 'Marcellus',
+      category: 'classical',
+      tagline: 'Roman Monumental Inscription',
+      recommendedWeight: 400,
+      recommendedSpacing: '0.06em'
+    },
+    {
+      id: 'cormorant',
+      name: 'Cormorant',
+      family: "'Cormorant', 'Cormorant Garamond', Georgia, serif",
+      googleQuery: 'Cormorant:ital,wght@0,300..700;1,300..700',
+      category: 'classical',
+      tagline: 'Aristocratic French Elegance',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.04em'
+    },
+    {
+      id: 'crimson-pro',
+      name: 'Crimson Pro',
+      family: "'Crimson Pro', Georgia, serif",
+      googleQuery: 'Crimson+Pro:ital,wght@0,300..900;1,300..900',
+      category: 'classical',
+      tagline: 'Refined Bookish Academic',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.02em'
+    },
+    {
+      id: 'dm-serif-display',
+      name: 'DM Serif Display',
+      family: "'DM Serif Display', Georgia, serif",
+      googleQuery: 'DM+Serif+Display:ital@0;1',
+      category: 'classical',
+      tagline: 'High-Contrast Editorial Drama',
+      recommendedWeight: 400,
+      recommendedSpacing: '-0.01em'
+    },
+    {
+      id: 'playfair',
+      name: 'Playfair Display',
+      family: "'Playfair Display', Georgia, serif",
+      googleQuery: 'Playfair+Display:ital,wght@0,400..900;1,400..900',
+      category: 'classical',
+      tagline: 'Transitional Literary Charm',
+      recommendedWeight: 700,
+      recommendedSpacing: '-0.01em'
+    },
+    {
+      id: 'source-serif-4',
+      name: 'Source Serif 4',
+      family: "'Source Serif 4', Georgia, serif",
+      googleQuery: 'Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900',
+      category: 'classical',
+      tagline: 'Crisp Structural Craft',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.01em'
+    },
+    {
+      id: 'bitter',
+      name: 'Bitter',
+      family: "'Bitter', Georgia, serif",
+      googleQuery: 'Bitter:ital,wght@0,300..900;1,300..900',
+      category: 'classical',
+      tagline: 'Comfortable Contemporary Serif',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.01em'
+    },
+    {
+      id: 'arvo',
+      name: 'Arvo',
+      family: "'Arvo', Georgia, serif",
+      googleQuery: 'Arvo:ital,wght@0,400;0,700;1,400;1,700',
+      category: 'display',
+      tagline: 'Geometric Slab-Serif',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.02em'
+    },
+    {
+      id: 'alfa-slab-one',
+      name: 'Alfa Slab One',
+      family: "'Alfa Slab One', serif",
+      googleQuery: 'Alfa+Slab+One',
+      category: 'display',
+      tagline: 'Ultra-Black Heavyweight Impact',
+      recommendedWeight: 400,
+      recommendedSpacing: '-0.02em'
+    },
+    {
+      id: 'changa-one',
+      name: 'Changa One',
+      family: "'Changa One', cursive, sans-serif",
+      googleQuery: 'Changa+One:ital@0;1',
+      category: 'display',
+      tagline: 'Punchy Chunky Poster Typography',
+      recommendedWeight: 400,
+      recommendedSpacing: '0.01em'
+    },
+    {
+      id: 'baloo-2',
+      name: 'Baloo 2',
+      family: "'Baloo 2', cursive, sans-serif",
+      googleQuery: 'Baloo+2:wght@400..800',
+      category: 'display',
+      tagline: 'Friendly Affable Character',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.00em'
+    },
+    {
+      id: 'unbounded',
+      name: 'Unbounded',
+      family: "'Unbounded', sans-serif",
+      googleQuery: 'Unbounded:wght@300..900',
+      category: 'modern',
+      tagline: 'Futuristic Ultra-Wide Tech',
+      recommendedWeight: 700,
+      recommendedSpacing: '-0.02em'
+    },
+    {
+      id: 'geologica',
+      name: 'Geologica',
+      family: "'Geologica', sans-serif",
+      googleQuery: 'Geologica:wght@300..900',
+      category: 'modern',
+      tagline: 'Precision Variable Geometric Sans',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.02em'
+    },
+    {
+      id: 'exo-2',
+      name: 'Exo 2',
+      family: "'Exo 2', sans-serif",
+      googleQuery: 'Exo+2:ital,wght@0,300..900;1,300..900',
+      category: 'modern',
+      tagline: 'Cybernetic Tech Grotesque',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.03em'
+    },
+    {
+      id: 'oxygen',
+      name: 'Oxygen',
+      family: "'Oxygen', sans-serif",
+      googleQuery: 'Oxygen:wght@300;400;700',
+      category: 'modern',
+      tagline: 'Clean Airy Linux Aesthetic',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.01em'
+    },
+    {
+      id: 'merriweather-sans',
+      name: 'Merriweather Sans',
+      family: "'Merriweather Sans', sans-serif",
+      googleQuery: 'Merriweather+Sans:ital,wght@0,300..800;1,300..800',
+      category: 'modern',
+      tagline: 'Highly Readable Humanist',
+      recommendedWeight: 700,
+      recommendedSpacing: '0.02em'
+    },
+    {
+      id: 'asap',
+      name: 'Asap',
+      family: "'Asap', sans-serif",
+      googleQuery: 'Asap:ital,wght@0,300..900;1,300..900',
+      category: 'modern',
+      tagline: 'Contemporary Soft-Terminal Sans',
+      recommendedWeight: 600,
+      recommendedSpacing: '0.01em'
+    }
+  ];
+
+  // Dynamic Google Font loader
+  const loadedFonts = new Set<string>();
+  function loadGoogleFont(query: string) {
+    if (loadedFonts.has(query)) return;
+    loadedFonts.add(query);
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${query}&display=swap`;
+    document.head.appendChild(link);
+  }
+
+  // Pre-load Cinzel and Bodoni
+  loadGoogleFont('Cinzel:wght@400..900');
+  loadGoogleFont('Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900');
+
+  // State
+  let currentFontId = localStorage.getItem('tester-font-id') || 'cinzel';
+  let currentScope = localStorage.getItem('tester-scope') || 'everything';
+  let currentSpacing = localStorage.getItem('tester-spacing') || '0.03em';
+  let currentWeight = localStorage.getItem('tester-weight') || '700';
+  let currentSize = localStorage.getItem('tester-size') || '0.875rem';
+  let currentTransform = localStorage.getItem('tester-transform') || 'none';
+  let activeCategory = 'all';
+
+  // Injected style tag
+  let styleTag = document.getElementById('dynamic-font-tester-style') as HTMLStyleElement | null;
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = 'dynamic-font-tester-style';
+    document.head.appendChild(styleTag);
+  }
+
+  function applyTypography() {
+    const font = FONTS_CATALOG.find(f => f.id === currentFontId) || FONTS_CATALOG[0];
+    loadGoogleFont(font.googleQuery);
+
+    const root = document.documentElement;
+
+    // Reactively update CSS custom properties on root
+    root.style.setProperty('--luxury-nav-size', currentSize);
+
+    if (currentScope === 'everything' || currentScope === 'header-nav') {
+      root.style.setProperty('--luxury-nav-font', font.family);
+      root.style.setProperty('--luxury-nav-spacing', currentSpacing);
+      root.style.setProperty('--luxury-nav-weight', currentWeight);
+      root.style.setProperty('--luxury-nav-transform', currentTransform);
+    }
+    if (currentScope === 'everything' || currentScope === 'headings') {
+      root.style.setProperty('--luxury-heading-font', font.family);
+      root.style.setProperty('--luxury-heading-spacing', currentSpacing);
+      root.style.setProperty('--luxury-heading-weight', currentWeight);
+      root.style.setProperty('--luxury-heading-transform', currentTransform);
+    }
+    if (currentScope === 'everything') {
+      root.style.setProperty('--luxury-body-font', font.family);
+    }
+
+    let selectors: string[] = [];
+    if (currentScope === 'everything') {
+      selectors = [
+        'html[data-theme="luxury"]',
+        'html[data-theme="luxury"] body',
+        'html[data-theme="luxury"] header',
+        'html[data-theme="luxury"] header .header-logo-title',
+        'html[data-theme="luxury"] header .header-menu-btn',
+        'html[data-theme="luxury"] .viewport-nav-link',
+        'html[data-theme="luxury"] h1',
+        'html[data-theme="luxury"] h2',
+        'html[data-theme="luxury"] h3',
+        'html[data-theme="luxury"] h4',
+        'html[data-theme="luxury"] p',
+        'html[data-theme="luxury"] a',
+        'html[data-theme="luxury"] button',
+        'html[data-theme="luxury"] .font-display',
+        'html[data-theme="luxury"] .font-heading',
+        'html[data-theme="luxury"] .luxury-seq-2'
+      ];
+    } else if (currentScope === 'header-nav') {
+      selectors = [
+        'html[data-theme="luxury"] header',
+        'html[data-theme="luxury"] header .header-logo-title',
+        'html[data-theme="luxury"] header .header-menu-btn',
+        'html[data-theme="luxury"] .viewport-nav-link'
+      ];
+    } else if (currentScope === 'headings') {
+      selectors = [
+        'html[data-theme="luxury"] h1',
+        'html[data-theme="luxury"] h2',
+        'html[data-theme="luxury"] h3',
+        'html[data-theme="luxury"] h4',
+        'html[data-theme="luxury"] .font-display',
+        'html[data-theme="luxury"] .font-heading',
+        'html[data-theme="luxury"] .luxury-seq-2'
+      ];
+    } else if (currentScope === 'hero-only') {
+      selectors = [
+        'html[data-theme="luxury"] .luxury-seq-2',
+        'html[data-theme="luxury"] h1'
+      ];
+    }
+
+    if (styleTag) {
+      const cssRules = `
+        ${selectors.join(',\n')} {
+          font-family: ${font.family} !important;
+          letter-spacing: ${currentSpacing} !important;
+          font-weight: ${currentWeight} !important;
+          text-transform: ${currentTransform} !important;
+        }
+        /* Live Header Font Size */
+        html[data-theme="luxury"] header,
+        html[data-theme="luxury"] header .header-logo-title,
+        html[data-theme="luxury"] header .header-menu-btn {
+          font-size: ${currentSize} !important;
+        }
+        /* Urdu & Arabic typography preservation */
+        html[data-theme="luxury"] .font-urdu,
+        html[data-theme="luxury"] [dir="rtl"],
+        html[data-theme="luxury"] [dir="rtl"] * {
+          font-family: 'Vazirmatn', 'Noto Sans Arabic', serif !important;
+          letter-spacing: normal !important;
+          text-transform: none !important;
+        }
+      `;
+      styleTag.textContent = cssRules;
+    }
+
+    // Update Label & Indicator
+    const fontLabel = document.getElementById('current-active-font-label');
+    const selectedInd = document.getElementById('font-selected-indicator');
+    if (fontLabel) fontLabel.textContent = font.name;
+    if (selectedInd) selectedInd.textContent = `${font.name} (${font.tagline})`;
+
+    // Persist
+    localStorage.setItem('tester-font-id', currentFontId);
+    localStorage.setItem('tester-scope', currentScope);
+    localStorage.setItem('tester-spacing', currentSpacing);
+    localStorage.setItem('tester-weight', currentWeight);
+    localStorage.setItem('tester-size', currentSize);
+    localStorage.setItem('tester-transform', currentTransform);
+  }
+
+  // Render font selection list
+  function renderFontList() {
+    const list = document.getElementById('font-selection-list');
+    if (!list) return;
+
+    const filtered = activeCategory === 'all'
+      ? FONTS_CATALOG
+      : FONTS_CATALOG.filter(f => f.category === activeCategory);
+
+    list.innerHTML = filtered.map(f => {
+      const isSelected = f.id === currentFontId;
+      return `
+        <button
+          data-font-id="${f.id}"
+          class="font-item-btn w-full p-2 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            isSelected 
+              ? 'bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37]' 
+              : 'hover:bg-zinc-100 dark:hover:bg-zinc-800/70 border border-transparent text-zinc-700 dark:text-zinc-300'
+          }"
+        >
+          <div>
+            <div class="font-bold text-xs tracking-tight flex items-center gap-1.5">
+              <span>${f.name}</span>
+              ${isSelected ? '<span class="text-[10px] text-[#d4af37]">✓</span>' : ''}
+            </div>
+            <div class="text-[10px] text-zinc-500 font-mono">${f.tagline}</div>
+          </div>
+          <span class="text-xs opacity-75 font-semibold" style="font-family: ${f.family}">Aa</span>
+        </button>
+      `;
+    }).join('');
+
+    // Attach listeners
+    list.querySelectorAll('.font-item-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-font-id');
+        if (id) {
+          currentFontId = id;
+          const font = FONTS_CATALOG.find(f => f.id === id);
+          if (font) {
+            currentWeight = String(font.recommendedWeight);
+            currentSpacing = font.recommendedSpacing;
+            const sliderW = document.getElementById('slider-weight') as HTMLInputElement | null;
+            const sliderS = document.getElementById('slider-spacing') as HTMLInputElement | null;
+            const valW = document.getElementById('val-weight');
+            const valS = document.getElementById('val-spacing');
+            if (sliderW) sliderW.value = currentWeight;
+            if (sliderS) sliderS.value = parseFloat(currentSpacing).toString();
+            if (valW) valW.textContent = currentWeight;
+            if (valS) valS.textContent = currentSpacing;
+          }
+          applyTypography();
+          renderFontList();
+        }
+      });
+    });
+  }
+
+  // Init UI Events
+  const toggleBtn = document.getElementById('font-tester-toggle-btn');
+  const panel = document.getElementById('font-tester-panel');
+  const closeBtn = document.getElementById('close-font-tester');
+  const sliderSpacing = document.getElementById('slider-spacing') as HTMLInputElement | null;
+  const sliderWeight = document.getElementById('slider-weight') as HTMLInputElement | null;
+  const sliderSize = document.getElementById('slider-size') as HTMLInputElement | null;
+  const valSpacing = document.getElementById('val-spacing');
+  const valWeight = document.getElementById('val-weight');
+  const valSize = document.getElementById('val-size');
+  const copyBtn = document.getElementById('btn-copy-font-css');
+  const resetBtn = document.getElementById('btn-reset-font');
+
+  toggleBtn?.addEventListener('click', () => {
+    panel?.classList.toggle('hidden');
+    // Preload remaining fonts when panel is opened
+    FONTS_CATALOG.forEach(f => loadGoogleFont(f.googleQuery));
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    panel?.classList.add('hidden');
+  });
+
+  // Hotkey: Alt + F to toggle studio
+  window.addEventListener('keydown', (e) => {
+    if (e.altKey && (e.key === 'f' || e.key === 'F')) {
+      e.preventDefault();
+      panel?.classList.toggle('hidden');
+    }
+  });
+
+  // Scope Buttons
+  const scopeBtns = document.querySelectorAll('.scope-btn');
+  function updateScopeUI() {
+    scopeBtns.forEach(b => {
+      const scope = b.getAttribute('data-scope');
+      if (scope === currentScope) {
+        b.className = 'scope-btn px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800/80 text-zinc-900 dark:text-white font-medium text-left transition-colors cursor-pointer';
+      } else {
+        b.className = 'scope-btn px-2.5 py-1.5 rounded-lg border border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left transition-colors cursor-pointer';
+      }
+    });
+  }
+
+  scopeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scope = btn.getAttribute('data-scope');
+      if (scope) {
+        currentScope = scope;
+        updateScopeUI();
+        applyTypography();
+      }
+    });
+  });
+
+  // Category Filters
+  const catBtns = document.querySelectorAll('.cat-btn');
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+      if (cat) {
+        activeCategory = cat;
+        catBtns.forEach(b => {
+          b.className = 'cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-white cursor-pointer';
+        });
+        btn.className = 'cat-btn px-2 py-1 rounded-md text-[11px] font-medium bg-[#d4af37] text-black cursor-pointer';
+        renderFontList();
+      }
+    });
+  });
+
+  // Sliders
+  sliderSpacing?.addEventListener('input', () => {
+    currentSpacing = `${sliderSpacing.value}em`;
+    if (valSpacing) valSpacing.textContent = currentSpacing;
+    applyTypography();
+  });
+
+  sliderWeight?.addEventListener('input', () => {
+    currentWeight = sliderWeight.value;
+    if (valWeight) valWeight.textContent = currentWeight;
+    applyTypography();
+  });
+
+  sliderSize?.addEventListener('input', () => {
+    currentSize = `${sliderSize.value}rem`;
+    if (valSize) valSize.textContent = currentSize;
+    applyTypography();
+  });
+
+  // Transform buttons
+  const transformBtns = document.querySelectorAll('.transform-btn');
+  function updateTransformUI() {
+    transformBtns.forEach(b => {
+      const tr = b.getAttribute('data-transform') || 'none';
+      if (tr === currentTransform) {
+        b.className = 'transform-btn text-[#d4af37] font-bold underline cursor-pointer';
+      } else {
+        b.className = 'transform-btn text-zinc-400 hover:text-white cursor-pointer';
+      }
+    });
+  }
+
+  transformBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tr = btn.getAttribute('data-transform') || 'none';
+      currentTransform = tr;
+      updateTransformUI();
+      applyTypography();
+    });
+  });
+
+  // Copy CSS Action
+  copyBtn?.addEventListener('click', () => {
+    const font = FONTS_CATALOG.find(f => f.id === currentFontId) || FONTS_CATALOG[0];
+    const cssToCopy = `/* ${font.name} typography preset */\nfont-family: ${font.family};\nfont-size: ${currentSize};\nletter-spacing: ${currentSpacing};\nfont-weight: ${currentWeight};\ntext-transform: ${currentTransform};`;
+    navigator.clipboard.writeText(cssToCopy).then(() => {
+      copyBtn.innerHTML = '<span>✓</span> Copied!';
+      setTimeout(() => {
+        copyBtn.innerHTML = '<span>📋</span> Copy CSS';
+      }, 1800);
+    });
+  });
+
+  // Reset Action
+  resetBtn?.addEventListener('click', () => {
+    currentFontId = 'cinzel';
+    currentScope = 'everything';
+    currentSpacing = '0.03em';
+    currentWeight = '700';
+    currentSize = '0.875rem';
+    currentTransform = 'none';
+    if (sliderSpacing) sliderSpacing.value = '0.03';
+    if (sliderWeight) sliderWeight.value = '700';
+    if (sliderSize) sliderSize.value = '0.875';
+    if (valSpacing) valSpacing.textContent = '0.03em';
+    if (valWeight) valWeight.textContent = '700';
+    if (valSize) valSize.textContent = '0.875rem';
+    updateScopeUI();
+    updateTransformUI();
+    applyTypography();
+    renderFontList();
+  });
+
+  // Initial setup & synchronization
+  updateScopeUI();
+  updateTransformUI();
+  if (sliderSpacing) sliderSpacing.value = parseFloat(currentSpacing).toString();
+  if (sliderWeight) sliderWeight.value = currentWeight;
+  if (sliderSize) sliderSize.value = parseFloat(currentSize).toString();
+  if (valSpacing) valSpacing.textContent = currentSpacing;
+  if (valWeight) valWeight.textContent = currentWeight;
+  if (valSize) valSize.textContent = currentSize;
+  renderFontList();
+  applyTypography();
+</script>
