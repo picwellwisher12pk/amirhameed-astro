@@ -308,40 +308,92 @@ header {
   border-color: rgba(212, 175, 55, 0.18) !important;
 }
 
-/* In Luxury Theme: Buttons are like simple classical links */
-[data-theme="luxury"] .bg-indigo-600,
-[data-theme="luxury"] .bg-indigo-500,
-[data-theme="luxury"] .luxury-seq-4 a,
-[data-theme="luxury"] section a.rounded-xl {
-  background: transparent !important;
-  color: #d4af37 !important;
+/* Luxury Hero & Accent Action Buttons (Border-free seamless luxury pills) */
+[data-theme="luxury"] .luxury-hero-btn-primary {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.10) 100%) !important;
   border: none !important;
-  box-shadow: none !important;
-  font-family: 'Cinzel', serif !important;
-  font-weight: 600 !important;
-  font-size: 0.9rem !important;
-  letter-spacing: 0.12em !important;
+  color: #f7eed2 !important;
+  box-shadow: 0 0 28px rgba(212, 175, 55, 0.20) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.09em !important;
   text-transform: uppercase !important;
-  padding: 0.4rem 0.6rem !important;
-  border-radius: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.4rem !important;
-  text-decoration: none !important;
-  transition: color 0.25s ease, text-shadow 0.25s ease !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-[data-theme="luxury"] .bg-indigo-600:hover,
-[data-theme="luxury"] .bg-indigo-500:hover,
-[data-theme="luxury"] .luxury-seq-4 a:hover,
-[data-theme="luxury"] section a.rounded-xl:hover {
-  background: transparent !important;
-  color: #fcf4cf !important;
-  text-decoration: underline !important;
-  text-underline-offset: 6px !important;
-  text-shadow: 0 0 16px rgba(212, 175, 55, 0.5) !important;
-  box-shadow: none !important;
-  transform: none !important;
+[data-theme="luxury"] .luxury-hero-btn-primary:hover {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0.18) 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.40) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  text-decoration: none !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-secondary {
+  background: rgba(22, 22, 28, 0.75) !important;
+  border: none !important;
+  color: #ded8cb !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.09em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-secondary:hover {
+  background: rgba(32, 32, 40, 0.95) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.25) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  text-decoration: none !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-tertiary {
+  border: none !important;
+  color: #a8a295 !important;
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.09em !important;
+  text-transform: uppercase !important;
+  transition: all 0.25s ease !important;
+}
+
+[data-theme="luxury"] .luxury-hero-btn-tertiary:hover {
+  border: none !important;
+  color: #d4af37 !important;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.5) !important;
+  transform: translateX(2px) !important;
+  text-decoration: none !important;
+}
+
+/* Luxury Hero Headline & Bio Typographic Polish */
+[data-theme="luxury"] .luxury-seq-1 {
+  font-family: var(--luxury-nav-font, 'Cinzel', serif) !important;
+  letter-spacing: 0.12em !important;
+  border: none !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+}
+
+[data-theme="luxury"] .luxury-seq-2 {
+  font-family: var(--luxury-heading-font, 'Cinzel', serif) !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+
+[data-theme="luxury"] .luxury-seq-3 {
+  font-family: var(--luxury-body-font, 'Cormorant Garamond', Georgia, serif) !important;
+  text-transform: none !important;
+  letter-spacing: 0.015em !important;
+  color: #dcd8d0 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.75 !important;
 }
 
 /* Replay Intro Floating Button (Bottom Right, above Font Studio) */
