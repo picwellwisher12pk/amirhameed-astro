@@ -1,27 +1,30 @@
 ---
-// Theme Switcher Widget
+// Theme Switcher Widget (Embedded in Footer - Disabled for now)
 ---
 
-<!-- Floating Theme Switcher Button (Bottom Left) -->
-<div id="theme-switcher-widget" class="fixed bottom-6 left-6 z-50 theme-switcher-widget luxury-seq-rest">
+<!-- Footer Embedded Theme Switcher Widget -->
+<div id="theme-switcher-widget" class="relative inline-flex items-center theme-switcher-widget">
   <div class="relative">
     <button 
       id="theme-switcher-toggle"
-      class="flex items-center gap-2 px-3.5 py-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-lg shadow-zinc-950/10 text-xs font-mono text-zinc-700 dark:text-zinc-300 hover:border-indigo-500 transition-all hover:scale-105 cursor-pointer"
-      title="Customize Theme & Layout"
+      disabled
+      aria-disabled="true"
+      class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800/90 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm text-xs font-mono text-zinc-400 dark:text-zinc-500 cursor-not-allowed opacity-75 select-none transition-all"
+      title="Theme switching is disabled for now"
     >
-      <span class="w-2.5 h-2.5 rounded-full bg-indigo-500" id="active-theme-dot"></span>
-      <span id="active-theme-name" class="font-medium">Modern</span>
+      <span class="w-2 h-2 rounded-full bg-[#d4af37]" id="active-theme-dot"></span>
+      <span id="active-theme-name" class="font-medium">Luxury Classical</span>
       <!-- Palette icon -->
-      <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="w-3.5 h-3.5 text-zinc-400/80 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h4a5 5 0 015 5 4 4 0 01-4 4H7zM12 3v6m0 0l-3-3m3 3l3-3" />
       </svg>
+      <span class="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-200/50 dark:bg-zinc-800/60 text-zinc-500 dark:text-zinc-400 font-sans">Disabled</span>
     </button>
 
-    <!-- Dropdown / Modal Panel -->
+    <!-- Dropdown / Modal Panel (Kept for future re-enabling; pops up above footer) -->
     <div 
       id="theme-switcher-menu" 
-      class="hidden absolute bottom-12 left-0 w-72 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-2xl space-y-3 font-sans"
+      class="hidden absolute bottom-full mb-3 right-0 sm:right-auto sm:left-0 w-72 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-2xl space-y-3 font-sans z-50 pointer-events-none"
     >
       <div class="flex items-center justify-between pb-2 border-b border-zinc-100 dark:border-zinc-800">
         <span class="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-wider font-mono">Theme Personality</span>
@@ -137,7 +140,7 @@
     luxury: '#d4af37'
   };
 
-  const toggleBtn = document.getElementById('theme-switcher-toggle');
+  const toggleBtn = document.getElementById('theme-switcher-toggle') as HTMLButtonElement | null;
   const menu = document.getElementById('theme-switcher-menu');
   const closeBtn = document.getElementById('close-theme-menu');
   const activeDot = document.getElementById('active-theme-dot');
@@ -146,10 +149,12 @@
   const abBtn = document.getElementById('toggle-ab-mode');
   const abStatus = document.getElementById('ab-status');
 
+  // Theme switcher is currently disabled
+  const IS_DISABLED = true;
+
   function updateUI(theme: string) {
-    document.documentElement.setAttribute('data-theme', theme);
     if (activeName) activeName.textContent = themeNames[theme] || 'Theme';
-    if (activeDot) activeDot.style.backgroundColor = themeColors[theme] || '#6366f1';
+    if (activeDot) activeDot.style.backgroundColor = themeColors[theme] || '#d4af37';
 
     options.forEach((opt) => {
       const choice = opt.getAttribute('data-theme-choice');
@@ -174,9 +179,11 @@
     }
   }
 
-  // Toggle menu
+  // Toggle menu (prevented while disabled)
   toggleBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
+    if (IS_DISABLED) return;
     menu?.classList.toggle('hidden');
   });
 
@@ -190,33 +197,35 @@
     }
   });
 
-  // Select manual theme
+  // Select manual theme (prevented while disabled)
   options.forEach((opt) => {
     opt.addEventListener('click', () => {
-      const choice = opt.getAttribute('data-theme-choice') || 'modern';
+      if (IS_DISABLED) return;
+      const choice = opt.getAttribute('data-theme-choice') || 'luxury';
       localStorage.setItem('user-theme', choice);
-      localStorage.setItem('ab-theme-mode', 'false'); // turning off AB mode on explicit choice
+      localStorage.setItem('ab-theme-mode', 'false');
+      document.documentElement.setAttribute('data-theme', choice);
       updateUI(choice);
     });
   });
 
-  // Toggle A/B Random mode
+  // Toggle A/B Random mode (prevented while disabled)
   abBtn?.addEventListener('click', () => {
+    if (IS_DISABLED) return;
     const isAb = localStorage.getItem('ab-theme-mode') === 'true';
     const nextState = !isAb;
     localStorage.setItem('ab-theme-mode', String(nextState));
 
     if (nextState) {
-      // Pick random theme
       const randomTheme = themes[Math.floor(Math.random() * themes.length)];
       localStorage.setItem('user-theme', randomTheme);
       updateUI(randomTheme);
     } else {
-      updateUI(localStorage.getItem('user-theme') || 'modern');
+      updateUI(localStorage.getItem('user-theme') || 'luxury');
     }
   });
 
   // Initialize on load
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'modern';
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'luxury';
   updateUI(currentTheme);
 </script>

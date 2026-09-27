@@ -310,14 +310,28 @@ header {
    pure metallic hairlines, high-contrast ivory typography & radiant gold links.
    ========================================================================= */
 
-/* Seamless Dark Canvas & Zero Section Backgrounds */
+/* Seamless Dark Canvas & Zero Section Backgrounds & Dividers */
+[data-theme="luxury"] section,
 [data-theme="luxury"] .luxury-editorial-section,
 [data-theme="luxury"] .luxury-skills-section,
+[data-theme="luxury"] .luxury-cta-section,
 [data-theme="luxury"] .bg-zinc-100\/40,
 [data-theme="luxury"] .dark\:bg-zinc-900\/30 {
   background: transparent !important;
   background-color: transparent !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.14) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border: none !important;
+}
+
+/* Zero Section Dividers on Subpages and Sections for Luxury Theme */
+[data-theme="luxury"] section.border-b,
+[data-theme="luxury"] section.border-t,
+[data-theme="luxury"] .border-b.pb-12,
+[data-theme="luxury"] .border-b.py-12 {
+  border-top: none !important;
+  border-bottom: none !important;
+  border: none !important;
 }
 
 /* Section Headings & Subtitles */
@@ -543,8 +557,8 @@ header {
   background: transparent !important;
   background-image: none !important;
   border: none !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-top: none !important;
+  border-bottom: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   padding: 4.5rem 0 !important;
@@ -568,7 +582,8 @@ header {
 
 [data-theme="luxury"] footer {
   background-color: #000000 !important;
-  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  border: none !important;
+  border-top: none !important;
 }
 
 /* Luxury Theme: ONLY EDITORIAL LINKS — NO BUTTONS */
