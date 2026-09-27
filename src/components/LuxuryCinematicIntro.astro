@@ -17,10 +17,10 @@
   class="fixed inset-0 z-[5] pointer-events-none hidden"
   aria-hidden="true"></canvas>
 
-<!-- Neural Constellation synaptic filaments canvas (Overlay 2D) -->
+<!-- Foreground nano-particles & constellation overlay (Fullscreen 2D Canvas above text & images) -->
 <canvas
   id="luxury-constellation-canvas"
-  class="fixed inset-0 z-[6] pointer-events-none hidden"
+  class="fixed inset-0 z-[20] pointer-events-none hidden"
   aria-hidden="true"></canvas>
 
 <!-- Interactive On-Screen Transform Gizmo (Visible when Particle Studio is open) -->
@@ -107,7 +107,7 @@
       alignY: 0.48698481561822127,
     },
     {
-      scale: 1.047331014887852,
+      scale: 1.5,
       alignX: 0.7465314834578441,
       alignY: 0.48590021691973967,
     },
@@ -139,13 +139,13 @@
     returnSpeed: 0.035,
     dragDamping: 0.9,
 
-    // 3. OPACITY & TEXT CONTRAST (50% dimming after animation completes)
-    initialOpacity: 1.0,
+    // 3. OPACITY & TEXT CONTRAST (Steady 50% opacity from loading across entire life cycle)
+    initialOpacity: 0.5,
     settledDimOpacity: 0.5,
-    dimTransitionDuration: 1.4,
+    dimTransitionDuration: 1.0,
 
     // 4. TIMING & GRADUAL SEQUENTIAL REVEAL
-    introGatherDuration: 2200,
+    introGatherDuration: 2600,
     elementStaggerDelay: 320,
 
     // 5. SCROLL ARCHITECTURE & MULTI-PICTURE MORPHING
@@ -239,6 +239,7 @@
     attribute vec3 a_colorB;
     attribute vec2 a_origin;
     attribute vec4 a_params; // x: delay, y: duration, z: size, w: curl
+    attribute float a_scatter; // 0.0: assembles into picture (99%), 1.0: permanent wanderer (1%)
 
     uniform float u_time;
     uniform vec2 u_resolution;
@@ -326,6 +327,24 @@
       vec2 targetPosA = u_centerA + a_targetA * u_sizeA;
       vec2 targetPosB = u_centerB + a_targetB * u_sizeB;
 
+      // High-entropy per-particle pseudo-random seeds: breaks any artificial banding
+      float pRnd1 = fract(sin(dot(a_targetA.xy + vec2(curl, size), vec2(12.9898, 78.233))) * 43758.5453);
+      float pRnd2 = fract(sin(dot(a_targetB.xy + vec2(size, -curl), vec2(39.346, 11.135))) * 28462.6315);
+      float pRnd3 = fract(a_params.x * 0.0071 + curl * 13.37);
+
+      // Screen origin in absolute pixels:
+      vec2 screenOrigin = a_origin * u_resolution;
+
+      // Ambient wandering flow across viewport:
+      // When page loads, particles move randomly "here and there"
+      vec2 driftCoord = screenOrigin * 0.0016 + vec2(u_time * 0.00015, -u_time * 0.00012);
+      vec2 curlWander = curlNoise(driftCoord) * 36.0;
+      vec2 harmonicWander = vec2(
+        sin(u_time * 0.0013 * (0.7 + pRnd1 * 0.6) + pRnd2 * 6.283) * 26.0,
+        cos(u_time * 0.0010 * (0.7 + pRnd2 * 0.6) + pRnd3 * 6.283) * 22.0
+      );
+      vec2 liveOrigin = screenOrigin + curlWander + harmonicWander;
+
       // =====================================================================
       // 5 SELECTABLE MORPH STYLES (u_morph_style 1–5)
       // =====================================================================
@@ -334,12 +353,6 @@
       vec2 morphedTarget;
       vec3 morphedColor;
       float morphHighlight = 0.0; // extra brightness at the wave/transition front
-
-      // High-entropy per-particle pseudo-random seeds: breaks any artificial banding
-      float pRnd1 = fract(sin(dot(a_targetA.xy + vec2(curl, size), vec2(12.9898, 78.233))) * 43758.5453);
-      float pRnd2 = fract(sin(dot(a_targetB.xy + vec2(size, -curl), vec2(39.346, 11.135))) * 28462.6315);
-      float pRnd3 = fract(a_params.x * 0.0071 + curl * 13.37);
-
       // ---------------------------------------------------------------
       // STYLE 1: DIRECT SPATIAL FLOW
       // Particles flow directly from their A target to B target.
@@ -508,11 +521,13 @@
       vec3 finalColor = mix(morphedColor, goldHighlight, clamp(morphHighlight, 0.0, 1.0) * 0.65);
       float pointSize = size * (1.0 + morphHighlight * 0.6 + (1.0 - progress) * 0.6);
 
-      // Organic bidirectional vortex curl during gathering flight
-      float swirlAngle = (1.0 - ease) * curl;
-      vec2 diff = a_origin - morphedTarget;
-      float cosA = cos(swirlAngle);
-      float sinA = sin(swirlAngle);
+      // Gathering flight with dynamic swirl:
+      // When progress == 0.0, gatherSwirl is 0 so particle is at liveOrigin drifting freely.
+      // As progress goes from 0.0 to 1.0, gatherSwirl gracefully spirals into morphedTarget.
+      float gatherSwirl = sin(progress * 3.14159) * curl * 0.85;
+      vec2 diff = liveOrigin - morphedTarget;
+      float cosA = cos(gatherSwirl);
+      float sinA = sin(gatherSwirl);
       vec2 rotatedDiff = vec2(
         diff.x * cosA - diff.y * sinA,
         diff.x * sinA + diff.y * cosA
@@ -524,6 +539,35 @@
       if (progress >= 1.0) {
         float shimmer = sin(u_time * 0.002 + morphedTarget.x * 0.01 + morphedTarget.y * 0.01) * 0.6;
         pos.y += shimmer;
+      }
+
+      // ---------------------------------------------------------------
+      // 1% PERMANENT SCATTERED WANDERERS:
+      // They NEVER assemble into the picture; they remain distributed
+      // across the viewport, drifting continuously in cosmic currents.
+      // ---------------------------------------------------------------
+      if (a_scatter > 0.5) {
+        // While particles are assembling (500ms to 2400ms), wanderers migrate toward assembly center
+        // Once assembly completes, inward motion stops and they continue scattered in viewport
+        float gatherProgress = clamp((u_time - 500.0) / 1900.0, 0.0, 1.0);
+        float pullEase = gatherProgress * gatherProgress * (3.0 - 2.0 * gatherProgress);
+        pullEase = pullEase * pullEase * (3.0 - 2.0 * pullEase);
+
+        float pullFraction = 0.18 + 0.28 * pRnd2;
+        vec2 assemblyCenter = u_centerA;
+        vec2 toCenter = assemblyCenter - screenOrigin;
+        vec2 inwardOffset = toCenter * (pullFraction * pullEase);
+
+        vec2 cosmicNoise = curlNoise(screenOrigin * 0.0011 + vec2(u_time * 0.00010, -u_time * 0.00008)) * 65.0;
+        vec2 cosmicSine = vec2(
+          sin(u_time * 0.0009 * (0.6 + pRnd3 * 0.8) + pRnd1 * 6.283) * 45.0,
+          cos(u_time * 0.0007 * (0.6 + pRnd2 * 0.8) + pRnd3 * 6.283) * 35.0
+        );
+        pos = screenOrigin + inwardOffset + cosmicNoise + cosmicSine;
+
+        // Soft sparkling celestial gold dust
+        finalColor = mix(vec3(0.96, 0.84, 0.43), vec3(1.0, 0.94, 0.72), pRnd1);
+        pointSize = size * (1.15 + sin(u_time * 0.0028 + pRnd2 * 6.283) * 0.35);
       }
 
       // =====================================================================
@@ -706,7 +750,19 @@
       gl_PointSize = pointSize;
 
       v_color = finalColor;
-      v_alpha = min(1.0, pElapsed / 250.0) * u_dim_factor;
+
+      // Fixed 50% opacity from loading across entire life cycle:
+      float initialFade = min(1.0, u_time / 80.0);
+      float baseOpacity = 0.50;
+
+      if (a_scatter > 0.5) {
+        // 1% ambient wanderers: 50% opacity with subtle starry twinkle
+        float twinkle = 0.88 + 0.12 * sin(u_time * 0.003 + pRnd1 * 6.283);
+        v_alpha = initialFade * baseOpacity * twinkle;
+      } else {
+        // 99% assembling image particles: steady 50% opacity throughout
+        v_alpha = initialFade * baseOpacity;
+      }
     }
   `;
 
@@ -913,18 +969,21 @@
     // Preserves 2D spatial locality in all directions equally without raster lines.
     // -------------------------------------------------------------------------
     function computeSpatialKey(nx: number, ny: number): number {
-      const u = Math.max(0, Math.min(1023, Math.floor(((nx / imgAspect) + 0.5) * 1023)));
+      const u = Math.max(
+        0,
+        Math.min(1023, Math.floor((nx / imgAspect + 0.5) * 1023)),
+      );
       const v = Math.max(0, Math.min(1023, Math.floor((ny + 0.5) * 1023)));
 
       let x = u;
       let y = v;
-      x = (x | (x << 8)) & 0x00FF00FF;
-      x = (x | (x << 4)) & 0x0F0F0F0F;
+      x = (x | (x << 8)) & 0x00ff00ff;
+      x = (x | (x << 4)) & 0x0f0f0f0f;
       x = (x | (x << 2)) & 0x33333333;
       x = (x | (x << 1)) & 0x55555555;
 
-      y = (y | (y << 8)) & 0x00FF00FF;
-      y = (y | (y << 4)) & 0x0F0F0F0F;
+      y = (y | (y << 8)) & 0x00ff00ff;
+      y = (y | (y << 4)) & 0x0f0f0f0f;
       y = (y | (y << 2)) & 0x33333333;
       y = (y | (y << 1)) & 0x55555555;
 
@@ -964,6 +1023,19 @@
   let activeImageAspects: number[] = [];
   let constellationNodes: { nx: number; ny: number }[] = [];
 
+  interface ForegroundStardust {
+    nox: number;
+    noy: number;
+    size: number;
+    speed: number;
+    pullFraction: number;
+    seed1: number;
+    seed2: number;
+    seed3: number;
+    isGold: boolean;
+  }
+  let foregroundParticles: ForegroundStardust[] = [];
+
   async function initLuxuryCinematicIntro() {
     if (currentAnimId) {
       cancelAnimationFrame(currentAnimId);
@@ -980,6 +1052,22 @@
       "luxury-constellation-canvas",
     ) as HTMLCanvasElement | null;
     constellCtx = constellCanvas?.getContext("2d") || null;
+
+    foregroundParticles = [];
+    const FG_COUNT = window.innerWidth < 768 ? 160 : 360;
+    for (let i = 0; i < FG_COUNT; i++) {
+      foregroundParticles.push({
+        nox: Math.random() * 1.06 - 0.03,
+        noy: Math.random() * 1.06 - 0.03,
+        size: Math.random() * 1.4 + 0.9,
+        speed: 0.6 + Math.random() * 0.8,
+        pullFraction: 0.16 + Math.random() * 0.28,
+        seed1: Math.random() * 1000.0,
+        seed2: Math.random() * 1000.0,
+        seed3: Math.random() * 1000.0,
+        isGold: Math.random() < 0.72,
+      });
+    }
     const portraitImg = document.getElementById(
       "luxury-portrait-img",
     ) as HTMLImageElement | null;
@@ -1103,23 +1191,32 @@
       return vbo;
     });
 
-    const baseBuffer = new Float32Array(TARGET_PARTICLES * 6);
+    const STRIDE = 7;
+    const baseBuffer = new Float32Array(TARGET_PARTICLES * STRIDE);
     for (let p = 0; p < TARGET_PARTICLES; p++) {
-      const ox = (Math.random() * 1.3 - 0.15) * screenW;
-      const oy = (Math.random() * 1.3 - 0.15) * screenH;
-      const delay = Math.random() * 650;
-      const duration = 1500 + Math.random() * 500;
+      // Normalized screen coordinates [-0.03, 1.03] so particles cover full screen
+      const nox = Math.random() * 1.06 - 0.03;
+      const noy = Math.random() * 1.06 - 0.03;
+
+      // 1% of particles permanently stay scattered in viewport
+      // 99% assemble into the pictures
+      const isScatter = p % 100 === 0 ? 1.0 : 0.0;
+
+      // Half-second (500ms) delay before 99% start assembling, staggered over 0-600ms
+      const delay = 500.0 + Math.random() * 600.0;
+      const duration = 1400.0 + Math.random() * 500.0;
       const size = Math.random() * 1.3 + 0.9;
       const curl =
         (Math.random() < 0.5 ? -1.0 : 1.0) * (0.8 + Math.random() * 1.4);
 
-      const base = p * 6;
-      baseBuffer[base] = ox;
-      baseBuffer[base + 1] = oy;
+      const base = p * STRIDE;
+      baseBuffer[base] = nox;
+      baseBuffer[base + 1] = noy;
       baseBuffer[base + 2] = delay;
       baseBuffer[base + 3] = duration;
       baseBuffer[base + 4] = size;
       baseBuffer[base + 5] = curl;
+      baseBuffer[base + 6] = isScatter;
     }
 
     const baseVBO = gl.createBuffer();
@@ -1133,6 +1230,7 @@
     const aColorBLoc = gl.getAttribLocation(program, "a_colorB");
     const aOriginLoc = gl.getAttribLocation(program, "a_origin");
     const aParamsLoc = gl.getAttribLocation(program, "a_params");
+    const aScatterLoc = gl.getAttribLocation(program, "a_scatter");
 
     // Uniform Locations
     const uTimeLoc = gl.getUniformLocation(program, "u_time");
@@ -1365,9 +1463,11 @@
       // Bind Base
       gl.bindBuffer(gl.ARRAY_BUFFER, baseVBO);
       gl.enableVertexAttribArray(aOriginLoc);
-      gl.vertexAttribPointer(aOriginLoc, 2, gl.FLOAT, false, 6 * 4, 0);
+      gl.vertexAttribPointer(aOriginLoc, 2, gl.FLOAT, false, 7 * 4, 0);
       gl.enableVertexAttribArray(aParamsLoc);
-      gl.vertexAttribPointer(aParamsLoc, 4, gl.FLOAT, false, 6 * 4, 2 * 4);
+      gl.vertexAttribPointer(aParamsLoc, 4, gl.FLOAT, false, 7 * 4, 2 * 4);
+      gl.enableVertexAttribArray(aScatterLoc);
+      gl.vertexAttribPointer(aScatterLoc, 1, gl.FLOAT, false, 7 * 4, 6 * 4);
 
       gl.drawArrays(gl.POINTS, 0, TARGET_PARTICLES);
 
@@ -1378,6 +1478,79 @@
           constellCanvas.height = curH;
         }
         constellCtx.clearRect(0, 0, curW, curH);
+
+        // -------------------------------------------------------------
+        // Render Foreground Stardust Particles (Floating ABOVE text & images at z-[20])
+        // Tendency to move toward assembly location while assembling, then stops
+        // -------------------------------------------------------------
+        const gatherProgress = Math.min(
+          1.0,
+          Math.max(0.0, (elapsed - 500.0) / 1900.0),
+        );
+        let pullEase =
+          gatherProgress * gatherProgress * (3.0 - 2.0 * gatherProgress);
+        pullEase = pullEase * pullEase * (3.0 - 2.0 * pullEase);
+
+        const initialFade = Math.min(1.0, elapsed / 80.0);
+        const timeSec = elapsed * 0.001;
+
+        const targetCX = centerAX;
+        const targetCY = centerAY;
+
+        const count = foregroundParticles.length;
+        for (let i = 0; i < count; i++) {
+          const p = foregroundParticles[i];
+          const originX = p.nox * curW;
+          const originY = p.noy * curH;
+
+          // While assembling, migrate toward picture center, stopping when assembly finishes
+          const toCX = targetCX - originX;
+          const toCY = targetCY - originY;
+          const pullX = toCX * (p.pullFraction * pullEase);
+          const pullY = toCY * (p.pullFraction * pullEase);
+
+          // Continuous organic ambient drift across viewport
+          const wanderX =
+            Math.sin(timeSec * 0.7 * p.speed + p.seed1) * 35.0 +
+            Math.cos(timeSec * 0.4 + p.seed2) * 15.0;
+          const wanderY =
+            Math.cos(timeSec * 0.6 * p.speed + p.seed2) * 28.0 +
+            Math.sin(timeSec * 0.35 + p.seed1) * 12.0;
+
+          let px = originX + pullX + wanderX;
+          let py = originY + pullY + wanderY;
+
+          // Interactive cursor force field displacement
+          if (easedMouseActive > 0.01 && mouseX > -100) {
+            const dx = px - mouseX;
+            const dy = py - mouseY;
+            const dist = Math.hypot(dx, dy);
+            const radius = PARTICLE_CONFIG.cursorRadius * 1.25;
+            if (dist < radius && dist > 1.0) {
+              const force =
+                (1.0 - dist / radius) *
+                22.0 *
+                easedMouseActive *
+                PARTICLE_CONFIG.effectIntensity;
+              px += (dx / dist) * force;
+              py += (dy / dist) * force;
+            }
+          }
+
+          // Fixed 50% opacity across entire life cycle
+          const twinkle =
+            0.88 + 0.12 * Math.sin(timeSec * 2.2 + p.seed3);
+          const alpha = initialFade * 0.50 * twinkle;
+
+          const fillStyle = p.isGold
+            ? `rgba(212, 175, 55, ${alpha.toFixed(3)})`
+            : `rgba(255, 238, 180, ${alpha.toFixed(3)})`;
+
+          constellCtx.fillStyle = fillStyle;
+          constellCtx.beginPath();
+          constellCtx.arc(px, py, p.size, 0, Math.PI * 2);
+          constellCtx.fill();
+        }
 
         if (
           PARTICLE_CONFIG.interactiveMode === 7 &&
@@ -2108,7 +2281,12 @@
         PARTICLE_CONFIG.cursorRadius = radius;
       },
       selectImageTab: (idx: number) => selectImageTab(idx),
-      setLayout: (idx: number, scale: number, alignX: number, alignY: number) => {
+      setLayout: (
+        idx: number,
+        scale: number,
+        alignX: number,
+        alignY: number,
+      ) => {
         const layout = getImageLayout(idx);
         layout.scale = scale;
         layout.alignX = alignX;
@@ -2374,7 +2552,10 @@
     }
   }
 
-  function setupPanelDrag(header: HTMLElement | null, panel: HTMLElement | null) {
+  function setupPanelDrag(
+    header: HTMLElement | null,
+    panel: HTMLElement | null,
+  ) {
     if (!header || !panel) return;
 
     let isDragging = false;
