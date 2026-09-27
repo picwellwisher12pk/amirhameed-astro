@@ -320,34 +320,7 @@ const skills = [
     </div>
   </section>
 
-  <!-- Floating Replay Intro Button (Bottom Right, directly above Font Studio) -->
-  <button
-    id="replay-luxury-btn"
-    class="fixed bottom-[74px] right-6 z-50 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-[#d4af37] shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all hover:scale-105 cursor-pointer"
-    title="Replay cinematic particle gathering intro"
-  >
-    <svg
-      class="w-3.5 h-3.5 text-indigo-600 dark:text-[#d4af37]"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-      ></path>
-    </svg>
-    <span>Replay Intro</span>
-  </button>
-
   <script>
-    const replayBtn = document.getElementById("replay-luxury-btn");
-    replayBtn?.addEventListener("click", () => {
-      window.dispatchEvent(new CustomEvent("replay-luxury-intro"));
-    });
-
     function updateMorphing() {
       const isLuxury =
         document.documentElement.getAttribute("data-theme") === "luxury";

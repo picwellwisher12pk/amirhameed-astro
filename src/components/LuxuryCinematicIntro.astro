@@ -4,25 +4,24 @@
 ---
 
 <!-- Pitch-black cinematic veil (active during luxury theme entrance) -->
-<div 
-  id="luxury-veil" 
+<div
+  id="luxury-veil"
   class="fixed inset-0 z-[2] bg-black pointer-events-none transition-opacity duration-1000 opacity-0 hidden"
   aria-hidden="true"
-></div>
+>
+</div>
 
 <!-- Massive high-density nano-particle gathering canvas (Fullscreen WebGL) -->
-<canvas 
-  id="luxury-particle-canvas" 
+<canvas
+  id="luxury-particle-canvas"
   class="fixed inset-0 z-[5] pointer-events-none hidden"
-  aria-hidden="true"
-></canvas>
+  aria-hidden="true"></canvas>
 
 <!-- Neural Constellation synaptic filaments canvas (Overlay 2D) -->
-<canvas 
-  id="luxury-constellation-canvas" 
+<canvas
+  id="luxury-constellation-canvas"
   class="fixed inset-0 z-[6] pointer-events-none hidden"
-  aria-hidden="true"
-></canvas>
+  aria-hidden="true"></canvas>
 
 <!-- Interactive On-Screen Transform Gizmo (Visible when Particle Studio is open) -->
 <div
@@ -32,7 +31,9 @@
   aria-label="Particle Image Placement Gizmo"
 >
   <!-- Image Info & Coordinate Badge at Top Left -->
-  <div class="absolute -top-8 left-0 px-2.5 py-1 rounded-md bg-zinc-950/95 border border-[#d4af37]/50 text-[11px] font-mono text-[#d4af37] whitespace-nowrap pointer-events-none flex items-center gap-2 shadow-2xl backdrop-blur-md">
+  <div
+    class="absolute -top-8 left-0 px-2.5 py-1 rounded-md bg-zinc-950/95 border border-[#d4af37]/50 text-[11px] font-mono text-[#d4af37] whitespace-nowrap pointer-events-none flex items-center gap-2 shadow-2xl backdrop-blur-md"
+  >
     <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
     <span id="gizmo-label" class="font-bold">Image 1</span>
     <span class="text-zinc-600">|</span>
@@ -40,358 +41,58 @@
   </div>
 
   <!-- Center Crosshair & Guideline Indicator -->
-  <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40"
+  >
     <div class="w-6 h-[1px] bg-[#d4af37]"></div>
     <div class="h-6 w-[1px] bg-[#d4af37] absolute"></div>
   </div>
 
   <!-- Drag Center Helper Instruction -->
-  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-    <span class="text-[10px] font-mono text-[#d4af37]/40 uppercase tracking-widest bg-zinc-950/40 px-2 py-0.5 rounded">
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none"
+  >
+    <span
+      class="text-[10px] font-mono text-[#d4af37]/40 uppercase tracking-widest bg-zinc-950/40 px-2 py-0.5 rounded"
+    >
       Drag to Move · Handles to Scale
     </span>
   </div>
 
   <!-- 4 Corner Handles for Scaling -->
-  <div class="gizmo-handle nw absolute -top-2.5 -left-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nwse-resize shadow-lg hover:scale-125 transition-transform"></div>
-  <div class="gizmo-handle ne absolute -top-2.5 -right-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nesw-resize shadow-lg hover:scale-125 transition-transform"></div>
-  <div class="gizmo-handle se absolute -bottom-2.5 -right-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nwse-resize shadow-lg hover:scale-125 transition-transform"></div>
-  <div class="gizmo-handle sw absolute -bottom-2.5 -left-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nesw-resize shadow-lg hover:scale-125 transition-transform"></div>
+  <div
+    class="gizmo-handle nw absolute -top-2.5 -left-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nwse-resize shadow-lg hover:scale-125 transition-transform"
+  >
+  </div>
+  <div
+    class="gizmo-handle ne absolute -top-2.5 -right-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nesw-resize shadow-lg hover:scale-125 transition-transform"
+  >
+  </div>
+  <div
+    class="gizmo-handle se absolute -bottom-2.5 -right-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nwse-resize shadow-lg hover:scale-125 transition-transform"
+  >
+  </div>
+  <div
+    class="gizmo-handle sw absolute -bottom-2.5 -left-2.5 w-5 h-5 bg-[#d4af37] border-2 border-zinc-950 rounded-md cursor-nesw-resize shadow-lg hover:scale-125 transition-transform"
+  >
+  </div>
 
   <!-- 4 Edge Handles -->
-  <div class="gizmo-handle n absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-3 bg-[#d4af37] border border-zinc-950 rounded cursor-ns-resize shadow-lg hover:scale-110 transition-transform"></div>
-  <div class="gizmo-handle s absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-3 bg-[#d4af37] border border-zinc-950 rounded cursor-ns-resize shadow-lg hover:scale-110 transition-transform"></div>
-  <div class="gizmo-handle w absolute top-1/2 -left-2 -translate-y-1/2 w-3 h-6 bg-[#d4af37] border border-zinc-950 rounded cursor-ew-resize shadow-lg hover:scale-110 transition-transform"></div>
-  <div class="gizmo-handle e absolute top-1/2 -right-2 -translate-y-1/2 w-3 h-6 bg-[#d4af37] border border-zinc-950 rounded cursor-ew-resize shadow-lg hover:scale-110 transition-transform"></div>
-</div>
-
-<!-- Floating Luxury Effect Showcase Dock (Bottom Center) -->
-<div 
-  id="luxury-mode-dock" 
-  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 p-1.5 rounded-full bg-zinc-950/90 border border-[#d4af37]/40 shadow-[0_12px_45px_rgba(0,0,0,0.85)] backdrop-blur-xl text-xs font-mono select-none transition-all duration-300 ease-in-out pointer-events-auto opacity-0 translate-y-4"
-  style="box-shadow: 0 10px 35px -5px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.18);"
->
-  <!-- Badge Label -->
-  <div class="hidden md:flex items-center gap-2 pl-3 pr-2 py-1 text-[#d4af37]">
-    <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
-    <span class="text-[11px] font-serif font-bold uppercase tracking-wider">Effect Showcase</span>
-  </div>
-
-  <!-- 8 Mode Switch Buttons -->
-  <div class="flex items-center gap-1">
-    <button type="button" data-dock-mode="1" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="1. Volumetric Quantum Aura (Press 1)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">1</span>
-      <span>Quantum Aura</span>
-    </button>
-    <button type="button" data-dock-mode="2" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="2. Silk Surface Ripple (Press 2)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">2</span>
-      <span>Silk Ripple</span>
-    </button>
-    <button type="button" data-dock-mode="3" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="3. Celestial Lantern (Press 3)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">3</span>
-      <span>Celestial Lantern</span>
-    </button>
-    <button type="button" data-dock-mode="4" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="4. Gravitational Lens (Press 4)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">4</span>
-      <span>Gravity Lens</span>
-    </button>
-    <button type="button" data-dock-mode="5" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="5. Fluid Stardust Wake (Press 5)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">5</span>
-      <span>Fluid Wake</span>
-    </button>
-    <button type="button" data-dock-mode="6" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="6. Simple Soft Physics Displace (Press 6)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">6</span>
-      <span>Soft Physics</span>
-    </button>
-    <button type="button" data-dock-mode="7" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="7. Neural Constellation (Press 7)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">7</span>
-      <span>Neural Web</span>
-    </button>
-    <button type="button" data-dock-mode="8" class="dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800" title="8. Holographic Cyber Scanlines (Press 8)">
-      <span class="dock-badge w-4 h-4 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold">8</span>
-      <span>Cyber Scanlines</span>
-    </button>
-  </div>
-
-  <!-- Divider -->
-  <div class="h-4 w-[1px] bg-zinc-800 mx-1"></div>
-
-  <!-- Randomize on Load Button -->
-  <button
-    id="dock-random-btn"
-    type="button"
-    class="px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800/80 border border-transparent"
-    title="Play random effect on each page load (Press R)"
+  <div
+    class="gizmo-handle n absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-3 bg-[#d4af37] border border-zinc-950 rounded cursor-ns-resize shadow-lg hover:scale-110 transition-transform"
   >
-    <span class="text-xs">🎲</span>
-    <span id="dock-random-text">Random Load</span>
-  </button>
-
-  <!-- Keep This One Button -->
-  <button
-    id="dock-lock-btn"
-    type="button"
-    class="px-3 py-1.5 rounded-full bg-[#d4af37]/20 hover:bg-[#d4af37] text-[#d4af37] hover:text-zinc-950 border border-[#d4af37]/60 font-semibold text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap"
-    title="Keep this selected effect permanently on every load"
-  >
-    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-    <span id="dock-lock-text">Keep This</span>
-  </button>
-
-  <!-- Minimize / Close Button -->
-  <button
-    id="dock-minimize-btn"
-    type="button"
-    class="w-6 h-6 rounded-full flex items-center justify-center text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors duration-200 ease-in-out ml-0.5"
-    title="Minimize dock"
-  >
-    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-  </button>
-</div>
-
-<!-- Minimized Dock Pill (Appears when dock is minimized) -->
-<button
-  id="luxury-mode-dock-minimized"
-  type="button"
-  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-950/90 border border-[#d4af37]/40 shadow-xl backdrop-blur-xl text-xs font-mono text-[#d4af37] hover:border-[#d4af37] transition-all duration-300 ease-in-out cursor-pointer"
-  title="Click to reopen Effect Showcase Dock"
->
-  <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
-  <span class="font-semibold">🔮 Try Effects (Keys 1–8, R to Randomize)</span>
-</button>
-
-<!-- Floating Mode Guidance Toast -->
-<div 
-  id="luxury-mode-toast" 
-  class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 ease-in-out opacity-0 -translate-y-2 flex flex-col items-center"
->
-  <div class="px-4 py-2 rounded-2xl bg-zinc-950/95 border border-[#d4af37]/60 shadow-[0_10px_30px_rgba(0,0,0,0.85)] backdrop-blur-xl text-center max-w-lg">
-    <div id="toast-title" class="text-xs font-serif font-bold text-[#d4af37] uppercase tracking-wider mb-0.5">Mode 1: 3D Holographic Parallax</div>
-    <div id="toast-desc" class="text-[11px] text-zinc-300 font-sans">Move cursor across screen to see 3D head tilt and depth perspective relief.</div>
   </div>
-</div>
-
-<!-- Floating Particle Studio Trigger Button (Stacked at bottom-right above Replay button) -->
-<button
-  id="particle-studio-btn"
-  type="button"
-  class="fixed bottom-[122px] right-6 z-50 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 text-zinc-800 dark:text-[#d4af37] shadow-xl backdrop-blur-md text-xs font-mono hover:border-[#d4af37] transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer hidden"
-  title="Open Particle Placement Studio (Alt+P)"
->
-  <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
-  <span>✦ Particle Studio</span>
-</button>
-
-<!-- Interactive Floating Particle Placement Studio HUD Panel -->
-<div
-  id="particle-studio-panel"
-  class="fixed bottom-24 right-6 z-50 hidden w-[390px] max-w-[calc(100vw-32px)] bg-zinc-950/95 border border-[#d4af37]/35 rounded-2xl shadow-2xl backdrop-blur-xl text-zinc-200 text-xs font-sans overflow-hidden select-none transition-all duration-300 ease-in-out"
->
-  <!-- Studio Header with Drag Bar & Close Button -->
-  <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800/80 bg-zinc-900/60 cursor-grab active:cursor-grabbing" id="studio-drag-header">
-    <div class="flex items-center gap-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-[#d4af37] shadow-[0_0_8px_#d4af37]"></span>
-      <span class="font-serif tracking-wider font-semibold text-[#d4af37] uppercase text-[11px]">Particle Physics &amp; Layout Studio</span>
-    </div>
-    <div class="flex items-center gap-1.5">
-      <span class="text-[10px] font-mono text-zinc-500 hidden sm:inline">Alt+P</span>
-      <button id="studio-close-btn" type="button" class="p-1 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors" title="Close Panel">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
+  <div
+    class="gizmo-handle s absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-3 bg-[#d4af37] border border-zinc-950 rounded cursor-ns-resize shadow-lg hover:scale-110 transition-transform"
+  >
   </div>
-
-  <div class="p-4 space-y-4 max-h-[78vh] overflow-y-auto">
-    <!-- 🔮 INTERACTIVE EFFECT MODE SWITCHER (Try All 5 One by One!) -->
-    <div class="space-y-1.5">
-      <div class="text-[10px] uppercase tracking-wider font-mono text-zinc-400 flex items-center justify-between">
-        <span class="text-[#d4af37] font-semibold">🔮 Interactive Effect Mode</span>
-        <span class="text-zinc-500 font-normal">Click to test live</span>
-      </div>
-      <div id="studio-mode-buttons" class="grid grid-cols-1 gap-1.5 p-1.5 bg-zinc-900/90 rounded-xl border border-zinc-800">
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="1">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">1. Volumetric Quantum Aura</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Pure Harmonic Drift &amp; Aura</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="2">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">2. Silk Surface Ripple</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Liquid Gold Waves</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="3">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">3. Celestial Lantern</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Bioluminescent Glow</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="4">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">4. Gravitational Lens</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Cosmic Curvature</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="5">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">5. Fluid Stardust Wake</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Curl Turbulence</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="6">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">6. Soft Physics Displace</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Elastic Damped Membrane</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="7">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">7. Neural Constellation</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Synaptic Filaments</span>
-        </button>
-
-        <button type="button" class="mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer" data-mode="8">
-          <div class="flex items-center gap-2">
-            <span class="mode-dot w-2 h-2 rounded-full bg-zinc-600"></span>
-            <span class="font-semibold">8. Holographic Cyber Scanlines</span>
-          </div>
-          <span class="text-[10px] text-zinc-400">Laser Sweep &amp; Prismatic Slices</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mode Tuning Sliders -->
-    <div class="pt-2 border-t border-zinc-800/80 space-y-3">
-      <!-- Intensity / Amplitude Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span id="studio-intensity-label" class="text-zinc-300 font-medium">Effect Intensity</span>
-          <span id="studio-intensity-val" class="font-mono text-[#d4af37] font-bold">1.00x</span>
-        </div>
-        <input id="studio-intensity-slider" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-
-      <!-- Frequency / Speed Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span id="studio-speed-label" class="text-zinc-300 font-medium">Speed / Frequency</span>
-          <span id="studio-speed-val" class="font-mono text-[#d4af37] font-bold">1.00x</span>
-        </div>
-        <input id="studio-speed-slider" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-
-      <!-- Wake / Radius Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Influence Radius</span>
-          <span id="studio-radius-val" class="font-mono text-[#d4af37] font-bold">140px</span>
-        </div>
-        <input id="studio-radius-slider" type="range" min="60" max="260" step="5" value="140" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-    </div>
-
-    <!-- Image Selector Tabs -->
-    <div class="pt-2 border-t border-zinc-800/80">
-      <div class="text-[10px] uppercase tracking-wider font-mono text-zinc-400 mb-1.5 flex items-center justify-between">
-        <span>Active Image Layout</span>
-        <span class="text-[#d4af37]/80 font-normal">Select image to position</span>
-      </div>
-      <div id="studio-image-tabs" class="grid grid-cols-3 gap-1.5 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800">
-        <!-- Rendered dynamically for each image in PARTICLE_CONFIG.images -->
-      </div>
-    </div>
-
-    <!-- Live Position & Scale Sliders for Active Image -->
-    <div class="space-y-3 pt-1">
-      <!-- Scale Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Scale (Size)</span>
-          <span id="studio-scale-val" class="font-mono text-[#d4af37] font-bold">1.09x</span>
-        </div>
-        <input id="studio-scale-slider" type="range" min="0.20" max="2.20" step="0.01" value="1.09" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-
-      <!-- Align X Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Horizontal Position (Align X)</span>
-          <span id="studio-alignx-val" class="font-mono text-[#d4af37] font-bold">76%</span>
-        </div>
-        <input id="studio-alignx-slider" type="range" min="0.05" max="0.95" step="0.005" value="0.76" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-        <div class="flex gap-1.5 mt-1.5">
-          <button type="button" class="preset-x-btn px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 hover:border-[#d4af37]/50 text-[10px] text-zinc-400 hover:text-[#d4af37] transition-colors" data-val="0.32">Left (32%)</button>
-          <button type="button" class="preset-x-btn px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 hover:border-[#d4af37]/50 text-[10px] text-zinc-400 hover:text-[#d4af37] transition-colors" data-val="0.50">Center (50%)</button>
-          <button type="button" class="preset-x-btn px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 hover:border-[#d4af37]/50 text-[10px] text-zinc-400 hover:text-[#d4af37] transition-colors" data-val="0.76">Right (76%)</button>
-        </div>
-      </div>
-
-      <!-- Align Y Slider -->
-      <div>
-        <div class="flex items-center justify-between text-xs mb-1">
-          <span class="text-zinc-300 font-medium">Vertical Position (Align Y)</span>
-          <span id="studio-aligny-val" class="font-mono text-[#d4af37] font-bold">49%</span>
-        </div>
-        <input id="studio-aligny-slider" type="range" min="0.05" max="0.95" step="0.005" value="0.49" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      </div>
-    </div>
-
-    <!-- On-Screen Drag Gizmo Toggle -->
-    <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between">
-      <label class="flex items-center gap-2 cursor-pointer">
-        <input id="studio-toggle-gizmo" type="checkbox" checked class="accent-[#d4af37] rounded cursor-pointer" />
-        <span class="text-xs text-zinc-300 font-medium">On-Screen Interactive Drag Box</span>
-      </label>
-      <span class="text-[10px] text-zinc-500 font-mono">Move on Canvas</span>
-    </div>
-
-    <!-- Live Scroll / Morph Scrubbing Preview Slider -->
-    <div class="pt-2 border-t border-zinc-800/80">
-      <div class="flex items-center justify-between text-xs mb-1">
-        <span class="text-zinc-300 font-medium">Scroll / Morph Scrub</span>
-        <div class="flex items-center gap-2">
-          <span id="studio-morph-val" class="font-mono text-zinc-400">0%</span>
-          <button id="studio-sync-scroll-btn" type="button" class="text-[10px] font-mono text-[#d4af37] hover:underline" title="Return to following page scroll">
-            Sync Scroll
-          </button>
-        </div>
-      </div>
-      <input id="studio-morph-slider" type="range" min="0" max="100" step="0.5" value="0" class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer" />
-      <div id="studio-morph-markers" class="flex justify-between text-[10px] text-zinc-500 font-mono mt-0.5">
-        <!-- Markers dynamically rendered -->
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="pt-2 border-t border-zinc-800/80 flex flex-col gap-2">
-      <div class="grid grid-cols-2 gap-2">
-        <button id="studio-copy-btn" type="button" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#d4af37]/20 hover:bg-[#d4af37]/30 border border-[#d4af37]/50 text-[#d4af37] font-mono text-[11px] font-semibold transition-all cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          <span id="studio-copy-text">Copy Code</span>
-        </button>
-        <button id="studio-save-btn" type="button" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-mono text-[11px] transition-all cursor-pointer">
-          <span id="studio-save-text">Save to Browser</span>
-        </button>
-      </div>
-      <button id="studio-reset-btn" type="button" class="w-full py-1 text-[10px] text-zinc-500 hover:text-rose-400 font-mono transition-colors text-center cursor-pointer">
-        Reset All Settings to Defaults
-      </button>
-    </div>
+  <div
+    class="gizmo-handle w absolute top-1/2 -left-2 -translate-y-1/2 w-3 h-6 bg-[#d4af37] border border-zinc-950 rounded cursor-ew-resize shadow-lg hover:scale-110 transition-transform"
+  >
+  </div>
+  <div
+    class="gizmo-handle e absolute top-1/2 -right-2 -translate-y-1/2 w-3 h-6 bg-[#d4af37] border border-zinc-950 rounded cursor-ew-resize shadow-lg hover:scale-110 transition-transform"
+  >
   </div>
 </div>
 
@@ -436,11 +137,11 @@
     cursorRadius: 140.0,
     repelStrength: 20.0,
     returnSpeed: 0.035,
-    dragDamping: 0.90,
+    dragDamping: 0.9,
 
     // 3. OPACITY & TEXT CONTRAST (50% dimming after animation completes)
     initialOpacity: 1.0,
-    settledDimOpacity: 0.50,
+    settledDimOpacity: 0.5,
     dimTransitionDuration: 1.4,
 
     // 4. TIMING & GRADUAL SEQUENTIAL REVEAL
@@ -449,18 +150,20 @@
 
     // 5. SCROLL ARCHITECTURE & MULTI-PICTURE MORPHING
     fixedInViewport: true,
-    morphPlateau: 0.20,
+    morphPlateau: 0.28,
+    morphStyle: 1, // 1:WaveWipe 2:GravityCollapse 3:LiquidFlow 4:Lightning 5:RadialIris
     images: [
       "/images/amir-portrait-luxury.jpg",
-      "/images/2.jpg",
+      // "/images/2.jpg",
       "/images/3.jpg",
+      "/images/4.jpg",
     ],
   };
 
   // Restore saved layouts & mode from localStorage
   function restoreSavedSettings() {
     try {
-      const lockedMode = localStorage.getItem('luxury_particle_locked_mode');
+      const lockedMode = localStorage.getItem("luxury_particle_locked_mode");
       if (lockedMode) {
         const modeNum = parseInt(lockedMode, 10);
         if (modeNum >= 1 && modeNum <= 7) {
@@ -474,14 +177,14 @@
       }
 
       // Clear legacy single-mode storage so it doesn't freeze the random selection
-      localStorage.removeItem('luxury_particle_mode');
+      localStorage.removeItem("luxury_particle_mode");
 
-      const raw = localStorage.getItem('luxury_particle_layouts');
+      const raw = localStorage.getItem("luxury_particle_layouts");
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
           parsed.forEach((layout, i) => {
-            if (layout && typeof layout.scale === 'number') {
+            if (layout && typeof layout.scale === "number") {
               PARTICLE_CONFIG.imageLayouts[i] = {
                 scale: layout.scale,
                 alignX: layout.alignX,
@@ -492,21 +195,27 @@
         }
       }
     } catch (e) {
-      console.warn('Could not restore particle settings from localStorage', e);
+      console.warn("Could not restore particle settings from localStorage", e);
     }
   }
   restoreSavedSettings();
 
   function saveSettingsToStorage() {
     try {
-      localStorage.setItem('luxury_particle_layouts', JSON.stringify(PARTICLE_CONFIG.imageLayouts));
+      localStorage.setItem(
+        "luxury_particle_layouts",
+        JSON.stringify(PARTICLE_CONFIG.imageLayouts),
+      );
       if (!PARTICLE_CONFIG.isRandomMode) {
-        localStorage.setItem('luxury_particle_locked_mode', String(PARTICLE_CONFIG.interactiveMode));
+        localStorage.setItem(
+          "luxury_particle_locked_mode",
+          String(PARTICLE_CONFIG.interactiveMode),
+        );
       } else {
-        localStorage.removeItem('luxury_particle_locked_mode');
+        localStorage.removeItem("luxury_particle_locked_mode");
       }
     } catch (e) {
-      console.warn('Could not save particle settings to localStorage', e);
+      console.warn("Could not save particle settings to localStorage", e);
     }
   }
 
@@ -514,7 +223,7 @@
     if (PARTICLE_CONFIG.imageLayouts[index]) {
       return PARTICLE_CONFIG.imageLayouts[index];
     }
-    const fallback = { scale: 1.0, alignX: 0.50, alignY: 0.50 };
+    const fallback = { scale: 1.0, alignX: 0.5, alignY: 0.5 };
     PARTICLE_CONFIG.imageLayouts[index] = fallback;
     return fallback;
   }
@@ -540,6 +249,7 @@
     uniform float u_cursor_radius;
     uniform float u_dim_factor;
     uniform float u_morph_t; // 0.0 to 1.0 morph between Image A and Image B
+    uniform int u_morph_style; // 1:WaveWipe 2:GravityCollapse 3:LiquidFlow 4:Lightning 5:RadialIris
 
     // Interactive Mode & Parameters
     uniform int u_interactive_mode; // 1: Hologram, 2: Ripple, 3: Lantern, 4: Gravity, 5: Fluid
@@ -616,14 +326,187 @@
       vec2 targetPosA = u_centerA + a_targetA * u_sizeA;
       vec2 targetPosB = u_centerB + a_targetB * u_sizeB;
 
-      // Morph between Picture A and Picture B with organic celestial swirl
-      float morphSwirl = sin(u_morph_t * 3.14159265);
-      vec2 morphDiff = targetPosB - targetPosA;
-      vec2 morphPerp = vec2(-morphDiff.y, morphDiff.x) * 0.18 * curl;
-      vec2 morphedTarget = mix(targetPosA, targetPosB, u_morph_t) + morphPerp * morphSwirl;
-      vec3 morphedColor = mix(a_colorA, a_colorB, u_morph_t);
-      vec3 finalColor = morphedColor;
-      float pointSize = size * (1.0 + (1.0 - progress) * 0.6);
+      // =====================================================================
+      // 5 SELECTABLE MORPH STYLES (u_morph_style 1–5)
+      // =====================================================================
+      vec2 screenCenter = u_resolution * 0.5;
+      float mt = u_morph_t; // 0=Image A, 1=Image B
+      vec2 morphedTarget;
+      vec3 morphedColor;
+      float morphHighlight = 0.0; // extra brightness at the wave/transition front
+
+      // High-entropy per-particle pseudo-random seeds: breaks any artificial banding
+      float pRnd1 = fract(sin(dot(a_targetA.xy + vec2(curl, size), vec2(12.9898, 78.233))) * 43758.5453);
+      float pRnd2 = fract(sin(dot(a_targetB.xy + vec2(size, -curl), vec2(39.346, 11.135))) * 28462.6315);
+      float pRnd3 = fract(a_params.x * 0.0071 + curl * 13.37);
+
+      // ---------------------------------------------------------------
+      // STYLE 1: DIRECT SPATIAL FLOW
+      // Particles flow directly from their A target to B target.
+      // Individual stochastic dispersion: ZERO strips, ZERO bands.
+      // Particles embark and arrive independently with organic micro-arcs.
+      // ---------------------------------------------------------------
+      if (u_morph_style == 1) {
+        vec2 midPt = (targetPosA + targetPosB) * 0.5;
+        float distFromCenter = length(midPt - screenCenter);
+        float maxDist = max(1.0, length(u_resolution) * 0.52);
+        float normDist = clamp(distFromCenter / maxDist, 0.0, 1.0);
+
+        // Blending gentle spatial wave with heavy individual particle noise:
+        // Ensures particles in the same region do NOT move in lockstep strips
+        float particleJitter = (pRnd1 - 0.5) * 0.38 + (pRnd2 - 0.5) * 0.16;
+        float particleOffset = normDist * 0.18 + particleJitter;
+        float windowWidth = 0.52;
+        float localT = clamp((mt * (1.0 + windowWidth) - particleOffset) / windowWidth, 0.0, 1.0);
+
+        // Double-smooth for buttery ease in/out
+        float smoothT = localT * localT * (3.0 - 2.0 * localT);
+        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
+
+        // Individual organic micro-arc trajectory:
+        // Each particle curves along its own random angle rather than a uniform direction
+        float arcHeight = length(targetPosB - targetPosA) * 0.08 * (0.6 + pRnd3 * 0.8);
+        vec2 randomArcDir = vec2(cos(pRnd1 * 6.28318), sin(pRnd1 * 6.28318));
+        vec2 centerBias = normalize(screenCenter - midPt + vec2(0.001));
+        vec2 arcDir = normalize(mix(randomArcDir, centerBias, 0.35));
+        float arcAmt = 4.0 * smoothT * (1.0 - smoothT);
+        vec2 arcOffset = arcDir * (arcHeight * arcAmt);
+
+        morphedTarget = mix(targetPosA, targetPosB, smoothT) + arcOffset;
+        morphedColor = mix(a_colorA, a_colorB, smoothT);
+        morphHighlight = 3.0 * localT * (1.0 - localT) * 0.55;
+
+      // ---------------------------------------------------------------
+      // STYLE 2: WIND SWIRL & VORTEX
+      // Phase 1 (0→0.50): Windstorm blows in; particles spin into a
+      //   swirling vortex destroying Image A.
+      // Phase 2 (0.50→1.0): Wind subsides; particles spiral inward
+      //   to assemble Image B in its respective shape.
+      // ---------------------------------------------------------------
+      } else if (u_morph_style == 2) {
+        float windSplit = 0.50;
+
+        if (mt <= windSplit) {
+          float p = mt / windSplit;
+          // Left-to-right wind arrival front
+          float windFront = clamp(p * 1.5 - (targetPosA.x / max(1.0, u_resolution.x)) * 0.5, 0.0, 1.0);
+          float pe = windFront * windFront * (3.0 - 2.0 * windFront);
+
+          // Whirlwind vortex around local image center
+          vec2 rel = targetPosA - u_centerA;
+          float swirlAngle = pe * 3.6 * (0.8 + 0.4 * abs(curl));
+          float cA = cos(swirlAngle); float sA = sin(swirlAngle);
+          vec2 spun = vec2(rel.x * cA - rel.y * sA, rel.x * sA + rel.y * cA);
+
+          // Linear wind drift: gusting diagonally right and up
+          vec2 windDraft = vec2(300.0, -80.0) * (pe * pe);
+
+          // Curl turbulence
+          vec2 curlSample = targetPosA * 0.005 + vec2(u_time * 0.0004, pe * 0.5);
+          vec2 curlField = curlNoise(curlSample) * (140.0 * pe);
+
+          morphedTarget = u_centerA + mix(rel, spun, pe) + windDraft + curlField;
+          morphedColor = mix(a_colorA, vec3(0.95, 0.88, 0.55), pe * 0.45);
+          morphHighlight = pe * 0.45;
+
+        } else {
+          float p = (mt - windSplit) / (1.0 - windSplit);
+          // Gathering front: particles settle into Image B
+          float gatherFront = clamp(p * 1.5 - (1.0 - targetPosB.x / max(1.0, u_resolution.x)) * 0.5, 0.0, 1.0);
+          float ge = gatherFront * gatherFront * (3.0 - 2.0 * gatherFront);
+
+          // Spiral in towards Image B
+          vec2 relB = targetPosB - u_centerB;
+          float returnAngle = (1.0 - ge) * 3.6 * (0.8 + 0.4 * abs(curl));
+          float cB = cos(returnAngle); float sB = sin(returnAngle);
+          vec2 spunB = vec2(relB.x * cB - relB.y * sB, relB.x * sB + relB.y * cB);
+
+          vec2 residualDraft = vec2(300.0, -80.0) * (1.0 - ge) * (1.0 - ge);
+          vec2 residualCurl = curlNoise(targetPosB * 0.005 + vec2(p * 0.5)) * (140.0 * (1.0 - ge));
+
+          vec2 vortexSource = u_centerB + spunB + residualDraft + residualCurl;
+
+          morphedTarget = mix(vortexSource, targetPosB, ge);
+          morphedColor = mix(vec3(0.95, 0.88, 0.55), a_colorB, ge);
+          morphHighlight = (1.0 - ge) * 0.40;
+        }
+
+      // ---------------------------------------------------------------
+      // STYLE 3: DIAGONAL WAVE WIPE (editorial page-turn)
+      // A light-seam sweeps diagonally; particles transform on contact.
+      // ---------------------------------------------------------------
+      } else if (u_morph_style == 3) {
+        vec2 sweepDir = normalize(vec2(0.65, 0.35));
+        vec2 midPt = (targetPosA + targetPosB) * 0.5;
+        float proj = dot(midPt / u_resolution, sweepDir);
+        float wavePos = mt * 1.08 - 0.04;
+        float waveBand = 0.10;
+        float signedD = wavePos - proj;
+        float localT = clamp(signedD / waveBand + 0.5, 0.0, 1.0);
+        float smoothT = localT * localT * (3.0 - 2.0 * localT);
+        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
+        morphedTarget = mix(targetPosA, targetPosB, smoothT);
+        morphedColor = mix(a_colorA, a_colorB, smoothT);
+        morphHighlight = 4.0 * localT * (1.0 - localT);
+
+      // ---------------------------------------------------------------
+      // STYLE 4: GRAVITY COLLAPSE (black hole singularity)
+      // All particles implode to a bright point, then explode to Image B.
+      // ---------------------------------------------------------------
+      } else if (u_morph_style == 4) {
+        float collapseEnd = 0.44;
+        float expandStart = 0.56;
+        if (mt <= collapseEnd) {
+          float p = mt / collapseEnd;
+          float pe = p * p * p;
+          morphedTarget = mix(targetPosA, screenCenter, pe);
+          morphedColor = mix(a_colorA, vec3(1.0, 0.9, 0.5), pe);
+          morphHighlight = pe * 0.9;
+        } else if (mt < expandStart) {
+          morphedTarget = screenCenter;
+          morphedColor = vec3(1.0, 0.95, 0.6);
+          morphHighlight = 1.0;
+        } else {
+          float p = (mt - expandStart) / (1.0 - expandStart);
+          float pe = 1.0 - (1.0 - p) * (1.0 - p) * (1.0 - p);
+          morphedTarget = mix(screenCenter, targetPosB, pe);
+          morphedColor = mix(vec3(1.0, 0.95, 0.6), a_colorB, pe);
+          morphHighlight = (1.0 - p) * 0.5;
+        }
+
+      // ---------------------------------------------------------------
+      // STYLE 5: RADIAL IRIS (camera aperture reveal)
+      // Soft stochastic particle dispersion: NO hard concentric rings/bands.
+      // ---------------------------------------------------------------
+      } else {
+        vec2 midPt2 = (targetPosA + targetPosB) * 0.5;
+        float distFromCenter = length(midPt2 - screenCenter);
+        float maxDist = max(1.0, length(u_resolution) * 0.5);
+        float normDist = clamp(distFromCenter / maxDist, 0.0, 1.0);
+
+        // Heavy per-particle dither breaks circular bands into dispersed stardust
+        float noisyDist = normDist + (pRnd1 - 0.5) * 0.32 + (pRnd2 - 0.5) * 0.14;
+        float irisWidth = 0.38;
+        float irisPos = mt * (1.0 + irisWidth) - irisWidth * 0.5;
+        float localT = clamp((irisPos - noisyDist) / irisWidth + 0.5, 0.0, 1.0);
+
+        float smoothT = localT * localT * (3.0 - 2.0 * localT);
+        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
+
+        // Individual organic micro-twist per particle
+        float irisTwist = (1.0 - smoothT) * smoothT * curl * (0.3 + pRnd3 * 0.4);
+        float cI = cos(irisTwist); float sI = sin(irisTwist);
+        vec2 diffAB = targetPosB - targetPosA;
+        vec2 twistedB = targetPosA + vec2(diffAB.x * cI - diffAB.y * sI, diffAB.x * sI + diffAB.y * cI);
+
+        morphedTarget = mix(targetPosA, twistedB, smoothT);
+        morphedColor = mix(a_colorA, a_colorB, smoothT);
+        morphHighlight = 3.5 * localT * (1.0 - localT) * 0.65;
+      }
+
+      vec3 goldHighlight = vec3(1.0, 0.87, 0.38);
+      vec3 finalColor = mix(morphedColor, goldHighlight, clamp(morphHighlight, 0.0, 1.0) * 0.65);
+      float pointSize = size * (1.0 + morphHighlight * 0.6 + (1.0 - progress) * 0.6);
 
       // Organic bidirectional vortex curl during gathering flight
       float swirlAngle = (1.0 - ease) * curl;
@@ -863,24 +746,28 @@
   let lastMoveTime = performance.now();
 
   // Window-level mouse tracking for kinetic velocity & parallax interaction
-  window.addEventListener('pointermove', (e: MouseEvent | PointerEvent) => {
-    const now = performance.now();
-    const dt = Math.max(1, now - lastMoveTime);
-    lastMoveTime = now;
+  window.addEventListener(
+    "pointermove",
+    (e: MouseEvent | PointerEvent) => {
+      const now = performance.now();
+      const dt = Math.max(1, now - lastMoveTime);
+      lastMoveTime = now;
 
-    if (targetMouseX > -5000) {
-      const vx = (e.clientX - targetMouseX) / (dt / 16.6);
-      const vy = (e.clientY - targetMouseY) / (dt / 16.6);
-      const maxV = 80;
-      mouseVelX = Math.max(-maxV, Math.min(maxV, vx));
-      mouseVelY = Math.max(-maxV, Math.min(maxV, vy));
-    }
+      if (targetMouseX > -5000) {
+        const vx = (e.clientX - targetMouseX) / (dt / 16.6);
+        const vy = (e.clientY - targetMouseY) / (dt / 16.6);
+        const maxV = 80;
+        mouseVelX = Math.max(-maxV, Math.min(maxV, vx));
+        mouseVelY = Math.max(-maxV, Math.min(maxV, vy));
+      }
 
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-  }, { passive: true });
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+    },
+    { passive: true },
+  );
 
-  window.addEventListener('pointerleave', () => {
+  window.addEventListener("pointerleave", () => {
     targetMouseX = -9999;
     targetMouseY = -9999;
     mouseVelX = 0;
@@ -888,12 +775,17 @@
   });
 
   // Pre-load all images configured in PARTICLE_CONFIG.images
-  async function loadAllConfigImages(srcList: string[]): Promise<HTMLImageElement[]> {
-    const list = srcList && srcList.length > 0 ? srcList : ['/images/amir-portrait-luxury.jpg'];
+  async function loadAllConfigImages(
+    srcList: string[],
+  ): Promise<HTMLImageElement[]> {
+    const list =
+      srcList && srcList.length > 0
+        ? srcList
+        : ["/images/amir-portrait-luxury.jpg"];
     const promises = list.map((src) => {
       return new Promise<HTMLImageElement>((resolve) => {
         const img = new Image();
-        img.crossOrigin = 'anonymous';
+        img.crossOrigin = "anonymous";
         img.onload = () => resolve(img);
         img.onerror = () => {
           console.warn(`[LuxuryParticles] Could not load image: ${src}`);
@@ -908,7 +800,7 @@
   // Sample target positions and colors for any image in NORMALIZED image coordinates (nx, ny)
   function sampleImageTargets(
     img: HTMLImageElement,
-    particleCount: number
+    particleCount: number,
   ): Float32Array {
     const imgW = img.naturalWidth || 1800;
     const imgH = img.naturalHeight || 1800;
@@ -916,10 +808,10 @@
 
     const sampleW = 400;
     const sampleH = Math.max(250, Math.round(400 / imgAspect));
-    const offscreen = document.createElement('canvas');
+    const offscreen = document.createElement("canvas");
     offscreen.width = sampleW;
     offscreen.height = sampleH;
-    const offCtx = offscreen.getContext('2d');
+    const offCtx = offscreen.getContext("2d");
 
     const buffer = new Float32Array(particleCount * 5); // 5 floats: nx, ny, r, g, b
 
@@ -989,7 +881,7 @@
 
       // Normalized coordinates centered at (0, 0):
       const nx = (subX / sampleW - 0.5) * imgAspect;
-      const ny = (subY / sampleH - 0.5);
+      const ny = subY / sampleH - 0.5;
 
       const samplePx = Math.min(sampleW - 1, Math.max(0, Math.floor(subX)));
       const samplePy = Math.min(sampleH - 1, Math.max(0, Math.floor(subY)));
@@ -1015,7 +907,53 @@
       }
     }
 
-    return buffer;
+    // -------------------------------------------------------------------------
+    // Isotropic 2D Space-Filling Curve (Morton Z-Order) + Continuous Random Jitter
+    // Eliminates all horizontal/vertical strips, bands, and scanlines.
+    // Preserves 2D spatial locality in all directions equally without raster lines.
+    // -------------------------------------------------------------------------
+    function computeSpatialKey(nx: number, ny: number): number {
+      const u = Math.max(0, Math.min(1023, Math.floor(((nx / imgAspect) + 0.5) * 1023)));
+      const v = Math.max(0, Math.min(1023, Math.floor((ny + 0.5) * 1023)));
+
+      let x = u;
+      let y = v;
+      x = (x | (x << 8)) & 0x00FF00FF;
+      x = (x | (x << 4)) & 0x0F0F0F0F;
+      x = (x | (x << 2)) & 0x33333333;
+      x = (x | (x << 1)) & 0x55555555;
+
+      y = (y | (y << 8)) & 0x00FF00FF;
+      y = (y | (y << 4)) & 0x0F0F0F0F;
+      y = (y | (y << 2)) & 0x33333333;
+      y = (y | (y << 1)) & 0x55555555;
+
+      // Random continuous sub-cell dither: breaks any artificial banding
+      return (x | (y << 1)) + (Math.random() - 0.5) * 32.0;
+    }
+
+    const indices = new Int32Array(particleCount);
+    const keys = new Float64Array(particleCount);
+    for (let i = 0; i < particleCount; i++) {
+      indices[i] = i;
+      const base = i * 5;
+      keys[i] = computeSpatialKey(buffer[base], buffer[base + 1]);
+    }
+
+    indices.sort((a, b) => keys[a] - keys[b]);
+
+    const sortedBuffer = new Float32Array(particleCount * 5);
+    for (let i = 0; i < particleCount; i++) {
+      const src = indices[i] * 5;
+      const dst = i * 5;
+      sortedBuffer[dst] = buffer[src];
+      sortedBuffer[dst + 1] = buffer[src + 1];
+      sortedBuffer[dst + 2] = buffer[src + 2];
+      sortedBuffer[dst + 3] = buffer[src + 3];
+      sortedBuffer[dst + 4] = buffer[src + 4];
+    }
+
+    return sortedBuffer;
   }
 
   // State for Interactive Particle Placement Studio
@@ -1032,56 +970,64 @@
       currentAnimId = null;
     }
 
-    const isLuxury = document.documentElement.getAttribute('data-theme') === 'luxury';
-    const veil = document.getElementById('luxury-veil');
-    const canvas = document.getElementById('luxury-particle-canvas') as HTMLCanvasElement | null;
-    constellCanvas = document.getElementById('luxury-constellation-canvas') as HTMLCanvasElement | null;
-    constellCtx = constellCanvas?.getContext('2d') || null;
-    const portraitImg = document.getElementById('luxury-portrait-img') as HTMLImageElement | null;
-    const morpher = document.getElementById('luxury-morphing-container');
-    const studioBtn = document.getElementById('particle-studio-btn');
+    const isLuxury =
+      document.documentElement.getAttribute("data-theme") === "luxury";
+    const veil = document.getElementById("luxury-veil");
+    const canvas = document.getElementById(
+      "luxury-particle-canvas",
+    ) as HTMLCanvasElement | null;
+    constellCanvas = document.getElementById(
+      "luxury-constellation-canvas",
+    ) as HTMLCanvasElement | null;
+    constellCtx = constellCanvas?.getContext("2d") || null;
+    const portraitImg = document.getElementById(
+      "luxury-portrait-img",
+    ) as HTMLImageElement | null;
+    const morpher = document.getElementById("luxury-morphing-container");
+    const studioBtn = document.getElementById("particle-studio-btn");
 
     constellationNodes = [];
 
     if (!isLuxury || !canvas) {
-      document.documentElement.classList.remove('luxury-animating');
-      veil?.classList.add('hidden');
-      canvas?.classList.add('hidden');
-      constellCanvas?.classList.add('hidden');
-      studioBtn?.classList.add('hidden');
+      document.documentElement.classList.remove("luxury-animating");
+      veil?.classList.add("hidden");
+      canvas?.classList.add("hidden");
+      constellCanvas?.classList.add("hidden");
+      studioBtn?.classList.add("hidden");
       closeStudioPanel();
       if (portraitImg) {
-        portraitImg.style.opacity = '1';
-        portraitImg.style.display = '';
+        portraitImg.style.opacity = "1";
+        portraitImg.style.display = "";
       }
-      if (morpher) morpher.style.opacity = '1';
+      if (morpher) morpher.style.opacity = "1";
       return;
     }
 
-    document.documentElement.classList.add('luxury-animating');
-    veil?.classList.remove('hidden');
-    veil?.classList.remove('opacity-0');
-    veil?.classList.add('opacity-100');
-    canvas.classList.remove('hidden');
-    canvas.style.opacity = '1';
+    document.documentElement.classList.add("luxury-animating");
+    veil?.classList.remove("hidden");
+    veil?.classList.remove("opacity-0");
+    veil?.classList.add("opacity-100");
+    canvas.classList.remove("hidden");
+    canvas.style.opacity = "1";
     if (constellCanvas) {
-      constellCanvas.classList.remove('hidden');
-      constellCanvas.style.opacity = '1';
+      constellCanvas.classList.remove("hidden");
+      constellCanvas.style.opacity = "1";
     }
-    studioBtn?.classList.remove('hidden');
+    studioBtn?.classList.remove("hidden");
 
     if (portraitImg) {
-      portraitImg.style.opacity = '0';
-      portraitImg.style.display = 'none';
+      portraitImg.style.opacity = "0";
+      portraitImg.style.display = "none";
     }
-    if (morpher) morpher.style.display = 'none';
+    if (morpher) morpher.style.display = "none";
 
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
     canvas.width = screenW;
     canvas.height = screenH;
 
-    const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+    const gl = (canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
 
     if (!gl) {
       fallbackCanvas2D(canvas, veil);
@@ -1094,13 +1040,19 @@
       return;
     }
 
-    activeImageAspects = loadedImages.map((img) => (img.naturalWidth || 1800) / (img.naturalHeight || 1800));
+    activeImageAspects = loadedImages.map(
+      (img) => (img.naturalWidth || 1800) / (img.naturalHeight || 1800),
+    );
 
     setupInteractiveStudioUI();
     runWebGLMultiPointCloud(gl, canvas, loadedImages, veil);
   }
 
-  function createShader(gl: WebGLRenderingContext, type: number, source: string) {
+  function createShader(
+    gl: WebGLRenderingContext,
+    type: number,
+    source: string,
+  ) {
     const shader = gl.createShader(type);
     if (!shader) return null;
     gl.shaderSource(shader, source);
@@ -1114,10 +1066,10 @@
   }
 
   function runWebGLMultiPointCloud(
-    gl: WebGLRenderingContext, 
-    canvas: HTMLCanvasElement, 
-    loadedImages: HTMLImageElement[], 
-    veil: HTMLElement | null
+    gl: WebGLRenderingContext,
+    canvas: HTMLCanvasElement,
+    loadedImages: HTMLImageElement[],
+    veil: HTMLElement | null,
   ) {
     const vs = createShader(gl, gl.VERTEX_SHADER, VS_SOURCE);
     const fs = createShader(gl, gl.FRAGMENT_SHADER, FS_SOURCE);
@@ -1141,7 +1093,7 @@
     const TARGET_PARTICLES = isMobile ? 48000 : 92000;
 
     const targetBuffers = loadedImages.map((img) =>
-      sampleImageTargets(img, TARGET_PARTICLES)
+      sampleImageTargets(img, TARGET_PARTICLES),
     );
 
     const targetVBOs = targetBuffers.map((buffer) => {
@@ -1158,7 +1110,8 @@
       const delay = Math.random() * 650;
       const duration = 1500 + Math.random() * 500;
       const size = Math.random() * 1.3 + 0.9;
-      const curl = (Math.random() < 0.5 ? -1.0 : 1.0) * (0.8 + Math.random() * 1.4);
+      const curl =
+        (Math.random() < 0.5 ? -1.0 : 1.0) * (0.8 + Math.random() * 1.4);
 
       const base = p * 6;
       baseBuffer[base] = ox;
@@ -1174,35 +1127,45 @@
     gl.bufferData(gl.ARRAY_BUFFER, baseBuffer, gl.STATIC_DRAW);
 
     // Attribute Locations
-    const aTargetALoc = gl.getAttribLocation(program, 'a_targetA');
-    const aColorALoc = gl.getAttribLocation(program, 'a_colorA');
-    const aTargetBLoc = gl.getAttribLocation(program, 'a_targetB');
-    const aColorBLoc = gl.getAttribLocation(program, 'a_colorB');
-    const aOriginLoc = gl.getAttribLocation(program, 'a_origin');
-    const aParamsLoc = gl.getAttribLocation(program, 'a_params');
+    const aTargetALoc = gl.getAttribLocation(program, "a_targetA");
+    const aColorALoc = gl.getAttribLocation(program, "a_colorA");
+    const aTargetBLoc = gl.getAttribLocation(program, "a_targetB");
+    const aColorBLoc = gl.getAttribLocation(program, "a_colorB");
+    const aOriginLoc = gl.getAttribLocation(program, "a_origin");
+    const aParamsLoc = gl.getAttribLocation(program, "a_params");
 
     // Uniform Locations
-    const uTimeLoc = gl.getUniformLocation(program, 'u_time');
-    const uResolutionLoc = gl.getUniformLocation(program, 'u_resolution');
-    const uMouseLoc = gl.getUniformLocation(program, 'u_mouse');
-    const uMouseVelLoc = gl.getUniformLocation(program, 'u_mouse_vel');
-    const uMouseSpeedLoc = gl.getUniformLocation(program, 'u_mouse_speed');
-    const uMouseActiveLoc = gl.getUniformLocation(program, 'u_mouse_active');
-    const uCursorRadiusLoc = gl.getUniformLocation(program, 'u_cursor_radius');
-    const uDimFactorLoc = gl.getUniformLocation(program, 'u_dim_factor');
-    const uMorphTLoc = gl.getUniformLocation(program, 'u_morph_t');
+    const uTimeLoc = gl.getUniformLocation(program, "u_time");
+    const uResolutionLoc = gl.getUniformLocation(program, "u_resolution");
+    const uMouseLoc = gl.getUniformLocation(program, "u_mouse");
+    const uMouseVelLoc = gl.getUniformLocation(program, "u_mouse_vel");
+    const uMouseSpeedLoc = gl.getUniformLocation(program, "u_mouse_speed");
+    const uMouseActiveLoc = gl.getUniformLocation(program, "u_mouse_active");
+    const uCursorRadiusLoc = gl.getUniformLocation(program, "u_cursor_radius");
+    const uDimFactorLoc = gl.getUniformLocation(program, "u_dim_factor");
+    const uMorphTLoc = gl.getUniformLocation(program, "u_morph_t");
+    const uMorphStyleLoc = gl.getUniformLocation(program, "u_morph_style");
 
     // Mode uniforms
-    const uInteractiveModeLoc = gl.getUniformLocation(program, 'u_interactive_mode');
-    const uParamIntensityLoc = gl.getUniformLocation(program, 'u_param_intensity');
-    const uParamSpeedLoc = gl.getUniformLocation(program, 'u_param_speed');
-    const uRepelStrengthLoc = gl.getUniformLocation(program, 'u_repel_strength');
+    const uInteractiveModeLoc = gl.getUniformLocation(
+      program,
+      "u_interactive_mode",
+    );
+    const uParamIntensityLoc = gl.getUniformLocation(
+      program,
+      "u_param_intensity",
+    );
+    const uParamSpeedLoc = gl.getUniformLocation(program, "u_param_speed");
+    const uRepelStrengthLoc = gl.getUniformLocation(
+      program,
+      "u_repel_strength",
+    );
 
     // Dynamic Live Transform Uniforms
-    const uCenterALoc = gl.getUniformLocation(program, 'u_centerA');
-    const uSizeALoc = gl.getUniformLocation(program, 'u_sizeA');
-    const uCenterBLoc = gl.getUniformLocation(program, 'u_centerB');
-    const uSizeBLoc = gl.getUniformLocation(program, 'u_sizeB');
+    const uCenterALoc = gl.getUniformLocation(program, "u_centerA");
+    const uSizeALoc = gl.getUniformLocation(program, "u_sizeA");
+    const uCenterBLoc = gl.getUniformLocation(program, "u_centerB");
+    const uSizeBLoc = gl.getUniformLocation(program, "u_sizeB");
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -1226,8 +1189,8 @@
       // Smooth kinetic velocity with exponential drag
       smoothVelX += (mouseVelX - smoothVelX) * 0.22;
       smoothVelY += (mouseVelY - smoothVelY) * 0.22;
-      mouseVelX *= (PARTICLE_CONFIG.dragDamping || 0.90);
-      mouseVelY *= (PARTICLE_CONFIG.dragDamping || 0.90);
+      mouseVelX *= PARTICLE_CONFIG.dragDamping || 0.9;
+      mouseVelY *= PARTICLE_CONFIG.dragDamping || 0.9;
 
       const cursorSpeed = Math.hypot(smoothVelX, smoothVelY);
 
@@ -1239,10 +1202,15 @@
           interpVelX = 0;
           interpVelY = 0;
         } else {
-          const springK = Math.max(0.04, Math.min(0.24, (PARTICLE_CONFIG.returnSpeed || 0.12) * 1.15));
+          const springK = Math.max(
+            0.04,
+            Math.min(0.24, (PARTICLE_CONFIG.returnSpeed || 0.12) * 1.15),
+          );
           const damping = 0.74;
-          interpVelX = (interpVelX + (targetMouseX - mouseX) * springK) * damping;
-          interpVelY = (interpVelY + (targetMouseY - mouseY) * springK) * damping;
+          interpVelX =
+            (interpVelX + (targetMouseX - mouseX) * springK) * damping;
+          interpVelY =
+            (interpVelY + (targetMouseY - mouseY) * springK) * damping;
           mouseX += interpVelX;
           mouseY += interpVelY;
         }
@@ -1269,7 +1237,8 @@
         rawMouseActive = Math.max(targetMouseActive, rawMouseActive - 0.035);
       }
       // Smooth S-Curve Ease In & Out: Hermite cubic 3t^2 - 2t^3
-      const easedMouseActive = rawMouseActive * rawMouseActive * (3.0 - 2.0 * rawMouseActive);
+      const easedMouseActive =
+        rawMouseActive * rawMouseActive * (3.0 - 2.0 * rawMouseActive);
 
       // Smooth Ease-In and Ease-Out Mode Transitions
       if (pendingMode !== null) {
@@ -1282,14 +1251,23 @@
         modeTransitionProgress = Math.min(1.0, modeTransitionProgress + 0.065);
       }
       // Cubic Hermite Ease-In & Out for Mode Switching
-      const modeEase = modeTransitionProgress * modeTransitionProgress * (3.0 - 2.0 * modeTransitionProgress);
+      const modeEase =
+        modeTransitionProgress *
+        modeTransitionProgress *
+        (3.0 - 2.0 * modeTransitionProgress);
 
       let currentDim = PARTICLE_CONFIG.initialOpacity;
       if (dimStartTime !== null) {
         const dimElapsed = (timestamp - dimStartTime) / 1000;
-        const dimProgress = Math.min(1.0, Math.max(0.0, dimElapsed / PARTICLE_CONFIG.dimTransitionDuration));
+        const dimProgress = Math.min(
+          1.0,
+          Math.max(0.0, dimElapsed / PARTICLE_CONFIG.dimTransitionDuration),
+        );
         const dimEase = dimProgress * dimProgress * (3.0 - 2.0 * dimProgress);
-        currentDim = PARTICLE_CONFIG.initialOpacity + (PARTICLE_CONFIG.settledDimOpacity - PARTICLE_CONFIG.initialOpacity) * dimEase;
+        currentDim =
+          PARTICLE_CONFIG.initialOpacity +
+          (PARTICLE_CONFIG.settledDimOpacity - PARTICLE_CONFIG.initialOpacity) *
+            dimEase;
       }
 
       const numImages = targetVBOs.length;
@@ -1316,7 +1294,7 @@
         imgIndexB = imgIndexA + 1;
         const localSegmentT = rawSegmentPos - imgIndexA;
 
-        const plateau = PARTICLE_CONFIG.morphPlateau || 0.20;
+        const plateau = PARTICLE_CONFIG.morphPlateau || 0.2;
         if (localSegmentT <= plateau) {
           morphT = 0.0;
         } else if (localSegmentT >= 1.0 - plateau) {
@@ -1351,10 +1329,14 @@
       gl.uniform1f(uCursorRadiusLoc, PARTICLE_CONFIG.cursorRadius);
       gl.uniform1f(uDimFactorLoc, currentDim);
       gl.uniform1f(uMorphTLoc, morphT);
+      gl.uniform1i(uMorphStyleLoc, PARTICLE_CONFIG.morphStyle);
 
       // Active Interactive Mode & Tuning Parameters (Eased during mode transition)
       gl.uniform1i(uInteractiveModeLoc, PARTICLE_CONFIG.interactiveMode);
-      gl.uniform1f(uParamIntensityLoc, PARTICLE_CONFIG.effectIntensity * modeEase);
+      gl.uniform1f(
+        uParamIntensityLoc,
+        PARTICLE_CONFIG.effectIntensity * modeEase,
+      );
       gl.uniform1f(uParamSpeedLoc, PARTICLE_CONFIG.effectSpeed);
       gl.uniform1f(uRepelStrengthLoc, PARTICLE_CONFIG.repelStrength * modeEase);
 
@@ -1397,7 +1379,12 @@
         }
         constellCtx.clearRect(0, 0, curW, curH);
 
-        if (PARTICLE_CONFIG.interactiveMode === 7 && mouseActive > 0.01 && mouseX > -100 && constellationNodes.length > 0) {
+        if (
+          PARTICLE_CONFIG.interactiveMode === 7 &&
+          mouseActive > 0.01 &&
+          mouseX > -100 &&
+          constellationNodes.length > 0
+        ) {
           const maxConnDist = PARTICLE_CONFIG.cursorRadius * 1.35;
           const activeLayout = getImageLayout(imgIndexA);
           const activeSize = curH * activeLayout.scale;
@@ -1426,7 +1413,10 @@
             // 1. Draw glowing synaptic axon filaments to mouse
             for (let i = 0; i < maxMouseLinks; i++) {
               const n = activeNodes[i];
-              const alpha = (1.0 - n.dist / maxConnDist) * 0.75 * PARTICLE_CONFIG.effectIntensity;
+              const alpha =
+                (1.0 - n.dist / maxConnDist) *
+                0.75 *
+                PARTICLE_CONFIG.effectIntensity;
               constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
               constellCtx.beginPath();
               constellCtx.moveTo(mouseX, mouseY);
@@ -1434,7 +1424,9 @@
               constellCtx.stroke();
 
               // Action potential traveling spark pulse
-              const pulseT = (elapsed * 0.0028 * PARTICLE_CONFIG.effectSpeed + i * 0.18) % 1.0;
+              const pulseT =
+                (elapsed * 0.0028 * PARTICLE_CONFIG.effectSpeed + i * 0.18) %
+                1.0;
               const sx = mouseX + (n.x - mouseX) * pulseT;
               const sy = mouseY + (n.y - mouseY) * pulseT;
               constellCtx.fillStyle = `rgba(255, 245, 180, ${(alpha * 1.3).toFixed(3)})`;
@@ -1447,9 +1439,16 @@
             const nodeConnLimit = 48;
             for (let i = 0; i < activeNodes.length; i++) {
               for (let j = i + 1; j < activeNodes.length; j++) {
-                const d = Math.hypot(activeNodes[i].x - activeNodes[j].x, activeNodes[i].y - activeNodes[j].y);
+                const d = Math.hypot(
+                  activeNodes[i].x - activeNodes[j].x,
+                  activeNodes[i].y - activeNodes[j].y,
+                );
                 if (d < nodeConnLimit) {
-                  const alpha = (1.0 - d / nodeConnLimit) * 0.42 * (1.0 - activeNodes[i].dist / maxConnDist) * PARTICLE_CONFIG.effectIntensity;
+                  const alpha =
+                    (1.0 - d / nodeConnLimit) *
+                    0.42 *
+                    (1.0 - activeNodes[i].dist / maxConnDist) *
+                    PARTICLE_CONFIG.effectIntensity;
                   if (alpha > 0.02) {
                     constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
                     constellCtx.beginPath();
@@ -1462,7 +1461,7 @@
             }
 
             // 3. Central neural cursor core
-            constellCtx.fillStyle = 'rgba(212, 175, 55, 0.45)';
+            constellCtx.fillStyle = "rgba(212, 175, 55, 0.45)";
             constellCtx.beginPath();
             constellCtx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
             constellCtx.fill();
@@ -1479,8 +1478,8 @@
       if (elapsed > PARTICLE_CONFIG.introGatherDuration && !elementsRevealed) {
         elementsRevealed = true;
         if (veil) {
-          veil.classList.add('opacity-0');
-          setTimeout(() => veil.classList.add('hidden'), 1000);
+          veil.classList.add("opacity-0");
+          setTimeout(() => veil.classList.add("hidden"), 1000);
         }
 
         revealSequentialElements(() => {
@@ -1497,62 +1496,46 @@
   }
 
   function fallbackCanvas2D(
-    canvas: HTMLCanvasElement, 
-    veil: HTMLElement | null
+    canvas: HTMLCanvasElement,
+    veil: HTMLElement | null,
   ) {
     if (veil) {
-      veil.classList.add('opacity-0');
-      setTimeout(() => veil.classList.add('hidden'), 900);
+      veil.classList.add("opacity-0");
+      setTimeout(() => veil.classList.add("hidden"), 900);
     }
     revealSequentialElements();
   }
 
   function revealSequentialElements(onAllRevealed?: () => void) {
-    const header = document.querySelector('header');
-    const seq1 = document.querySelector('.luxury-seq-1');
-    const seq2 = document.querySelector('.luxury-seq-2');
-    const seq3 = document.querySelector('.luxury-seq-3');
-    const seq4 = document.querySelector('.luxury-seq-4');
-    const seq5 = document.querySelector('.luxury-seq-5');
-    const replayBtn = document.getElementById('replay-luxury-btn');
-    const studioBtn = document.getElementById('particle-studio-btn');
-    const scrollIndicator = document.getElementById('luxury-scroll-indicator');
-    const themeSwitcher = document.getElementById('theme-switcher-widget');
-    const fontTester = document.getElementById('font-tester-root');
-    const seqRest = document.querySelectorAll('.luxury-seq-rest');
-    const footer = document.querySelector('footer');
+    const header = document.querySelector("header");
+    const seq1 = document.querySelector(".luxury-seq-1");
+    const seq2 = document.querySelector(".luxury-seq-2");
+    const seq3 = document.querySelector(".luxury-seq-3");
+    const seq4 = document.querySelector(".luxury-seq-4");
+    const seq5 = document.querySelector(".luxury-seq-5");
+    const studioLauncher = document.getElementById("unified-studio-launcher");
+    const scrollIndicator = document.getElementById("luxury-scroll-indicator");
+    const themeSwitcher = document.getElementById("theme-switcher-widget");
+    const seqRest = document.querySelectorAll(".luxury-seq-rest");
+    const footer = document.querySelector("footer");
 
     const stagger = PARTICLE_CONFIG.elementStaggerDelay;
 
-    setTimeout(() => header?.classList.add('luxury-revealed'), 100);
-    setTimeout(() => seq1?.classList.add('luxury-revealed'), 100 + stagger);
-    setTimeout(() => seq2?.classList.add('luxury-revealed'), 100 + stagger * 2);
-    setTimeout(() => seq3?.classList.add('luxury-revealed'), 100 + stagger * 3);
-    setTimeout(() => seq4?.classList.add('luxury-revealed'), 100 + stagger * 4);
-    setTimeout(() => {
-      seq5?.classList.add('luxury-revealed');
-      replayBtn?.classList.add('luxury-revealed');
-      studioBtn?.classList.add('luxury-revealed');
-      const modeDock = document.getElementById('luxury-mode-dock');
-      if (modeDock) {
-        modeDock.classList.remove('opacity-0', 'translate-y-4');
-        modeDock.classList.add('opacity-100', 'translate-y-0');
-        if (typeof (window as any).showLuxuryModeToast === 'function') {
-          setTimeout(() => {
-            (window as any).showLuxuryModeToast?.(PARTICLE_CONFIG.interactiveMode, false, PARTICLE_CONFIG.isRandomMode);
-          }, 350);
-        }
-      }
-    }, 100 + stagger * 5);
+    setTimeout(() => header?.classList.add("luxury-revealed"), 100);
+    setTimeout(() => seq1?.classList.add("luxury-revealed"), 100 + stagger);
+    setTimeout(() => seq2?.classList.add("luxury-revealed"), 100 + stagger * 2);
+    setTimeout(() => seq3?.classList.add("luxury-revealed"), 100 + stagger * 3);
+    setTimeout(() => seq4?.classList.add("luxury-revealed"), 100 + stagger * 4);
+    setTimeout(() => seq5?.classList.add("luxury-revealed"), 100 + stagger * 5);
 
     const finalDelay = 100 + stagger * 6;
     setTimeout(() => {
-      scrollIndicator?.classList.add('luxury-revealed');
-      themeSwitcher?.classList.add('luxury-revealed');
-      fontTester?.classList.add('luxury-revealed');
-      footer?.classList.add('luxury-revealed');
-      seqRest.forEach((el) => el.classList.add('luxury-revealed'));
-      document.documentElement.classList.remove('luxury-animating');
+      studioLauncher?.classList.add("luxury-revealed");
+      scrollIndicator?.classList.add("luxury-revealed");
+      themeSwitcher?.classList.add("luxury-revealed");
+      footer?.classList.add("luxury-revealed");
+      seqRest.forEach((el) => el.classList.add("luxury-revealed"));
+      document.documentElement.classList.remove("luxury-animating");
 
       if (onAllRevealed) {
         onAllRevealed();
@@ -1564,66 +1547,80 @@
   // 🛠️ INTERACTIVE PARTICLE PLACEMENT STUDIO & MODE CONTROLLER
   // =========================================================================
   function setupInteractiveStudioUI() {
-    const studioBtn = document.getElementById('particle-studio-btn');
-    const studioPanel = document.getElementById('particle-studio-panel');
-    const studioCloseBtn = document.getElementById('studio-close-btn');
-    const imageTabsContainer = document.getElementById('studio-image-tabs');
-    const morphMarkersContainer = document.getElementById('studio-morph-markers');
-    const scaleSlider = document.getElementById('studio-scale-slider') as HTMLInputElement | null;
-    const alignXSlider = document.getElementById('studio-alignx-slider') as HTMLInputElement | null;
-    const alignYSlider = document.getElementById('studio-aligny-slider') as HTMLInputElement | null;
-    const morphSlider = document.getElementById('studio-morph-slider') as HTMLInputElement | null;
-    const toggleGizmo = document.getElementById('studio-toggle-gizmo') as HTMLInputElement | null;
-    const syncScrollBtn = document.getElementById('studio-sync-scroll-btn');
-    const copyBtn = document.getElementById('studio-copy-btn');
-    const saveBtn = document.getElementById('studio-save-btn');
-    const resetBtn = document.getElementById('studio-reset-btn');
-    const gizmo = document.getElementById('particle-placement-gizmo');
-    const dragHeader = document.getElementById('studio-drag-header');
+    const studioBtn = document.getElementById("particle-studio-btn");
+    const studioPanel = document.getElementById("particle-studio-panel");
+    const studioCloseBtn = document.getElementById("studio-close-btn");
+    const imageTabsContainer = document.getElementById("studio-image-tabs");
+    const morphMarkersContainer = document.getElementById(
+      "studio-morph-markers",
+    );
+    const scaleSlider = document.getElementById(
+      "studio-scale-slider",
+    ) as HTMLInputElement | null;
+    const alignXSlider = document.getElementById(
+      "studio-alignx-slider",
+    ) as HTMLInputElement | null;
+    const alignYSlider = document.getElementById(
+      "studio-aligny-slider",
+    ) as HTMLInputElement | null;
+    const morphSlider = document.getElementById(
+      "studio-morph-slider",
+    ) as HTMLInputElement | null;
+    const toggleGizmo = document.getElementById(
+      "studio-toggle-gizmo",
+    ) as HTMLInputElement | null;
+    const syncScrollBtn = document.getElementById("studio-sync-scroll-btn");
+    const copyBtn = document.getElementById("studio-copy-btn");
+    const saveBtn = document.getElementById("studio-save-btn");
+    const resetBtn = document.getElementById("studio-reset-btn");
+    const gizmo = document.getElementById("particle-placement-gizmo");
+    const dragHeader = document.getElementById("studio-drag-header");
 
     // Dock & Toast Elements
-    const modeDock = document.getElementById('luxury-mode-dock');
-    const modeDockMinimized = document.getElementById('luxury-mode-dock-minimized');
-    const dockMinimizeBtn = document.getElementById('dock-minimize-btn');
-    const dockLockBtn = document.getElementById('dock-lock-btn');
-    const dockRandomBtn = document.getElementById('dock-random-btn');
-    const toastEl = document.getElementById('luxury-mode-toast');
-    const toastTitle = document.getElementById('toast-title');
-    const toastDesc = document.getElementById('toast-desc');
+    const modeDock = document.getElementById("luxury-mode-dock");
+    const modeDockMinimized = document.getElementById(
+      "luxury-mode-dock-minimized",
+    );
+    const dockMinimizeBtn = document.getElementById("dock-minimize-btn");
+    const dockLockBtn = document.getElementById("dock-lock-btn");
+    const dockRandomBtn = document.getElementById("dock-random-btn");
+    const toastEl = document.getElementById("luxury-mode-toast");
+    const toastTitle = document.getElementById("toast-title");
+    const toastDesc = document.getElementById("toast-desc");
     let toastTimer: any = null;
 
     const MODE_DESCRIPTIONS = [
       {
-        name: 'Volumetric Quantum Aura',
-        desc: 'Move cursor — concentric holographic orbital drift and breathing aura around silhouette with pristine face stability.',
+        name: "Volumetric Quantum Aura",
+        desc: "Move cursor — concentric holographic orbital drift and breathing aura around silhouette with pristine face stability.",
       },
       {
-        name: 'Silk Surface Ripple',
-        desc: 'Move cursor over face — generates soft, concentric liquid gold waves radiating outwards.',
+        name: "Silk Surface Ripple",
+        desc: "Move cursor over face — generates soft, concentric liquid gold waves radiating outwards.",
       },
       {
-        name: 'Celestial Lantern',
-        desc: 'Cursor acts as a bioluminescent light wand — igniting particles with warm stardust bloom without distortion.',
+        name: "Celestial Lantern",
+        desc: "Cursor acts as a bioluminescent light wand — igniting particles with warm stardust bloom without distortion.",
       },
       {
-        name: 'Gravitational Lens',
-        desc: 'Move cursor around face — cosmic space-time curvature bends particles along Einstein ring orbits.',
+        name: "Gravitational Lens",
+        desc: "Move cursor around face — cosmic space-time curvature bends particles along Einstein ring orbits.",
       },
       {
-        name: 'Fluid Stardust Wake',
-        desc: 'Swipe or flick cursor — leaves swirling fluid curl-noise eddies and velocity momentum behind.',
+        name: "Fluid Stardust Wake",
+        desc: "Swipe or flick cursor — leaves swirling fluid curl-noise eddies and velocity momentum behind.",
       },
       {
-        name: 'Soft Physics Displace',
-        desc: 'Simple, velvety soft displacement with Gaussian decay, viscous fluid drag, and elastic spring recovery.',
+        name: "Soft Physics Displace",
+        desc: "Simple, velvety soft displacement with Gaussian decay, viscous fluid drag, and elastic spring recovery.",
       },
       {
-        name: 'Neural Constellation',
-        desc: 'Luminous synaptic filaments connect particles to cursor with traveling neural action potentials.',
+        name: "Neural Constellation",
+        desc: "Luminous synaptic filaments connect particles to cursor with traveling neural action potentials.",
       },
       {
-        name: 'Holographic Cyber Scanlines',
-        desc: 'Vertical scanning laser sweep, horizontal quantum comb slices, and chromatic holographic nano-particle glints.',
+        name: "Holographic Cyber Scanlines",
+        desc: "Vertical scanning laser sweep, horizontal quantum comb slices, and chromatic holographic nano-particle glints.",
       },
     ];
 
@@ -1640,31 +1637,37 @@
         toastTitle.textContent = `Mode ${mode}: ${info.name}`;
         toastDesc.textContent = `${info.desc} (Click 'Keep This' to lock, or 'Random Load' to shuffle)`;
       }
-      toastEl.classList.remove('opacity-0', '-translate-y-2');
-      toastEl.classList.add('opacity-100', 'translate-y-0');
+      toastEl.classList.remove("opacity-0", "-translate-y-2");
+      toastEl.classList.add("opacity-100", "translate-y-0");
 
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
-        toastEl.classList.remove('opacity-100', 'translate-y-0');
-        toastEl.classList.add('opacity-0', '-translate-y-2');
+        toastEl.classList.remove("opacity-100", "translate-y-0");
+        toastEl.classList.add("opacity-0", "-translate-y-2");
       }, 3400);
     }
     (window as any).showLuxuryModeToast = showModeToast;
 
     // Mode Sliders
-    const intensitySlider = document.getElementById('studio-intensity-slider') as HTMLInputElement | null;
-    const speedSlider = document.getElementById('studio-speed-slider') as HTMLInputElement | null;
-    const radiusSlider = document.getElementById('studio-radius-slider') as HTMLInputElement | null;
+    const intensitySlider = document.getElementById(
+      "studio-intensity-slider",
+    ) as HTMLInputElement | null;
+    const speedSlider = document.getElementById(
+      "studio-speed-slider",
+    ) as HTMLInputElement | null;
+    const radiusSlider = document.getElementById(
+      "studio-radius-slider",
+    ) as HTMLInputElement | null;
 
-    if (!studioBtn || !studioPanel) return;
+    // Ensure LuxuryParticleStudio is registered even without legacy panel HTML
 
-    // Toggle button
-    studioBtn.onclick = () => {
+    // Toggle button (legacy panel, optional)
+    studioBtn?.addEventListener("click", () => {
       studioActive = !studioActive;
       toggleStudioPanel(studioActive);
-    };
+    });
 
-    studioCloseBtn?.addEventListener('click', () => {
+    studioCloseBtn?.addEventListener("click", () => {
       studioActive = false;
       toggleStudioPanel(false);
     });
@@ -1672,94 +1675,107 @@
     // Mode Buttons Click Handlers
     function updateActiveModeUI() {
       // 1. Update Studio Panel Buttons
-      document.querySelectorAll('#studio-mode-buttons .mode-btn').forEach((btn) => {
-        const mode = parseInt(btn.getAttribute('data-mode') || '1', 10);
-        const dot = btn.querySelector('.mode-dot');
-        if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
-          btn.className = 'mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer bg-[#d4af37] text-zinc-950 font-bold shadow-md';
-          dot?.classList.remove('bg-zinc-600');
-          dot?.classList.add('bg-zinc-950');
-        } else {
-          btn.className = 'mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800';
-          dot?.classList.remove('bg-zinc-950');
-          dot?.classList.add('bg-zinc-600');
-        }
-      });
+      document
+        .querySelectorAll("#studio-mode-buttons .mode-btn")
+        .forEach((btn) => {
+          const mode = parseInt(btn.getAttribute("data-mode") || "1", 10);
+          const dot = btn.querySelector(".mode-dot");
+          if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
+            btn.className =
+              "mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer bg-[#d4af37] text-zinc-950 font-bold shadow-md";
+            dot?.classList.remove("bg-zinc-600");
+            dot?.classList.add("bg-zinc-950");
+          } else {
+            btn.className =
+              "mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800";
+            dot?.classList.remove("bg-zinc-950");
+            dot?.classList.add("bg-zinc-600");
+          }
+        });
 
       // 2. Update Floating Dock Buttons
-      document.querySelectorAll('.dock-mode-btn').forEach((btn) => {
-        const mode = parseInt(btn.getAttribute('data-dock-mode') || '1', 10);
-        const badge = btn.querySelector('.dock-badge');
+      document.querySelectorAll(".dock-mode-btn").forEach((btn) => {
+        const mode = parseInt(btn.getAttribute("data-dock-mode") || "1", 10);
+        const badge = btn.querySelector(".dock-badge");
         if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
-          btn.className = 'dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37] text-zinc-950 font-bold shadow-md';
-          badge?.classList.remove('bg-zinc-800');
-          badge?.classList.add('bg-zinc-950', 'text-[#d4af37]');
+          btn.className =
+            "dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37] text-zinc-950 font-bold shadow-md";
+          badge?.classList.remove("bg-zinc-800");
+          badge?.classList.add("bg-zinc-950", "text-[#d4af37]");
         } else {
-          btn.className = 'dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800';
-          badge?.classList.remove('bg-zinc-950', 'text-[#d4af37]');
-          badge?.classList.add('bg-zinc-800');
+          btn.className =
+            "dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800";
+          badge?.classList.remove("bg-zinc-950", "text-[#d4af37]");
+          badge?.classList.add("bg-zinc-800");
         }
       });
 
       // 3. Update Random vs Lock Button State in Dock
-      const randomText = document.getElementById('dock-random-text');
-      const lockText = document.getElementById('dock-lock-text');
-      const currentOrPendingMode = pendingMode || PARTICLE_CONFIG.interactiveMode;
+      const randomText = document.getElementById("dock-random-text");
+      const lockText = document.getElementById("dock-lock-text");
+      const currentOrPendingMode =
+        pendingMode || PARTICLE_CONFIG.interactiveMode;
       if (PARTICLE_CONFIG.isRandomMode) {
         if (dockRandomBtn) {
-          dockRandomBtn.className = 'px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] font-semibold shadow-sm';
+          dockRandomBtn.className =
+            "px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] font-semibold shadow-sm";
         }
-        if (randomText) randomText.textContent = 'Random: ON';
+        if (randomText) randomText.textContent = "Random: ON";
         if (dockLockBtn) {
-          dockLockBtn.className = 'px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-[#d4af37] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 font-medium text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap';
+          dockLockBtn.className =
+            "px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-[#d4af37] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 font-medium text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap";
         }
-        if (lockText) lockText.textContent = 'Keep This';
+        if (lockText) lockText.textContent = "Keep This";
       } else {
         if (dockRandomBtn) {
-          dockRandomBtn.className = 'px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-transparent';
+          dockRandomBtn.className =
+            "px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-transparent";
         }
-        if (randomText) randomText.textContent = 'Random Load';
+        if (randomText) randomText.textContent = "Random Load";
         if (dockLockBtn) {
-          dockLockBtn.className = 'px-3 py-1.5 rounded-full bg-[#d4af37] text-zinc-950 font-bold border border-[#d4af37] text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-md whitespace-nowrap';
+          dockLockBtn.className =
+            "px-3 py-1.5 rounded-full bg-[#d4af37] text-zinc-950 font-bold border border-[#d4af37] text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-md whitespace-nowrap";
         }
-        if (lockText) lockText.textContent = `✓ Kept (Mode ${currentOrPendingMode})`;
+        if (lockText)
+          lockText.textContent = `✓ Kept (Mode ${currentOrPendingMode})`;
       }
 
       // Update dynamic slider labels based on active mode
-      const intensityLabel = document.getElementById('studio-intensity-label');
-      const speedLabel = document.getElementById('studio-speed-label');
+      const intensityLabel = document.getElementById("studio-intensity-label");
+      const speedLabel = document.getElementById("studio-speed-label");
       if (intensityLabel && speedLabel) {
         const displayMode = currentOrPendingMode;
         if (displayMode === 1) {
-          intensityLabel.textContent = 'Quantum Aura Field Strength';
-          speedLabel.textContent = 'Laser Ring Wave Speed';
+          intensityLabel.textContent = "Quantum Aura Field Strength";
+          speedLabel.textContent = "Laser Ring Wave Speed";
         } else if (displayMode === 2) {
-          intensityLabel.textContent = 'Liquid Wave Amplitude';
-          speedLabel.textContent = 'Ripple Wave Speed';
+          intensityLabel.textContent = "Liquid Wave Amplitude";
+          speedLabel.textContent = "Ripple Wave Speed";
         } else if (displayMode === 3) {
-          intensityLabel.textContent = 'Lantern Radiance & Bloom';
-          speedLabel.textContent = 'Bioluminescent Ambient Lift';
+          intensityLabel.textContent = "Lantern Radiance & Bloom";
+          speedLabel.textContent = "Bioluminescent Ambient Lift";
         } else if (displayMode === 4) {
-          intensityLabel.textContent = 'Gravitational Curvature Strength';
-          speedLabel.textContent = 'Einstein Radius Streamlines';
+          intensityLabel.textContent = "Gravitational Curvature Strength";
+          speedLabel.textContent = "Einstein Radius Streamlines";
         } else if (displayMode === 5) {
-          intensityLabel.textContent = 'Curl Turbulence & Wake';
-          speedLabel.textContent = 'Swipe Force Momentum';
+          intensityLabel.textContent = "Curl Turbulence & Wake";
+          speedLabel.textContent = "Swipe Force Momentum";
         } else if (displayMode === 6) {
-          intensityLabel.textContent = 'Soft Elastic Cushion Strength';
-          speedLabel.textContent = 'Viscous Drag & Fluid Momentum';
+          intensityLabel.textContent = "Soft Elastic Cushion Strength";
+          speedLabel.textContent = "Viscous Drag & Fluid Momentum";
         } else if (displayMode === 7) {
-          intensityLabel.textContent = 'Synaptic Filament Density';
-          speedLabel.textContent = 'Neural Pulse Signal Speed';
+          intensityLabel.textContent = "Synaptic Filament Density";
+          speedLabel.textContent = "Neural Pulse Signal Speed";
         } else if (displayMode === 8) {
-          intensityLabel.textContent = 'Scanline Laser Slice Width';
-          speedLabel.textContent = 'Laser Sweep Velocity';
+          intensityLabel.textContent = "Scanline Laser Slice Width";
+          speedLabel.textContent = "Laser Sweep Velocity";
         }
       }
     }
 
     function switchMode(mode: number, showToast = true) {
-      if (mode === PARTICLE_CONFIG.interactiveMode && pendingMode === null) return;
+      if (mode === PARTICLE_CONFIG.interactiveMode && pendingMode === null)
+        return;
       pendingMode = mode;
       updateActiveModeUI();
       saveSettingsToStorage();
@@ -1769,7 +1785,7 @@
     }
 
     function triggerRandomMode() {
-      localStorage.removeItem('luxury_particle_locked_mode');
+      localStorage.removeItem("luxury_particle_locked_mode");
       PARTICLE_CONFIG.isRandomMode = true;
       let nextMode = Math.floor(Math.random() * 8) + 1;
       if (nextMode === PARTICLE_CONFIG.interactiveMode) {
@@ -1780,66 +1796,69 @@
     }
 
     // Studio panel buttons listener
-    document.querySelectorAll('#studio-mode-buttons .mode-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const mode = parseInt((e.currentTarget as HTMLElement).getAttribute('data-mode') || '1', 10);
-        switchMode(mode);
+    document
+      .querySelectorAll("#studio-mode-buttons .mode-btn")
+      .forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const mode = parseInt(
+            (e.currentTarget as HTMLElement).getAttribute("data-mode") || "1",
+            10,
+          );
+          switchMode(mode);
+        });
       });
-    });
 
     // Dock buttons listener
-    document.querySelectorAll('.dock-mode-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        const mode = parseInt((e.currentTarget as HTMLElement).getAttribute('data-dock-mode') || '1', 10);
+    document.querySelectorAll(".dock-mode-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const mode = parseInt(
+          (e.currentTarget as HTMLElement).getAttribute("data-dock-mode") ||
+            "1",
+          10,
+        );
         switchMode(mode);
       });
     });
 
     // Randomize on Load Button Listener
-    dockRandomBtn?.addEventListener('click', () => {
+    dockRandomBtn?.addEventListener("click", () => {
       triggerRandomMode();
     });
 
     // Dock Minimize & Restore
-    dockMinimizeBtn?.addEventListener('click', () => {
-      modeDock?.classList.add('hidden');
-      modeDockMinimized?.classList.remove('hidden');
-      modeDockMinimized?.classList.add('flex');
+    dockMinimizeBtn?.addEventListener("click", () => {
+      modeDock?.classList.add("hidden");
+      modeDockMinimized?.classList.remove("hidden");
+      modeDockMinimized?.classList.add("flex");
     });
 
-    modeDockMinimized?.addEventListener('click', () => {
-      modeDockMinimized?.classList.add('hidden');
-      modeDockMinimized?.classList.remove('flex');
-      modeDock?.classList.remove('hidden');
+    modeDockMinimized?.addEventListener("click", () => {
+      modeDockMinimized?.classList.add("hidden");
+      modeDockMinimized?.classList.remove("flex");
+      modeDock?.classList.remove("hidden");
     });
 
     // Lock Mode Button
-    dockLockBtn?.addEventListener('click', () => {
+    dockLockBtn?.addEventListener("click", () => {
       const mode = PARTICLE_CONFIG.interactiveMode;
-      localStorage.setItem('luxury_particle_locked_mode', String(mode));
+      localStorage.setItem("luxury_particle_locked_mode", String(mode));
       PARTICLE_CONFIG.isRandomMode = false;
       saveSettingsToStorage();
       updateActiveModeUI();
       showModeToast(mode, true);
     });
 
-    // Keyboard Shortcuts: Keys 1 to 8 to switch modes live, R to randomize, Alt+P for Studio
-    window.addEventListener('keydown', (e) => {
-      const activeTag = (document.activeElement?.tagName || '').toUpperCase();
-      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+    // Keyboard Shortcuts: Keys 1 to 8 to switch modes live, R to randomize
+    window.addEventListener("keydown", (e) => {
+      const activeTag = (document.activeElement?.tagName || "").toUpperCase();
+      if (activeTag === "INPUT" || activeTag === "TEXTAREA") return;
 
-      if (e.altKey && (e.key === 'p' || e.key === 'P')) {
-        studioActive = !studioActive;
-        toggleStudioPanel(studioActive);
-        return;
-      }
-
-      if (e.key === 'r' || e.key === 'R') {
+      if (e.key === "r" || e.key === "R") {
         triggerRandomMode();
         return;
       }
 
-      if (['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key)) {
+      if (["1", "2", "3", "4", "5", "6", "7", "8"].includes(e.key)) {
         const mode = parseInt(e.key, 10);
         switchMode(mode);
       }
@@ -1848,34 +1867,37 @@
     updateActiveModeUI();
 
     // Mode Sliders Listeners
-    intensitySlider?.addEventListener('input', () => {
+    intensitySlider?.addEventListener("input", () => {
       PARTICLE_CONFIG.effectIntensity = parseFloat(intensitySlider.value);
-      const valEl = document.getElementById('studio-intensity-val');
-      if (valEl) valEl.textContent = `${PARTICLE_CONFIG.effectIntensity.toFixed(2)}x`;
+      const valEl = document.getElementById("studio-intensity-val");
+      if (valEl)
+        valEl.textContent = `${PARTICLE_CONFIG.effectIntensity.toFixed(2)}x`;
     });
 
-    speedSlider?.addEventListener('input', () => {
+    speedSlider?.addEventListener("input", () => {
       PARTICLE_CONFIG.effectSpeed = parseFloat(speedSlider.value);
-      const valEl = document.getElementById('studio-speed-val');
-      if (valEl) valEl.textContent = `${PARTICLE_CONFIG.effectSpeed.toFixed(2)}x`;
+      const valEl = document.getElementById("studio-speed-val");
+      if (valEl)
+        valEl.textContent = `${PARTICLE_CONFIG.effectSpeed.toFixed(2)}x`;
     });
 
-    radiusSlider?.addEventListener('input', () => {
+    radiusSlider?.addEventListener("input", () => {
       PARTICLE_CONFIG.cursorRadius = parseFloat(radiusSlider.value);
-      const valEl = document.getElementById('studio-radius-val');
-      if (valEl) valEl.textContent = `${Math.round(PARTICLE_CONFIG.cursorRadius)}px`;
+      const valEl = document.getElementById("studio-radius-val");
+      if (valEl)
+        valEl.textContent = `${Math.round(PARTICLE_CONFIG.cursorRadius)}px`;
     });
 
     // Render image selector tabs
     if (imageTabsContainer) {
-      imageTabsContainer.innerHTML = '';
+      imageTabsContainer.innerHTML = "";
       PARTICLE_CONFIG.images.forEach((_, idx) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
+        const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = `py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center ${
           idx === selectedImageIdx
-            ? 'bg-[#d4af37] text-zinc-950 font-bold shadow-md'
-            : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+            ? "bg-[#d4af37] text-zinc-950 font-bold shadow-md"
+            : "text-zinc-400 hover:text-white hover:bg-zinc-800"
         }`;
         btn.textContent = `Image ${idx + 1}`;
         btn.onclick = () => {
@@ -1887,9 +1909,9 @@
 
     // Render morph scrub markers
     if (morphMarkersContainer) {
-      morphMarkersContainer.innerHTML = '';
+      morphMarkersContainer.innerHTML = "";
       PARTICLE_CONFIG.images.forEach((_, idx) => {
-        const span = document.createElement('span');
+        const span = document.createElement("span");
         span.textContent = `Img ${idx + 1}`;
         morphMarkersContainer.appendChild(span);
       });
@@ -1898,44 +1920,44 @@
     syncControlsToActiveImage();
 
     // Scale slider input
-    scaleSlider?.addEventListener('input', () => {
+    scaleSlider?.addEventListener("input", () => {
       const layout = getImageLayout(selectedImageIdx);
       layout.scale = parseFloat(scaleSlider.value);
-      const valEl = document.getElementById('studio-scale-val');
+      const valEl = document.getElementById("studio-scale-val");
       if (valEl) valEl.textContent = `${layout.scale.toFixed(2)}x`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
       saveSettingsToStorage();
     });
 
     // Align X slider input
-    alignXSlider?.addEventListener('input', () => {
+    alignXSlider?.addEventListener("input", () => {
       const layout = getImageLayout(selectedImageIdx);
       layout.alignX = parseFloat(alignXSlider.value);
-      const valEl = document.getElementById('studio-alignx-val');
+      const valEl = document.getElementById("studio-alignx-val");
       if (valEl) valEl.textContent = `${Math.round(layout.alignX * 100)}%`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
       saveSettingsToStorage();
     });
 
     // Align Y slider input
-    alignYSlider?.addEventListener('input', () => {
+    alignYSlider?.addEventListener("input", () => {
       const layout = getImageLayout(selectedImageIdx);
       layout.alignY = parseFloat(alignYSlider.value);
-      const valEl = document.getElementById('studio-aligny-val');
+      const valEl = document.getElementById("studio-aligny-val");
       if (valEl) valEl.textContent = `${Math.round(layout.alignY * 100)}%`;
       updateGizmoPosition(window.innerWidth, window.innerHeight);
       saveSettingsToStorage();
     });
 
     // Preset buttons for X
-    document.querySelectorAll('.preset-x-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+    document.querySelectorAll(".preset-x-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         const target = e.currentTarget as HTMLElement;
-        const val = parseFloat(target.getAttribute('data-val') || '0.5');
+        const val = parseFloat(target.getAttribute("data-val") || "0.5");
         const layout = getImageLayout(selectedImageIdx);
         layout.alignX = val;
         if (alignXSlider) alignXSlider.value = String(val);
-        const valEl = document.getElementById('studio-alignx-val');
+        const valEl = document.getElementById("studio-alignx-val");
         if (valEl) valEl.textContent = `${Math.round(val * 100)}%`;
         updateGizmoPosition(window.innerWidth, window.innerHeight);
         saveSettingsToStorage();
@@ -1943,25 +1965,25 @@
     });
 
     // Toggle gizmo visibility checkbox
-    toggleGizmo?.addEventListener('change', () => {
+    toggleGizmo?.addEventListener("change", () => {
       studioGizmoVisible = toggleGizmo.checked;
       if (!studioGizmoVisible && gizmo) {
-        gizmo.classList.add('hidden');
+        gizmo.classList.add("hidden");
       } else if (studioGizmoVisible && studioActive && gizmo) {
-        gizmo.classList.remove('hidden');
+        gizmo.classList.remove("hidden");
         updateGizmoPosition(window.innerWidth, window.innerHeight);
       }
     });
 
     // Morph scrub slider input
-    morphSlider?.addEventListener('input', () => {
+    morphSlider?.addEventListener("input", () => {
       const pct = parseFloat(morphSlider.value);
       studioManualMorph = pct / 100;
-      const morphValEl = document.getElementById('studio-morph-val');
+      const morphValEl = document.getElementById("studio-morph-val");
       if (morphValEl) morphValEl.textContent = `${Math.round(pct)}%`;
     });
 
-    syncScrollBtn?.addEventListener('click', () => {
+    syncScrollBtn?.addEventListener("click", () => {
       studioManualMorph = null;
       if (morphSlider) {
         const scrollY = window.scrollY || window.pageYOffset || 0;
@@ -1970,39 +1992,41 @@
         const maxScroll = Math.max(1, docHeight - winHeight);
         const curPct = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
         morphSlider.value = curPct.toFixed(1);
-        const morphValEl = document.getElementById('studio-morph-val');
+        const morphValEl = document.getElementById("studio-morph-val");
         if (morphValEl) morphValEl.textContent = `${Math.round(curPct)}%`;
       }
     });
 
     // Copy Configuration Code
-    copyBtn?.addEventListener('click', () => {
+    copyBtn?.addEventListener("click", () => {
       const code = `interactiveMode: ${PARTICLE_CONFIG.interactiveMode},\nimageLayouts: ${JSON.stringify(PARTICLE_CONFIG.imageLayouts, null, 2)},\neffectIntensity: ${PARTICLE_CONFIG.effectIntensity},\ncursorRadius: ${PARTICLE_CONFIG.cursorRadius},`;
       navigator.clipboard.writeText(code).then(() => {
-        const textEl = document.getElementById('studio-copy-text');
-        if (textEl) textEl.textContent = '✓ Copied!';
+        const textEl = document.getElementById("studio-copy-text");
+        if (textEl) textEl.textContent = "✓ Copied!";
         setTimeout(() => {
-          if (textEl) textEl.textContent = 'Copy Code';
+          if (textEl) textEl.textContent = "Copy Code";
         }, 2000);
       });
     });
 
     // Save to Browser button
-    saveBtn?.addEventListener('click', () => {
+    saveBtn?.addEventListener("click", () => {
       saveSettingsToStorage();
-      const textEl = document.getElementById('studio-save-text');
-      if (textEl) textEl.textContent = '✓ Saved!';
+      const textEl = document.getElementById("studio-save-text");
+      if (textEl) textEl.textContent = "✓ Saved!";
       setTimeout(() => {
-        if (textEl) textEl.textContent = 'Save to Browser';
+        if (textEl) textEl.textContent = "Save to Browser";
       }, 2000);
     });
 
     // Reset Defaults
-    resetBtn?.addEventListener('click', () => {
-      if (confirm('Reset all particle settings to defaults?')) {
-        localStorage.removeItem('luxury_particle_layouts');
-        localStorage.removeItem('luxury_particle_mode');
-        PARTICLE_CONFIG.imageLayouts = JSON.parse(JSON.stringify(DEFAULT_IMAGE_LAYOUTS));
+    resetBtn?.addEventListener("click", () => {
+      if (confirm("Reset all particle settings to defaults?")) {
+        localStorage.removeItem("luxury_particle_layouts");
+        localStorage.removeItem("luxury_particle_mode");
+        PARTICLE_CONFIG.imageLayouts = JSON.parse(
+          JSON.stringify(DEFAULT_IMAGE_LAYOUTS),
+        );
         PARTICLE_CONFIG.interactiveMode = 1;
         updateActiveModeUI();
         syncControlsToActiveImage();
@@ -2010,25 +2034,154 @@
       }
     });
 
+    // Morph Style Buttons (Dev-Only)
+    function updateMorphStyleUI() {
+      document.querySelectorAll(".morph-style-btn").forEach((btn) => {
+        const style = parseInt(btn.getAttribute("data-style") || "1", 10);
+        const dot = btn.querySelector(".morph-style-dot");
+        if (style === PARTICLE_CONFIG.morphStyle) {
+          (btn as HTMLElement).className =
+            "morph-style-btn flex items-center justify-between px-3 py-1.5 rounded-lg font-mono text-[11px] text-left transition-all duration-200 cursor-pointer bg-amber-400/20 text-amber-300 font-bold border border-amber-400/40";
+          dot?.classList.remove("bg-zinc-600");
+          dot?.classList.add("bg-amber-400");
+        } else {
+          (btn as HTMLElement).className =
+            "morph-style-btn flex items-center justify-between px-3 py-1.5 rounded-lg font-mono text-[11px] text-left transition-all duration-200 cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800";
+          dot?.classList.remove("bg-amber-400");
+          dot?.classList.add("bg-zinc-600");
+        }
+      });
+    }
+    document.querySelectorAll(".morph-style-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const style = parseInt(
+          (e.currentTarget as HTMLElement).getAttribute("data-style") || "1",
+          10,
+        );
+        PARTICLE_CONFIG.morphStyle = style;
+        updateMorphStyleUI();
+      });
+    });
+    updateMorphStyleUI();
+
+    // =========================================================================
+    // EXPOSE LUXURY PARTICLE STUDIO API FOR UNIFIED TABBED STUDIO MODAL
+    // =========================================================================
+    (window as any).LuxuryParticleStudio = {
+      getConfig: () => PARTICLE_CONFIG,
+      switchMode: (m: number) => switchMode(m),
+      setMorphStyle: (s: number) => {
+        PARTICLE_CONFIG.morphStyle = s;
+        updateMorphStyleUI();
+      },
+      setMorphProgress: (pct: number | null) => {
+        studioManualMorph = pct !== null ? pct / 100 : null;
+      },
+      testMorphAnimation: (durationMs = 3000) => {
+        const start = performance.now();
+        function animStep(now: number) {
+          const elapsed = now - start;
+          const progress = Math.min(1.0, elapsed / durationMs);
+          const t = progress <= 0.5 ? progress * 2 : (1.0 - progress) * 2;
+          studioManualMorph = t;
+          window.dispatchEvent(
+            new CustomEvent("particle-studio:morph-updated", {
+              detail: { pct: t * 100 },
+            }),
+          );
+          if (progress < 1.0) {
+            requestAnimationFrame(animStep);
+          } else {
+            studioManualMorph = null;
+            window.dispatchEvent(
+              new CustomEvent("particle-studio:morph-updated", {
+                detail: { pct: 0 },
+              }),
+            );
+          }
+        }
+        requestAnimationFrame(animStep);
+      },
+      setPhysics: (intensity: number, speed: number, radius: number) => {
+        PARTICLE_CONFIG.effectIntensity = intensity;
+        PARTICLE_CONFIG.effectSpeed = speed;
+        PARTICLE_CONFIG.cursorRadius = radius;
+      },
+      selectImageTab: (idx: number) => selectImageTab(idx),
+      setLayout: (idx: number, scale: number, alignX: number, alignY: number) => {
+        const layout = getImageLayout(idx);
+        layout.scale = scale;
+        layout.alignX = alignX;
+        layout.alignY = alignY;
+        updateGizmoPosition(window.innerWidth, window.innerHeight);
+        saveSettingsToStorage();
+      },
+      getLayout: (idx: number) => {
+        return getImageLayout(idx);
+      },
+      toggleGizmo: (visible: boolean) => {
+        studioGizmoVisible = visible;
+        studioActive = visible;
+        const gizmo = document.getElementById("particle-placement-gizmo");
+        if (gizmo) {
+          if (visible) {
+            gizmo.classList.remove("hidden");
+            updateGizmoPosition(window.innerWidth, window.innerHeight);
+          } else {
+            gizmo.classList.add("hidden");
+          }
+        }
+      },
+      triggerRandomMode: () => {
+        triggerRandomMode();
+        return PARTICLE_CONFIG.interactiveMode;
+      },
+      lockCurrentMode: () => {
+        const mode = PARTICLE_CONFIG.interactiveMode;
+        localStorage.setItem("luxury_particle_locked_mode", String(mode));
+        PARTICLE_CONFIG.isRandomMode = false;
+        saveSettingsToStorage();
+        updateActiveModeUI();
+        return mode;
+      },
+      getCurrentMode: () => PARTICLE_CONFIG.interactiveMode,
+      isRandomMode: () => PARTICLE_CONFIG.isRandomMode,
+      isLocked: () => !!localStorage.getItem("luxury_particle_locked_mode"),
+      resetDefaults: () => {
+        localStorage.removeItem("luxury_particle_layouts");
+        localStorage.removeItem("luxury_particle_mode");
+        localStorage.removeItem("luxury_particle_locked_mode");
+        PARTICLE_CONFIG.imageLayouts = JSON.parse(
+          JSON.stringify(DEFAULT_IMAGE_LAYOUTS),
+        );
+        PARTICLE_CONFIG.interactiveMode = 1;
+        PARTICLE_CONFIG.morphStyle = 1;
+        updateActiveModeUI();
+        syncControlsToActiveImage();
+        updateGizmoPosition(window.innerWidth, window.innerHeight);
+      },
+      saveSettings: () => saveSettingsToStorage(),
+    };
+
     setupGizmoInteractions();
     setupPanelDrag(dragHeader, studioPanel);
   }
 
   function toggleStudioPanel(open: boolean) {
-    const studioPanel = document.getElementById('particle-studio-panel');
-    const gizmo = document.getElementById('particle-placement-gizmo');
+    const studioPanel = document.getElementById("particle-studio-panel");
+    const gizmo = document.getElementById("particle-placement-gizmo");
     if (!studioPanel) return;
 
     if (open) {
-      studioPanel.classList.remove('hidden');
+      studioPanel.classList.remove("hidden");
       if (studioGizmoVisible && gizmo) {
-        gizmo.classList.remove('hidden');
+        gizmo.classList.remove("hidden");
         updateGizmoPosition(window.innerWidth, window.innerHeight);
       }
       syncControlsToActiveImage();
     } else {
-      studioPanel.classList.add('hidden');
-      gizmo?.classList.add('hidden');
+      studioPanel.classList.add("hidden");
+      gizmo?.classList.add("hidden");
       studioManualMorph = null;
     }
   }
@@ -2040,23 +2193,28 @@
 
   function selectImageTab(idx: number) {
     selectedImageIdx = idx;
-    const tabs = document.querySelectorAll('#studio-image-tabs button');
+    const tabs = document.querySelectorAll("#studio-image-tabs button");
     tabs.forEach((tab, i) => {
       if (i === idx) {
-        tab.className = 'py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center bg-[#d4af37] text-zinc-950 font-bold shadow-md';
+        tab.className =
+          "py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center bg-[#d4af37] text-zinc-950 font-bold shadow-md";
       } else {
-        tab.className = 'py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center text-zinc-400 hover:text-white hover:bg-zinc-800';
+        tab.className =
+          "py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center text-zinc-400 hover:text-white hover:bg-zinc-800";
       }
     });
 
     const numImages = PARTICLE_CONFIG.images.length;
     if (numImages > 1) {
       studioManualMorph = idx / (numImages - 1);
-      const morphSlider = document.getElementById('studio-morph-slider') as HTMLInputElement | null;
+      const morphSlider = document.getElementById(
+        "studio-morph-slider",
+      ) as HTMLInputElement | null;
       if (morphSlider) {
         morphSlider.value = String(studioManualMorph * 100);
-        const morphValEl = document.getElementById('studio-morph-val');
-        if (morphValEl) morphValEl.textContent = `${Math.round(studioManualMorph * 100)}%`;
+        const morphValEl = document.getElementById("studio-morph-val");
+        if (morphValEl)
+          morphValEl.textContent = `${Math.round(studioManualMorph * 100)}%`;
       }
     }
 
@@ -2066,25 +2224,33 @@
 
   function syncControlsToActiveImage() {
     const layout = getImageLayout(selectedImageIdx);
-    const scaleSlider = document.getElementById('studio-scale-slider') as HTMLInputElement | null;
-    const alignXSlider = document.getElementById('studio-alignx-slider') as HTMLInputElement | null;
-    const alignYSlider = document.getElementById('studio-aligny-slider') as HTMLInputElement | null;
+    const scaleSlider = document.getElementById(
+      "studio-scale-slider",
+    ) as HTMLInputElement | null;
+    const alignXSlider = document.getElementById(
+      "studio-alignx-slider",
+    ) as HTMLInputElement | null;
+    const alignYSlider = document.getElementById(
+      "studio-aligny-slider",
+    ) as HTMLInputElement | null;
 
     if (scaleSlider) scaleSlider.value = layout.scale.toFixed(2);
     if (alignXSlider) alignXSlider.value = layout.alignX.toFixed(3);
     if (alignYSlider) alignYSlider.value = layout.alignY.toFixed(3);
 
-    const scaleVal = document.getElementById('studio-scale-val');
-    const alignXVal = document.getElementById('studio-alignx-val');
-    const alignYVal = document.getElementById('studio-aligny-val');
+    const scaleVal = document.getElementById("studio-scale-val");
+    const alignXVal = document.getElementById("studio-alignx-val");
+    const alignYVal = document.getElementById("studio-aligny-val");
 
     if (scaleVal) scaleVal.textContent = `${layout.scale.toFixed(2)}x`;
-    if (alignXVal) alignXVal.textContent = `${Math.round(layout.alignX * 100)}%`;
-    if (alignYVal) alignYVal.textContent = `${Math.round(layout.alignY * 100)}%`;
+    if (alignXVal)
+      alignXVal.textContent = `${Math.round(layout.alignX * 100)}%`;
+    if (alignYVal)
+      alignYVal.textContent = `${Math.round(layout.alignY * 100)}%`;
   }
 
   function updateGizmoPosition(screenW: number, screenH: number) {
-    const gizmo = document.getElementById('particle-placement-gizmo');
+    const gizmo = document.getElementById("particle-placement-gizmo");
     if (!gizmo || !studioActive || !studioGizmoVisible) return;
 
     const layout = getImageLayout(selectedImageIdx);
@@ -2103,8 +2269,8 @@
     gizmo.style.width = `${drawW}px`;
     gizmo.style.height = `${drawH}px`;
 
-    const label = document.getElementById('gizmo-label');
-    const coords = document.getElementById('gizmo-coords');
+    const label = document.getElementById("gizmo-label");
+    const coords = document.getElementById("gizmo-coords");
     if (label) label.textContent = `Image ${selectedImageIdx + 1}`;
     if (coords) {
       coords.textContent = `X: ${(layout.alignX * 100).toFixed(1)}% Y: ${(layout.alignY * 100).toFixed(1)}% S: ${layout.scale.toFixed(2)}x`;
@@ -2112,7 +2278,7 @@
   }
 
   function setupGizmoInteractions() {
-    const gizmo = document.getElementById('particle-placement-gizmo');
+    const gizmo = document.getElementById("particle-placement-gizmo");
     if (!gizmo) return;
 
     let isDragging = false;
@@ -2124,7 +2290,7 @@
     let startScale = 1.0;
     let startDist = 0;
 
-    gizmo.addEventListener('pointerdown', (e) => {
+    gizmo.addEventListener("pointerdown", (e) => {
       e.stopPropagation();
       e.preventDefault();
 
@@ -2138,7 +2304,7 @@
       mouseVelX = 0;
       mouseVelY = 0;
 
-      if (target.classList.contains('gizmo-handle')) {
+      if (target.classList.contains("gizmo-handle")) {
         isScaling = true;
         startX = e.clientX;
         startY = e.clientY;
@@ -2154,8 +2320,8 @@
         startAlignY = layout.alignY;
       }
 
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
     });
 
     function onPointerMove(e: PointerEvent) {
@@ -2166,18 +2332,34 @@
       if (isDragging) {
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
-        layout.alignX = Math.max(0.02, Math.min(0.98, startAlignX + dx / screenW));
-        layout.alignY = Math.max(0.02, Math.min(0.98, startAlignY + dy / screenH));
+        layout.alignX = Math.max(
+          0.02,
+          Math.min(0.98, startAlignX + dx / screenW),
+        );
+        layout.alignY = Math.max(
+          0.02,
+          Math.min(0.98, startAlignY + dy / screenH),
+        );
         syncControlsToActiveImage();
         updateGizmoPosition(screenW, screenH);
+        window.dispatchEvent(
+          new CustomEvent("particle-studio:layout-updated", {
+            detail: { idx: selectedImageIdx, layout },
+          }),
+        );
       } else if (isScaling) {
         const cx = screenW * layout.alignX;
         const cy = screenH * layout.alignY;
         const curDist = Math.hypot(e.clientX - cx, e.clientY - cy);
         const ratio = curDist / Math.max(10, startDist);
-        layout.scale = Math.max(0.20, Math.min(2.50, startScale * ratio));
+        layout.scale = Math.max(0.2, Math.min(2.5, startScale * ratio));
         syncControlsToActiveImage();
         updateGizmoPosition(screenW, screenH);
+        window.dispatchEvent(
+          new CustomEvent("particle-studio:layout-updated", {
+            detail: { idx: selectedImageIdx, layout },
+          }),
+        );
       }
     }
 
@@ -2187,13 +2369,13 @@
       }
       isDragging = false;
       isScaling = false;
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
     }
   }
 
-  function setupPanelDrag(header: HTMLElement | null, panel: HTMLElement) {
-    if (!header) return;
+  function setupPanelDrag(header: HTMLElement | null, panel: HTMLElement | null) {
+    if (!header || !panel) return;
 
     let isDragging = false;
     let startX = 0;
@@ -2201,8 +2383,8 @@
     let initialLeft = 0;
     let initialTop = 0;
 
-    header.addEventListener('pointerdown', (e) => {
-      if ((e.target as HTMLElement).closest('#studio-close-btn')) return;
+    header.addEventListener("pointerdown", (e) => {
+      if ((e.target as HTMLElement).closest("#studio-close-btn")) return;
       isDragging = true;
       startX = e.clientX;
       startY = e.clientY;
@@ -2210,13 +2392,13 @@
       initialLeft = rect.left;
       initialTop = rect.top;
 
-      panel.style.bottom = 'auto';
-      panel.style.right = 'auto';
+      panel.style.bottom = "auto";
+      panel.style.right = "auto";
       panel.style.left = `${initialLeft}px`;
       panel.style.top = `${initialTop}px`;
 
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
     });
 
     function onPointerMove(e: PointerEvent) {
@@ -2229,45 +2411,48 @@
 
     function onPointerUp() {
       isDragging = false;
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
     }
   }
 
-  window.addEventListener('replay-luxury-intro', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.documentElement.classList.add('luxury-animating');
-    document.querySelectorAll('.luxury-revealed').forEach(el => el.classList.remove('luxury-revealed'));
-    setTimeout(initLuxuryCinematicIntro, 350);
-  });
-
   const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-        const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'luxury') {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "data-theme"
+      ) {
+        const theme = document.documentElement.getAttribute("data-theme");
+        if (theme === "luxury") {
           initLuxuryCinematicIntro();
         } else {
           if (currentAnimId) cancelAnimationFrame(currentAnimId);
-          document.documentElement.classList.remove('luxury-animating');
-          document.getElementById('luxury-veil')?.classList.add('hidden');
-          document.getElementById('luxury-particle-canvas')?.classList.add('hidden');
-          document.getElementById('particle-studio-btn')?.classList.add('hidden');
+          document.documentElement.classList.remove("luxury-animating");
+          document.getElementById("luxury-veil")?.classList.add("hidden");
+          document
+            .getElementById("luxury-particle-canvas")
+            ?.classList.add("hidden");
+          document
+            .getElementById("particle-studio-btn")
+            ?.classList.add("hidden");
           closeStudioPanel();
-          const portraitImg = document.getElementById('luxury-portrait-img');
+          const portraitImg = document.getElementById("luxury-portrait-img");
           if (portraitImg) {
-            portraitImg.style.opacity = '1';
-            portraitImg.style.display = '';
+            portraitImg.style.opacity = "1";
+            portraitImg.style.display = "";
           }
         }
       }
     }
   });
 
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLuxuryCinematicIntro);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLuxuryCinematicIntro);
   } else {
     initLuxuryCinematicIntro();
   }

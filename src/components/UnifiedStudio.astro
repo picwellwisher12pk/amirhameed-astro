@@ -1,0 +1,1456 @@
+---
+// Unified Creative Studio: Particle VFX & Typography in One Breathable, Friendly Tabbed Modal
+---
+
+<!-- Single Floating Studio Launcher Button (Bottom Right) -->
+<div id="unified-studio-launcher" class="fixed bottom-6 right-6 z-50 select-none">
+  <button
+    id="unified-studio-trigger"
+    type="button"
+    class="studio-launcher-btn group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900/95 hover:bg-slate-800 text-slate-100 border border-slate-700/80 shadow-xl hover:shadow-2xl backdrop-blur-xl text-xs font-medium transition-all duration-300 hover:scale-105 cursor-pointer hover:border-amber-400/60"
+    title="Open Creative Studio: Particle VFX & Typography (Alt+S)"
+  >
+    <span class="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black text-[11px] shadow-sm group-hover:rotate-12 transition-transform">✦</span>
+    <span class="font-semibold tracking-wide">Studio</span>
+    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">Alt+S</span>
+  </button>
+</div>
+
+<!-- Unified Studio Floating Modal Window -->
+<div
+  id="unified-studio-modal"
+  class="fixed bottom-20 right-6 z-50 hidden w-[540px] max-w-[calc(100vw-32px)] max-h-[85vh] flex-col rounded-3xl bg-slate-900/98 text-slate-100 border border-slate-700/80 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] backdrop-blur-2xl overflow-hidden font-sans select-none transition-all duration-300 ease-out"
+>
+  <!-- Modal Header: Draggable Title Bar & Close Button -->
+  <div
+    id="unified-studio-header"
+    class="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-950/80 cursor-move select-none shrink-0"
+    title="Creative Studio • Drag header to move anywhere on screen"
+  >
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 font-black text-sm shadow-md">
+        ✦
+      </div>
+      <div>
+        <h2 class="font-bold text-sm text-white tracking-tight flex items-center gap-2">
+          <span>Creative Studio</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-300 border border-amber-400/30">Pro Lab</span>
+        </h2>
+        <p class="text-[11px] text-slate-400 font-normal flex items-center gap-1.5">
+          <span>Particle Physics &bull; Layout &bull; Typography</span>
+          <span class="text-slate-600 hidden sm:inline">&bull;</span>
+          <span class="text-[10px] text-slate-400 hidden sm:inline">Drag to move</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- Drag Grip Indicator -->
+      <div class="hidden sm:flex items-center text-slate-500 text-xs tracking-tighter px-1.5 select-none" title="Drag handle">
+        ⋮⋮
+      </div>
+      <button
+        id="unified-studio-close"
+        type="button"
+        class="w-7 h-7 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors text-lg cursor-pointer"
+        title="Close Studio (Esc)"
+      >
+        &times;
+      </button>
+    </div>
+  </div>
+
+  <!-- Segmented 3-Tab Switcher (Breathable, Clear & Responsive) -->
+  <div class="px-5 pt-3 pb-2 border-b border-slate-800/80 bg-slate-900/90 shrink-0">
+    <div class="grid grid-cols-3 p-1 bg-slate-950/80 rounded-2xl border border-slate-800 gap-1">
+      <button
+        type="button"
+        id="tab-btn-particles"
+        class="studio-tab-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl font-medium text-xs transition-all cursor-pointer bg-gradient-to-r from-amber-500/20 to-amber-400/20 text-amber-300 border border-amber-400/40 shadow-sm"
+        data-tab="particles"
+      >
+        <span class="text-amber-400">✦</span>
+        <span>Particle Physics</span>
+        <span class="text-[10px] font-mono text-slate-400 hidden lg:inline">Alt+P</span>
+      </button>
+
+      <button
+        type="button"
+        id="tab-btn-layout"
+        class="studio-tab-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl font-medium text-xs transition-all cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+        data-tab="layout"
+      >
+        <span class="text-emerald-400 font-bold">📐</span>
+        <span>Layout Studio</span>
+        <span class="text-[10px] font-mono text-slate-400 hidden lg:inline">Alt+L</span>
+      </button>
+
+      <button
+        type="button"
+        id="tab-btn-fonts"
+        class="studio-tab-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl font-medium text-xs transition-all cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+        data-tab="fonts"
+      >
+        <span class="text-sky-400 font-serif font-bold">Aa</span>
+        <span>Typography</span>
+        <span class="text-[10px] font-mono text-slate-400 hidden lg:inline">Alt+F</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Scrollable Content Container -->
+  <div class="p-5 overflow-y-auto flex-grow space-y-6 max-h-[calc(85vh-150px)]">
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: PARTICLE & VFX STUDIO                                         -->
+    <!-- ===================================================================== -->
+    <div id="tab-content-particles" class="space-y-5">
+      
+      <!-- 1. MORPH TRANSITION STYLES (User's Key Request!) -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]"></span>
+            <label class="text-xs font-bold text-white uppercase tracking-wider">Image Morph Transition Style</label>
+          </div>
+          <span class="text-[10px] font-mono text-amber-300/90 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">5 Styles</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-normal">
+          Determines how particles flow and reassemble between pictures when scrolling:
+        </p>
+
+        <!-- 5 Style Option Cards -->
+        <div id="u-morph-style-cards" class="grid grid-cols-1 gap-2">
+          
+          <!-- Style 1: Direct Spatial Flow (User Idea 1) -->
+          <button
+            type="button"
+            class="u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border transition-all cursor-pointer bg-amber-400/15 border-amber-400/50 text-amber-200 shadow-sm"
+            data-morph-style="1"
+          >
+            <span class="u-morph-dot mt-1 w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white">1. Direct Spatial Flow <span class="text-[10px] font-mono text-amber-300 font-semibold">(Logical Flow)</span></span>
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300">Recommended</span>
+              </div>
+              <p class="text-[11px] text-slate-300 mt-0.5">
+                Particles navigate directly to matching coordinates in the next image — clean, logical, and structured.
+              </p>
+            </div>
+          </button>
+
+          <!-- Style 2: Wind Swirl & Vortex (User Idea 2) -->
+          <button
+            type="button"
+            class="u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800/50 transition-all cursor-pointer"
+            data-morph-style="2"
+          >
+            <span class="u-morph-dot mt-1 w-2.5 h-2.5 rounded-full bg-slate-600 shrink-0"></span>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white">2. Wind Swirl &amp; Vortex <span class="text-[10px] font-mono text-amber-300 font-semibold">(Cyclone Storm)</span></span>
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-slate-400">Dynamic</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                A windstorm blows across, tears the image into a swirling vortex, then calmly converges into the next image.
+              </p>
+            </div>
+          </button>
+
+          <!-- Style 3: Diagonal Wave Wipe -->
+          <button
+            type="button"
+            class="u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800/50 transition-all cursor-pointer"
+            data-morph-style="3"
+          >
+            <span class="u-morph-dot mt-1 w-2.5 h-2.5 rounded-full bg-slate-600 shrink-0"></span>
+            <div class="flex-grow">
+              <span class="font-bold text-xs text-white">3. Diagonal Wave Wipe</span>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                An editorial light-seam sweeps diagonally; particles seamlessly transform on contact.
+              </p>
+            </div>
+          </button>
+
+          <!-- Style 4: Gravity Singularity -->
+          <button
+            type="button"
+            class="u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800/50 transition-all cursor-pointer"
+            data-morph-style="4"
+          >
+            <span class="u-morph-dot mt-1 w-2.5 h-2.5 rounded-full bg-slate-600 shrink-0"></span>
+            <div class="flex-grow">
+              <span class="font-bold text-xs text-white">4. Gravity Collapse (Singularity)</span>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                Black hole implosion into a luminous cosmic core, then blossoms outward into the next image.
+              </p>
+            </div>
+          </button>
+
+          <!-- Style 5: Radial Iris Aperture -->
+          <button
+            type="button"
+            class="u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800/50 transition-all cursor-pointer"
+            data-morph-style="5"
+          >
+            <span class="u-morph-dot mt-1 w-2.5 h-2.5 rounded-full bg-slate-600 shrink-0"></span>
+            <div class="flex-grow">
+              <span class="font-bold text-xs text-white">5. Radial Iris Aperture</span>
+              <p class="text-[11px] text-slate-400 mt-0.5">
+                A camera iris ring opens outward with a gentle twisting reveal.
+              </p>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Live Scrub & Animation Preview Controls -->
+        <div class="pt-3 border-t border-slate-700/60 space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-300 font-medium">Scrub Morph Progress:</span>
+            <div class="flex items-center gap-2">
+              <span id="u-morph-scrub-val" class="font-mono text-amber-300 font-bold">0%</span>
+              <button
+                type="button"
+                id="u-btn-sync-scroll"
+                class="text-[11px] font-mono text-sky-400 hover:text-sky-300 underline cursor-pointer"
+              >
+                Sync to Scroll
+              </button>
+            </div>
+          </div>
+
+          <input
+            id="u-morph-scrub-slider"
+            type="range"
+            min="0"
+            max="100"
+            step="0.5"
+            value="0"
+            class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer"
+          />
+
+          <!-- Play Test Animation Button -->
+          <div class="flex gap-2 pt-1">
+            <button
+              type="button"
+              id="u-btn-test-morph-anim"
+              class="flex-grow py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer hover:scale-[1.02]"
+            >
+              <span>▶ Play 3-Sec Morph Test</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2. EFFECT SHOWCASE (MODES 1 TO 8 + RANDOMIZE + LOCK) -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3.5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b] animate-pulse"></span>
+              <label class="text-xs font-bold text-white uppercase tracking-wider">Effect Showcase</label>
+              <span id="u-active-mode-badge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">Mode 1: Quantum Aura</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-0.5">Test, shuffle, or lock your interactive particle physics mode</p>
+          </div>
+
+          <!-- Showcase Action Buttons (Random Load & Keep This) -->
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button
+              type="button"
+              id="u-btn-dock-random"
+              class="px-2.5 py-1.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-mono font-medium flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+              title="Play random effect on each page load (Press R)"
+            >
+              <span>🎲</span>
+              <span id="u-btn-dock-random-text">Random Load</span>
+            </button>
+
+            <button
+              type="button"
+              id="u-btn-dock-lock"
+              class="px-2.5 py-1.5 rounded-xl border border-amber-400/50 bg-amber-400/15 hover:bg-amber-400 hover:text-slate-950 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+              title="Lock this selected effect permanently on every load"
+            >
+              <span>⭐</span>
+              <span id="u-btn-dock-lock-text">Keep This</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Effect Information Box -->
+        <div id="u-mode-detail-card" class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+          <div class="flex items-center justify-between">
+            <h4 id="u-mode-detail-title" class="font-bold text-xs text-amber-300">Mode 1: Volumetric Quantum Aura</h4>
+            <span class="text-[10px] font-mono text-slate-500">Press 1–8 live</span>
+          </div>
+          <p id="u-mode-detail-desc" class="text-[11px] text-slate-300 leading-relaxed">
+            Move cursor across screen — concentric holographic orbital drift and breathing aura around silhouette with pristine face stability.
+          </p>
+        </div>
+
+        <!-- 8 Mode Selector Cards -->
+        <div id="u-particle-mode-grid" class="grid grid-cols-2 gap-2">
+          <button type="button" data-mode="1" class="u-mode-btn p-2.5 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer bg-amber-400/20 border-amber-400 text-amber-300 font-bold shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">1. Quantum Aura</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-amber-400/20 text-amber-300">1</span>
+            </div>
+            <div class="text-[10px] text-slate-300 mt-0.5">Harmonic Drift</div>
+          </button>
+
+          <button type="button" data-mode="2" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">2. Silk Ripple</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">2</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Liquid Gold Waves</div>
+          </button>
+
+          <button type="button" data-mode="3" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">3. Celestial Lantern</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">3</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Bioluminescent</div>
+          </button>
+
+          <button type="button" data-mode="4" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">4. Gravitational Lens</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">4</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Curvature Warp</div>
+          </button>
+
+          <button type="button" data-mode="5" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">5. Stardust Wake</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">5</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Curl Turbulence</div>
+          </button>
+
+          <button type="button" data-mode="6" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">6. Soft Displace</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">6</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Elastic Membrane</div>
+          </button>
+
+          <button type="button" data-mode="7" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">7. Neural Web</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">7</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Synaptic Filaments</div>
+          </button>
+
+          <button type="button" data-mode="8" class="u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer">
+            <div class="flex items-center justify-between">
+              <span class="font-bold">8. Cyber Scanlines</span>
+              <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400">8</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Laser Prismatic</div>
+          </button>
+        </div>
+
+        <!-- Sliders: Intensity, Speed, Radius -->
+        <div class="pt-3 border-t border-slate-700/60 space-y-3 font-mono text-xs">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Effect Intensity:</span>
+              <span id="u-physics-intensity-val" class="text-amber-300 font-bold">1.00x</span>
+            </div>
+            <input id="u-slider-intensity" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+          </div>
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Speed / Frequency:</span>
+              <span id="u-physics-speed-val" class="text-amber-300 font-bold">1.00x</span>
+            </div>
+            <input id="u-slider-speed" type="range" min="0.2" max="2.5" step="0.05" value="1.0" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+          </div>
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Influence Radius:</span>
+              <span id="u-physics-radius-val" class="text-amber-300 font-bold">140px</span>
+            </div>
+            <input id="u-slider-radius" type="range" min="60" max="260" step="5" value="140" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Particle Physics Action Buttons -->
+      <div class="flex items-center justify-between gap-2 pt-2">
+        <button
+          type="button"
+          id="u-btn-save-particles"
+          class="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-xs font-semibold transition-all cursor-pointer"
+        >
+          Save Physics to Browser
+        </button>
+        <button
+          type="button"
+          id="u-btn-reset-particles"
+          class="py-2 px-3 rounded-xl text-slate-400 hover:text-rose-400 font-mono text-xs transition-colors cursor-pointer"
+        >
+          Reset Defaults
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: CANVAS LAYOUT STUDIO                                          -->
+    <!-- ===================================================================== -->
+    <div id="tab-content-layout" class="space-y-5 hidden">
+      
+      <!-- IMAGE POSITIONING & CANVAS GIZMO -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <label class="text-xs font-bold text-white uppercase tracking-wider block">Canvas Image Placement &amp; Scaling</label>
+            <p class="text-[11px] text-slate-400 mt-0.5">Position each image target in 2D viewport coordinates</p>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-slate-700/60">
+            <input type="checkbox" id="u-toggle-gizmo-box" checked class="accent-amber-400 cursor-pointer rounded" />
+            <label for="u-toggle-gizmo-box" class="text-[11px] text-amber-300 font-medium cursor-pointer">Show Drag Box</label>
+          </div>
+        </div>
+
+        <!-- Image Selector Pills -->
+        <div class="space-y-1.5">
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Select Target Image:</span>
+          <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800" id="u-image-selector-tabs">
+            <button type="button" data-img-idx="0" class="u-img-tab py-2 px-2 rounded-lg font-mono text-xs font-bold bg-amber-400 text-slate-950 shadow">Img 1 (Hero)</button>
+            <button type="button" data-img-idx="1" class="u-img-tab py-2 px-2 rounded-lg font-mono text-xs text-slate-400 hover:text-white">Img 2 (Mondoro)</button>
+            <button type="button" data-img-idx="2" class="u-img-tab py-2 px-2 rounded-lg font-mono text-xs text-slate-400 hover:text-white">Img 3 (Censor)</button>
+          </div>
+        </div>
+
+        <!-- Scale, AlignX, AlignY -->
+        <div class="space-y-3.5 font-mono text-xs pt-1">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Scale (Size):</span>
+              <span id="u-layout-scale-val" class="text-amber-300 font-bold">1.09x</span>
+            </div>
+            <input id="u-slider-scale" type="range" min="0.20" max="2.20" step="0.01" value="1.09" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Horizontal Align (X):</span>
+              <span id="u-layout-alignx-val" class="text-amber-300 font-bold">76%</span>
+            </div>
+            <input id="u-slider-alignx" type="range" min="0.05" max="0.95" step="0.005" value="0.76" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+            <div class="flex gap-2 mt-2">
+              <button type="button" class="u-preset-x-btn px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/60 text-[11px] text-slate-300 cursor-pointer" data-val="0.32">Left (32%)</button>
+              <button type="button" class="u-preset-x-btn px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/60 text-[11px] text-slate-300 cursor-pointer" data-val="0.50">Center (50%)</button>
+              <button type="button" class="u-preset-x-btn px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/60 text-[11px] text-slate-300 cursor-pointer" data-val="0.76">Right (76%)</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Vertical Align (Y):</span>
+              <span id="u-layout-aligny-val" class="text-amber-300 font-bold">49%</span>
+            </div>
+            <input id="u-slider-aligny" type="range" min="0.05" max="0.95" step="0.005" value="0.49" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
+          <span class="text-amber-400 text-sm">💡</span>
+          <span>Tip: When <strong>"Show Drag Box"</strong> is enabled, you can click and drag the yellow dotted box directly on the screen or drag its corners to resize!</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons for Layout -->
+      <div class="flex items-center justify-between gap-2 pt-1">
+        <button
+          type="button"
+          id="u-btn-save-layout"
+          class="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-xs font-semibold transition-all cursor-pointer"
+        >
+          Save Layout to Browser
+        </button>
+        <button
+          type="button"
+          id="u-btn-reset-layout"
+          class="py-2 px-3 rounded-xl text-slate-400 hover:text-rose-400 font-mono text-xs transition-colors cursor-pointer"
+        >
+          Reset Layout
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: TYPOGRAPHY STUDIO                                             -->
+    <!-- ===================================================================== -->
+    <div id="tab-content-fonts" class="space-y-5 hidden">
+      
+      <!-- Scope Selector -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3">
+        <label class="text-xs font-bold text-white uppercase tracking-wider block">Target Scope</label>
+        <div class="grid grid-cols-2 gap-2" id="u-font-scope-group">
+          <button data-scope="everything" class="u-scope-btn px-3 py-2 rounded-xl border border-amber-400/50 bg-amber-400/15 text-white font-medium text-xs text-left cursor-pointer">
+            Entire Site &amp; Header
+          </button>
+          <button data-scope="header-nav" class="u-scope-btn px-3 py-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:text-white text-xs text-left cursor-pointer">
+            Header &amp; Nav Only
+          </button>
+          <button data-scope="headings" class="u-scope-btn px-3 py-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:text-white text-xs text-left cursor-pointer">
+            Headings &amp; Logo
+          </button>
+          <button data-scope="hero-only" class="u-scope-btn px-3 py-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:text-white text-xs text-left cursor-pointer">
+            Hero Name Only
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold text-white uppercase tracking-wider">Font Family Browser</label>
+          <span id="u-active-font-badge" class="text-[11px] font-mono text-amber-300 font-semibold">Cinzel</span>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5" id="u-font-cat-pills">
+          <button data-cat="all" class="u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-400 text-slate-950 font-bold cursor-pointer">All (19)</button>
+          <button data-cat="classical" class="u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white cursor-pointer">Classical Serif</button>
+          <button data-cat="modern" class="u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white cursor-pointer">Modern Sans</button>
+          <button data-cat="display" class="u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white cursor-pointer">Heavy / Slab</button>
+        </div>
+
+        <!-- Scrollable Font List -->
+        <div class="space-y-1.5 max-h-56 overflow-y-auto pr-1" id="u-font-list-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Typography Tuning Sliders -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3.5 font-mono text-xs">
+        <label class="text-xs font-bold text-white uppercase tracking-wider block font-sans">Metrics &amp; Case Tuning</label>
+
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-slate-300">Letter Spacing:</span>
+            <span id="u-font-val-spacing" class="text-amber-300 font-bold">0.03em</span>
+          </div>
+          <input type="range" id="u-font-slider-spacing" min="-0.05" max="0.30" step="0.01" value="0.03" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+        </div>
+
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-slate-300">Font Weight:</span>
+            <span id="u-font-val-weight" class="text-amber-300 font-bold">700</span>
+          </div>
+          <input type="range" id="u-font-slider-weight" min="300" max="900" step="100" value="700" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+        </div>
+
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-slate-300">Header Font Size:</span>
+            <span id="u-font-val-size" class="text-amber-300 font-bold">0.875rem</span>
+          </div>
+          <input type="range" id="u-font-slider-size" min="0.65" max="2.00" step="0.025" value="0.875" class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer" />
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-300">Text Transform:</span>
+            <div class="flex gap-2">
+              <button data-transform="none" class="u-font-transform-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 hover:text-white cursor-pointer">Normal</button>
+              <button data-transform="uppercase" class="u-font-transform-btn px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-bold cursor-pointer">UPPERCASE</button>
+              <button data-transform="capitalize" class="u-font-transform-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 hover:text-white cursor-pointer">Title</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-between gap-2 pt-2">
+        <button
+          type="button"
+          id="u-btn-copy-css"
+          class="flex-1 py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs font-mono transition-all cursor-pointer shadow-sm"
+        >
+          📋 Copy CSS
+        </button>
+        <a
+          href="/font-tester"
+          class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-colors"
+        >
+          Gallery ↗
+        </a>
+        <button
+          type="button"
+          id="u-btn-reset-fonts"
+          class="py-2 px-3 rounded-xl text-slate-400 hover:text-rose-400 font-mono text-xs transition-colors cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // =========================================================================
+  // UNIFIED CREATIVE STUDIO CONTROLLER
+  // Combines Particle Physics & Typography into a friendly, breathable modal
+  // =========================================================================
+
+  interface FontItem {
+    id: string;
+    name: string;
+    family: string;
+    googleQuery: string;
+    category: 'classical' | 'modern' | 'display';
+    tagline: string;
+    recommendedWeight: number;
+    recommendedSpacing: string;
+  }
+
+  const FONTS_CATALOG: FontItem[] = [
+    { id: 'cinzel', name: 'Cinzel', family: "'Cinzel', Georgia, serif", googleQuery: 'Cinzel:wght@400..900', category: 'classical', tagline: 'Imperial Classical Serif', recommendedWeight: 700, recommendedSpacing: '0.03em' },
+    { id: 'bodoni-moda', name: 'Bodoni Moda', family: "'Bodoni Moda', Georgia, serif", googleQuery: 'Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900', category: 'classical', tagline: 'Vogue & Luxury Editorial', recommendedWeight: 700, recommendedSpacing: '0.05em' },
+    { id: 'marcellus', name: 'Marcellus', family: "'Marcellus', Georgia, serif", googleQuery: 'Marcellus', category: 'classical', tagline: 'Roman Monumental Inscription', recommendedWeight: 400, recommendedSpacing: '0.06em' },
+    { id: 'cormorant', name: 'Cormorant', family: "'Cormorant', 'Cormorant Garamond', Georgia, serif", googleQuery: 'Cormorant:ital,wght@0,300..700;1,300..700', category: 'classical', tagline: 'Aristocratic French Elegance', recommendedWeight: 600, recommendedSpacing: '0.04em' },
+    { id: 'crimson-pro', name: 'Crimson Pro', family: "'Crimson Pro', Georgia, serif", googleQuery: 'Crimson+Pro:ital,wght@0,300..900;1,300..900', category: 'classical', tagline: 'Refined Bookish Academic', recommendedWeight: 600, recommendedSpacing: '0.02em' },
+    { id: 'dm-serif-display', name: 'DM Serif Display', family: "'DM Serif Display', Georgia, serif", googleQuery: 'DM+Serif+Display:ital@0;1', category: 'classical', tagline: 'High-Contrast Drama', recommendedWeight: 400, recommendedSpacing: '-0.01em' },
+    { id: 'playfair', name: 'Playfair Display', family: "'Playfair Display', Georgia, serif", googleQuery: 'Playfair+Display:ital,wght@0,400..900;1,400..900', category: 'classical', tagline: 'Transitional Literary Charm', recommendedWeight: 700, recommendedSpacing: '-0.01em' },
+    { id: 'source-serif-4', name: 'Source Serif 4', family: "'Source Serif 4', Georgia, serif", googleQuery: 'Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900', category: 'classical', tagline: 'Crisp Structural Craft', recommendedWeight: 600, recommendedSpacing: '0.01em' },
+    { id: 'bitter', name: 'Bitter', family: "'Bitter', Georgia, serif", googleQuery: 'Bitter:ital,wght@0,300..900;1,300..900', category: 'classical', tagline: 'Comfortable Contemporary Serif', recommendedWeight: 600, recommendedSpacing: '0.01em' },
+    { id: 'arvo', name: 'Arvo', family: "'Arvo', Georgia, serif", googleQuery: 'Arvo:ital,wght@0,400;0,700;1,400;1,700', category: 'display', tagline: 'Geometric Slab-Serif', recommendedWeight: 700, recommendedSpacing: '0.02em' },
+    { id: 'alfa-slab-one', name: 'Alfa Slab One', family: "'Alfa Slab One', serif", googleQuery: 'Alfa+Slab+One', category: 'display', tagline: 'Ultra-Black Heavyweight Impact', recommendedWeight: 400, recommendedSpacing: '-0.02em' },
+    { id: 'changa-one', name: 'Changa One', family: "'Changa One', cursive, sans-serif", googleQuery: 'Changa+One:ital@0;1', category: 'display', tagline: 'Punchy Chunky Poster', recommendedWeight: 400, recommendedSpacing: '0.01em' },
+    { id: 'baloo-2', name: 'Baloo 2', family: "'Baloo 2', cursive, sans-serif", googleQuery: 'Baloo+2:wght@400..800', category: 'display', tagline: 'Friendly Affable Character', recommendedWeight: 700, recommendedSpacing: '0.00em' },
+    { id: 'unbounded', name: 'Unbounded', family: "'Unbounded', sans-serif", googleQuery: 'Unbounded:wght@300..900', category: 'modern', tagline: 'Futuristic Ultra-Wide Tech', recommendedWeight: 700, recommendedSpacing: '-0.02em' },
+    { id: 'geologica', name: 'Geologica', family: "'Geologica', sans-serif", googleQuery: 'Geologica:wght@300..900', category: 'modern', tagline: 'Precision Variable Geometric Sans', recommendedWeight: 600, recommendedSpacing: '0.02em' },
+    { id: 'exo-2', name: 'Exo 2', family: "'Exo 2', sans-serif", googleQuery: 'Exo+2:ital,wght@0,300..900;1,300..900', category: 'modern', tagline: 'Cybernetic Tech Grotesque', recommendedWeight: 600, recommendedSpacing: '0.03em' },
+    { id: 'oxygen', name: 'Oxygen', family: "'Oxygen', sans-serif", googleQuery: 'Oxygen:wght@300;400;700', category: 'modern', tagline: 'Clean Airy Linux Aesthetic', recommendedWeight: 700, recommendedSpacing: '0.01em' },
+    { id: 'merriweather-sans', name: 'Merriweather Sans', family: "'Merriweather Sans', sans-serif", googleQuery: 'Merriweather+Sans:ital,wght@0,300..800;1,300..800', category: 'modern', tagline: 'Highly Readable Humanist', recommendedWeight: 700, recommendedSpacing: '0.02em' },
+    { id: 'asap', name: 'Asap', family: "'Asap', sans-serif", googleQuery: 'Asap:ital,wght@0,300..900;1,300..900', category: 'modern', tagline: 'Contemporary Soft Sans', recommendedWeight: 600, recommendedSpacing: '0.01em' }
+  ];
+
+  // Font loader helper
+  const loadedFonts = new Set<string>();
+  function loadGoogleFont(query: string) {
+    if (loadedFonts.has(query)) return;
+    loadedFonts.add(query);
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${query}&display=swap`;
+    document.head.appendChild(link);
+  }
+
+  loadGoogleFont('Cinzel:wght@400..900');
+  loadGoogleFont('Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900');
+
+  // Font state
+  let currentFontId = localStorage.getItem('tester-font-id') || 'cinzel';
+  let currentScope = localStorage.getItem('tester-scope') || 'everything';
+  let currentSpacing = localStorage.getItem('tester-spacing') || '0.03em';
+  let currentWeight = localStorage.getItem('tester-weight') || '700';
+  let currentSize = localStorage.getItem('tester-size') || '0.875rem';
+  let currentTransform = localStorage.getItem('tester-transform') || 'none';
+  let activeFontCategory = 'all';
+
+  let styleTag = document.getElementById('dynamic-font-tester-style') as HTMLStyleElement | null;
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = 'dynamic-font-tester-style';
+    document.head.appendChild(styleTag);
+  }
+
+  function applyTypography() {
+    const font = FONTS_CATALOG.find(f => f.id === currentFontId) || FONTS_CATALOG[0];
+    loadGoogleFont(font.googleQuery);
+
+    const root = document.documentElement;
+    root.style.setProperty('--luxury-nav-size', currentSize);
+
+    if (currentScope === 'everything' || currentScope === 'header-nav') {
+      root.style.setProperty('--luxury-nav-font', font.family);
+      root.style.setProperty('--luxury-nav-spacing', currentSpacing);
+      root.style.setProperty('--luxury-nav-weight', currentWeight);
+      root.style.setProperty('--luxury-nav-transform', currentTransform);
+    }
+    if (currentScope === 'everything' || currentScope === 'headings') {
+      root.style.setProperty('--luxury-heading-font', font.family);
+      root.style.setProperty('--luxury-heading-spacing', currentSpacing);
+      root.style.setProperty('--luxury-heading-weight', currentWeight);
+      root.style.setProperty('--luxury-heading-transform', currentTransform);
+    }
+    if (currentScope === 'everything') {
+      root.style.setProperty('--luxury-body-font', font.family);
+    }
+
+    let selectors: string[] = [];
+    if (currentScope === 'everything') {
+      selectors = [
+        'html[data-theme="luxury"]',
+        'html[data-theme="luxury"] body',
+        'html[data-theme="luxury"] header',
+        'html[data-theme="luxury"] header .header-logo-title',
+        'html[data-theme="luxury"] header .header-menu-btn',
+        'html[data-theme="luxury"] .viewport-nav-link',
+        'html[data-theme="luxury"] h1',
+        'html[data-theme="luxury"] h2',
+        'html[data-theme="luxury"] h3',
+        'html[data-theme="luxury"] h4',
+        'html[data-theme="luxury"] p',
+        'html[data-theme="luxury"] a',
+        'html[data-theme="luxury"] button',
+        'html[data-theme="luxury"] .font-display',
+        'html[data-theme="luxury"] .font-heading',
+        'html[data-theme="luxury"] .luxury-seq-2'
+      ];
+    } else if (currentScope === 'header-nav') {
+      selectors = [
+        'html[data-theme="luxury"] header',
+        'html[data-theme="luxury"] header .header-logo-title',
+        'html[data-theme="luxury"] header .header-menu-btn',
+        'html[data-theme="luxury"] .viewport-nav-link'
+      ];
+    } else if (currentScope === 'headings') {
+      selectors = [
+        'html[data-theme="luxury"] h1',
+        'html[data-theme="luxury"] h2',
+        'html[data-theme="luxury"] h3',
+        'html[data-theme="luxury"] h4',
+        'html[data-theme="luxury"] .font-display',
+        'html[data-theme="luxury"] .font-heading',
+        'html[data-theme="luxury"] .luxury-seq-2'
+      ];
+    } else if (currentScope === 'hero-only') {
+      selectors = [
+        'html[data-theme="luxury"] .luxury-seq-2',
+        'html[data-theme="luxury"] h1'
+      ];
+    }
+
+    if (styleTag) {
+      styleTag.textContent = `
+        ${selectors.join(',\n')} {
+          font-family: ${font.family} !important;
+          letter-spacing: ${currentSpacing} !important;
+          font-weight: ${currentWeight} !important;
+          text-transform: ${currentTransform} !important;
+        }
+        html[data-theme="luxury"] header,
+        html[data-theme="luxury"] header .header-logo-title,
+        html[data-theme="luxury"] header .header-menu-btn {
+          font-size: ${currentSize} !important;
+        }
+        html[data-theme="luxury"] .font-urdu,
+        html[data-theme="luxury"] [dir="rtl"],
+        html[data-theme="luxury"] [dir="rtl"] * {
+          font-family: 'Vazirmatn', 'Noto Sans Arabic', serif !important;
+          letter-spacing: normal !important;
+          text-transform: none !important;
+        }
+      `;
+    }
+
+    const badge = document.getElementById('u-active-font-badge');
+    if (badge) badge.textContent = font.name;
+
+    localStorage.setItem('tester-font-id', currentFontId);
+    localStorage.setItem('tester-scope', currentScope);
+    localStorage.setItem('tester-spacing', currentSpacing);
+    localStorage.setItem('tester-weight', currentWeight);
+    localStorage.setItem('tester-size', currentSize);
+    localStorage.setItem('tester-transform', currentTransform);
+  }
+
+  function renderFontList() {
+    const container = document.getElementById('u-font-list-container');
+    if (!container) return;
+
+    const filtered = activeFontCategory === 'all'
+      ? FONTS_CATALOG
+      : FONTS_CATALOG.filter(f => f.category === activeFontCategory);
+
+    container.innerHTML = filtered.map(f => {
+      const isSelected = f.id === currentFontId;
+      return `
+        <button
+          type="button"
+          data-font-id="${f.id}"
+          class="u-font-item-btn w-full p-2.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            isSelected
+              ? 'bg-amber-400/20 border border-amber-400/60 text-amber-300 font-semibold'
+              : 'border border-slate-700/50 bg-slate-900/50 hover:bg-slate-800 text-slate-300'
+          }"
+        >
+          <div>
+            <div class="text-xs font-bold flex items-center gap-1.5">
+              <span>${f.name}</span>
+              ${isSelected ? '<span class="text-[10px] text-amber-400">✓</span>' : ''}
+            </div>
+            <div class="text-[10px] text-slate-400 font-mono">${f.tagline}</div>
+          </div>
+          <span class="text-sm font-semibold opacity-90" style="font-family: ${f.family}">Aa</span>
+        </button>
+      `;
+    }).join('');
+
+    container.querySelectorAll('.u-font-item-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-font-id');
+        if (id) {
+          currentFontId = id;
+          const font = FONTS_CATALOG.find(f => f.id === id);
+          if (font) {
+            currentWeight = String(font.recommendedWeight);
+            currentSpacing = font.recommendedSpacing;
+            const sW = document.getElementById('u-font-slider-weight') as HTMLInputElement | null;
+            const sS = document.getElementById('u-font-slider-spacing') as HTMLInputElement | null;
+            const vW = document.getElementById('u-font-val-weight');
+            const vS = document.getElementById('u-font-val-spacing');
+            if (sW) sW.value = currentWeight;
+            if (sS) sS.value = parseFloat(currentSpacing).toString();
+            if (vW) vW.textContent = currentWeight;
+            if (vS) vS.textContent = currentSpacing;
+          }
+          applyTypography();
+          renderFontList();
+        }
+      });
+    });
+  }
+
+  // =========================================================================
+  // SETUP MODAL EVENTS, 3-TAB CONTROLLER & MODAL DRAGGING
+  // =========================================================================
+  function initUnifiedStudio() {
+    const modal = document.getElementById('unified-studio-modal');
+    const triggerBtn = document.getElementById('unified-studio-trigger');
+    const closeBtn = document.getElementById('unified-studio-close');
+    const header = document.getElementById('unified-studio-header');
+
+    const tabBtnParticles = document.getElementById('tab-btn-particles');
+    const tabBtnLayout = document.getElementById('tab-btn-layout');
+    const tabBtnFonts = document.getElementById('tab-btn-fonts');
+    const tabContentParticles = document.getElementById('tab-content-particles');
+    const tabContentLayout = document.getElementById('tab-content-layout');
+    const tabContentFonts = document.getElementById('tab-content-fonts');
+
+    type StudioTab = 'particles' | 'layout' | 'fonts';
+    let activeTab: StudioTab = 'particles';
+
+    function switchTab(tab: StudioTab) {
+      activeTab = tab;
+      const tabs = [
+        { id: 'particles', btn: tabBtnParticles, content: tabContentParticles },
+        { id: 'layout', btn: tabBtnLayout, content: tabContentLayout },
+        { id: 'fonts', btn: tabBtnFonts, content: tabContentFonts }
+      ];
+
+      tabs.forEach(t => {
+        if (t.id === tab) {
+          t.btn?.classList.add('bg-gradient-to-r', 'from-amber-500/20', 'to-amber-400/20', 'text-amber-300', 'border', 'border-amber-400/40', 'shadow-sm');
+          t.btn?.classList.remove('text-slate-400');
+          t.content?.classList.remove('hidden');
+        } else {
+          t.btn?.classList.remove('bg-gradient-to-r', 'from-amber-500/20', 'to-amber-400/20', 'text-amber-300', 'border', 'border-amber-400/40', 'shadow-sm');
+          t.btn?.classList.add('text-slate-400');
+          t.content?.classList.add('hidden');
+        }
+      });
+
+      if (tab === 'fonts') {
+        FONTS_CATALOG.forEach(f => loadGoogleFont(f.googleQuery));
+      }
+      if (tab === 'layout') {
+        const api = (window as any).LuxuryParticleStudio;
+        const gizmoCheckbox = document.getElementById('u-toggle-gizmo-box') as HTMLInputElement | null;
+        if (api && gizmoCheckbox) {
+          api.toggleGizmo(gizmoCheckbox.checked);
+        }
+      }
+    }
+
+    tabBtnParticles?.addEventListener('click', () => switchTab('particles'));
+    tabBtnLayout?.addEventListener('click', () => switchTab('layout'));
+    tabBtnFonts?.addEventListener('click', () => switchTab('fonts'));
+
+    function openModal(defaultTab?: StudioTab) {
+      if (defaultTab) switchTab(defaultTab);
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+    }
+
+    function closeModal() {
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) {
+        api.setMorphProgress(null);
+        api.toggleGizmo(false);
+      }
+    }
+
+    function toggleModal() {
+      if (modal?.classList.contains('hidden')) {
+        openModal();
+      } else {
+        closeModal();
+      }
+    }
+
+    triggerBtn?.addEventListener('click', toggleModal);
+    closeBtn?.addEventListener('click', closeModal);
+
+    // -----------------------------------------------------------------------
+    // DRAGGABLE MODAL IMPLEMENTATION (Smooth Pointer Dragging)
+    // -----------------------------------------------------------------------
+    if (header && modal) {
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let initialLeft = 0;
+      let initialTop = 0;
+
+      header.addEventListener('pointerdown', (e: PointerEvent) => {
+        // Do not drag if clicked directly on close button or any clickable element
+        if ((e.target as HTMLElement).closest('#unified-studio-close') || (e.target as HTMLElement).closest('button')) {
+          return;
+        }
+
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = modal.getBoundingClientRect();
+        initialLeft = rect.left;
+        initialTop = rect.top;
+
+        modal.style.bottom = 'auto';
+        modal.style.right = 'auto';
+        modal.style.left = `${initialLeft}px`;
+        modal.style.top = `${initialTop}px`;
+
+        try {
+          header.setPointerCapture(e.pointerId);
+        } catch (_) {}
+
+        const onPointerMove = (ev: PointerEvent) => {
+          if (!isDragging) return;
+          const dx = ev.clientX - startX;
+          const dy = ev.clientY - startY;
+
+          const maxLeft = Math.max(10, window.innerWidth - modal.offsetWidth - 10);
+          const maxTop = Math.max(10, window.innerHeight - 80);
+          const newLeft = Math.max(10, Math.min(maxLeft, initialLeft + dx));
+          const newTop = Math.max(10, Math.min(maxTop, initialTop + dy));
+
+          modal.style.left = `${newLeft}px`;
+          modal.style.top = `${newTop}px`;
+        };
+
+        const onPointerUp = (ev: PointerEvent) => {
+          isDragging = false;
+          try {
+            header.releasePointerCapture(ev.pointerId);
+          } catch (_) {}
+          window.removeEventListener('pointermove', onPointerMove);
+          window.removeEventListener('pointerup', onPointerUp);
+          window.removeEventListener('pointercancel', onPointerUp);
+        };
+
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+        window.addEventListener('pointercancel', onPointerUp);
+      });
+    }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      const tag = (document.activeElement?.tagName || '').toUpperCase();
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+        closeModal();
+        return;
+      }
+
+      if (e.altKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        toggleModal();
+        return;
+      }
+
+      if (e.altKey && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        openModal('particles');
+        return;
+      }
+
+      if (e.altKey && (e.key === 'l' || e.key === 'L')) {
+        e.preventDefault();
+        openModal('layout');
+        return;
+      }
+
+      if (e.altKey && (e.key === 'f' || e.key === 'F')) {
+        e.preventDefault();
+        openModal('fonts');
+        return;
+      }
+    });
+
+    // -----------------------------------------------------------------------
+    // PARTICLE TAB: MORPH STYLES BINDING
+    // -----------------------------------------------------------------------
+    const morphCards = document.querySelectorAll('.u-morph-card');
+    function updateMorphStyleSelection(style: number) {
+      morphCards.forEach(card => {
+        const s = parseInt(card.getAttribute('data-morph-style') || '1', 10);
+        const dot = card.querySelector('.u-morph-dot');
+        if (s === style) {
+          card.className = 'u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border transition-all cursor-pointer bg-amber-400/15 border-amber-400/50 text-amber-200 shadow-sm';
+          dot?.classList.remove('bg-slate-600');
+          dot?.classList.add('bg-amber-400');
+        } else {
+          card.className = 'u-morph-card flex items-start gap-3 p-3 rounded-xl text-left border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800/50 transition-all cursor-pointer';
+          dot?.classList.remove('bg-amber-400');
+          dot?.classList.add('bg-slate-600');
+        }
+      });
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.setMorphStyle(style);
+    }
+
+    morphCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const s = parseInt(card.getAttribute('data-morph-style') || '1', 10);
+        updateMorphStyleSelection(s);
+      });
+    });
+
+    // Scrub Slider & Live Test Loop
+    const scrubSlider = document.getElementById('u-morph-scrub-slider') as HTMLInputElement | null;
+    const scrubVal = document.getElementById('u-morph-scrub-val');
+    const syncScrollBtn = document.getElementById('u-btn-sync-scroll');
+    const testMorphBtn = document.getElementById('u-btn-test-morph-anim');
+
+    scrubSlider?.addEventListener('input', () => {
+      const pct = parseFloat(scrubSlider.value);
+      if (scrubVal) scrubVal.textContent = `${Math.round(pct)}%`;
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.setMorphProgress(pct);
+    });
+
+    syncScrollBtn?.addEventListener('click', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.setMorphProgress(null);
+      if (scrubVal) scrubVal.textContent = 'Syncing...';
+      setTimeout(() => {
+        if (scrubVal) scrubVal.textContent = '0%';
+        if (scrubSlider) scrubSlider.value = '0';
+      }, 500);
+    });
+
+    testMorphBtn?.addEventListener('click', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) {
+        testMorphBtn.innerHTML = '<span>⏳ Playing Morph Test...</span>';
+        api.testMorphAnimation(3200);
+        setTimeout(() => {
+          testMorphBtn.innerHTML = '<span>▶ Play 3-Sec Morph Test</span>';
+        }, 3300);
+      }
+    });
+
+    window.addEventListener('particle-studio:morph-updated', (e: any) => {
+      const pct = e.detail?.pct || 0;
+      if (scrubSlider) scrubSlider.value = String(pct);
+      if (scrubVal) scrubVal.textContent = `${Math.round(pct)}%`;
+    });
+
+    // -----------------------------------------------------------------------
+    // PARTICLE TAB: EFFECT SHOWCASE (MODES 1-8 + RANDOM + LOCK)
+    // -----------------------------------------------------------------------
+    const SHOWCASE_MODES = [
+      { name: "Volumetric Quantum Aura", desc: "Pure harmonic celestial drift & aura around silhouette with pristine face stability. Move cursor to stir ethereal particles." },
+      { name: "Silk Surface Ripple", desc: "Liquid gold ripples & hydrodynamic waves flow across the surface on cursor hover." },
+      { name: "Celestial Lantern", desc: "Cursor acts as a bioluminescent light wand — igniting particles with warm stardust bloom without distortion." },
+      { name: "Gravitational Lens", desc: "Spacetime curvature deflection bending particles along Einstein ring orbits around your cursor." },
+      { name: "Fluid Stardust Wake", desc: "High-velocity curl noise turbulence and stardust streamlines trailing behind your cursor." },
+      { name: "Soft Physics Displace", desc: "Elastic damped membrane displacing and rebounding smoothly with velvety recovery." },
+      { name: "Neural Constellation", desc: "Synaptic filaments connecting nearby particles to your cursor with traveling action potentials." },
+      { name: "Holographic Cyber Scanlines", desc: "Laser sweep with prismatic chromatic dispersion and horizontal slice scanlines." }
+    ];
+
+    const modeButtons = document.querySelectorAll('.u-mode-btn');
+    const badgeActiveMode = document.getElementById('u-active-mode-badge');
+    const titleDetail = document.getElementById('u-mode-detail-title');
+    const descDetail = document.getElementById('u-mode-detail-desc');
+    const btnRandom = document.getElementById('u-btn-dock-random');
+    const textRandom = document.getElementById('u-btn-dock-random-text');
+    const btnLock = document.getElementById('u-btn-dock-lock');
+    const textLock = document.getElementById('u-btn-dock-lock-text');
+
+    function syncShowcaseButtons() {
+      const api = (window as any).LuxuryParticleStudio;
+      if (!api) return;
+      const isRandom = typeof api.isRandomMode === 'function' ? api.isRandomMode() : false;
+      const isLocked = typeof api.isLocked === 'function' ? api.isLocked() : false;
+      if (textRandom) {
+        textRandom.textContent = isRandom ? "Random: ON" : "Random Load";
+      }
+      if (btnRandom) {
+        if (isRandom) {
+          btnRandom.className = "px-2.5 py-1.5 rounded-xl border border-amber-400/60 bg-amber-400/20 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm";
+        } else {
+          btnRandom.className = "px-2.5 py-1.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-mono font-medium flex items-center gap-1.5 transition-all cursor-pointer shadow-sm";
+        }
+      }
+      if (textLock) {
+        textLock.textContent = isLocked ? "Locked ⭐" : "Keep This";
+      }
+    }
+
+    function updateActiveMode(mode: number) {
+      const info = SHOWCASE_MODES[mode - 1] || SHOWCASE_MODES[0];
+      if (badgeActiveMode) badgeActiveMode.textContent = `Mode ${mode}: ${info.name.split(' ')[0]}`;
+      if (titleDetail) titleDetail.textContent = `Mode ${mode}: ${info.name}`;
+      if (descDetail) descDetail.textContent = info.desc;
+
+      modeButtons.forEach(btn => {
+        const m = parseInt(btn.getAttribute('data-mode') || '1', 10);
+        if (m === mode) {
+          btn.className = 'u-mode-btn p-2.5 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer bg-amber-400/20 border-amber-400 text-amber-300 font-bold shadow-sm';
+        } else {
+          btn.className = 'u-mode-btn p-2.5 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-300 hover:border-slate-600 text-left text-xs font-medium transition-all cursor-pointer';
+        }
+      });
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.switchMode) api.switchMode(mode);
+      syncShowcaseButtons();
+    }
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const m = parseInt(btn.getAttribute('data-mode') || '1', 10);
+        updateActiveMode(m);
+      });
+    });
+
+    btnRandom?.addEventListener('click', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.triggerRandomMode) {
+        const nextMode = api.triggerRandomMode();
+        updateActiveMode(nextMode);
+      }
+    });
+
+    btnLock?.addEventListener('click', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.lockCurrentMode) {
+        api.lockCurrentMode();
+        if (textLock) textLock.textContent = "✓ Locked!";
+        setTimeout(() => {
+          syncShowcaseButtons();
+        }, 1500);
+      }
+    });
+
+    // Physics sliders
+    const sIntensity = document.getElementById('u-slider-intensity') as HTMLInputElement | null;
+    const sSpeed = document.getElementById('u-slider-speed') as HTMLInputElement | null;
+    const sRadius = document.getElementById('u-slider-radius') as HTMLInputElement | null;
+    const vIntensity = document.getElementById('u-physics-intensity-val');
+    const vSpeed = document.getElementById('u-physics-speed-val');
+    const vRadius = document.getElementById('u-physics-radius-val');
+
+    function syncPhysics() {
+      const intensity = parseFloat(sIntensity?.value || '1.0');
+      const speed = parseFloat(sSpeed?.value || '1.0');
+      const radius = parseFloat(sRadius?.value || '140');
+      if (vIntensity) vIntensity.textContent = `${intensity.toFixed(2)}x`;
+      if (vSpeed) vSpeed.textContent = `${speed.toFixed(2)}x`;
+      if (vRadius) vRadius.textContent = `${Math.round(radius)}px`;
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.setPhysics(intensity, speed, radius);
+    }
+
+    sIntensity?.addEventListener('input', syncPhysics);
+    sSpeed?.addEventListener('input', syncPhysics);
+    sRadius?.addEventListener('input', syncPhysics);
+
+    // Image layout selection & sliders
+    let activeImgIdx = 0;
+    const imgTabs = document.querySelectorAll('.u-img-tab');
+    const sScale = document.getElementById('u-slider-scale') as HTMLInputElement | null;
+    const sAlignX = document.getElementById('u-slider-alignx') as HTMLInputElement | null;
+    const sAlignY = document.getElementById('u-slider-aligny') as HTMLInputElement | null;
+    const vScale = document.getElementById('u-layout-scale-val');
+    const vAlignX = document.getElementById('u-layout-alignx-val');
+    const vAlignY = document.getElementById('u-layout-aligny-val');
+    const gizmoBox = document.getElementById('u-toggle-gizmo-box') as HTMLInputElement | null;
+
+    function selectImage(idx: number) {
+      activeImgIdx = idx;
+      imgTabs.forEach((tab, i) => {
+        if (i === idx) {
+          tab.className = 'u-img-tab py-2 px-2 rounded-lg font-mono text-xs font-bold bg-amber-400 text-slate-950 shadow';
+        } else {
+          tab.className = 'u-img-tab py-2 px-2 rounded-lg font-mono text-xs text-slate-400 hover:text-white';
+        }
+      });
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) {
+        api.selectImageTab(idx);
+        const curLayout = api.getLayout ? api.getLayout(idx) : null;
+        if (curLayout) {
+          if (sScale) sScale.value = curLayout.scale.toFixed(2);
+          if (sAlignX) sAlignX.value = curLayout.alignX.toFixed(3);
+          if (sAlignY) sAlignY.value = curLayout.alignY.toFixed(3);
+          if (vScale) vScale.textContent = `${curLayout.scale.toFixed(2)}x`;
+          if (vAlignX) vAlignX.textContent = `${Math.round(curLayout.alignX * 100)}%`;
+          if (vAlignY) vAlignY.textContent = `${Math.round(curLayout.alignY * 100)}%`;
+        }
+      }
+    }
+
+    imgTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = parseInt(tab.getAttribute('data-img-idx') || '0', 10);
+        selectImage(idx);
+      });
+    });
+
+    function syncLayoutSliders() {
+      const scale = parseFloat(sScale?.value || '1.09');
+      const alignX = parseFloat(sAlignX?.value || '0.76');
+      const alignY = parseFloat(sAlignY?.value || '0.49');
+      if (vScale) vScale.textContent = `${scale.toFixed(2)}x`;
+      if (vAlignX) vAlignX.textContent = `${Math.round(alignX * 100)}%`;
+      if (vAlignY) vAlignY.textContent = `${Math.round(alignY * 100)}%`;
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.setLayout(activeImgIdx, scale, alignX, alignY);
+    }
+
+    sScale?.addEventListener('input', syncLayoutSliders);
+    sAlignX?.addEventListener('input', syncLayoutSliders);
+    sAlignY?.addEventListener('input', syncLayoutSliders);
+
+    document.querySelectorAll('.u-preset-x-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = parseFloat(btn.getAttribute('data-val') || '0.5');
+        if (sAlignX) sAlignX.value = String(val);
+        syncLayoutSliders();
+      });
+    });
+
+    gizmoBox?.addEventListener('change', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.toggleGizmo(gizmoBox.checked);
+    });
+
+    // Listen to live gizmo drag/scale updates from canvas
+    window.addEventListener('particle-studio:layout-updated', (e: any) => {
+      const { idx, layout } = e.detail || {};
+      if (idx === activeImgIdx && layout) {
+        if (sScale) sScale.value = layout.scale.toFixed(2);
+        if (sAlignX) sAlignX.value = layout.alignX.toFixed(3);
+        if (sAlignY) sAlignY.value = layout.alignY.toFixed(3);
+        if (vScale) vScale.textContent = `${layout.scale.toFixed(2)}x`;
+        if (vAlignX) vAlignX.textContent = `${Math.round(layout.alignX * 100)}%`;
+        if (vAlignY) vAlignY.textContent = `${Math.round(layout.alignY * 100)}%`;
+      }
+    });
+
+    // Layout Save & Reset Buttons
+    document.getElementById('u-btn-save-layout')?.addEventListener('click', (e) => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.saveSettings();
+      const target = e.currentTarget as HTMLElement;
+      target.textContent = '✓ Saved Layout!';
+      setTimeout(() => { target.textContent = 'Save Layout to Browser'; }, 1800);
+    });
+
+    document.getElementById('u-btn-reset-layout')?.addEventListener('click', () => {
+      if (confirm('Reset canvas image layouts to defaults?')) {
+        const api = (window as any).LuxuryParticleStudio;
+        if (api) {
+          api.resetDefaults();
+          selectImage(activeImgIdx);
+        }
+      }
+    });
+
+    // Particle Physics Save & Reset Buttons
+    document.getElementById('u-btn-save-particles')?.addEventListener('click', (e) => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api) api.saveSettings();
+      const target = e.currentTarget as HTMLElement;
+      target.textContent = '✓ Saved Physics!';
+      setTimeout(() => { target.textContent = 'Save Physics to Browser'; }, 1800);
+    });
+
+    document.getElementById('u-btn-reset-particles')?.addEventListener('click', () => {
+      if (confirm('Reset particle physics settings to defaults?')) {
+        const api = (window as any).LuxuryParticleStudio;
+        if (api) api.resetDefaults();
+        updateMorphStyleSelection(1);
+        updateActiveMode(1);
+      }
+    });
+
+    // -----------------------------------------------------------------------
+    // TYPOGRAPHY TAB BINDINGS
+    // -----------------------------------------------------------------------
+    const scopeBtns = document.querySelectorAll('.u-scope-btn');
+    function updateScopeUI() {
+      scopeBtns.forEach(btn => {
+        const s = btn.getAttribute('data-scope');
+        if (s === currentScope) {
+          btn.className = 'u-scope-btn px-3 py-2 rounded-xl border border-amber-400/50 bg-amber-400/15 text-white font-medium text-xs text-left cursor-pointer';
+        } else {
+          btn.className = 'u-scope-btn px-3 py-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:text-white text-xs text-left cursor-pointer';
+        }
+      });
+    }
+
+    scopeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = btn.getAttribute('data-scope');
+        if (s) {
+          currentScope = s;
+          updateScopeUI();
+          applyTypography();
+        }
+      });
+    });
+
+    const catPills = document.querySelectorAll('.u-cat-pill');
+    catPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const cat = pill.getAttribute('data-cat') || 'all';
+        activeFontCategory = cat;
+        catPills.forEach(p => {
+          p.className = 'u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-900 text-slate-400 hover:text-white cursor-pointer';
+        });
+        pill.className = 'u-cat-pill px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-400 text-slate-950 font-bold cursor-pointer';
+        renderFontList();
+      });
+    });
+
+    const sliderSpacing = document.getElementById('u-font-slider-spacing') as HTMLInputElement | null;
+    const sliderWeight = document.getElementById('u-font-slider-weight') as HTMLInputElement | null;
+    const sliderSize = document.getElementById('u-font-slider-size') as HTMLInputElement | null;
+    const valSpacing = document.getElementById('u-font-val-spacing');
+    const valWeight = document.getElementById('u-font-val-weight');
+    const valSize = document.getElementById('u-font-val-size');
+
+    sliderSpacing?.addEventListener('input', () => {
+      currentSpacing = `${sliderSpacing.value}em`;
+      if (valSpacing) valSpacing.textContent = currentSpacing;
+      applyTypography();
+    });
+
+    sliderWeight?.addEventListener('input', () => {
+      currentWeight = sliderWeight.value;
+      if (valWeight) valWeight.textContent = currentWeight;
+      applyTypography();
+    });
+
+    sliderSize?.addEventListener('input', () => {
+      currentSize = `${sliderSize.value}rem`;
+      if (valSize) valSize.textContent = currentSize;
+      applyTypography();
+    });
+
+    const transformBtns = document.querySelectorAll('.u-font-transform-btn');
+    function updateTransformUI() {
+      transformBtns.forEach(b => {
+        const t = b.getAttribute('data-transform') || 'none';
+        if (t === currentTransform) {
+          b.className = 'u-font-transform-btn px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-bold cursor-pointer';
+        } else {
+          b.className = 'u-font-transform-btn px-2 py-0.5 rounded bg-slate-900 text-slate-400 hover:text-white cursor-pointer';
+        }
+      });
+    }
+
+    transformBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.getAttribute('data-transform') || 'none';
+        currentTransform = t;
+        updateTransformUI();
+        applyTypography();
+      });
+    });
+
+    document.getElementById('u-btn-copy-css')?.addEventListener('click', (e) => {
+      const font = FONTS_CATALOG.find(f => f.id === currentFontId) || FONTS_CATALOG[0];
+      const css = `/* ${font.name} typography preset */\nfont-family: ${font.family};\nfont-size: ${currentSize};\nletter-spacing: ${currentSpacing};\nfont-weight: ${currentWeight};\ntext-transform: ${currentTransform};`;
+      navigator.clipboard.writeText(css).then(() => {
+        const target = e.currentTarget as HTMLElement;
+        target.textContent = '✓ Copied CSS!';
+        setTimeout(() => { target.textContent = '📋 Copy CSS'; }, 1800);
+      });
+    });
+
+    document.getElementById('u-btn-reset-fonts')?.addEventListener('click', () => {
+      currentFontId = 'cinzel';
+      currentScope = 'everything';
+      currentSpacing = '0.03em';
+      currentWeight = '700';
+      currentSize = '0.875rem';
+      currentTransform = 'none';
+      if (sliderSpacing) sliderSpacing.value = '0.03';
+      if (sliderWeight) sliderWeight.value = '700';
+      if (sliderSize) sliderSize.value = '0.875';
+      if (valSpacing) valSpacing.textContent = '0.03em';
+      if (valWeight) valWeight.textContent = '700';
+      if (valSize) valSize.textContent = '0.875rem';
+      updateScopeUI();
+      updateTransformUI();
+      applyTypography();
+      renderFontList();
+    });
+
+    // Initial sync
+    syncShowcaseButtons();
+    updateScopeUI();
+    updateTransformUI();
+    renderFontList();
+    applyTypography();
+
+    // Hotkeys 1-8 and R to switch modes live
+    window.addEventListener('keydown', (e) => {
+      const tag = (document.activeElement?.tagName || '').toUpperCase();
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key)) {
+        const mode = parseInt(e.key, 10);
+        updateActiveMode(mode);
+      } else if (e.key === 'r' || e.key === 'R') {
+        const api = (window as any).LuxuryParticleStudio;
+        if (api && api.triggerRandomMode) {
+          const next = api.triggerRandomMode();
+          updateActiveMode(next);
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initUnifiedStudio);
+  } else {
+    initUnifiedStudio();
+  }
+</script>

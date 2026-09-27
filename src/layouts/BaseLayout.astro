@@ -20,7 +20,7 @@ import path from 'node:path';
 
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import LuxuryCinematicIntro from '../components/LuxuryCinematicIntro.astro';
-import FontTester from '../components/FontTester.astro';
+import UnifiedStudio from '../components/UnifiedStudio.astro';
 
 const hasCustomLogoSvg = fs.existsSync(path.resolve('./public/logo.svg'));
 const hasCustomLogoPng = fs.existsSync(path.resolve('./public/logo.png'));
@@ -291,7 +291,7 @@ const customLogo = hasCustomLogoSvg ? '/logo.svg' : (hasCustomLogoPng ? '/logo.p
     <ThemeSwitcher />
     <!-- Luxury Cinematic Intro Animation Overlay -->
     <LuxuryCinematicIntro />
-    <!-- Interactive Typography & Font Tester Studio -->
-    <FontTester />
+    <!-- Unified Creative Studio: Particle VFX & Typography Live Studio -->
+    <UnifiedStudio />
   </body>
 </html>
