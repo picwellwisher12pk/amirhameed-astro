@@ -426,53 +426,54 @@ const customLogo = hasCustomLogoSvg
         const el = document.getElementById("custom-cursor");
         if (!el) return;
 
-        const SIZE_DEFAULT  = 36;
-        const SIZE_HOVER    = 64;
-        const SIZE_CLICK    = 22;
+        const SIZE_DEFAULT = 36;
+        const SIZE_HOVER   = 64;
+        const SIZE_CLICK   = 22;
 
-        // Spring physics — lower STIFFNESS = more lag; DAMPING < 1 = smooth decel
-        const STIFFNESS = 0.055;
-        const DAMPING   = 0.72;
+        // Spring constants — tweak here for feel
+        // STIFFNESS: how hard the spring pulls (lower = more lag)
+        // DAMPING:   how quickly velocity bleeds off (lower = more overshoot)
+        const STIFFNESS = 0.06;
+        const DAMPING   = 0.78;
 
-        let tarX = -200, tarY = -200;
-        let curX = -200, curY = -200;
+        // Current position & velocity of the circle (starts way off-screen)
+        let curX = -300, curY = -300;
         let velX = 0,    velY = 0;
-        let isVisible = false;
-        let raf: number;
 
-        // Update target on mouse move
+        // Target = actual cursor position
+        let tarX = -300, tarY = -300;
+        let active = false;
+
         window.addEventListener("pointermove", (e) => {
           tarX = e.clientX;
           tarY = e.clientY;
-          if (!isVisible) {
-            curX = tarX; curY = tarY; // snap position on first appearance
-            velX = 0; velY = 0;        // zero velocity — no cold-start overshoot
-            isVisible = true;
+          if (!active) {
+            active = true;
             el.style.opacity = "1";
           }
         }, { passive: true });
 
         window.addEventListener("pointerleave", () => {
-          isVisible = false;
+          active = false;
           el.style.opacity = "0";
         });
 
-        // Grow on hover over interactive elements
-        const hoverTargets = "a,button,input,textarea,select,[role='button'],[tabindex]";
+        // Hover: grow
+        const SELECTORS = "a,button,input,textarea,select,[role='button'],[tabindex]";
         document.addEventListener("pointerover", (e) => {
-          if ((e.target as Element)?.closest(hoverTargets)) {
+          if ((e.target as Element)?.closest(SELECTORS)) {
             el.style.width  = SIZE_HOVER + "px";
             el.style.height = SIZE_HOVER + "px";
           }
         });
         document.addEventListener("pointerout", (e) => {
-          if ((e.target as Element)?.closest(hoverTargets)) {
+          if ((e.target as Element)?.closest(SELECTORS)) {
             el.style.width  = SIZE_DEFAULT + "px";
             el.style.height = SIZE_DEFAULT + "px";
           }
         });
 
-        // Shrink on click
+        // Click: shrink
         document.addEventListener("pointerdown", () => {
           el.style.width  = SIZE_CLICK + "px";
           el.style.height = SIZE_CLICK + "px";
@@ -482,8 +483,11 @@ const customLogo = hasCustomLogoSvg
           el.style.height = SIZE_DEFAULT + "px";
         });
 
-        // RAF spring-physics loop: accelerates toward target, decelerates on arrival
-        function tick() {
+        // Spring physics RAF loop
+        // Each frame: pull toward target by STIFFNESS, then bleed velocity by DAMPING
+        // Result: circle accelerates away from rest, trails behind fast moves,
+        //         and gently eases into the final cursor position
+        (function tick() {
           velX = (velX + (tarX - curX) * STIFFNESS) * DAMPING;
           velY = (velY + (tarY - curY) * STIFFNESS) * DAMPING;
           curX += velX;
@@ -491,13 +495,12 @@ const customLogo = hasCustomLogoSvg
 
           const w = parseFloat(el.style.width)  || SIZE_DEFAULT;
           const h = parseFloat(el.style.height) || SIZE_DEFAULT;
+          el.style.transform = `translate(${curX - w * 0.5}px,${curY - h * 0.5}px)`;
 
-          el.style.transform = `translate(${curX - w / 2}px, ${curY - h / 2}px)`;
-          raf = requestAnimationFrame(tick);
-        }
+          requestAnimationFrame(tick);
+        })();
 
         el.style.opacity = "0";
-        tick();
       })();
     </script>
 
