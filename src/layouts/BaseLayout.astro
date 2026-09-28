@@ -409,6 +409,91 @@ const customLogo = hasCustomLogoSvg
     {import.meta.env.DEV && <UnifiedStudio />}
     <Analytics />
 
+    <!-- Custom Cursor Circle -->
+    <div
+      id="custom-cursor"
+      aria-hidden="true"
+      style="position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:99999;transform:translate(-100px,-100px);transition:opacity 0.3s ease,width 0.2s ease,height 0.2s ease;will-change:transform;"
+    ></div>
+
+    <style>
+      /* Hide native cursor everywhere */
+      *, *::before, *::after { cursor: none !important; }
+    </style>
+
+    <script>
+      (function () {
+        const el = document.getElementById("custom-cursor");
+        if (!el) return;
+
+        const SIZE_DEFAULT  = 36;
+        const SIZE_HOVER    = 64;
+        const SIZE_CLICK    = 22;
+        const LERP          = 0.11; // ease factor (lower = more lag)
+
+        let tarX = -200, tarY = -200;
+        let curX = -200, curY = -200;
+        let isVisible = false;
+        let raf: number;
+
+        // Update target on mouse move
+        window.addEventListener("pointermove", (e) => {
+          tarX = e.clientX;
+          tarY = e.clientY;
+          if (!isVisible) {
+            curX = tarX; curY = tarY; // snap on first appearance
+            isVisible = true;
+            el.style.opacity = "1";
+          }
+        }, { passive: true });
+
+        window.addEventListener("pointerleave", () => {
+          isVisible = false;
+          el.style.opacity = "0";
+        });
+
+        // Grow on hover over interactive elements
+        const hoverTargets = "a,button,input,textarea,select,[role='button'],[tabindex]";
+        document.addEventListener("pointerover", (e) => {
+          if ((e.target as Element)?.closest(hoverTargets)) {
+            el.style.width  = SIZE_HOVER + "px";
+            el.style.height = SIZE_HOVER + "px";
+          }
+        });
+        document.addEventListener("pointerout", (e) => {
+          if ((e.target as Element)?.closest(hoverTargets)) {
+            el.style.width  = SIZE_DEFAULT + "px";
+            el.style.height = SIZE_DEFAULT + "px";
+          }
+        });
+
+        // Shrink on click
+        document.addEventListener("pointerdown", () => {
+          el.style.width  = SIZE_CLICK + "px";
+          el.style.height = SIZE_CLICK + "px";
+        });
+        document.addEventListener("pointerup", () => {
+          el.style.width  = SIZE_DEFAULT + "px";
+          el.style.height = SIZE_DEFAULT + "px";
+        });
+
+        // RAF lerp loop
+        function tick() {
+          curX += (tarX - curX) * LERP;
+          curY += (tarY - curY) * LERP;
+
+          const w = parseFloat(el.style.width)  || SIZE_DEFAULT;
+          const h = parseFloat(el.style.height) || SIZE_DEFAULT;
+
+          el.style.transform = `translate(${curX - w / 2}px, ${curY - h / 2}px)`;
+          raf = requestAnimationFrame(tick);
+        }
+
+        el.style.opacity = "0";
+        tick();
+      })();
+    </script>
+
     <!-- Build Version Badge (only visible with ?v=1 in URL) -->
     <div
       id="build-badge"
