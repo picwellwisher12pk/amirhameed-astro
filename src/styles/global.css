@@ -27,6 +27,30 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
+  /* ── Custom Scrollbar ───────────────────────────────── */
+  /* Chromium / WebKit */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(55% 0.12 260 / 0.55);
+    border-radius: 9999px;
+    transition: background 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(65% 0.18 260 / 0.85);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(55% 0.12 260 / 0.55) transparent;
+  }
+
   /* Urdu Typography: Vazirmatn primary with Noto Sans Arabic fallback */
   .font-urdu, [dir="rtl"], .urdu-content {
     font-family: 'Vazirmatn', 'Noto Sans Arabic', system-ui, sans-serif !important;
