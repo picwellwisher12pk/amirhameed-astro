@@ -1292,8 +1292,17 @@
 
       const cursorSpeed = Math.hypot(smoothVelX, smoothVelY);
 
-      // Critically Damped Spring Follower: Accelerates smoothly (ease in) and decelerates smoothly (ease out)
-      if (targetMouseX > -5000) {
+      // Use the custom cursor circle's lagged position for repulsion,
+      // so particles repel from where the circle IS, not the raw pointer.
+      const __cx = (window as any).__cx;
+      const __cy = (window as any).__cy;
+      const useCircle = typeof __cx === 'number' && __cx > -200;
+
+      if (useCircle) {
+        mouseX = __cx;
+        mouseY = __cy;
+      } else if (targetMouseX > -5000) {
+        // Fallback: original spring follower when circle not available
         if (mouseX < -5000) {
           mouseX = targetMouseX;
           mouseY = targetMouseY;
@@ -1313,7 +1322,7 @@
           mouseY += interpVelY;
         }
       } else {
-        // Pointer off-screen: smoothly decelerate tracking and preserve position during ease-out
+        // Pointer off-screen
         interpVelX *= 0.8;
         interpVelY *= 0.8;
         mouseX += interpVelX;

@@ -414,11 +414,16 @@ const customLogo = hasCustomLogoSvg
       id="custom-cursor"
       aria-hidden="true"
       style="position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:99999;transform:translate(-100px,-100px);transition:opacity 0.3s ease,width 0.2s ease,height 0.2s ease;will-change:transform;"
-    ></div>
+    >
+    </div>
 
     <style>
       /* Hide native cursor everywhere */
-      *, *::before, *::after { cursor: none !important; }
+      *,
+      *::before,
+      *::after {
+        cursor: none !important;
+      }
     </style>
 
     <script>
@@ -427,31 +432,38 @@ const customLogo = hasCustomLogoSvg
         if (!el) return;
 
         const SIZE_DEFAULT = 36;
-        const SIZE_HOVER   = 64;
-        const SIZE_CLICK   = 22;
+        const SIZE_HOVER = 64;
+        const SIZE_CLICK = 22;
 
         // Spring constants — tweak here for feel
         // STIFFNESS: how hard the spring pulls (lower = more lag)
         // DAMPING:   how quickly velocity bleeds off (lower = more overshoot)
-        const STIFFNESS = 0.06;
-        const DAMPING   = 0.78;
+        const STIFFNESS = 0.009;
+        const DAMPING = 0.78;
 
         // Current position & velocity of the circle (starts way off-screen)
-        let curX = -300, curY = -300;
-        let velX = 0,    velY = 0;
+        let curX = -300,
+          curY = -300;
+        let velX = 0,
+          velY = 0;
 
         // Target = actual cursor position
-        let tarX = -300, tarY = -300;
+        let tarX = -300,
+          tarY = -300;
         let active = false;
 
-        window.addEventListener("pointermove", (e) => {
-          tarX = e.clientX;
-          tarY = e.clientY;
-          if (!active) {
-            active = true;
-            el.style.opacity = "1";
-          }
-        }, { passive: true });
+        window.addEventListener(
+          "pointermove",
+          (e) => {
+            tarX = e.clientX;
+            tarY = e.clientY;
+            if (!active) {
+              active = true;
+              el.style.opacity = "1";
+            }
+          },
+          { passive: true },
+        );
 
         window.addEventListener("pointerleave", () => {
           active = false;
@@ -459,27 +471,28 @@ const customLogo = hasCustomLogoSvg
         });
 
         // Hover: grow
-        const SELECTORS = "a,button,input,textarea,select,[role='button'],[tabindex]";
+        const SELECTORS =
+          "a,button,input,textarea,select,[role='button'],[tabindex]";
         document.addEventListener("pointerover", (e) => {
           if ((e.target as Element)?.closest(SELECTORS)) {
-            el.style.width  = SIZE_HOVER + "px";
+            el.style.width = SIZE_HOVER + "px";
             el.style.height = SIZE_HOVER + "px";
           }
         });
         document.addEventListener("pointerout", (e) => {
           if ((e.target as Element)?.closest(SELECTORS)) {
-            el.style.width  = SIZE_DEFAULT + "px";
+            el.style.width = SIZE_DEFAULT + "px";
             el.style.height = SIZE_DEFAULT + "px";
           }
         });
 
         // Click: shrink
         document.addEventListener("pointerdown", () => {
-          el.style.width  = SIZE_CLICK + "px";
+          el.style.width = SIZE_CLICK + "px";
           el.style.height = SIZE_CLICK + "px";
         });
         document.addEventListener("pointerup", () => {
-          el.style.width  = SIZE_DEFAULT + "px";
+          el.style.width = SIZE_DEFAULT + "px";
           el.style.height = SIZE_DEFAULT + "px";
         });
 
@@ -493,7 +506,12 @@ const customLogo = hasCustomLogoSvg
           curX += velX;
           curY += velY;
 
-          const w = parseFloat(el.style.width)  || SIZE_DEFAULT;
+          // Expose circle's lagged position globally so particle system
+          // repels from the circle, not from the raw cursor
+          (window as any).__cx = curX;
+          (window as any).__cy = curY;
+
+          const w = parseFloat(el.style.width) || SIZE_DEFAULT;
           const h = parseFloat(el.style.height) || SIZE_DEFAULT;
           el.style.transform = `translate(${curX - w * 0.5}px,${curY - h * 0.5}px)`;
 
@@ -511,8 +529,11 @@ const customLogo = hasCustomLogoSvg
       class="fixed bottom-3 right-3 z-[999] font-mono text-[10px] leading-relaxed bg-black/80 backdrop-blur-sm border border-white/10 text-white/60 px-3 py-2 rounded-lg shadow-xl pointer-events-auto select-all"
     >
       <div class="flex items-center gap-1.5 mb-0.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-white/40 uppercase tracking-widest text-[9px]">Build</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+        ></span>
+        <span class="text-white/40 uppercase tracking-widest text-[9px]"
+          >Build</span
+        >
       </div>
       <div>
         <span class="text-white/40">commit </span>
@@ -521,8 +542,7 @@ const customLogo = hasCustomLogoSvg
           href="#"
           target="_blank"
           rel="noopener"
-          class="text-[#d4af37] hover:text-yellow-300 transition-colors"
-        ></a>
+          class="text-[#d4af37] hover:text-yellow-300 transition-colors"></a>
       </div>
       <div id="build-time-line">
         <span class="text-white/40">built </span>
@@ -533,9 +553,11 @@ const customLogo = hasCustomLogoSvg
     <script>
       (function () {
         const COMMIT = __COMMIT_HASH__;
-        const BUILD  = __BUILD_TIME__;
-        const badge  = document.getElementById("build-badge");
-        const link   = document.getElementById("build-commit-link") as HTMLAnchorElement | null;
+        const BUILD = __BUILD_TIME__;
+        const badge = document.getElementById("build-badge");
+        const link = document.getElementById(
+          "build-commit-link",
+        ) as HTMLAnchorElement | null;
         const timeEl = document.getElementById("build-time-val");
 
         if (link) {
@@ -546,10 +568,16 @@ const customLogo = hasCustomLogoSvg
           // Format: "28 Sep 2026, 18:34 PKT"
           try {
             timeEl.textContent = new Date(BUILD).toLocaleString("en-GB", {
-              day: "2-digit", month: "short", year: "numeric",
-              hour: "2-digit", minute: "2-digit", timeZoneName: "short"
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              timeZoneName: "short",
             });
-          } catch { timeEl.textContent = BUILD; }
+          } catch {
+            timeEl.textContent = BUILD;
+          }
         }
 
         function show() {
