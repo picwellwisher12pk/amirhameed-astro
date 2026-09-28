@@ -191,7 +191,7 @@ const customLogo = hasCustomLogoSvg
           <a
             href="/"
             class:list={[
-              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-300 ease-in-out hover:scale-105",
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
               currentPath === "/"
                 ? "active-nav-link text-[#d4af37] font-semibold"
                 : "text-white/80 hover:text-white hover:text-[#d4af37]",
@@ -206,7 +206,7 @@ const customLogo = hasCustomLogoSvg
           <a
             href="/projects"
             class:list={[
-              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-300 ease-in-out hover:scale-105",
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
               currentPath.startsWith("/projects")
                 ? "active-nav-link text-[#d4af37] font-semibold"
                 : "text-white/80 hover:text-white hover:text-[#d4af37]",
@@ -221,7 +221,7 @@ const customLogo = hasCustomLogoSvg
           <a
             href="/blog"
             class:list={[
-              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-300 ease-in-out hover:scale-105",
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
               currentPath.startsWith("/blog")
                 ? "active-nav-link text-[#d4af37] font-semibold"
                 : "text-white/80 hover:text-white hover:text-[#d4af37]",
@@ -236,7 +236,7 @@ const customLogo = hasCustomLogoSvg
           <a
             href="/about"
             class:list={[
-              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-300 ease-in-out hover:scale-105",
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
               currentPath.startsWith("/about")
                 ? "active-nav-link text-[#d4af37] font-semibold"
                 : "text-white/80 hover:text-white hover:text-[#d4af37]",
@@ -251,7 +251,7 @@ const customLogo = hasCustomLogoSvg
           <a
             href="/contact"
             class:list={[
-              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-300 ease-in-out hover:scale-105",
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
               currentPath.startsWith("/contact")
                 ? "active-nav-link text-[#d4af37] font-semibold"
                 : "text-white/80 hover:text-white hover:text-[#d4af37]",
@@ -438,7 +438,7 @@ const customLogo = hasCustomLogoSvg
         // Spring constants — tweak here for feel
         // STIFFNESS: how hard the spring pulls (lower = more lag)
         // DAMPING:   how quickly velocity bleeds off (lower = more overshoot)
-        const STIFFNESS = 0.009;
+        const STIFFNESS = 0.01;
         const DAMPING = 0.78;
 
         // Current position & velocity of the circle (starts way off-screen)

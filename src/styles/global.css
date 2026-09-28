@@ -286,6 +286,16 @@ header {
   border: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+/* Luxury theme scrolled header with blur effect */
+[data-theme="luxury"] header.header-scrolled {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: none !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* No brand icon in header for luxury theme */
@@ -337,12 +347,13 @@ header {
   font-family: var(--luxury-nav-font) !important;
   letter-spacing: var(--luxury-nav-spacing) !important;
   text-transform: var(--luxury-nav-transform) !important;
-  transition: color 0.25s cubic-bezier(0.42, 0, 0.58, 1), text-shadow 0.25s cubic-bezier(0.42, 0, 0.58, 1), transform 0.25s cubic-bezier(0.42, 0, 0.58, 1) !important;
+  transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), text-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), letter-spacing 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 [data-theme="luxury"] .viewport-nav-link:hover {
   color: #d4af37 !important;
   text-shadow: 0 0 20px rgba(212, 175, 55, 0.5) !important;
+  letter-spacing: 0.15em !important;
 }
 
 [data-theme="luxury"] .viewport-nav-link.active-nav-link {
@@ -422,25 +433,26 @@ header {
    ------------------------------------------------------------------------- */
 [data-theme="luxury"] .luxury-project-card,
 [data-theme="luxury"] .luxury-blog-card {
-  background: transparent !important;
-  background-color: transparent !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(15px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(150%) !important;
   border: none !important;
   border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: 1.85rem !important;
   padding-bottom: 1.85rem !important;
-  transition: border-top-color 0.35s cubic-bezier(0.42, 0, 0.58, 1), transform 0.35s cubic-bezier(0.42, 0, 0.58, 1) !important;
+  transition: border-top-color 0.35s cubic-bezier(0.42, 0, 0.58, 1), transform 0.35s cubic-bezier(0.42, 0, 0.58, 1), background 0.35s ease, backdrop-filter 0.35s ease !important;
 }
 
 [data-theme="luxury"] .luxury-project-card:hover,
 [data-theme="luxury"] .luxury-blog-card:hover {
-  background: transparent !important;
+  background: rgba(0, 0, 0, 0.55) !important;
   border-top-color: rgba(212, 175, 55, 0.65) !important;
   transform: translateY(-3px) !important;
-  box-shadow: none !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Project & Article Titles */
@@ -831,6 +843,7 @@ header {
 [data-theme="luxury"].luxury-animating .luxury-seq-4,
 [data-theme="luxury"].luxury-animating .luxury-seq-5,
 [data-theme="luxury"].luxury-animating .luxury-seq-rest,
+[data-theme="luxury"].luxury-animating .luxury-seq-bg,
 [data-theme="luxury"].luxury-animating footer,
 [data-theme="luxury"].luxury-animating #luxury-morphing-vignette {
   opacity: 0 !important;
@@ -850,6 +863,7 @@ header {
 [data-theme="luxury"].luxury-animating .luxury-seq-4,
 [data-theme="luxury"].luxury-animating .luxury-seq-5,
 [data-theme="luxury"].luxury-animating .luxury-seq-rest,
+[data-theme="luxury"].luxury-animating .luxury-seq-bg,
 [data-theme="luxury"].luxury-animating #unified-studio-launcher,
 [data-theme="luxury"].luxury-animating #luxury-scroll-indicator {
   transform: translateY(20px);
@@ -874,7 +888,7 @@ header {
    LUXURY FULLSCREEN TO CIRCLE MORPHING ON SCROLL
    ======================================================== */
 [data-theme="luxury"] .luxury-hero-track {
-  min-height: 140vh;
+  min-height: 100vh;
   position: relative;
 }
 

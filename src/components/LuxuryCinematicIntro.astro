@@ -147,6 +147,7 @@
     // 4. TIMING & GRADUAL SEQUENTIAL REVEAL
     introGatherDuration: 2600,
     elementStaggerDelay: 320,
+    elementRevealStartDelay: 500, // Start revealing elements after 500ms
 
     // 5. SCROLL ARCHITECTURE & MULTI-PICTURE MORPHING
     fixedInViewport: true,
@@ -263,6 +264,9 @@
     uniform float u_sizeA;
     uniform vec2 u_centerB;
     uniform float u_sizeB;
+
+    // Hero content area for invert effect (left side of screen)
+    uniform vec2 u_hero_area; // x: width of hero area (in pixels), y: unused
 
     varying vec3 v_color;
     varying float v_alpha;
@@ -749,16 +753,20 @@
       gl_Position = vec4(clipSpace, 0.0, 1.0);
       gl_PointSize = pointSize;
 
-      v_color = finalColor;
+      // Invert effect for particles over hero content area (left side)
+      float heroWidth = u_hero_area.x;
+      float inHeroArea = step(pos.x, heroWidth);
+      vec3 invertedColor = 1.0 - finalColor;
+      v_color = mix(finalColor, invertedColor, inHeroArea * 0.7); // 70% invert strength
 
       // Fixed 50% opacity from loading across entire life cycle:
       float initialFade = min(1.0, u_time / 80.0);
       float baseOpacity = 0.50;
 
       if (a_scatter > 0.5) {
-        // 1% ambient wanderers: 50% opacity with subtle starry twinkle
+        // 1% ambient wanderers: higher opacity (95%) with subtle starry twinkle for better visibility above content
         float twinkle = 0.88 + 0.12 * sin(u_time * 0.003 + pRnd1 * 6.283);
-        v_alpha = initialFade * baseOpacity * twinkle;
+        v_alpha = initialFade * 0.95 * twinkle;
       } else {
         // 99% assembling image particles: steady 50% opacity throughout
         v_alpha = initialFade * baseOpacity;
@@ -1264,6 +1272,7 @@
     const uSizeALoc = gl.getUniformLocation(program, "u_sizeA");
     const uCenterBLoc = gl.getUniformLocation(program, "u_centerB");
     const uSizeBLoc = gl.getUniformLocation(program, "u_sizeB");
+    const uHeroAreaLoc = gl.getUniformLocation(program, "u_hero_area");
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -1452,6 +1461,9 @@
       gl.uniform1f(uSizeALoc, sizeA);
       gl.uniform2f(uCenterBLoc, centerBX, centerBY);
       gl.uniform1f(uSizeBLoc, sizeB);
+
+      // Hero content area for invert effect (left 50% of screen)
+      gl.uniform2f(uHeroAreaLoc, curW * 0.5, 0.0);
 
       // Bind Target A
       const vboA = targetVBOs[imgIndexA];
@@ -1657,7 +1669,8 @@
         updateGizmoPosition(curW, curH);
       }
 
-      if (elapsed > PARTICLE_CONFIG.introGatherDuration && !elementsRevealed) {
+      // Start revealing elements early (after elementRevealStartDelay) instead of waiting for full particle gather
+      if (elapsed > PARTICLE_CONFIG.elementRevealStartDelay && !elementsRevealed) {
         elementsRevealed = true;
         if (veil) {
           veil.classList.add("opacity-0");
@@ -1690,6 +1703,7 @@
 
   function revealSequentialElements(onAllRevealed?: () => void) {
     const header = document.querySelector("header");
+    const seqBg = document.querySelector(".luxury-seq-bg");
     const seq1 = document.querySelector(".luxury-seq-1");
     const seq2 = document.querySelector(".luxury-seq-2");
     const seq3 = document.querySelector(".luxury-seq-3");
@@ -1704,13 +1718,14 @@
     const stagger = PARTICLE_CONFIG.elementStaggerDelay;
 
     setTimeout(() => header?.classList.add("luxury-revealed"), 100);
+    setTimeout(() => seqBg?.classList.add("luxury-revealed"), 100 + stagger * 0.5);
     setTimeout(() => seq1?.classList.add("luxury-revealed"), 100 + stagger);
     setTimeout(() => seq2?.classList.add("luxury-revealed"), 100 + stagger * 2);
     setTimeout(() => seq3?.classList.add("luxury-revealed"), 100 + stagger * 3);
     setTimeout(() => seq4?.classList.add("luxury-revealed"), 100 + stagger * 4);
     setTimeout(() => seq5?.classList.add("luxury-revealed"), 100 + stagger * 5);
 
-    const finalDelay = 100 + stagger * 6;
+    const finalDelay = 100 + stagger * 7;
     setTimeout(() => {
       studioLauncher?.classList.add("luxury-revealed");
       scrollIndicator?.classList.add("luxury-revealed");
