@@ -21,6 +21,7 @@ import path from "node:path";
 import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 import LuxuryCinematicIntro from "../components/LuxuryCinematicIntro.astro";
 import UnifiedStudio from "../components/UnifiedStudio.astro";
+import Analytics from "@vercel/analytics/astro";
 
 const hasCustomLogoSvg = fs.existsSync(path.resolve("./public/logo.svg"));
 const hasCustomLogoPng = fs.existsSync(path.resolve("./public/logo.png"));
@@ -389,5 +390,6 @@ const customLogo = hasCustomLogoSvg
     <LuxuryCinematicIntro />
     <!-- Unified Creative Studio: Particle VFX & Typography Live Studio -->
     <UnifiedStudio />
+    <Analytics />
   </body>
 </html>
