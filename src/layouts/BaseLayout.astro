@@ -20,7 +20,7 @@ import path from "node:path";
 
 import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 import LuxuryCinematicIntro from "../components/LuxuryCinematicIntro.astro";
-
+import UnifiedStudio from "../components/UnifiedStudio.astro";
 import Analytics from "@vercel/analytics/astro";
 
 const hasCustomLogoSvg = fs.existsSync(path.resolve("./public/logo.svg"));
@@ -388,7 +388,8 @@ const customLogo = hasCustomLogoSvg
     </script>
     <!-- Luxury Cinematic Intro Animation Overlay -->
     <LuxuryCinematicIntro />
-
+    <!-- Unified Creative Studio: Particle VFX & Typography Live Studio (Dev only) -->
+    {import.meta.env.DEV && <UnifiedStudio />}
     <Analytics />
   </body>
 </html>
