@@ -429,10 +429,14 @@ const customLogo = hasCustomLogoSvg
         const SIZE_DEFAULT  = 36;
         const SIZE_HOVER    = 64;
         const SIZE_CLICK    = 22;
-        const LERP          = 0.11; // ease factor (lower = more lag)
+
+        // Spring physics — lower STIFFNESS = more lag; DAMPING < 1 = smooth decel
+        const STIFFNESS = 0.055;
+        const DAMPING   = 0.72;
 
         let tarX = -200, tarY = -200;
         let curX = -200, curY = -200;
+        let velX = 0,    velY = 0;
         let isVisible = false;
         let raf: number;
 
@@ -441,7 +445,8 @@ const customLogo = hasCustomLogoSvg
           tarX = e.clientX;
           tarY = e.clientY;
           if (!isVisible) {
-            curX = tarX; curY = tarY; // snap on first appearance
+            curX = tarX; curY = tarY; // snap position on first appearance
+            velX = 0; velY = 0;        // zero velocity — no cold-start overshoot
             isVisible = true;
             el.style.opacity = "1";
           }
@@ -477,10 +482,12 @@ const customLogo = hasCustomLogoSvg
           el.style.height = SIZE_DEFAULT + "px";
         });
 
-        // RAF lerp loop
+        // RAF spring-physics loop: accelerates toward target, decelerates on arrival
         function tick() {
-          curX += (tarX - curX) * LERP;
-          curY += (tarY - curY) * LERP;
+          velX = (velX + (tarX - curX) * STIFFNESS) * DAMPING;
+          velY = (velY + (tarY - curY) * STIFFNESS) * DAMPING;
+          curX += velX;
+          curY += velY;
 
           const w = parseFloat(el.style.width)  || SIZE_DEFAULT;
           const h = parseFloat(el.style.height) || SIZE_DEFAULT;
