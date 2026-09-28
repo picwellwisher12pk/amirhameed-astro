@@ -88,7 +88,8 @@ const customLogo = hasCustomLogoSvg
   >
     <!-- Top Navigation Bar (Transparent, No Background) -->
     <header
-      class="sticky top-0 z-50 bg-transparent border-none shadow-none luxury-seq-header"
+      id="site-header"
+      class="sticky top-0 z-50 luxury-seq-header transition-all duration-300"
     >
       <div
         class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between"
@@ -349,6 +350,22 @@ const customLogo = hasCustomLogoSvg
       </div>
     </footer>
 
+    <!-- Scroll-aware header -->
+    <script>
+      (function () {
+        const header = document.getElementById("site-header");
+        function onScroll() {
+          if (!header) return;
+          if (window.scrollY > 10) {
+            header.classList.add("header-scrolled");
+          } else {
+            header.classList.remove("header-scrolled");
+          }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
     <!-- Viewport Fullscreen Menu Script -->
     <script>
       const menuBtn = document.getElementById("viewport-menu-btn");
