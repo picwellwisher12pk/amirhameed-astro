@@ -1,9 +1,6 @@
 ---
 title: 28 Facts You Probably Didn’t Know About WordPress
-description: >-
-  Everyone knows what WordPress is, but do you know how profitable WordPress
-  themes are, or about the connection between Panama Papers breach and
-  WordPress? Keep
+description: Everyone knows what WordPress is, but do you know how profitable WordPress themes are, or about the connection between Panama Papers breach and WordPress? Keep
 pubDate: '2017-05-26'
 categories:
   - General

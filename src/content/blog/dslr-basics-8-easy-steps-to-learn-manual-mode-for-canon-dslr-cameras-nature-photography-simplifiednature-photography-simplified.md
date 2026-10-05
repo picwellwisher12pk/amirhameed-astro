@@ -1,11 +1,6 @@
 ---
-title: >-
-  DSLR Basics: 8 Easy Steps to Learn Manual Mode for Canon DSLR Cameras | Nature
-  Photography SimplifiedNature Photography Simplified
-description: >-
-  Manual Mode in DSLR Camera is considered to be an out-of-this-world setting
-  that many people never ever think of trying it. I have come across many people
-  who o
+title: 'DSLR Basics: 8 Easy Steps to Learn Manual Mode for Canon DSLR Cameras | Nature Photography SimplifiedNature Photography Simplified'
+description: Manual Mode in DSLR Camera is considered to be an out-of-this-world setting that many people never ever think of trying it. I have come across many people who o
 pubDate: '2014-07-25'
 categories:
   - Technology

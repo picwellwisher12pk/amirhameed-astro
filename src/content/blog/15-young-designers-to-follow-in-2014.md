@@ -1,9 +1,6 @@
 ---
 title: 15 Young Designers to Follow in 2014
-description: >-
-  Age is just a number. There are many young and talented designers who grew up
-  with social media and digital products. These people are capable of finding
-  new wa
+description: Age is just a number. There are many young and talented designers who grew up with social media and digital products. These people are capable of finding new wa
 pubDate: '2014-07-25'
 categories:
   - General

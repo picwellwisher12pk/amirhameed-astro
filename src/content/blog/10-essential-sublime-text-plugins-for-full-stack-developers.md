@@ -1,9 +1,6 @@
 ---
 title: 10 Essential Sublime Text Plugins for Full-Stack Developers
-description: >-
-  When I started with web development a few years ago, Vim was my first choice
-  of text editor. It was easy to work with and I could get the basics done
-  without mu
+description: When I started with web development a few years ago, Vim was my first choice of text editor. It was easy to work with and I could get the basics done without mu
 pubDate: '2014-08-25'
 categories:
   - Technology

@@ -1,9 +1,6 @@
 ---
 title: Getting to Know Zend Server 7
-description: >-
-  Zend Technologies is the company which funds the development of the Zend
-  Engine (the engine PHP is based on), as well as Zend Framework and some other
-  projects
+description: Zend Technologies is the company which funds the development of the Zend Engine (the engine PHP is based on), as well as Zend Framework and some other projects
 pubDate: '2014-07-26'
 categories:
   - Technology

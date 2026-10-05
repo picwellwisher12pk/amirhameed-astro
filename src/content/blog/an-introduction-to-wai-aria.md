@@ -1,9 +1,6 @@
 ---
 title: An Introduction to WAI-ARIA
-description: >-
-  It might come as a shock, but I tell you: The web has changed! The last eight
-  years have seen the rise of Ajax, JavaScript, HTML5, and countless front-end
-  frame
+description: 'It might come as a shock, but I tell you: The web has changed! The last eight years have seen the rise of Ajax, JavaScript, HTML5, and countless front-end frame'
 pubDate: '2014-07-26'
 categories:
   - Technology

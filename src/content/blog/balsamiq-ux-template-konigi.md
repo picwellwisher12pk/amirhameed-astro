@@ -1,9 +1,6 @@
 ---
 title: Balsamiq UX Template | Konigi
-description: >-
-  This template is made for UI designers using Balsamiq Mockups that want to
-  create polished, client-ready presentation decks. It includes a few example
-  pages for
+description: This template is made for UI designers using Balsamiq Mockups that want to create polished, client-ready presentation decks. It includes a few example pages for
 pubDate: '2014-08-02'
 categories:
   - General

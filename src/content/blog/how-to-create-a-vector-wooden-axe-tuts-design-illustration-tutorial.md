@@ -1,9 +1,6 @@
 ---
 title: How To Create a Vector, Wooden Axe - Tuts+ Design & Illustration Tutorial
-description: >-
-  In this tutorial you will learn how to vector an execution axe from a
-  reference. Discover essential techniques that you need as a vector artist,
-  such as creatin
+description: In this tutorial you will learn how to vector an execution axe from a reference. Discover essential techniques that you need as a vector artist, such as creatin
 pubDate: '2014-07-25'
 categories:
   - My Writings

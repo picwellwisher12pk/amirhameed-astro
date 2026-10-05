@@ -1,9 +1,6 @@
 ---
 title: “How to Make a Performance Budget” an article by Dan Mall
-description: >-
-  It all seems to have stemmed from Chris Coyier’s tweet, and I was
-  coincidentally on stage at An Event Apart San Francisco talking about
-  performance budgets at t
+description: It all seems to have stemmed from Chris Coyier’s tweet, and I was coincidentally on stage at An Event Apart San Francisco talking about performance budgets at t
 pubDate: '2014-12-09'
 categories:
   - Technology

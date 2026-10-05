@@ -1,9 +1,6 @@
 ---
 title: 3 Types Of Employees To Fire - Business Insider
-description: >-
-  As a business owner, your time is limited; you hired a team of capable
-  professionals because there's no way you can do it all. Even if your
-  organization runs li
+description: As a business owner, your time is limited; you hired a team of capable professionals because there's no way you can do it all. Even if your organization runs li
 pubDate: '2014-08-01'
 categories:
   - General

@@ -1,9 +1,6 @@
 ---
 title: 'Sass vs. SCSS: which syntax is better?'
-description: >-
-  Since the creation of Sass nearly 5 years ago, it has been plagued by many
-  levels of controversy. It billed itself as "a better CSS" and added brand new
-  feature
+description: Since the creation of Sass nearly 5 years ago, it has been plagued by many levels of controversy. It billed itself as "a better CSS" and added brand new feature
 pubDate: '2014-12-08'
 categories:
   - Technology

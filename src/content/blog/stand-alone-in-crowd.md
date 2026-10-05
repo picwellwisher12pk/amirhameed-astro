@@ -6,7 +6,7 @@ categories:
   - General
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/07/1426439_10202255913334959_2040901047_n.jpg
+heroImage: /wp-content/uploads/2014/07/1426439_10202255913334959_2040901047_n.jpg
 ---
 
 

@@ -1,9 +1,6 @@
 ---
 title: 5 Must-have Android Apps for Designers
-description: >-
-  For most of the short history of web development, the only platform that we
-  could rely on for graphic purposes was the desktop computer, that have the
-  enough gr
+description: For most of the short history of web development, the only platform that we could rely on for graphic purposes was the desktop computer, that have the enough gr
 pubDate: '2014-07-30'
 categories:
   - Technology

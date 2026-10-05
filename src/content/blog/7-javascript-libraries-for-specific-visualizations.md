@@ -1,9 +1,6 @@
 ---
 title: 7 JavaScript Libraries for Specific Visualizations
-description: >-
-  Apart from the usual charts and graphs libraries used to create interactive
-  data visualizations already covered here, which can present a steep learning
-  curve a
+description: Apart from the usual charts and graphs libraries used to create interactive data visualizations already covered here, which can present a steep learning curve a
 pubDate: '2014-10-19'
 categories:
   - Technology

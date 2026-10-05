@@ -1,9 +1,6 @@
 ---
 title: How designers can create interactive prototypes with Illustrator - Tom Germeau
-description: >-
-  At the start of a product idea the designer uses wireframes, mockups and
-  prototypes to get feedback as fast as possible. Balancing the amount of time
-  spent crea
+description: At the start of a product idea the designer uses wireframes, mockups and prototypes to get feedback as fast as possible. Balancing the amount of time spent crea
 pubDate: '2014-07-25'
 categories:
   - Technology

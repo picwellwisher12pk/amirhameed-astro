@@ -1,9 +1,6 @@
 ---
 title: How to Protect Yourself From Rogue WordPress Plugins
-description: >-
-  Before installing software on your computer, you would probably do a bit of
-  research on the software before loading it on your system, or maybe some video
-  games
+description: Before installing software on your computer, you would probably do a bit of research on the software before loading it on your system, or maybe some video games
 pubDate: '2014-09-21'
 categories:
   - Technology

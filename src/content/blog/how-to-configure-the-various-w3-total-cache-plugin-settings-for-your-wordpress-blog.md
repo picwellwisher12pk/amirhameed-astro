@@ -1,11 +1,6 @@
 ---
-title: >-
-  How To Configure The Various W3 Total Cache Plugin Settings For Your Wordpress
-  Blog
-description: >-
-  A while ago I talked about the benefits of installing the W3TC plugin on your
-  WordPress blog in order to speed it up with various caching, but some readers
-  were
+title: How To Configure The Various W3 Total Cache Plugin Settings For Your Wordpress Blog
+description: A while ago I talked about the benefits of installing the W3TC plugin on your WordPress blog in order to speed it up with various caching, but some readers were
 pubDate: '2014-08-08'
 categories:
   - Technology

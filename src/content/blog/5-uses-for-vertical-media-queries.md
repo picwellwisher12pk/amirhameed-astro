@@ -1,9 +1,6 @@
 ---
 title: 5 Uses for Vertical Media Queries
-description: >-
-  Media queries are the core technology behind Responsive Web Design yet,
-  despite a plethora of options, few of us dare venture beyond min-width (and
-  possibly max
+description: Media queries are the core technology behind Responsive Web Design yet, despite a plethora of options, few of us dare venture beyond min-width (and possibly max
 pubDate: '2014-08-25'
 categories:
   - Technology

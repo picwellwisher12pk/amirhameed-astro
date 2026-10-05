@@ -1,9 +1,6 @@
 ---
 title: 'Quick Tip: Install Zephir and Phalcon 2 on Vagrant'
-description: >-
-  This quick tip will show you how to install Phalcon on a Homestead Improved
-  instance, and will help you get a sample Phalcon app up and running. The
-  version of
+description: This quick tip will show you how to install Phalcon on a Homestead Improved instance, and will help you get a sample Phalcon app up and running. The version of
 pubDate: '2014-08-27'
 categories:
   - General

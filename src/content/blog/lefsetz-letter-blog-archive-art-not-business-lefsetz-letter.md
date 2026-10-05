@@ -1,9 +1,6 @@
 ---
 title: Lefsetz Letter » Blog Archive Art, Not Business » Lefsetz Letter
-description: >-
-  A businessman plays by the rules, an artist breaks them. A businessman puts
-  money first, an artist sees money as a byproduct. A businessman has a plan, an
-  artis
+description: A businessman plays by the rules, an artist breaks them. A businessman puts money first, an artist sees money as a byproduct. A businessman has a plan, an artis
 pubDate: '2014-07-25'
 categories:
   - Fun

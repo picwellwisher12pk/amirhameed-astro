@@ -1,9 +1,6 @@
 ---
 title: How You Know You Have a Winning Business Idea
-description: >-
-  Do you have an idea for a new business? While you may find it easy to generate
-  many new business ideas, it isn't as easy to identify which ones are truly
-  stella
+description: Do you have an idea for a new business? While you may find it easy to generate many new business ideas, it isn't as easy to identify which ones are truly stella
 pubDate: '2014-07-25'
 categories:
   - General

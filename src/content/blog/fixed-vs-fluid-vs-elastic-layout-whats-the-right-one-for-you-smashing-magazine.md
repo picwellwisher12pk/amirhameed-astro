@@ -1,11 +1,6 @@
 ---
-title: >-
-  Fixed vs. Fluid vs. Elastic Layout: What's The Right One For You? | Smashing
-  Magazine
-description: >-
-  The problem has boggled the minds of Web designers for years: fixed, fluid,
-  elastic or a hybrid layout design? Each option has its benefits and
-  disadvantages. B
+title: 'Fixed vs. Fluid vs. Elastic Layout: What''s The Right One For You? | Smashing Magazine'
+description: 'The problem has boggled the minds of Web designers for years: fixed, fluid, elastic or a hybrid layout design? Each option has its benefits and disadvantages. B'
 pubDate: '2014-09-24'
 categories:
   - Technology

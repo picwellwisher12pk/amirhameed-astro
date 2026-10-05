@@ -1,9 +1,6 @@
 ---
 title: Where do innovative ideas come from? | LinkedIn
-description: >-
-  This is the conclusion I got to by working on strategies and processes to
-  boost innovation for almost 10 years. There are many false myths about
-  innovative idea
+description: This is the conclusion I got to by working on strategies and processes to boost innovation for almost 10 years. There are many false myths about innovative idea
 pubDate: '2014-08-05'
 categories:
   - General

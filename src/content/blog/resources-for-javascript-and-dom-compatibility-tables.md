@@ -1,9 +1,6 @@
 ---
 title: Resources for JavaScript and DOM Compatibility Tables
-description: >-
-  One of the best info-apps to come about in recent years is the well-known and
-  super-practical Can I Use by Alexis Deveria. Although Can I Use is great for
-  many
+description: One of the best info-apps to come about in recent years is the well-known and super-practical Can I Use by Alexis Deveria. Although Can I Use is great for many
 pubDate: '2014-11-27'
 categories:
   - Technology

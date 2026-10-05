@@ -1,9 +1,6 @@
 ---
 title: native vs hybrid app development
-description: >-
-  People enjoy using their smartphones because they can accomplish many things
-  on the go such as reading e-mails, social networking, watching movies and
-  plenty of
+description: People enjoy using their smartphones because they can accomplish many things on the go such as reading e-mails, social networking, watching movies and plenty of
 pubDate: '2014-08-25'
 categories:
   - Technology

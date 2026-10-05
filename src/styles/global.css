@@ -73,9 +73,9 @@
     scrollbar-color: oklch(55% 0.12 260 / 0.55) transparent;
   }
 
-  /* Urdu Typography: Vazirmatn primary with Noto Sans Arabic fallback */
+  /* Urdu Typography: Noto Sans Arabic standard across all projects */
   .font-urdu, [dir="rtl"], .urdu-content {
-    font-family: 'Vazirmatn', 'Noto Sans Arabic', system-ui, sans-serif !important;
+    font-family: 'Noto Sans Arabic', system-ui, sans-serif !important;
     line-height: 1.85;
     letter-spacing: normal;
   }

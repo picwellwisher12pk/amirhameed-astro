@@ -1,9 +1,6 @@
 ---
 title: Two Phrases That Can Change Your Life | LinkedIn
-description: >-
-  To develop meaningful and mature relationships at work or at home we need to
-  develop lots of confidence, you can also learn how sleeping improves couple
-  relatio
+description: To develop meaningful and mature relationships at work or at home we need to develop lots of confidence, you can also learn how sleeping improves couple relatio
 pubDate: '2014-08-05'
 categories:
   - General

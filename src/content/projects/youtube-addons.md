@@ -1,12 +1,19 @@
 ---
-title: "YouTube Addons — Power Enhancements for YouTube"
-description: "A modern browser extension providing smart video bookmarking, custom playlist management, local auto-backups, and cloud synchronization."
-pubDate: 2026-06-10
-category: "Browser Extensions & Tools"
-tags: ["WXT", "React 18", "TypeScript", "Tailwind CSS", "Preact Signals", "Radix UI"]
+heroImage: /images/projects/youtube-addons.jpg
+title: YouTube Addons — Power Enhancements for YouTube
+description: A modern browser extension providing smart video bookmarking, custom playlist management, local auto-backups, and cloud synchronization.
+pubDate: '2026-06-10'
+category: Browser Extensions & Tools
+tags:
+  - WXT
+  - React 18
+  - TypeScript
+  - Tailwind CSS
+  - Preact Signals
+  - Radix UI
 featured: false
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/youtube-addons"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/youtube-addons
 ---
 
 ### Overview

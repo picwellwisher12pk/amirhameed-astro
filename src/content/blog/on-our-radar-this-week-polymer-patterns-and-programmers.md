@@ -1,9 +1,6 @@
 ---
 title: 'On Our Radar This Week: Polymer, Patterns and Programmers'
-description: >-
-  Welcome to On Our Radar, a weekly round-up of news, trends and other cool
-  stuff from the world of web development. This week saw the release of iOS 8,
-  which arr
+description: Welcome to On Our Radar, a weekly round-up of news, trends and other cool stuff from the world of web development. This week saw the release of iOS 8, which arr
 pubDate: '2014-09-21'
 categories:
   - Technology

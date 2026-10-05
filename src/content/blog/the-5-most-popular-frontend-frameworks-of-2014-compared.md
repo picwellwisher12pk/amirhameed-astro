@@ -1,9 +1,6 @@
 ---
 title: The 5 Most Popular Frontend Frameworks of 2014 Compared
-description: >-
-  Nowadays there is a deluge of CSS front-end frameworks. But the number of
-  really good ones can be narrowed down to just a few. In this article we’ll
-  compare wha
+description: Nowadays there is a deluge of CSS front-end frameworks. But the number of really good ones can be narrowed down to just a few. In this article we’ll compare wha
 pubDate: '2014-12-17'
 categories:
   - Technology

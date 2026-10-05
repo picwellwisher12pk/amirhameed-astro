@@ -1,9 +1,6 @@
 ---
 title: 5 Steps to an Endless Supply of Freelance Jobs
-description: >-
-  We’ve all been there–you come to the end of your current client projects and
-  realize, with dawning horror, that there’s absolutely nothing to start work on
-  next
+description: We’ve all been there–you come to the end of your current client projects and realize, with dawning horror, that there’s absolutely nothing to start work on next
 pubDate: '2014-07-26'
 categories:
   - Technology

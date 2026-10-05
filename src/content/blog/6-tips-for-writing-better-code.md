@@ -1,9 +1,6 @@
 ---
 title: 6 Tips for Writing Better Code
-description: >-
-  One of the best ways to keep code consistent, reusable, and organized, is to
-  group functionality together. For example, rather than dumping all your
-  JavaScript
+description: One of the best ways to keep code consistent, reusable, and organized, is to group functionality together. For example, rather than dumping all your JavaScript
 pubDate: '2014-08-25'
 categories:
   - Technology

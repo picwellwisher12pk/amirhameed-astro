@@ -1,9 +1,6 @@
 ---
 title: Killer Backgrounds with Illustrator's SVG Pattern Tool (CS6)
-description: >-
-  Adobe Illustrator is the established go-to tool for vector graphics. You can
-  scale graphics infinitely larger or smaller, without any loss of image
-  quality. Tha
+description: Adobe Illustrator is the established go-to tool for vector graphics. You can scale graphics infinitely larger or smaller, without any loss of image quality. Tha
 pubDate: '2014-07-26'
 categories:
   - Technology

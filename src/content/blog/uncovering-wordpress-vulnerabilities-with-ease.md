@@ -1,9 +1,6 @@
 ---
 title: Uncovering WordPress Vulnerabilities with Ease
-description: >-
-  As a developer or design professional, one of the biggest benefits of building
-  your sites on WordPress is that in most cases you are building your code on a
-  pro
+description: As a developer or design professional, one of the biggest benefits of building your sites on WordPress is that in most cases you are building your code on a pro
 pubDate: '2014-09-16'
 categories:
   - Technology

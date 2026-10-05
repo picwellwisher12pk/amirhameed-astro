@@ -1,9 +1,6 @@
 ---
 title: What to Expect from Yii 2.0
-description: >-
-  Yii 2.0 was released into beta last April and the goal for a first stable
-  release was set for the middle of 2014. The GitHub issue list has 300 open
-  issues and
+description: Yii 2.0 was released into beta last April and the goal for a first stable release was set for the middle of 2014. The GitHub issue list has 300 open issues and
 pubDate: '2014-09-21'
 categories:
   - Technology

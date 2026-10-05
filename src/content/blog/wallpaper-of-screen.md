@@ -6,7 +6,7 @@ categories:
   - General
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg
+heroImage: /wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg
 ---
 
-[![image](http://amirhameed.com/wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg "wp-1386927690860.jpg")](http://amirhameed.com/wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg) Posted from WordPress for Android
+[![image](/wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg "wp-1386927690860.jpg")](/wp-content/uploads/2014/07/wpid-wp-1386927690860.jpg) Posted from WordPress for Android

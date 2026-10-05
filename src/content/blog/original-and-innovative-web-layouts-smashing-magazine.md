@@ -1,9 +1,6 @@
 ---
 title: Original And Innovative Web Layouts | Smashing Magazine
-description: >-
-  The layout is the foundation of your website. It guides the user through the
-  sections and tells them what is most important. It also sets the aesthetic of
-  the w
+description: The layout is the foundation of your website. It guides the user through the sections and tells them what is most important. It also sets the aesthetic of the w
 pubDate: '2014-09-24'
 categories:
   - Technology

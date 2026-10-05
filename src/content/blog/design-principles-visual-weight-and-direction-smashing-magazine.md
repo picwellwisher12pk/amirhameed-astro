@@ -1,9 +1,6 @@
 ---
 title: 'Design Principles: Visual Weight And Direction - Smashing Magazine'
-description: >-
-  Every element on a web page exerts a visual force that attracts the eye of the
-  viewer. The greater the force, the more the eye is attracted. These forces
-  also a
+description: Every element on a web page exerts a visual force that attracts the eye of the viewer. The greater the force, the more the eye is attracted. These forces also a
 pubDate: '2014-12-12'
 categories:
   - Design

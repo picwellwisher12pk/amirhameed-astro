@@ -1,9 +1,6 @@
 ---
 title: Graduation…now what? | Playlist | TED.com
-description: >-
-  After you swing your mortarboard tassel from right to left, your sense of
-  excitement can give way to a sense of normlessness. For anyone feeling that,
-  these tal
+description: After you swing your mortarboard tassel from right to left, your sense of excitement can give way to a sense of normlessness. For anyone feeling that, these tal
 pubDate: '2014-07-25'
 categories:
   - General

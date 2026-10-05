@@ -6,7 +6,7 @@ categories:
   - Fun
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/07/529989_4208156677895_305605002_n.jpg
+heroImage: /wp-content/uploads/2014/07/529989_4208156677895_305605002_n.jpg
 ---
 
 

@@ -1,12 +1,18 @@
 ---
-title: "Gem Harvester — Autonomous Web Scraper & Data Pipeline"
-description: "An intelligent Chrome extension built with Plasmo and React for scraping structured web data, extracting table datasets, and automating repetitive browser workflows."
-pubDate: 2026-08-15
-category: "Browser Extensions & Tools"
-tags: ["Plasmo", "React", "TypeScript", "Ant Design", "DOM Automation"]
+heroImage: /images/projects/gem-harvester.jpg
+title: Gem Harvester — Autonomous Web Scraper & Data Pipeline
+description: An intelligent Chrome extension built with Plasmo and React for scraping structured web data, extracting table datasets, and automating repetitive browser workf
+pubDate: '2026-08-15'
+category: Browser Extensions & Tools
+tags:
+  - Plasmo
+  - React
+  - TypeScript
+  - Ant Design
+  - DOM Automation
 featured: true
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/gem-harvester"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/gem-harvester
 ---
 
 ### Overview

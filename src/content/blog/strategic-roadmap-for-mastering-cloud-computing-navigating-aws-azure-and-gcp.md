@@ -1,11 +1,6 @@
 ---
-title: >-
-  Strategic Roadmap for Mastering Cloud Computing: Navigating AWS, Azure, and
-  GCP
-description: >-
-  I. The Foundation: Demystifying Cloud Computing Before embarking on a learning
-  journey, it is essential to establish a clear understanding of the core
-  concepts
+title: 'Strategic Roadmap for Mastering Cloud Computing: Navigating AWS, Azure, and GCP'
+description: 'I. The Foundation: Demystifying Cloud Computing Before embarking on a learning journey, it is essential to establish a clear understanding of the core concepts'
 pubDate: '2025-08-27'
 categories:
   - General
@@ -13,7 +8,7 @@ tags: []
 language: en
 ---
 
-![](https://amirhameed.com/wp-content/uploads/2025/08/download.png)
+![](/wp-content/uploads/2025/08/download.png)
 
 ## **I. The Foundation: Demystifying Cloud Computing**
 

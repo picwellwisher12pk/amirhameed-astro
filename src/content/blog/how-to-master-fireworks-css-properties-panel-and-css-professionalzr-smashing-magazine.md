@@ -1,11 +1,6 @@
 ---
-title: >-
-  How To Master Fireworks’ CSS Properties Panel And CSS Professionalzr -
-  Smashing Magazine
-description: >-
-  Today, being a designer is about much more than drawing beautiful interfaces
-  in Photoshop or Fireworks. To properly design a website or application, a UI
-  design
+title: How To Master Fireworks’ CSS Properties Panel And CSS Professionalzr - Smashing Magazine
+description: Today, being a designer is about much more than drawing beautiful interfaces in Photoshop or Fireworks. To properly design a website or application, a UI design
 pubDate: '2014-12-10'
 categories:
   - Technology

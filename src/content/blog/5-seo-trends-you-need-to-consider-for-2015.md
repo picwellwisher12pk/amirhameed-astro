@@ -1,9 +1,6 @@
 ---
 title: 5 SEO Trends You Need to Consider for 2015
-description: >-
-  I hope you’re not buying into the latest hype that “Search Engine Optimization
-  is dead,” and “social is the new search.” SEO is far from dead. In reality,
-  SEO i
+description: I hope you’re not buying into the latest hype that “Search Engine Optimization is dead,” and “social is the new search.” SEO is far from dead. In reality, SEO i
 pubDate: '2014-12-16'
 categories:
   - Design

@@ -1,9 +1,6 @@
 ---
 title: Database Changes to Improve WordPress Performance
-description: >-
-  If you’re starting a website – be it a news site, a blog or an ecommerce site,
-  chances are that you consider using WordPress. Once users begin to warm to the
-  we
+description: If you’re starting a website – be it a news site, a blog or an ecommerce site, chances are that you consider using WordPress. Once users begin to warm to the we
 pubDate: '2014-10-16'
 categories:
   - General

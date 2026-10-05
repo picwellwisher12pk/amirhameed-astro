@@ -6,7 +6,7 @@ categories:
   - General
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/07/3791_1139953174725_1484936_n.jpg
+heroImage: /wp-content/uploads/2014/07/3791_1139953174725_1484936_n.jpg
 ---
 
 Inspiration of my life

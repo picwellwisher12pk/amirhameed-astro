@@ -1,11 +1,6 @@
 ---
-title: >-
-  World's largest laser compresses diamond to pressures of 50 million Earth
-  atmospheres (Science Alert)
-description: >-
-  BEC CREW SATURDAY, 23 AUGUST 2014 Share on emailShare on print Physicists in
-  the US have compressed a synthetic diamond to pressures of 50 million Earth
-  atmosph
+title: World's largest laser compresses diamond to pressures of 50 million Earth atmospheres (Science Alert)
+description: BEC CREW SATURDAY, 23 AUGUST 2014 Share on emailShare on print Physicists in the US have compressed a synthetic diamond to pressures of 50 million Earth atmosph
 pubDate: '2014-08-25'
 categories:
   - Science

@@ -1,9 +1,6 @@
 ---
 title: Are Crows Smarter Than Children? – News Watch
-description: >-
-  In a battle of wits, could a bird outsmart a kindergartner? Don’t be too quick
-  to say no: One clever young bird solved a problem that has stumped 5-year-old
-  chi
+description: 'In a battle of wits, could a bird outsmart a kindergartner? Don’t be too quick to say no: One clever young bird solved a problem that has stumped 5-year-old chi'
 pubDate: '2014-07-28'
 categories:
   - Science

@@ -1,9 +1,6 @@
 ---
 title: Important Skills for Becoming a Motion Designer
-description: >-
-  Motion graphics can be seen in just about every thing from television, movies,
-  commercials and more, although we all know that watching any of these for too
-  muc
+description: Motion graphics can be seen in just about every thing from television, movies, commercials and more, although we all know that watching any of these for too muc
 pubDate: '2014-12-15'
 categories:
   - Design

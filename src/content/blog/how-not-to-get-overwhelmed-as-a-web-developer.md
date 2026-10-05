@@ -1,9 +1,6 @@
 ---
 title: How Not to Get Overwhelmed as a Web Developer
-description: >-
-  In the past week, I’ve worked on projects that have required me to write HTML,
-  CSS, Javascript, and PHP. In working on those projects, I’ve had to employ
-  variou
+description: In the past week, I’ve worked on projects that have required me to write HTML, CSS, Javascript, and PHP. In working on those projects, I’ve had to employ variou
 pubDate: '2014-07-26'
 categories:
   - Technology

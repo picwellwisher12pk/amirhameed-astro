@@ -1,12 +1,18 @@
 ---
-title: "Qaweet — QA Testing Suite & Extension Sandbox"
-description: "A comprehensive developer testing suite featuring a cross-browser extension (Chrome MV3 & Firefox) and companion web sandbox built on a modern Bun monorepo."
-pubDate: 2026-05-18
-category: "Developer Tools"
-tags: ["Bun", "TypeScript", "React", "Monorepo", "WebExtensions API"]
+heroImage: /images/projects/qaweet.jpg
+title: Qaweet — QA Testing Suite & Extension Sandbox
+description: A comprehensive developer testing suite featuring a cross-browser extension (Chrome MV3 & Firefox) and companion web sandbox built on a modern Bun monorepo.
+pubDate: '2026-05-18'
+category: Developer Tools
+tags:
+  - Bun
+  - TypeScript
+  - React
+  - Monorepo
+  - WebExtensions API
 featured: false
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/qaweet"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/qaweet
 ---
 
 ### Overview

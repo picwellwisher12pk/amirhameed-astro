@@ -1,9 +1,6 @@
 ---
 title: A Beginner's Guide to HTTP Cache Headers
-description: >-
-  This article offers an exploration into HTTP caching headers and associated
-  CDN behaviour. If you're looking to understand how caching headers fit into
-  the mode
+description: This article offers an exploration into HTTP caching headers and associated CDN behaviour. If you're looking to understand how caching headers fit into the mode
 pubDate: '2014-08-08'
 categories:
   - Technology

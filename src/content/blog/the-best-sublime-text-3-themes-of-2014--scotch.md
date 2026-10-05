@@ -1,9 +1,6 @@
 ---
 title: The Best Sublime Text 3 Themes of 2014 ♥ Scotch
-description: >-
-  Sublime Text offers developers so many tools to help with productivity and
-  workflow. It also let’s us develop in style with theme packages. We’ve gone in
-  depth
+description: Sublime Text offers developers so many tools to help with productivity and workflow. It also let’s us develop in style with theme packages. We’ve gone in depth
 pubDate: '2014-11-01'
 categories:
   - Technology

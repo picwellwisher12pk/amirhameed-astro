@@ -1,9 +1,6 @@
 ---
 title: Tips to Be A More Attractive Guy - Business Insider
-description: >-
-  Every man wants to know what will make him irresistible to women — especially
-  when it comes to things he can change and control. How much time should he
-  spend a
+description: Every man wants to know what will make him irresistible to women — especially when it comes to things he can change and control. How much time should he spend a
 pubDate: '2014-07-25'
 categories:
   - Science

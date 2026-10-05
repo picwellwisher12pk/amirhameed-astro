@@ -1,9 +1,6 @@
 ---
 title: Understanding Version Control with Diffs
-description: >-
-  Every project is made up of countless little changes. With a little luck, they
-  will finally form a website, an app, or some other product. Your version
-  control
+description: Every project is made up of countless little changes. With a little luck, they will finally form a website, an app, or some other product. Your version control
 pubDate: '2014-07-25'
 categories:
   - Technology

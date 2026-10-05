@@ -1,9 +1,6 @@
 ---
 title: How to Create an Interactive Prototype With Marvel - Tuts+ Web Design Tutorial
-description: >-
-  Marvel is an excellent online tool which allow designers to create prototypes
-  of mobile applications and web projects like new casinos online. In this
-  tutorial
+description: Marvel is an excellent online tool which allow designers to create prototypes of mobile applications and web projects like new casinos online. In this tutorial
 pubDate: '2014-12-18'
 categories:
   - Design

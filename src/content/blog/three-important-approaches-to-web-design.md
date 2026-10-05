@@ -1,9 +1,6 @@
 ---
 title: Three Important Approaches to Web Design
-description: >-
-  From flat design to particle backgrounds and broken grids, web design is a
-  creature in constant evolution. And, since 94% of users will leave a site that
-  looks
+description: From flat design to particle backgrounds and broken grids, web design is a creature in constant evolution. And, since 94% of users will leave a site that looks
 pubDate: '2019-05-27'
 categories:
   - Design

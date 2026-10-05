@@ -1,13 +1,19 @@
 ---
-title: "Quran Verse Identifier & Context Explorer"
-description: "An intelligent web application that identifies, analyzes, and contextualizes Quranic verses from textual queries and linguistic inputs."
-pubDate: 2026-09-16
-category: "AI & Islamic Informatics"
-tags: ["Next.js", "TypeScript", "NLP", "Vercel", "Tailwind CSS"]
+heroImage: /images/projects/quran-verse-identifier.jpg
+title: Quran Verse Identifier & Context Explorer
+description: An intelligent web application that identifies, analyzes, and contextualizes Quranic verses from textual queries and linguistic inputs.
+pubDate: '2026-09-16'
+category: AI & Islamic Informatics
+tags:
+  - Next.js
+  - TypeScript
+  - NLP
+  - Vercel
+  - Tailwind CSS
 featured: true
-status: "completed"
-demoUrl: "https://quran-verse-identifier.vercel.app"
-repoUrl: "https://github.com/picwellwisher12pk/quran-verse-identifier"
+status: completed
+demoUrl: https://quran-verse-identifier.vercel.app
+repoUrl: https://github.com/picwellwisher12pk/quran-verse-identifier
 ---
 
 ### Overview

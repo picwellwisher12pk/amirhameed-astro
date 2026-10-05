@@ -1,9 +1,6 @@
 ---
 title: Staying sane with small incremental releases - Opbeat blog
-description: >-
-  Annoyed by huge code reviews? Blocked by something your co-worker is
-  refactoring? Nervous about shipping? Having trouble giving feedback on a
-  design draft becau
+description: Annoyed by huge code reviews? Blocked by something your co-worker is refactoring? Nervous about shipping? Having trouble giving feedback on a design draft becau
 pubDate: '2014-08-08'
 categories:
   - General

@@ -1,9 +1,6 @@
 ---
 title: 'Social Network Authentication: Setup'
-description: >-
-  Almost every website which contains a log in option, also contains ways to log
-  in through different social networks. In this series of articles, we will take
-  a
+description: Almost every website which contains a log in option, also contains ways to log in through different social networks. In this series of articles, we will take a
 pubDate: '2014-07-26'
 categories:
   - Technology

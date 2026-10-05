@@ -1,9 +1,6 @@
 ---
 title: Fighting the Space Between Inline Block Elements | CSS-Tricks
-description: >-
-  I've seen this come up a couple of times lately on Twitter and then an
-  interesting Dabblet so I figured it would be an important thing to document.
-  Here's the d
+description: I've seen this come up a couple of times lately on Twitter and then an interesting Dabblet so I figured it would be an important thing to document. Here's the d
 pubDate: '2014-08-12'
 categories:
   - Technology

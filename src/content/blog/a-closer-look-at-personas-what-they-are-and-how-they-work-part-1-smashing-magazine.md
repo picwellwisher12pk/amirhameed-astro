@@ -1,11 +1,6 @@
 ---
-title: >-
-  A Closer Look At Personas: What They Are And How They Work (Part 1) | Smashing
-  Magazine
-description: >-
-  In my experience as an interaction designer, I have come across many
-  strategies and approaches to increase the quality and consistency of my work,
-  but none more
+title: 'A Closer Look At Personas: What They Are And How They Work (Part 1) | Smashing Magazine'
+description: In my experience as an interaction designer, I have come across many strategies and approaches to increase the quality and consistency of my work, but none more
 pubDate: '2014-08-06'
 categories:
   - General

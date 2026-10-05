@@ -1,9 +1,6 @@
 ---
 title: Make a 3D Model from Pictures
-description: >-
-  Without having an expensive 3D scanner I found a way to take pictures and make
-  a 3D model with completely free software. In this Instructable I will take you
-  th
+description: Without having an expensive 3D scanner I found a way to take pictures and make a 3D model with completely free software. In this Instructable I will take you th
 pubDate: '2014-11-30'
 categories:
   - Technology

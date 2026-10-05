@@ -1,9 +1,6 @@
 ---
 title: How to Get Started in 3D CG
-description: >-
-  The world of 3D is huge. The sheer number of industries, software and tools
-  that are involved in learning 3D can be daunting. Before you ever drop the
-  money for
+description: The world of 3D is huge. The sheer number of industries, software and tools that are involved in learning 3D can be daunting. Before you ever drop the money for
 pubDate: '2014-12-16'
 categories:
   - Design

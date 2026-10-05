@@ -1,9 +1,6 @@
 ---
 title: QUT - Research annual scholarship round
-description: >-
-  Each year we award a limited number of scholarships to students of exceptional
-  research potential who are applying for a masters by research, PhD or
-  professiona
+description: Each year we award a limited number of scholarships to students of exceptional research potential who are applying for a masters by research, PhD or professiona
 pubDate: '2014-08-28'
 categories:
   - General

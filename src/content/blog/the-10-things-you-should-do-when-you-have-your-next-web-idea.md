@@ -1,9 +1,6 @@
 ---
 title: The 10 Things You Should Do When You Have Your Next Web Idea
-description: >-
-  You’re spending a lazy afternoon with your family, when a brilliant idea
-  suddenly strikes you. Whether it’s an app, a product, a service, or a new way
-  of doing
+description: You’re spending a lazy afternoon with your family, when a brilliant idea suddenly strikes you. Whether it’s an app, a product, a service, or a new way of doing
 pubDate: '2014-08-20'
 categories:
   - Technology

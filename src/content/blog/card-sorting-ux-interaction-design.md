@@ -1,9 +1,6 @@
 ---
 title: Card Sorting - UX - Interaction Design
-description: >-
-  The term card sorting applies to a wide variety of activities involving the
-  grouping and/or naming of objects or concepts. These may be represented on
-  physical
+description: The term card sorting applies to a wide variety of activities involving the grouping and/or naming of objects or concepts. These may be represented on physical
 pubDate: '2014-07-26'
 categories:
   - Technology

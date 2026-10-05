@@ -1,9 +1,6 @@
 ---
 title: How Successful People Stay Calm | LinkedIn
-description: >-
-  The ability to manage your emotions and remain calm under pressure has a
-  direct link to your performance. TalentSmart has conducted research with more
-  than a mi
+description: The ability to manage your emotions and remain calm under pressure has a direct link to your performance. TalentSmart has conducted research with more than a mi
 pubDate: '2014-08-05'
 categories:
   - General

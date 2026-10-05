@@ -1,9 +1,6 @@
 ---
 title: An Introduction to Icon Fonts with Font Awesome and IcoMoon
-description: >-
-  Icon fonts are all the rage nowadays, with more and more developers taking
-  advantage of them in their designs. If you haven’t yet looked into icon fonts,
-  this a
+description: Icon fonts are all the rage nowadays, with more and more developers taking advantage of them in their designs. If you haven’t yet looked into icon fonts, this a
 pubDate: '2014-09-17'
 categories:
   - Technology

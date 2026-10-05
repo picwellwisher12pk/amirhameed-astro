@@ -1,9 +1,6 @@
 ---
 title: 3 Old and Outdated UX Patterns (And How to Fix Them)
-description: >-
-  In one of my recent articles, The Evolution of the Hamburger icon we talked
-  about the history of this commonly-used pattern, and about who’s using it and
-  why. I
+description: In one of my recent articles, The Evolution of the Hamburger icon we talked about the history of this commonly-used pattern, and about who’s using it and why. I
 pubDate: '2014-09-21'
 categories:
   - Technology

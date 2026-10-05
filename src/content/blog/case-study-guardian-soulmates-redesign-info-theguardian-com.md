@@ -1,9 +1,6 @@
 ---
 title: 'Case study: Guardian Soulmates redesign | Info | theguardian.com'
-description: >-
-  Toward the end of 2013 we faced two challenges with Soulmates: first, users
-  had told us that the design looked a bit tired. Second, we had a mobile
-  website whic
+description: 'Toward the end of 2013 we faced two challenges with Soulmates: first, users had told us that the design looked a bit tired. Second, we had a mobile website whic'
 pubDate: '2014-08-08'
 categories:
   - General

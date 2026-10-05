@@ -1,9 +1,6 @@
 ---
 title: Caching Tutorial for Web Authors and Webmasters
-description: >-
-  A Web cache sits between one or more Web servers (also known as origin
-  servers) and a client or many clients, and watches requests come by, saving
-  copies of the
+description: A Web cache sits between one or more Web servers (also known as origin servers) and a client or many clients, and watches requests come by, saving copies of the
 pubDate: '2014-08-08'
 categories:
   - Technology

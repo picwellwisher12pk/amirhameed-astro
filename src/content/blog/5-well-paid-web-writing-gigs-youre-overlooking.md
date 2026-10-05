@@ -1,9 +1,6 @@
 ---
 title: 5 Well-paid Web Writing Gigs You're Overlooking
-description: >-
-  When people think of web writing, they think primarily of three things:
-  blogging, feature article writing, and copywriting for marketing sites.
-  Fortunately, the
+description: 'When people think of web writing, they think primarily of three things: blogging, feature article writing, and copywriting for marketing sites. Fortunately, the'
 pubDate: '2014-09-30'
 categories:
   - General

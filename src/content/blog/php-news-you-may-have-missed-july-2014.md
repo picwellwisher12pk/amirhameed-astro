@@ -1,9 +1,6 @@
 ---
 title: PHP News You May Have Missed - July 2014
-description: >-
-  A handful of news cropped up again that didn’t really get the attention they
-  deserved, so I’ll use this opportunity to rehash some of them and explain
-  others. T
+description: A handful of news cropped up again that didn’t really get the attention they deserved, so I’ll use this opportunity to rehash some of them and explain others. T
 pubDate: '2014-07-31'
 categories:
   - Technology

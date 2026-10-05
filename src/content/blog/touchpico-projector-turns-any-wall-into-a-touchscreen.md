@@ -1,9 +1,6 @@
 ---
 title: TouchPico Projector Turns Any Wall Into a Touchscreen
-description: >-
-  Handheld projectors are nothing new, but TouchPico from TouchJet offers a new
-  twist that could be useful: the ability to turn any flat surface into an
-  interacti
+description: 'Handheld projectors are nothing new, but TouchPico from TouchJet offers a new twist that could be useful: the ability to turn any flat surface into an interacti'
 pubDate: '2014-07-30'
 categories:
   - Science

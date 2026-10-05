@@ -1,11 +1,6 @@
 ---
-title: >-
-  On Our Radar This Week: Responsive Web Design, CSS Specificity, and SVG
-  Knowledge
-description: >-
-  Welcome to this week’s On Our Radar, a weekly round-up of trends and themes
-  that have come to our attention in the ever-changing world of web development.
-  Every
+title: 'On Our Radar This Week: Responsive Web Design, CSS Specificity, and SVG Knowledge'
+description: Welcome to this week’s On Our Radar, a weekly round-up of trends and themes that have come to our attention in the ever-changing world of web development. Every
 pubDate: '2014-08-02'
 categories:
   - Technology

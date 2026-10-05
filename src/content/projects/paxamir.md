@@ -1,12 +1,18 @@
 ---
-title: "Paxamir — Multilingual Examination & Quiz Engine"
-description: "A robust quizzing and examination platform supporting multiple question formats, multilingual tests, instant grading, and MongoDB storage."
-pubDate: 2026-04-12
-category: "Web & Educational Platforms"
-tags: ["Next.js", "React", "MongoDB", "Node.js", "Tailwind CSS"]
+heroImage: /images/projects/paxamir.jpg
+title: Paxamir — Multilingual Examination & Quiz Engine
+description: A robust quizzing and examination platform supporting multiple question formats, multilingual tests, instant grading, and MongoDB storage.
+pubDate: '2026-04-12'
+category: Web & Educational Platforms
+tags:
+  - Next.js
+  - React
+  - MongoDB
+  - Node.js
+  - Tailwind CSS
 featured: false
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/paxamir"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/paxamir
 ---
 
 ### Overview

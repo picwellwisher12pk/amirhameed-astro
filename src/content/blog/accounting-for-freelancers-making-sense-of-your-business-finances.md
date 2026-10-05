@@ -1,9 +1,6 @@
 ---
 title: 'Accounting for Freelancers: Making Sense of Your Business Finances'
-description: >-
-  One of the most difficult things that many people grapple with when they first
-  go self-employed is their business’s finances. But as intimidating as dealing
-  wit
+description: One of the most difficult things that many people grapple with when they first go self-employed is their business’s finances. But as intimidating as dealing wit
 pubDate: '2014-08-01'
 categories:
   - General

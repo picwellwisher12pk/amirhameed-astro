@@ -1,9 +1,6 @@
 ---
 title: How to Earn Passive Income by Creating Digital Info Products
-description: >-
-  Wouldn’t it be nice to have a way to make more money without working 60 hours
-  a week? Or to have something to offer to people whose budget is too low for
-  your s
+description: Wouldn’t it be nice to have a way to make more money without working 60 hours a week? Or to have something to offer to people whose budget is too low for your s
 pubDate: '2014-09-01'
 categories:
   - Technology

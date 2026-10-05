@@ -1,9 +1,6 @@
 ---
 title: Writing a Flexible Grid Script for Photoshop - Tuts+ Web Design Article
-description: >-
-  Being a capable web designer means having a solid grasp on grids, especially
-  if you want to pursue responsive web design. In this tutorial we'll take a
-  look at
+description: Being a capable web designer means having a solid grasp on grids, especially if you want to pursue responsive web design. In this tutorial we'll take a look at
 pubDate: '2014-07-25'
 categories:
   - My Writings

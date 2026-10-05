@@ -1,11 +1,6 @@
 ---
-title: >-
-  Love Generating SVG With JavaScript? Move It To The Server! | Smashing
-  Magazine
-description: >-
-  I hope that by now, in 2014, there is no need to explain why SVG is a blessing
-  to developers who want to ensure that their graphics look sharp on all
-  devices, e
+title: Love Generating SVG With JavaScript? Move It To The Server! | Smashing Magazine
+description: I hope that by now, in 2014, there is no need to explain why SVG is a blessing to developers who want to ensure that their graphics look sharp on all devices, e
 pubDate: '2014-08-06'
 categories:
   - Technology

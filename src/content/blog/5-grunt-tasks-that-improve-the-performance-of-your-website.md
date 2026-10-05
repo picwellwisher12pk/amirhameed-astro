@@ -1,9 +1,6 @@
 ---
 title: 5 Grunt Tasks that Improve the Performance of Your Website
-description: >-
-  Many times on SitePoint I’ve mentioned how achieving good performance is a
-  main concern today and how you should strive for fast web pages. In some
-  articles of
+description: Many times on SitePoint I’ve mentioned how achieving good performance is a main concern today and how you should strive for fast web pages. In some articles of
 pubDate: '2014-09-01'
 categories:
   - Technology

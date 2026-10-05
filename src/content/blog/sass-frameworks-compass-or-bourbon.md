@@ -1,9 +1,6 @@
 ---
 title: 'Sass Frameworks: Compass or Bourbon?'
-description: >-
-  Once in a while, we see this question pop on Twitter, Reddit or StackOverflow.
-  Pretty much anyone who has ever worked with Sass has at some point asked
-  themselv
+description: Once in a while, we see this question pop on Twitter, Reddit or StackOverflow. Pretty much anyone who has ever worked with Sass has at some point asked themselv
 pubDate: '2014-12-08'
 categories:
   - Technology

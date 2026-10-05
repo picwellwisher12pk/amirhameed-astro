@@ -1,9 +1,6 @@
 ---
 title: 'When WordPress Meets Vagrant: VVV'
-description: >-
-  Vagrant has changed the way I work. In this article I discuss how Vagrant, a
-  tool for creating and managing virtual environments, helps me work more
-  efficiently
+description: Vagrant has changed the way I work. In this article I discuss how Vagrant, a tool for creating and managing virtual environments, helps me work more efficiently
 pubDate: '2014-07-31'
 categories:
   - Technology

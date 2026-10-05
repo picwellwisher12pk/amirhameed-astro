@@ -1,9 +1,6 @@
 ---
 title: Three Freelance Proposal Mistakes That Are Losing You Business
-description: >-
-  For many freelancers, creating a proposal is their least favorite part of the
-  client intake process. What do you include? What do you leave out? How do you
-  walk
+description: For many freelancers, creating a proposal is their least favorite part of the client intake process. What do you include? What do you leave out? How do you walk
 pubDate: '2014-09-07'
 categories:
   - General

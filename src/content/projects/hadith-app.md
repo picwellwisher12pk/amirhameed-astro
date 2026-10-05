@@ -1,12 +1,19 @@
 ---
-title: "Hadith Reader & Cross-Platform Study Suite"
-description: "A modern full-stack web and mobile application for studying authentic Hadith collections with multi-translation search, bookmarking, and Supabase sync."
-pubDate: 2026-07-22
-category: "Web & Mobile Applications"
-tags: ["Next.js", "React Native", "Expo", "Prisma", "Supabase", "TypeScript"]
+heroImage: /images/projects/hadith-app.jpg
+title: Hadith Reader & Cross-Platform Study Suite
+description: A modern full-stack web and mobile application for studying authentic Hadith collections with multi-translation search, bookmarking, and Supabase sync.
+pubDate: '2026-07-22'
+category: Web & Mobile Applications
+tags:
+  - Next.js
+  - React Native
+  - Expo
+  - Prisma
+  - Supabase
+  - TypeScript
 featured: true
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/hadith-app"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/hadith-app
 ---
 
 ### Overview

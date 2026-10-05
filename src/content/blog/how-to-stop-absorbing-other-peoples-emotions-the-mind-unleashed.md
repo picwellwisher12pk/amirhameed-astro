@@ -1,9 +1,6 @@
 ---
 title: How to Stop Absorbing Other People’s Emotions | The Mind Unleashed
-description: >-
-  Emotions such as fear, anger, frustration, and immobility are energies. And
-  you can potentially ‘catch’ these energies from people without realizing it.
-  If you
+description: Emotions such as fear, anger, frustration, and immobility are energies. And you can potentially ‘catch’ these energies from people without realizing it. If you
 pubDate: '2014-07-25'
 categories:
   - General

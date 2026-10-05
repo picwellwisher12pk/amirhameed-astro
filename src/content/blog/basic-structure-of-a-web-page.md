@@ -1,9 +1,6 @@
 ---
 title: Basic Structure of a Web Page
-description: >-
-  While this reference aims to provide a thorough breakdown of the various HTML
-  elements and their respective attributes, you also need to understand how
-  these it
+description: While this reference aims to provide a thorough breakdown of the various HTML elements and their respective attributes, you also need to understand how these it
 pubDate: '2014-08-28'
 categories:
   - Technology

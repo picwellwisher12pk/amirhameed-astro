@@ -1,9 +1,6 @@
 ---
 title: 6 Current Options for CSS Preprocessors
-description: >-
-  A CSS preprocessor helps you write maintainable, future-proof code and it will
-  seriously reduce the amount of CSS you have to write. Where these tools shine
-  bes
+description: A CSS preprocessor helps you write maintainable, future-proof code and it will seriously reduce the amount of CSS you have to write. Where these tools shine bes
 pubDate: '2014-11-11'
 categories:
   - Technology

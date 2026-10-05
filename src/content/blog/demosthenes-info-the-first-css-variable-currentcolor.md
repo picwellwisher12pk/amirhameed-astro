@@ -1,9 +1,6 @@
 ---
 title: 'demosthenes.info – The First CSS Variable: currentColor'
-description: >-
-  CSS variables are slowly making their way from initial draft to browser
-  implementation. But one variable has existed in the specification for years:
-  currentColo
+description: 'CSS variables are slowly making their way from initial draft to browser implementation. But one variable has existed in the specification for years: currentColo'
 pubDate: '2014-08-04'
 categories:
   - Technology

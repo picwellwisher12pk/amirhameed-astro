@@ -1,9 +1,6 @@
 ---
 title: Top 5 Tools for Project Management
-description: >-
-  Whether you’re on your own or working in a team, it’s important to keep a
-  close eye on your projects. Project management tools are designed to help you
-  keep tra
+description: Whether you’re on your own or working in a team, it’s important to keep a close eye on your projects. Project management tools are designed to help you keep tra
 pubDate: '2014-09-02'
 categories:
   - Technology

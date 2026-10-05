@@ -1,9 +1,6 @@
 ---
 title: Learning Gulp
-description: >-
-  Gulp is an automatic task runner, or build system, written in node.js and can
-  handle many common workflow tasks. In his git-book, David Nowinsky described
-  Gulp
+description: Gulp is an automatic task runner, or build system, written in node.js and can handle many common workflow tasks. In his git-book, David Nowinsky described Gulp
 pubDate: '2014-09-05'
 categories:
   - General

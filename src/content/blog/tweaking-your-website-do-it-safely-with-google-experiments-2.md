@@ -1,9 +1,6 @@
 ---
 title: Tweaking Your Website? Do It Safely with Google Experiments
-description: >-
-  You might be aware of Google Analytics’ Experiments feature, but it can be a
-  little intimidating if you’ve never used it. There’s no need to be scared,
-  though:
+description: 'You might be aware of Google Analytics’ Experiments feature, but it can be a little intimidating if you’ve never used it. There’s no need to be scared, though:'
 pubDate: '2014-09-09'
 categories:
   - Technology

@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ParticleSandbox from '../components/ParticleSandbox.astro';
+
+const experiments = [
+  {
+    id: "particle-modes",
+    title: "Particle Physics Lab & Image Stardust",
+    category: "WebGL & Shaders",
+    badge: "Interactive Lab",
+    description: "Upload any custom photo, tweak 8 GPU interaction modes, and test live hover/displacement forces, radius, and turbulence in real time.",
+    href: "#particle-sandbox",
+    accent: "from-[#d4af37]/20 to-amber-500/20",
+    border: "border-[#d4af37]/30",
+    icon: "✦"
+  },
+  {
+    id: "font-tester",
+    title: "Typography Studio (19 Fonts)",
+    category: "Typography & UI",
+    badge: "Interactive",
+    description: "Compare 19 Google Fonts live across headings, body copy, and UI buttons. Test weights, letter spacing, and apply directly.",
+    href: "/font-tester",
+    accent: "from-amber-500/20 to-yellow-500/20",
+    border: "border-amber-500/30",
+    icon: "Aa"
+  },
+  {
+    id: "urdu-fonts",
+    title: "Urdu Web Fonts Comparator",
+    category: "Bilingual UI & Script",
+    badge: "10 Fonts",
+    description: "Evaluate classic Nastaliq vs clean modern Sans Arabic typefaces with real bilingual excerpts from amirhameed.com.",
+    href: "/urdu-fonts",
+    accent: "from-emerald-500/20 to-teal-500/20",
+    border: "border-emerald-500/30",
+    icon: "اردو"
+  },
+];
+---
+
+<BaseLayout 
+  title="Creative Playground & Experiments — Amir Hameed"
+  description="Interactive laboratory exploring WebGL shaders, responsive typography, bilingual interfaces, and front-end architectures."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <!-- Header -->
+    <div class="max-w-2xl">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30 mb-4">
+        <span>✦</span> Creative Code Lab
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white font-serif">
+        Interactive Playground
+      </h1>
+      <p class="mt-3 text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+        A hands-on testing ground for front-end architecture experiments, GPU particle physics, typography comparisons, and responsive design systems.
+      </p>
+    </div>
+
+    <!-- Live Particle Physics Sandbox: Image Upload & Parameters -->
+    <div id="particle-sandbox" class="mt-10 scroll-mt-24">
+      <ParticleSandbox />
+    </div>
+
+    <!-- Featured Experiments Cards -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {experiments.map((exp) => (
+        <a 
+          href={exp.href}
+          class={`group relative flex flex-col justify-between p-6 rounded-2xl border ${exp.border} bg-white dark:bg-zinc-900/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden`}
+        >
+          <div class={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${exp.accent} rounded-full blur-2xl -z-10 group-hover:scale-150 transition-transform`}></div>
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500">
+                {exp.category}
+              </span>
+              <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/60">
+                {exp.badge}
+              </span>
+            </div>
+
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white mb-4 group-hover:scale-105 transition-transform">
+              {exp.icon}
+            </div>
+
+            <h2 class="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-[#d4af37] transition-colors">
+              {exp.title}
+            </h2>
+
+            <p class="mt-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              {exp.description}
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between text-xs font-semibold text-zinc-700 dark:text-zinc-300 group-hover:text-[#d4af37] transition-colors">
+            <span>Launch Experiment</span>
+            <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Live Interactive Inline Sandbox: "Interact to Edit" Prototype -->
+    <div class="mt-16 p-6 sm:p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
+        <div>
+          <span class="text-xs font-mono text-zinc-400 uppercase tracking-widest">Interactive Component Demo</span>
+          <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mt-1">
+            "Interact to Edit" Inline Table Cell Editor
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+            Double-click or tap any editable table cell below to edit content inline without dialogs. Press <kbd class="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 font-mono text-[10px]">Enter</kbd> to save or <kbd class="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 font-mono text-[10px]">Esc</kbd> to cancel.
+          </p>
+        </div>
+        <button 
+          id="reset-table-btn"
+          class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+        >
+          Reset Demo Data
+        </button>
+      </div>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-left text-sm font-sans" id="interactive-demo-table">
+          <thead>
+            <tr class="border-b border-zinc-200 dark:border-zinc-800 text-xs font-mono text-zinc-400">
+              <th class="py-3 px-4">Component / Module</th>
+              <th class="py-3 px-4">Tech Architecture</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4">Performance Score</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-mono text-xs">
+            <tr class="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="py-3.5 px-4 font-bold text-zinc-900 dark:text-white editable-cell" tabindex="0" data-field="component">WebGL Nano-Particles</td>
+              <td class="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 editable-cell" tabindex="0" data-field="arch">GPU Shaders &amp; GLSL</td>
+              <td class="py-3.5 px-4 text-emerald-600 dark:text-emerald-400 font-semibold editable-cell" tabindex="0" data-field="status">Optimized (60fps)</td>
+              <td class="py-3.5 px-4 text-zinc-500 editable-cell" tabindex="0" data-field="perf">98 / 100</td>
+            </tr>
+            <tr class="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="py-3.5 px-4 font-bold text-zinc-900 dark:text-white editable-cell" tabindex="0" data-field="component">Typography Studio</td>
+              <td class="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 editable-cell" tabindex="0" data-field="arch">Google Fonts Dynamic API</td>
+              <td class="py-3.5 px-4 text-emerald-600 dark:text-emerald-400 font-semibold editable-cell" tabindex="0" data-field="status">Live Sandbox</td>
+              <td class="py-3.5 px-4 text-zinc-500 editable-cell" tabindex="0" data-field="perf">100 / 100</td>
+            </tr>
+            <tr class="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+              <td class="py-3.5 px-4 font-bold text-zinc-900 dark:text-white editable-cell" tabindex="0" data-field="component">Spring Kinetic Cursor</td>
+              <td class="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 editable-cell" tabindex="0" data-field="arch">RAF Spring Damped Physics</td>
+              <td class="py-3.5 px-4 text-indigo-600 dark:text-indigo-400 font-semibold editable-cell" tabindex="0" data-field="status">Fine-Pointer Scoped</td>
+              <td class="py-3.5 px-4 text-zinc-500 editable-cell" tabindex="0" data-field="perf">99 / 100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 text-[11px] font-mono text-zinc-400 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Tip: Changes update the live cell immediately. Try double-clicking any cell above.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // "Interact to Edit" inline cell editing logic
+    const cells = document.querySelectorAll('.editable-cell');
+    const resetBtn = document.getElementById('reset-table-btn');
+    const originalValues: Map<Element, string> = new Map();
+
+    cells.forEach((cell) => {
+      originalValues.set(cell, cell.textContent || '');
+
+      cell.addEventListener('dblclick', () => makeEditable(cell));
+      cell.addEventListener('keydown', (e: Event) => {
+        const key = (e as KeyboardEvent).key;
+        if (key === 'Enter') {
+          e.preventDefault();
+          makeEditable(cell);
+        }
+      });
+    });
+
+    function makeEditable(cell: Element) {
+      if (cell.querySelector('input')) return;
+      const currentVal = cell.textContent?.trim() || '';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentVal;
+      input.className = 'w-full px-2 py-1 rounded bg-zinc-100 dark:bg-zinc-800 border border-indigo-500 text-zinc-900 dark:text-white text-xs font-mono focus:outline-none';
+
+      cell.textContent = '';
+      cell.appendChild(input);
+      input.focus();
+      input.select();
+
+      function commit() {
+        const val = input.value.trim() || currentVal;
+        cell.textContent = val;
+      }
+
+      function cancel() {
+        cell.textContent = currentVal;
+      }
+
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          commit();
+        } else if (e.key === 'Escape') {
+          cancel();
+        }
+      });
+    }
+
+    resetBtn?.addEventListener('click', () => {
+      cells.forEach((cell) => {
+        cell.textContent = originalValues.get(cell) || '';
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,11 +1,6 @@
 ---
-title: >-
-  website design - Is there a free 'Helvetica Neue' alternative? - Graphic
-  Design Stack Exchange
-description: >-
-  Does anyone know any other fonts similar to Helvetica Neue (free for
-  commercial use)? I'm working on a big website project where 'Helvetica Neue'
-  is used heavil
+title: website design - Is there a free 'Helvetica Neue' alternative? - Graphic Design Stack Exchange
+description: Does anyone know any other fonts similar to Helvetica Neue (free for commercial use)? I'm working on a big website project where 'Helvetica Neue' is used heavil
 pubDate: '2014-08-26'
 categories:
   - Technology

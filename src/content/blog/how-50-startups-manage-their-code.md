@@ -1,9 +1,6 @@
 ---
 title: How 50+ Startups Manage Their Code
-description: >-
-  We reached out to over 50 startups to ask them how they manage their code to
-  hopefully pass on some useful tips you can use when managing your codebase.
-  Heaps o
+description: We reached out to over 50 startups to ask them how they manage their code to hopefully pass on some useful tips you can use when managing your codebase. Heaps o
 pubDate: '2014-10-08'
 categories:
   - General

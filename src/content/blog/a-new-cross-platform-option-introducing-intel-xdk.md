@@ -1,9 +1,6 @@
 ---
 title: A New Cross Platform Option, Introducing Intel XDK
-description: >-
-  Intel XDK is a new tool for developing cross platform mobile applications. It
-  attempts to keep the process simple by including all possible target platforms
-  in
+description: Intel XDK is a new tool for developing cross platform mobile applications. It attempts to keep the process simple by including all possible target platforms in
 pubDate: '2014-09-02'
 categories:
   - Technology

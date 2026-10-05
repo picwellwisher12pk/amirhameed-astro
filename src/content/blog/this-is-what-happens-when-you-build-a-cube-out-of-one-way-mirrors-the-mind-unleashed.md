@@ -1,11 +1,6 @@
 ---
-title: >-
-  This is What Happens When You Build a Cube Out of One Way Mirrors | The Mind
-  Unleashed
-description: >-
-  This is one of those art projects that I could probably stare at for hours,
-  losing myself inside it. The design collective Numen for Use created a 3D box
-  of one
+title: This is What Happens When You Build a Cube Out of One Way Mirrors | The Mind Unleashed
+description: This is one of those art projects that I could probably stare at for hours, losing myself inside it. The design collective Numen for Use created a 3D box of one
 pubDate: '2014-08-01'
 categories:
   - inspiration

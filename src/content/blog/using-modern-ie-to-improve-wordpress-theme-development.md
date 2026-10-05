@@ -1,9 +1,6 @@
 ---
 title: Using Modern.IE to Improve WordPress Theme Development
-description: >-
-  There are dozens of popular tools to help theme developers test the quality of
-  their code. Not only can this help reduce errors in your themes, but it also
-  help
+description: There are dozens of popular tools to help theme developers test the quality of their code. Not only can this help reduce errors in your themes, but it also help
 pubDate: '2014-07-26'
 categories:
   - Technology

@@ -1,9 +1,6 @@
 ---
 title: How to Work with Designers — The Year of the Looking Glass — Medium
-description: >-
-  A Cheat Sheet for Engineers and PMs Once, a long time ago, I was a product
-  manager. Then, I was an engineer. For the past seven years, I’ve been in
-  design. Ever
+description: A Cheat Sheet for Engineers and PMs Once, a long time ago, I was a product manager. Then, I was an engineer. For the past seven years, I’ve been in design. Ever
 pubDate: '2014-07-25'
 categories:
   - Technology

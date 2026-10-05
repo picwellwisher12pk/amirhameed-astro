@@ -1,11 +1,6 @@
 ---
-title: >-
-  Next-Generation Responsive Web Design Tools: Webflow, Edge Reflow, Macaw |
-  Smashing Magazine
-description: >-
-  To prepare for a talk about the changing roles of designers and developers,
-  given at HOW Interactive a few months back, I interviewed 20+ web shops.
-  Validated b
+title: 'Next-Generation Responsive Web Design Tools: Webflow, Edge Reflow, Macaw | Smashing Magazine'
+description: To prepare for a talk about the changing roles of designers and developers, given at HOW Interactive a few months back, I interviewed 20+ web shops. Validated b
 pubDate: '2014-08-06'
 categories:
   - Technology

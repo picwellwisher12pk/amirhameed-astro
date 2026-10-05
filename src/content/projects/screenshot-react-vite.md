@@ -1,12 +1,18 @@
 ---
-title: "ScreenCapture Pro — Fast Canvas & DOM Screenshot Utility"
-description: "A lightweight, high-performance browser screenshot and canvas annotation tool built with Vite and React for instant visual bug capture."
-pubDate: 2026-03-05
-category: "Developer Tools"
-tags: ["Vite", "React", "HTML5 Canvas", "TypeScript", "CSS3"]
+heroImage: /images/projects/screenshot-react-vite.jpg
+title: ScreenCapture Pro — Fast Canvas & DOM Screenshot Utility
+description: A lightweight, high-performance browser screenshot and canvas annotation tool built with Vite and React for instant visual bug capture.
+pubDate: '2026-03-05'
+category: Developer Tools
+tags:
+  - Vite
+  - React
+  - HTML5 Canvas
+  - TypeScript
+  - CSS3
 featured: false
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/screenshot-react-vite"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/screenshot-react-vite
 ---
 
 ### Overview

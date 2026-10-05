@@ -1,11 +1,6 @@
 ---
-title: >-
-  One Buddha Teaching That Will Tell You More About Yourself Than Anything Else
-  |
-description: >-
-  In Buddhism one of the ‘Three Characteristics’ is No-Self (the other two are
-  impermanence and suffering which are closely associated with this). This
-  refers to
+title: One Buddha Teaching That Will Tell You More About Yourself Than Anything Else |
+description: In Buddhism one of the ‘Three Characteristics’ is No-Self (the other two are impermanence and suffering which are closely associated with this). This refers to
 pubDate: '2014-07-25'
 categories:
   - General

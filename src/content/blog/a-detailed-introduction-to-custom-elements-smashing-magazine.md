@@ -1,9 +1,6 @@
 ---
 title: A Detailed Introduction To Custom Elements | Smashing Magazine
-description: >-
-  You’ve probably heard all the noise about Web Components and how they’re going
-  to change Web development forever. If you haven’t, you’ve either been living
-  unde
+description: You’ve probably heard all the noise about Web Components and how they’re going to change Web development forever. If you haven’t, you’ve either been living unde
 pubDate: '2014-08-06'
 categories:
   - Technology

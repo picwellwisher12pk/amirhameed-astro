@@ -1,9 +1,6 @@
 ---
 title: Build A Blog With Jekyll And GitHub Pages | Smashing Magazine
-description: >-
-  I recently migrated my blog from WordPress to Jekyll, a fantastic website
-  generator that’s designed for building minimal, static blogs to be hosted on
-  GitHub Pa
+description: I recently migrated my blog from WordPress to Jekyll, a fantastic website generator that’s designed for building minimal, static blogs to be hosted on GitHub Pa
 pubDate: '2014-08-02'
 categories:
   - Technology

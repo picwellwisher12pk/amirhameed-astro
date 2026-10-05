@@ -1,9 +1,6 @@
 ---
 title: How to Craft the Perfect 404 Page
-description: >-
-  Chances are, if you’ve never hit a 404 page, you’ve probably never used the
-  internet. The concept is simple: If a client computer requests a URL that the
-  server
+description: 'Chances are, if you’ve never hit a 404 page, you’ve probably never used the internet. The concept is simple: If a client computer requests a URL that the server'
 pubDate: '2014-07-26'
 categories:
   - Technology

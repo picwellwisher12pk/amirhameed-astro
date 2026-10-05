@@ -1,9 +1,6 @@
 ---
 title: Experimenting with the Web Speech API
-description: >-
-  A few days ago, I spoke at WebTech Conference 2014 giving a presentation
-  titled Talking and listening to web pages where I discussed the Web Speech API
-  and what
+description: A few days ago, I spoke at WebTech Conference 2014 giving a presentation titled Talking and listening to web pages where I discussed the Web Speech API and what
 pubDate: '2014-11-19'
 categories:
   - Technology

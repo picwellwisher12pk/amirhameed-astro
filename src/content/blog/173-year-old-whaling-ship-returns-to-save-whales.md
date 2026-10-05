@@ -1,9 +1,6 @@
 ---
 title: 173-Year-Old Whaling Ship Returns to Save Whales
-description: >-
-  The world's last remaining wooden whaling ship has sailed again. Built in
-  1841, retired 80 years later, and kept on display since then, the Charles W.
-  Morgan se
+description: The world's last remaining wooden whaling ship has sailed again. Built in 1841, retired 80 years later, and kept on display since then, the Charles W. Morgan se
 pubDate: '2014-07-28'
 categories:
   - Science

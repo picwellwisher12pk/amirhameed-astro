@@ -1,9 +1,6 @@
 ---
 title: Image optimization — Web Fundamentals by Google
-description: >-
-  Images often account for most of the downloaded bytes on a web page and also
-  often occupy a significant amount of visual space. As a result, optimizing
-  images c
+description: Images often account for most of the downloaded bytes on a web page and also often occupy a significant amount of visual space. As a result, optimizing images c
 pubDate: '2014-07-25'
 categories:
   - Technology

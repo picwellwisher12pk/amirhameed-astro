@@ -1,9 +1,6 @@
 ---
 title: Replacing Radio Buttons Without Replacing Radio Buttons
-description: >-
-  Forms elements! They’re a pain to style, aren’t they? It’s tempting to replace
-  them altogether, with some custom markup and CSS of our own design. The
-  trouble i
+description: Forms elements! They’re a pain to style, aren’t they? It’s tempting to replace them altogether, with some custom markup and CSS of our own design. The trouble i
 pubDate: '2014-10-17'
 categories:
   - Technology

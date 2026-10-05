@@ -1,9 +1,6 @@
 ---
 title: 'Cage Match! Stock Photography Sites Go Head-to-head: Part 1'
-description: >-
-  Finding great images for our projects is a task that many of us devote much
-  time and money to. With that in mind, we’re going to be taking a look at some
-  of the
+description: Finding great images for our projects is a task that many of us devote much time and money to. With that in mind, we’re going to be taking a look at some of the
 pubDate: '2014-07-26'
 categories:
   - Technology

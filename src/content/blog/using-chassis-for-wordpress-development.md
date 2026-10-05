@@ -1,9 +1,6 @@
 ---
 title: Using Chassis for WordPress Development
-description: >-
-  When I wrote the first article on WordPress and Vagrant I introduced WordPress
-  VVV. VVV is a Vagrant configuration for developing WordPress themes and
-  contribut
+description: When I wrote the first article on WordPress and Vagrant I introduced WordPress VVV. VVV is a Vagrant configuration for developing WordPress themes and contribut
 pubDate: '2014-12-06'
 categories:
   - Technology

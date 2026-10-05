@@ -1,9 +1,6 @@
 ---
 title: Best Websites — May 2014's Picks
-description: >-
-  Finally, the warm weather is starting to show itself. But have no fear, as
-  HOW’s art director, Adam Ladd, hasn’t forgotten about this month’s roundup of
-  best we
+description: Finally, the warm weather is starting to show itself. But have no fear, as HOW’s art director, Adam Ladd, hasn’t forgotten about this month’s roundup of best we
 pubDate: '2014-07-25'
 categories:
   - Technology

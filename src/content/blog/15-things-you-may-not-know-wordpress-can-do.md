@@ -1,9 +1,6 @@
 ---
 title: 15 Things You May Not Know WordPress Can Do
-description: >-
-  We all know WordPress as the perfect tool for running a blog or regular
-  website. But due to it’s open architecture, WordPress is much more than just a
-  CMS, with
+description: We all know WordPress as the perfect tool for running a blog or regular website. But due to it’s open architecture, WordPress is much more than just a CMS, with
 pubDate: '2014-09-23'
 categories:
   - Technology

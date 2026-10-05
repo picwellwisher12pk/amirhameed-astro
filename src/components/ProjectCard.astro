@@ -15,84 +15,226 @@ interface Props {
       status?: string;
     };
   };
+  metroSpan?: 'hero' | 'wide' | 'tall' | 'standard';
 }
 
-const { project } = Astro.props;
+const { project, metroSpan = 'standard' } = Astro.props;
 const { data, id } = project;
+const isHero = metroSpan === 'hero';
+const isWide = metroSpan === 'wide';
 ---
 
-<div class="luxury-project-card group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/5">
-  <!-- Card Header: Category & Status -->
-  <div class="flex items-center justify-between gap-2 mb-4">
-    <span class="luxury-card-category inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40">
-      {data.category}
-    </span>
-    
-    {data.status && (
-      <span class:list={[
-        "luxury-card-status text-[11px] font-mono font-medium px-2 py-0.5 rounded-md",
-        data.status === 'completed' ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/30" : "bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800/30"
-      ]}>
-        {data.status === 'completed' ? 'Live' : 'In Progress'}
-      </span>
+{isHero ? (
+  <div class="metro-tile metro-tile-hero group relative flex flex-col justify-end p-6 sm:p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 overflow-hidden transition-all duration-500 hover:border-[#d4af37]/80 hover:shadow-2xl hover:shadow-[#d4af37]/10 h-full min-h-[400px]">
+    {data.heroImage && (
+      <img 
+        src={data.heroImage} 
+        alt={data.title}
+        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      />
     )}
-  </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/75 to-zinc-950/20 z-10 pointer-events-none"></div>
 
-  <!-- Title & Description -->
-  <h3 class="luxury-card-title text-xl font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-    <a href={`/projects/${id}`}>
-      <span class="absolute inset-0"></span>
-      {data.title}
-    </a>
-  </h3>
+    <div class="relative z-20 flex flex-col justify-end">
+      <!-- Header Badges -->
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/40 backdrop-blur-md">
+          ✦ {data.category}
+        </span>
+        {data.featured && (
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 backdrop-blur-md">
+            Featured Masterwork
+          </span>
+        )}
+        {data.status && (
+          <span class="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 backdrop-blur-md ml-auto">
+            {data.status === 'completed' ? 'Live' : 'In Progress'}
+          </span>
+        )}
+      </div>
 
-  <p class="luxury-card-desc mt-2 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed flex-grow">
-    {data.description}
-  </p>
-
-  <!-- Tags -->
-  <div class="luxury-card-tags mt-5 flex flex-wrap gap-1.5 z-10">
-    {data.tags.map((tag) => (
-      <span class="luxury-tag-pill px-2 py-0.5 text-xs font-mono rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-        #{tag}
-      </span>
-    ))}
-  </div>
-
-  <!-- Card Footer Links -->
-  <div class="luxury-card-footer mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800/70 flex items-center justify-between z-10 text-xs font-medium">
-    <span class="luxury-card-date text-zinc-400 dark:text-zinc-500 font-mono">
-      {data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
-    </span>
-
-    <div class="flex items-center gap-3">
-      {data.repoUrl && (
-        <a 
-          href={data.repoUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="luxury-card-link text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
-          title="View Source Repository"
-        >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-          </svg>
+      <!-- Title -->
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug group-hover:text-[#d4af37] transition-colors">
+        <a href={`/projects/${id}`}>
+          <span class="absolute inset-0"></span>
+          {data.title}
         </a>
-      )}
+      </h3>
 
-      {data.demoUrl && (
-        <a 
-          href={data.demoUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="luxury-card-link inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline"
-        >
-          <span>Demo</span>
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-          </svg>
-        </a>
-      )}
+      <!-- Description -->
+      <p class="mt-2 text-sm text-zinc-300 line-clamp-3 leading-relaxed max-w-xl">
+        {data.description}
+      </p>
+
+      <!-- Footer Tags & Links -->
+      <div class="mt-5 pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex flex-wrap gap-1.5 z-20">
+          {data.tags.slice(0, 4).map((tag) => (
+            <span class="px-2 py-0.5 text-xs font-mono rounded bg-zinc-900/80 text-zinc-300 border border-zinc-800">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-3 z-20">
+          {data.demoUrl && (
+            <a 
+              href={data.demoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#d4af37] text-zinc-950 font-bold hover:bg-amber-300 transition-colors shadow-sm"
+              title="Launch Live Demo"
+            >
+              <span>Demo</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          )}
+          {data.repoUrl && (
+            <a 
+              href={data.repoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-zinc-400 hover:text-white transition-colors"
+              title="View Source Repository"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
     </div>
   </div>
-</div>
+) : isWide ? (
+  <div class="metro-tile metro-tile-wide group relative grid grid-cols-1 sm:grid-cols-12 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/60 hover:shadow-xl hover:shadow-indigo-500/5 h-full min-h-[280px]">
+    {data.heroImage && (
+      <div class="sm:col-span-5 relative overflow-hidden bg-zinc-950 min-h-[180px] sm:min-h-full border-b sm:border-b-0 sm:border-r border-zinc-100 dark:border-zinc-800">
+        <img 
+          src={data.heroImage} 
+          alt={data.title}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    )}
+    
+    <div class:list={[
+      "p-6 flex flex-col justify-between",
+      data.heroImage ? "sm:col-span-7" : "sm:col-span-12"
+    ]}>
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40">
+            {data.category}
+          </span>
+          {data.status && (
+            <span class="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/30">
+              {data.status === 'completed' ? 'Live' : 'In Progress'}
+            </span>
+          )}
+        </div>
+
+        <h3 class="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          <a href={`/projects/${id}`}>
+            <span class="absolute inset-0"></span>
+            {data.title}
+          </a>
+        </h3>
+
+        <p class="mt-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+          {data.description}
+        </p>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/70 flex items-center justify-between text-xs font-medium z-10">
+        <div class="flex flex-wrap gap-1">
+          {data.tags.slice(0, 3).map((tag) => (
+            <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-3">
+          {data.demoUrl && (
+            <a 
+              href={data.demoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
+            >
+              <span>Demo</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class="metro-tile metro-tile-standard group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/5 h-full">
+    {data.heroImage && (
+      <div class="relative w-full h-44 sm:h-48 overflow-hidden bg-zinc-950 border-b border-zinc-100 dark:border-zinc-800 shrink-0">
+        <img 
+          src={data.heroImage} 
+          alt={data.title}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    )}
+
+    <div class="p-5 flex flex-col justify-between flex-grow">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40">
+            {data.category}
+          </span>
+          {data.status && (
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+              {data.status === 'completed' ? 'Live' : 'In Progress'}
+            </span>
+          )}
+        </div>
+
+        <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+          <a href={`/projects/${id}`}>
+            <span class="absolute inset-0"></span>
+            {data.title}
+          </a>
+        </h3>
+
+        <p class="mt-1.5 text-xs text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+          {data.description}
+        </p>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/70 flex items-center justify-between text-xs z-10">
+        <span class="text-[11px] font-mono text-zinc-400">
+          {data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+        </span>
+
+        {data.demoUrl && (
+          <a 
+            href={data.demoUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:underline"
+          >
+            <span>Demo &rarr;</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+

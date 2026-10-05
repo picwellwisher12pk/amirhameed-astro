@@ -1,9 +1,6 @@
 ---
 title: Refining The Way We Structure Our CSS At Trello | Trello Blog
-description: >-
-  Have you been reading all the blog posts about the CSS architecture at various
-  companies out there? No? Check out the ones for GitHub, CodePen, Lonely
-  Planet, M
+description: Have you been reading all the blog posts about the CSS architecture at various companies out there? No? Check out the ones for GitHub, CodePen, Lonely Planet, M
 pubDate: '2014-09-15'
 categories:
   - Technology

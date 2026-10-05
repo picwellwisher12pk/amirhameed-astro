@@ -14,6 +14,7 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === "/" || currentPath === "";
 
 import fs from "node:fs";
 import path from "node:path";
@@ -79,7 +80,10 @@ const customLogo = hasCustomLogoSvg
       // Visual Theme Personality (Theme switcher disabled for now - lock to luxury theme)
       const userTheme = "luxury";
       document.documentElement.classList.add("dark");
-      document.documentElement.classList.add("luxury-animating");
+      const isHomePage = window.location.pathname === "/" || window.location.pathname === "";
+      if (isHomePage) {
+        document.documentElement.classList.add("luxury-animating");
+      }
       document.documentElement.setAttribute("data-theme", userTheme);
     </script>
   </head>
@@ -234,6 +238,21 @@ const customLogo = hasCustomLogoSvg
             Blog
           </a>
           <a
+            href="/playground"
+            class:list={[
+              "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
+              currentPath.startsWith("/playground")
+                ? "active-nav-link text-[#d4af37] font-semibold"
+                : "text-white/80 hover:text-white hover:text-[#d4af37]",
+            ]}
+          >
+            <span
+              class="text-xs sm:text-sm font-mono text-zinc-500 mr-2 sm:mr-3 tracking-widest"
+              >04</span
+            >
+            Playground
+          </a>
+          <a
             href="/about"
             class:list={[
               "viewport-nav-link text-2xl sm:text-4xl md:text-5xl font-light tracking-wider transition-all duration-500 ease-out hover:scale-110 hover:tracking-widest",
@@ -244,7 +263,7 @@ const customLogo = hasCustomLogoSvg
           >
             <span
               class="text-xs sm:text-sm font-mono text-zinc-500 mr-2 sm:mr-3 tracking-widest"
-              >04</span
+              >05</span
             >
             About
           </a>
@@ -259,7 +278,7 @@ const customLogo = hasCustomLogoSvg
           >
             <span
               class="text-xs sm:text-sm font-mono text-zinc-500 mr-2 sm:mr-3 tracking-widest"
-              >05</span
+              >06</span
             >
             Contact
           </a>
@@ -281,7 +300,7 @@ const customLogo = hasCustomLogoSvg
             >contact@amirhameed.com</a
           >
           <a
-            href="https://github.com/amirhameed"
+            href="https://github.com/picwellwisher12pk"
             target="_blank"
             rel="noopener noreferrer"
             class="hover:text-white transition-colors">GitHub</a
@@ -323,6 +342,11 @@ const customLogo = hasCustomLogoSvg
             >Blog</a
           >
           <a
+            href="/playground"
+            class="hover:text-zinc-900 dark:hover:text-white transition-colors"
+            >Playground</a
+          >
+          <a
             href="/about"
             class="hover:text-zinc-900 dark:hover:text-white transition-colors"
             >About</a
@@ -333,7 +357,7 @@ const customLogo = hasCustomLogoSvg
             >Contact</a
           >
           <a
-            href="https://github.com/amirhameed"
+            href="https://github.com/picwellwisher12pk"
             target="_blank"
             rel="noopener noreferrer"
             class="hover:text-zinc-900 dark:hover:text-white transition-colors"
@@ -403,10 +427,10 @@ const customLogo = hasCustomLogoSvg
         link.addEventListener("click", closeMenu);
       });
     </script>
-    <!-- Luxury Cinematic Intro Animation Overlay -->
-    <LuxuryCinematicIntro />
-    <!-- Unified Creative Studio: Particle VFX & Typography Live Studio (Dev only) -->
-    {import.meta.env.DEV && <UnifiedStudio />}
+    <!-- Luxury Cinematic Intro Animation Overlay (Homepage only) -->
+    {isHome && <LuxuryCinematicIntro />}
+    <!-- Unified Creative Studio: Particle VFX & Typography Live Studio (Dev only, Homepage) -->
+    {import.meta.env.DEV && isHome && <UnifiedStudio />}
     <Analytics />
 
     <!-- Custom Cursor Circle -->
@@ -418,16 +442,26 @@ const customLogo = hasCustomLogoSvg
     </div>
 
     <style>
-      /* Hide native cursor everywhere */
-      *,
-      *::before,
-      *::after {
-        cursor: none !important;
+      /* Hide native cursor on desktop hover devices only */
+      @media (hover: hover) and (pointer: fine) {
+        *,
+        *::before,
+        *::after {
+          cursor: none !important;
+        }
+      }
+      @media (hover: none) or (pointer: coarse) {
+        #custom-cursor {
+          display: none !important;
+        }
       }
     </style>
 
     <script>
       (function () {
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          return;
+        }
         const el = document.getElementById("custom-cursor");
         if (!el) return;
 

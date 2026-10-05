@@ -1,9 +1,6 @@
 ---
 title: HTTP caching — Web Fundamentals by Google
-description: >-
-  Fetching something over the network is both slow and expensive: large
-  responses require many roundtrips between the client and server, which delays
-  when they ar
+description: 'Fetching something over the network is both slow and expensive: large responses require many roundtrips between the client and server, which delays when they ar'
 pubDate: '2014-07-25'
 categories:
   - Technology

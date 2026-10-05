@@ -1,9 +1,6 @@
 ---
 title: The Five Best Times to Ask for a Raise | LinkedIn
-description: >-
-  You might have the kind of job where you get a raise every year or whenever
-  the compensation policy calls for it. You could go through your whole career
-  in some
+description: You might have the kind of job where you get a raise every year or whenever the compensation policy calls for it. You could go through your whole career in some
 pubDate: '2014-08-05'
 categories:
   - General

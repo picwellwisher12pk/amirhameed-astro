@@ -1,9 +1,6 @@
 ---
 title: Capabilities and Nonces - Tuts+ Code Article
-description: >-
-  When developing a plug-in (and to a lesser extent, themes) you will often find
-  that you want to allow a user to perform various actions: delete, edit or
-  update
+description: 'When developing a plug-in (and to a lesser extent, themes) you will often find that you want to allow a user to perform various actions: delete, edit or update'
 pubDate: '2014-07-25'
 categories:
   - Technology

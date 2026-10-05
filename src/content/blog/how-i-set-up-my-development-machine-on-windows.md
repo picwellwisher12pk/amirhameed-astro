@@ -1,9 +1,6 @@
 ---
 title: How I Set Up My Development Machine on Windows
-description: >-
-  Every developer is different. This article is not an explanation of what is
-  “best” or what you “should” do, it is simply a look at one developer’s tools.
-  I work
+description: Every developer is different. This article is not an explanation of what is “best” or what you “should” do, it is simply a look at one developer’s tools. I work
 pubDate: '2014-08-15'
 categories:
   - General

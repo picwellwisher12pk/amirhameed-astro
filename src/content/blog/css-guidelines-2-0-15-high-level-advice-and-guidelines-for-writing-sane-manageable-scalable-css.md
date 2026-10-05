@@ -1,11 +1,6 @@
 ---
-title: >-
-  CSS Guidelines (2.0.15) – High-level advice and guidelines for writing sane,
-  manageable, scalable CSS
-description: >-
-  CSS is not a pretty language While it is simple to learn and get started with,
-  it soon becomes problematic at any reasonable scale. There isn’t much we can
-  do t
+title: CSS Guidelines (2.0.15) – High-level advice and guidelines for writing sane, manageable, scalable CSS
+description: CSS is not a pretty language While it is simple to learn and get started with, it soon becomes problematic at any reasonable scale. There isn’t much we can do t
 pubDate: '2014-08-20'
 categories:
   - Technology

@@ -1,9 +1,6 @@
 ---
 title: Time Savers, Tools And Useful Services For Web Designers | Smashing Magazine
-description: >-
-  We regularly look for new resources, tools and services to make the search of
-  these ever-growing techniques easier. This overview presents some of the most
-  usef
+description: We regularly look for new resources, tools and services to make the search of these ever-growing techniques easier. This overview presents some of the most usef
 pubDate: '2014-08-20'
 categories:
   - Technology

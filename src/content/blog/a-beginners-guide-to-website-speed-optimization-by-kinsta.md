@@ -1,9 +1,6 @@
 ---
 title: A Beginner’s Guide to Website Speed Optimization by Kinsta
-description: >-
-  Website performance optimization, according to the Toronto Online Marketing
-  agency the focal point of technologically superior website designs is the
-  primary fa
+description: Website performance optimization, according to the Toronto Online Marketing agency the focal point of technologically superior website designs is the primary fa
 pubDate: '2014-09-26'
 categories:
   - Technology

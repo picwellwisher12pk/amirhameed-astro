@@ -1,9 +1,6 @@
 ---
 title: 9 Reasons You Should Be Using CodePen
-description: >-
-  At CodePen.io, they describe themselves as a “playground for the front-end
-  side of the web.” CodePen is great for testing out bugs, collaborating, and
-  finding n
+description: At CodePen.io, they describe themselves as a “playground for the front-end side of the web.” CodePen is great for testing out bugs, collaborating, and finding n
 pubDate: '2014-08-23'
 categories:
   - Technology

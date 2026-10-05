@@ -1,11 +1,6 @@
 ---
-title: >-
-  Meet Intel's SoFIA, the super-cheap smartphone chip created in Singapore -
-  CNET
-description: >-
-  "SoFIA could pave the way for smartphones costing as little as $50 in emerging
-  markets." Intel via Meet Intel's SoFIA, the super-cheap smartphone chip
-  created i
+title: Meet Intel's SoFIA, the super-cheap smartphone chip created in Singapore - CNET
+description: '"SoFIA could pave the way for smartphones costing as little as $50 in emerging markets." Intel via Meet Intel''s SoFIA, the super-cheap smartphone chip created i'
 pubDate: '2014-07-29'
 categories:
   - Science

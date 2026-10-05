@@ -1,9 +1,6 @@
 ---
 title: Rethinking Responsive SVG | Smashing Magazine
-description: >-
-  If you haven’t seen Joe Harrison’s responsive icons technique yet, you’ll most
-  probably be impressed as much as I was when I first discovered it. In this
-  articl
+description: If you haven’t seen Joe Harrison’s responsive icons technique yet, you’ll most probably be impressed as much as I was when I first discovered it. In this articl
 pubDate: '2014-07-25'
 categories:
   - Technology

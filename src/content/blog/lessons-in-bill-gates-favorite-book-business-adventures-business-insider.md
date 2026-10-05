@@ -1,9 +1,6 @@
 ---
 title: Lessons In Bill Gates Favorite Book 'Business Adventures' - Business Insider
-description: >-
-  Bill Gates recently revealed that his favorite business book was "Business
-  Adventures," a 1969 collection of New Yorker articles by John Brooks that
-  illustrate
+description: Bill Gates recently revealed that his favorite business book was "Business Adventures," a 1969 collection of New Yorker articles by John Brooks that illustrate
 pubDate: '2014-08-01'
 categories:
   - General

@@ -1,11 +1,6 @@
 ---
-title: >-
-  Emmet’s hidden power features | Jordan Moore — UX, Interaction and Responsive
-  Web Design
-description: >-
-  Emmet (formerly known as Zen Coding) is a plugin for text editors helping you
-  create CSS and HTML faster by using abbreviations to write common values
-  saving ri
+title: Emmet’s hidden power features | Jordan Moore — UX, Interaction and Responsive Web Design
+description: Emmet (formerly known as Zen Coding) is a plugin for text editors helping you create CSS and HTML faster by using abbreviations to write common values saving ri
 pubDate: '2014-08-05'
 categories:
   - Technology

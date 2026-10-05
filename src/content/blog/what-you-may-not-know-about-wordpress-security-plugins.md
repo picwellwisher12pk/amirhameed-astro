@@ -1,9 +1,6 @@
 ---
 title: What You May Not Know about WordPress Security Plugins
-description: >-
-  When it comes to securing your WordPress install with a security plugin, it
-  can be tempting to enable every feature of the plugin to harden your site. If
-  you st
+description: When it comes to securing your WordPress install with a security plugin, it can be tempting to enable every feature of the plugin to harden your site. If you st
 pubDate: '2014-10-08'
 categories:
   - Technology

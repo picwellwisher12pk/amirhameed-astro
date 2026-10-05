@@ -1,9 +1,6 @@
 ---
 title: Understanding OpCache
-description: >-
-  PHP in version 5.5 comes with a caching engine built-in – OpCache – which
-  stores precompiled script bytecode in the memory. If you’re familiar with APC
-  or Xcach
+description: PHP in version 5.5 comes with a caching engine built-in – OpCache – which stores precompiled script bytecode in the memory. If you’re familiar with APC or Xcach
 pubDate: '2014-07-30'
 categories:
   - Technology

@@ -1,9 +1,6 @@
 ---
 title: 5 Tips for WordPress Power Users
-description: >-
-  WordPress not only gives users the ability to create powerful websites with
-  great features, it also allows users to make customizations to add extra
-  security, s
+description: WordPress not only gives users the ability to create powerful websites with great features, it also allows users to make customizations to add extra security, s
 pubDate: '2014-07-25'
 categories:
   - Technology

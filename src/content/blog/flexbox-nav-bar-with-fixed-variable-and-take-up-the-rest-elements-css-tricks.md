@@ -1,11 +1,6 @@
 ---
-title: >-
-  Flexbox Nav Bar with Fixed, Variable, and Take-Up-The-Rest Elements |
-  CSS-Tricks
-description: >-
-  I already sent Izak a response, but I'll share that solution here. Flexbox!
-  I'm sure it comes as no surprise that flexbox is a wonderful layout tool. I
-  have a g
+title: Flexbox Nav Bar with Fixed, Variable, and Take-Up-The-Rest Elements | CSS-Tricks
+description: I already sent Izak a response, but I'll share that solution here. Flexbox! I'm sure it comes as no surprise that flexbox is a wonderful layout tool. I have a g
 pubDate: '2014-12-10'
 categories:
   - Technology

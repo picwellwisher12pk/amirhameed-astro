@@ -1,9 +1,6 @@
 ---
 title: Data Sanitization and Validation With WordPress - Tuts+ Code Article
-description: >-
-  Proper security is critical to keeping your site or that of your theme or
-  plug-in users safe. Part of that means appropriate data validation and
-  sanitization. I
+description: Proper security is critical to keeping your site or that of your theme or plug-in users safe. Part of that means appropriate data validation and sanitization. I
 pubDate: '2014-07-25'
 categories:
   - Technology

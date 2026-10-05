@@ -1,9 +1,6 @@
 ---
 title: 3 fresh CMS options that could be better than WordPress | Webdesigner Depot
-description: >-
-  Quick, name a CMS! Let me guess, you said WordPress. Maybe Joomla?
-  ExpressionEngine? TextPattern? It doesn’t really matter. We all know the big
-  names, and chanc
+description: Quick, name a CMS! Let me guess, you said WordPress. Maybe Joomla? ExpressionEngine? TextPattern? It doesn’t really matter. We all know the big names, and chanc
 pubDate: '2014-07-25'
 categories:
   - Technology

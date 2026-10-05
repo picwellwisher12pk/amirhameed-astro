@@ -1,9 +1,6 @@
 ---
 title: Pure CSS Off-screen Navigation Menu
-description: >-
-  Hamburger menu, drawer menu, off-canvas menu: Whatever you call it, hiding a
-  website’s primary navigation just off screen is becoming a ubiquitous pattern
-  in re
+description: 'Hamburger menu, drawer menu, off-canvas menu: Whatever you call it, hiding a website’s primary navigation just off screen is becoming a ubiquitous pattern in re'
 pubDate: '2014-08-02'
 categories:
   - Technology

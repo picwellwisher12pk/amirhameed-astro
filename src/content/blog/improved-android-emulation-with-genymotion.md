@@ -1,9 +1,6 @@
 ---
 title: Improved Android Emulation with Genymotion
-description: >-
-  If you have been developing Android apps for some time and have been using the
-  default emulator, then you know how frustratingly slow it can be. Even on a
-  power
+description: If you have been developing Android apps for some time and have been using the default emulator, then you know how frustratingly slow it can be. Even on a power
 pubDate: '2014-12-09'
 categories:
   - Technology

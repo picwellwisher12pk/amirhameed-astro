@@ -1,9 +1,6 @@
 ---
 title: Git, Bitbucket, and You - Tuts+ Code Article
-description: >-
-  The popularity of Git speaks for itself. If you're reading this article,
-  hopefully you know that Git is the preferred source code management tool of
-  many, many
+description: The popularity of Git speaks for itself. If you're reading this article, hopefully you know that Git is the preferred source code management tool of many, many
 pubDate: '2014-08-16'
 categories:
   - General

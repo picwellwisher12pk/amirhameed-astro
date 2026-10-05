@@ -1,9 +1,6 @@
 ---
 title: A Designer’s Sublime Text Setup — Design Notes — Medium
-description: >-
-  As I mentioned before, I switched to a Mac a few years ago. After doing so, I
-  realised that Notepad++ is not available on OSX. That was the reason to start
-  sear
+description: As I mentioned before, I switched to a Mac a few years ago. After doing so, I realised that Notepad++ is not available on OSX. That was the reason to start sear
 pubDate: '2014-12-18'
 categories:
   - Design

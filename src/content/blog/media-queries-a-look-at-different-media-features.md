@@ -1,9 +1,6 @@
 ---
 title: 'Media Queries: A Look at Different Media Features'
-description: >-
-  If you have worked with responsive design, you have probably used media
-  queries. Media queries are a clean and simple way to create responsive
-  websites using CS
+description: If you have worked with responsive design, you have probably used media queries. Media queries are a clean and simple way to create responsive websites using CS
 pubDate: '2014-07-26'
 categories:
   - Technology

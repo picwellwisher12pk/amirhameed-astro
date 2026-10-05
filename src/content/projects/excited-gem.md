@@ -1,13 +1,20 @@
 ---
-title: "Excited Gem — Power-User Browser Tab Manager"
-description: "A high-performance browser extension inspired by OneTab but engineered for power users, featuring advanced session saving, tab clustering, and Ant Design UI."
-pubDate: 2026-09-19
-category: "Browser Extensions & Tools"
-tags: ["React", "TypeScript", "Plasmo", "Tailwind CSS", "Redux", "Chrome API"]
+heroImage: /images/projects/excited-gem.jpg
+title: Excited Gem — Power-User Browser Tab Manager
+description: A high-performance browser extension inspired by OneTab but engineered for power users, featuring advanced session saving, tab clustering, and Ant Design UI.
+pubDate: '2026-09-19'
+category: Browser Extensions & Tools
+tags:
+  - React
+  - TypeScript
+  - Plasmo
+  - Tailwind CSS
+  - Redux
+  - Chrome API
 featured: true
-status: "completed"
-demoUrl: "https://chrome.google.com/webstore/detail/excited-gem/ndmfbpjadedofeohnpefljloeiekhcbc"
-repoUrl: "https://github.com/picwellwisher12pk/excited-gem"
+status: completed
+demoUrl: https://chrome.google.com/webstore/detail/excited-gem/ndmfbpjadedofeohnpefljloeiekhcbc
+repoUrl: https://github.com/picwellwisher12pk/excited-gem
 ---
 
 ### Overview

@@ -1,9 +1,6 @@
 ---
 title: Speed Up Your WordPress Site
-description: >-
-  As one of the top user experience factors, website performance is more
-  important than ever. Website speed and performance on mobile devices is
-  particularly impo
+description: As one of the top user experience factors, website performance is more important than ever. Website speed and performance on mobile devices is particularly impo
 pubDate: '2014-07-25'
 categories:
   - Technology

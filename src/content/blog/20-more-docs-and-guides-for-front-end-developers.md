@@ -1,9 +1,6 @@
 ---
 title: 20 More Docs and Guides for Front-End Developers
-description: >-
-  To start out the week, you might be in the mood to learn something new or
-  maybe refine your abilities in a particular language or technology on the
-  front-end. I
+description: To start out the week, you might be in the mood to learn something new or maybe refine your abilities in a particular language or technology on the front-end. I
 pubDate: '2014-10-08'
 categories:
   - General

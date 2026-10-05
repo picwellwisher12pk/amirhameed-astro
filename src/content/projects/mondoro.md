@@ -1,12 +1,17 @@
 ---
-title: "Mondoro — Desktop Productivity & Pomodoro Timer"
-description: "A sleek cross-platform desktop Pomodoro timer and work logger built with Electron, React, and Tailwind CSS, featuring productivity analytics."
-pubDate: 2025-03-22
-category: "Desktop & Productivity"
-tags: ["Electron", "React", "Tailwind CSS", "TypeScript", "Desktop App"]
+title: Mondoro — Desktop Productivity & Pomodoro Timer
+description: A sleek cross-platform desktop Pomodoro timer and work logger built with Electron, React, and Tailwind CSS, featuring productivity analytics.
+pubDate: '2025-03-22'
+category: Desktop & Productivity
+tags:
+  - Electron
+  - React
+  - Tailwind CSS
+  - TypeScript
+  - Desktop App
 featured: true
-status: "completed"
-repoUrl: "https://github.com/picwellwisher12pk/mondoro"
+status: completed
+repoUrl: https://github.com/picwellwisher12pk/mondoro
 ---
 
 ### Overview

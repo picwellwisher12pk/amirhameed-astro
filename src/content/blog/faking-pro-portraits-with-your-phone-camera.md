@@ -1,9 +1,6 @@
 ---
 title: Faking Pro Portraits with your Phone Camera
-description: >-
-  Thanks to the addition of cameras to our mobile devices taking photos has
-  become easier than ever. No longer are we forced to struggle through text or
-  an actual
+description: Thanks to the addition of cameras to our mobile devices taking photos has become easier than ever. No longer are we forced to struggle through text or an actual
 pubDate: '2014-09-01'
 categories:
   - Technology

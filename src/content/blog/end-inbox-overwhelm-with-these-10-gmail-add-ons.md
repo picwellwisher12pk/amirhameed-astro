@@ -1,9 +1,6 @@
 ---
 title: End Inbox Overwhelm With These 10 Gmail Add-ons
-description: >-
-  Gmail overtook Hotmail as the world’s most popular webmail platform in 2012,
-  and hasn’t slowed down since. It’s still 1, and many more people who don’t
-  have @gm
+description: Gmail overtook Hotmail as the world’s most popular webmail platform in 2012, and hasn’t slowed down since. It’s still 1, and many more people who don’t have @gm
 pubDate: '2014-09-08'
 categories:
   - Technology

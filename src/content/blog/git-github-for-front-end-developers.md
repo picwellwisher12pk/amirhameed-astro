@@ -1,9 +1,6 @@
 ---
 title: Git & GitHub for Front-End Developers
-description: >-
-  Over the past couple of years, the differentiation between front- and back-end
-  web development has become much more distinctive. While traditional
-  programming s
+description: Over the past couple of years, the differentiation between front- and back-end web development has become much more distinctive. While traditional programming s
 pubDate: '2014-08-28'
 categories:
   - Technology

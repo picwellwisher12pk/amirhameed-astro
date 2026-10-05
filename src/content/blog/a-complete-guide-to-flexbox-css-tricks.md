@@ -1,9 +1,6 @@
 ---
 title: A Complete Guide to Flexbox | CSS-Tricks
-description: >-
-  The Flexbox Layout (Flexible Box) module (currently a W3C Candidate
-  Recommendation) aims at providing a more efficient way to lay out, align and
-  distribute spac
+description: The Flexbox Layout (Flexible Box) module (currently a W3C Candidate Recommendation) aims at providing a more efficient way to lay out, align and distribute spac
 pubDate: '2014-12-09'
 categories:
   - Technology

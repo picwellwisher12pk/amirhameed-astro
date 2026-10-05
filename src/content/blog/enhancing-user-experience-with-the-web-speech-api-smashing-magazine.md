@@ -1,9 +1,6 @@
 ---
 title: Enhancing User Experience With The Web Speech API - Smashing Magazine
-description: >-
-  It’s an exciting time for web APIs, and one to watch out for is the Web Speech
-  API. It enables websites and web apps not only to speak to you, but to listen,
-  to
+description: It’s an exciting time for web APIs, and one to watch out for is the Web Speech API. It enables websites and web apps not only to speak to you, but to listen, to
 pubDate: '2014-12-10'
 categories:
   - Technology

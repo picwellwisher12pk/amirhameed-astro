@@ -1,9 +1,6 @@
 ---
 title: 'CSS Shapes: Breaking the Rectangular Design Shackles'
-description: >-
-  The capabilities of HTML5 and CSS3 completely outshine what we could do on the
-  web just five years ago. The CSS Shapes Module Level 1 specification has the
-  pote
+description: The capabilities of HTML5 and CSS3 completely outshine what we could do on the web just five years ago. The CSS Shapes Module Level 1 specification has the pote
 pubDate: '2014-07-26'
 categories:
   - Technology

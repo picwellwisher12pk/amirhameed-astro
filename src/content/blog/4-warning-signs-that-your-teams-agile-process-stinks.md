@@ -1,9 +1,6 @@
 ---
 title: 4 Warning Signs that Your Team's Agile Process Stinks
-description: >-
-  Getting used to doing things in an agile way can be challenging for everyone
-  in an organization, from senior management all the way to the core team
-  engineer. B
+description: Getting used to doing things in an agile way can be challenging for everyone in an organization, from senior management all the way to the core team engineer. B
 pubDate: '2014-09-06'
 categories:
   - Technology

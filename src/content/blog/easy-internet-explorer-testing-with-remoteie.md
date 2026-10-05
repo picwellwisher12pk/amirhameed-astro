@@ -1,9 +1,6 @@
 ---
 title: Easy Internet Explorer Testing with RemoteIE
-description: >-
-  Web developers have a duty to ensure their shiny new web site or application
-  works on a variety of browsers. At the absolute minimum, that means
-  Chrome/Opera, F
+description: Web developers have a duty to ensure their shiny new web site or application works on a variety of browsers. At the absolute minimum, that means Chrome/Opera, F
 pubDate: '2014-11-30'
 categories:
   - Technology

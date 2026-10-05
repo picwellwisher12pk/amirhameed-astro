@@ -9,4 +9,4 @@ tags: []
 language: en
 ---
 
-[![](http://amirhameed.com/wp-content/uploads/2016/01/blend.jpg)](http://ipestov.com/22-essential-css-recipes/?utm_source=SitePoint&utm_medium=email&utm_campaign=Versioning) Some Great tips and tricks for your CSS Source: _[22 Essential CSS Recipes](http://ipestov.com/22-essential-css-recipes/)_
+[![](/wp-content/uploads/2016/01/blend.jpg)](http://ipestov.com/22-essential-css-recipes/?utm_source=SitePoint&utm_medium=email&utm_campaign=Versioning) Some Great tips and tricks for your CSS Source: _[22 Essential CSS Recipes](http://ipestov.com/22-essential-css-recipes/)_

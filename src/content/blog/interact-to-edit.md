@@ -1,9 +1,6 @@
 ---
 title: Interact to Edit
-description: >-
-  Initially , my challenge was to have some interactive method to edit the Table
-  cell in an Web Application, without opening any dialogue or popup, and that is
-  ve
+description: Initially , my challenge was to have some interactive method to edit the Table cell in an Web Application, without opening any dialogue or popup, and that is ve
 pubDate: '2014-06-23'
 categories:
   - My Writings

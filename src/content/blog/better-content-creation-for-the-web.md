@@ -1,9 +1,6 @@
 ---
 title: Better Content Creation for the Web
-description: >-
-  Ask yourself, what is one of the first things visitors look for when they
-  reach your website? Other than a friendly interface for optimum usability,
-  it’s the co
+description: Ask yourself, what is one of the first things visitors look for when they reach your website? Other than a friendly interface for optimum usability, it’s the co
 pubDate: '2014-08-26'
 categories:
   - Technology

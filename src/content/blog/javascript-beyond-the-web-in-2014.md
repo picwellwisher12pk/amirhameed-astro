@@ -1,9 +1,6 @@
 ---
 title: JavaScript Beyond the Web in 2014
-description: >-
-  JavaScript has evolved far beyond its role in the DHTML websites of the 90s.
-  It is fast becoming the leading contender for a common language for the
-  Internet of
+description: JavaScript has evolved far beyond its role in the DHTML websites of the 90s. It is fast becoming the leading contender for a common language for the Internet of
 pubDate: '2014-10-14'
 categories:
   - Technology

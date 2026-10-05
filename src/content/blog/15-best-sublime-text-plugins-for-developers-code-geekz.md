@@ -1,9 +1,6 @@
 ---
 title: 15 Best Sublime Text Plugins for Developers - Code Geekz
-description: >-
-  Sublime Text Edior is well known name amonsgt developers, if you are a
-  developer you cant underestimate the power of this tool. Sublime Text is a
-  cross-platform
+description: Sublime Text Edior is well known name amonsgt developers, if you are a developer you cant underestimate the power of this tool. Sublime Text is a cross-platform
 pubDate: '2014-11-06'
 categories:
   - Technology

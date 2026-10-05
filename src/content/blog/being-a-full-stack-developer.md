@@ -1,9 +1,6 @@
 ---
 title: Being a Full Stack Developer
-description: >-
-  The barrier of entering the web development industry as a web developer is
-  still low, but it’s getting increasingly complex. The dynamic nature of the
-  whole ind
+description: The barrier of entering the web development industry as a web developer is still low, but it’s getting increasingly complex. The dynamic nature of the whole ind
 pubDate: '2014-09-23'
 categories:
   - Technology

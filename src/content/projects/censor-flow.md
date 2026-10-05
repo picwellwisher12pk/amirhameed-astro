@@ -1,13 +1,19 @@
 ---
-title: "CensorFlow — Intelligent Video & Audio Censorship Studio"
-description: "A client-side studio for automated and manual video/audio redaction, smart profanity bleeping, and sensitive scene auto-skipping."
-pubDate: 2026-09-19
-category: "AI & Multimedia Tools"
-tags: ["React", "TypeScript", "Web Audio API", "HTML5 Canvas", "Tailwind CSS"]
+heroImage: /images/projects/censor-flow.jpg
+title: CensorFlow — Intelligent Video & Audio Censorship Studio
+description: A client-side studio for automated and manual video/audio redaction, smart profanity bleeping, and sensitive scene auto-skipping.
+pubDate: '2026-09-19'
+category: AI & Multimedia Tools
+tags:
+  - React
+  - TypeScript
+  - Web Audio API
+  - HTML5 Canvas
+  - Tailwind CSS
 featured: true
-status: "completed"
-demoUrl: "https://picwellwisher12pk.github.io/censor-flow/"
-repoUrl: "https://github.com/picwellwisher12pk/censor-flow"
+status: completed
+demoUrl: https://picwellwisher12pk.github.io/censor-flow/
+repoUrl: https://github.com/picwellwisher12pk/censor-flow
 ---
 
 ### Overview

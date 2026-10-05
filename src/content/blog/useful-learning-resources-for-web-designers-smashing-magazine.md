@@ -1,9 +1,6 @@
 ---
 title: Useful Learning Resources For Web Designers | Smashing Magazine
-description: >-
-  Fortunately, learning is not limited to only a small minority of people
-  anymore; it is not even limited to visiting a school or a university. The
-  Internet makes
+description: Fortunately, learning is not limited to only a small minority of people anymore; it is not even limited to visiting a school or a university. The Internet makes
 pubDate: '2014-08-06'
 categories:
   - Technology

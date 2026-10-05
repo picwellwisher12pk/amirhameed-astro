@@ -1,8 +1,6 @@
 ---
 title: 5 Steps to a Smooth and Successful Freelance Career
-description: >-
-  5 Steps to a Smooth and Successful Freelance Career via 5 Steps to a Smooth
-  and Successful Freelance Career.
+description: 5 Steps to a Smooth and Successful Freelance Career via 5 Steps to a Smooth and Successful Freelance Career.
 pubDate: '2014-10-14'
 categories:
   - General

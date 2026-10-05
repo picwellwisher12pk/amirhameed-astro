@@ -1,9 +1,6 @@
 ---
 title: A Review of the Brackets Editor
-description: >-
-  This article is going to take a look at Brackets, an open-sourced editor
-  originally developed by Adobe. It may not have had quite the same level of
-  publicity an
+description: This article is going to take a look at Brackets, an open-sourced editor originally developed by Adobe. It may not have had quite the same level of publicity an
 pubDate: '2014-08-21'
 categories:
   - Technology

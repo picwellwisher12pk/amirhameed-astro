@@ -1,9 +1,6 @@
 ---
 title: WordPress Gone Social - BuddyPress
-description: >-
-  Most of us know WordPress as a blogging platform or full featured CMS, capable
-  of being transformed in many different ways. But did you know that you can
-  even t
+description: Most of us know WordPress as a blogging platform or full featured CMS, capable of being transformed in many different ways. But did you know that you can even t
 pubDate: '2014-07-30'
 categories:
   - Technology

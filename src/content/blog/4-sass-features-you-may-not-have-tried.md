@@ -1,9 +1,6 @@
 ---
 title: 4 Sass Features You May Not Have Tried
-description: >-
-  Once you’ve gone to the trouble of converting your workflow over to Sass, it’s
-  easy to fall into familiar patterns. You may be so pleased with the power of
-  what
+description: Once you’ve gone to the trouble of converting your workflow over to Sass, it’s easy to fall into familiar patterns. You may be so pleased with the power of what
 pubDate: '2014-10-14'
 categories:
   - General

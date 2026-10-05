@@ -1,9 +1,6 @@
 ---
 title: 'Improving Smashing Magazine''s Performance: A Case Study | Smashing Magazine'
-description: >-
-  Today Smashing Magazine turns eight years old. Eight years is a long time on
-  the web, yet for us it really doesn’t feel like a long journey at all. Things
-  have
+description: Today Smashing Magazine turns eight years old. Eight years is a long time on the web, yet for us it really doesn’t feel like a long journey at all. Things have
 pubDate: '2014-09-08'
 categories:
   - Technology

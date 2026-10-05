@@ -1,9 +1,6 @@
 ---
 title: How to Access your Media from Anywhere by Hosting your Own Cloud!
-description: >-
-  Have you ever dreamed of accessing your media from anywhere in the world? This
-  tutorial will show you how to host your own cloud at home which will allow you
-  to
+description: Have you ever dreamed of accessing your media from anywhere in the world? This tutorial will show you how to host your own cloud at home which will allow you to
 pubDate: '2014-08-05'
 categories:
   - Technology

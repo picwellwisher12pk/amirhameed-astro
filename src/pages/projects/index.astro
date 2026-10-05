@@ -6,34 +6,69 @@ import { getCollection } from 'astro:content';
 const allProjects = await getCollection('projects');
 const sortedProjects = allProjects.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const SOFTWARE_CATEGORIES = new Set([
+  'AI & Multimedia Tools',
+  'Browser Extensions & Tools',
+  'Web & Mobile Applications',
+  'Desktop & Productivity',
+  'Web & Educational Platforms',
+  'Developer Tools',
+  'AI & Islamic Informatics'
+]);
+
+const softwareProjects = sortedProjects.filter(p => SOFTWARE_CATEGORIES.has(p.data.category));
+const designProjects = sortedProjects.filter(p => !SOFTWARE_CATEGORIES.has(p.data.category));
+
 const categories = ['All', ...new Set(allProjects.map((p) => p.data.category))];
 ---
 
 <BaseLayout 
-  title="Projects & Innovations — Amir Hameed"
-  description="Showcase of engineering projects, developer tools, AI workflows, and cloud architectures built by Amir Hameed."
+  title="Projects & Design Portfolio — Amir Hameed"
+  description="Explore web applications, AI automation tools, and creative design portfolio projects built by Amir Hameed."
 >
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
     <!-- Header -->
     <div class="max-w-2xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/40 mb-4">
-        Portfolio & Work
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30 mb-4">
+        <span>✦</span> Portfolio &amp; Creations
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-        Projects & Innovations
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white font-serif">
+        Projects &amp; Design Portfolio
       </h1>
       <p class="mt-3 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
-        A collection of web applications, AI automation tools, cloud blueprints, and digital experiments built over recent months and years.
+        A comprehensive collection of software engineering applications, browser extensions, AI tools, alongside 60+ creative design projects spanning 3D, branding, illustration, and web UI.
       </p>
     </div>
 
-    <!-- Category Filter Buttons -->
-    <div class="mt-8 flex flex-wrap items-center gap-2" id="filter-container">
+    <!-- Tier 1: Main Scope Switcher (All vs Apps vs Design) -->
+    <div class="mt-10 flex flex-wrap items-center gap-3 p-1.5 rounded-2xl bg-zinc-100 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 w-fit">
+      <button 
+        data-scope="all"
+        class="scope-btn px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm border border-zinc-200 dark:border-zinc-700 active-scope"
+      >
+        ✦ All Works ({sortedProjects.length})
+      </button>
+      <button 
+        data-scope="software"
+        class="scope-btn px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+      >
+        ⚡ Apps &amp; Software ({softwareProjects.length})
+      </button>
+      <button 
+        data-scope="design"
+        class="scope-btn px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+      >
+        🎨 Design Portfolio ({designProjects.length})
+      </button>
+    </div>
+
+    <!-- Tier 2: Granular Category Filter Pills -->
+    <div class="mt-6 flex flex-wrap items-center gap-2" id="filter-container">
       {categories.map((cat, idx) => (
         <button 
           data-category={cat}
           class:list={[
-            "filter-btn px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer",
+            "filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer",
             idx === 0 
               ? "active bg-indigo-600 text-white shadow-sm shadow-indigo-600/20" 
               : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
@@ -44,58 +79,243 @@ const categories = ['All', ...new Set(allProjects.map((p) => p.data.category))];
       ))}
     </div>
 
-    <!-- Project Grid -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
-      {sortedProjects.map((project) => (
-        <div data-item-category={project.data.category} class="project-item">
-          <ProjectCard project={project} />
-        </div>
-      ))}
+    <!-- Project Grid: Metro / Bento Modular Grid -->
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 [grid-auto-flow:dense]" id="projects-grid">
+      {sortedProjects.map((project, idx) => {
+        const isSoftware = SOFTWARE_CATEGORIES.has(project.data.category);
+
+        // Compute Metro Span dynamically for visual rhythm
+        let metroSpan: 'hero' | 'wide' | 'standard' = 'standard';
+        let spanClasses = 'col-span-1';
+
+        if (project.data.featured && idx < 2) {
+          metroSpan = 'hero';
+          spanClasses = 'col-span-1 sm:col-span-2 lg:col-span-2 sm:row-span-2';
+        } else if (project.data.featured || idx % 7 === 0) {
+          metroSpan = 'wide';
+          spanClasses = 'col-span-1 sm:col-span-2 lg:col-span-2';
+        }
+
+        return (
+          <div 
+            data-item-category={project.data.category} 
+            data-item-scope={isSoftware ? 'software' : 'design'}
+            class={`project-item ${spanClasses}`}
+          >
+            <ProjectCard project={project} metroSpan={metroSpan} />
+          </div>
+        );
+      })}
     </div>
 
     <!-- Empty state for filter -->
     <div id="no-projects" class="hidden text-center py-16">
-      <p class="text-zinc-500 dark:text-zinc-400 text-sm">No projects found in this category.</p>
+      <p class="text-zinc-500 dark:text-zinc-400 text-sm">No projects found for the selected filter.</p>
     </div>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.filter-btn');
+    const scopeButtons = document.querySelectorAll('.scope-btn');
+    const categoryButtons = document.querySelectorAll('.filter-btn');
     const items = document.querySelectorAll('.project-item');
     const noProjects = document.getElementById('no-projects');
 
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-category');
+    let currentScope = 'all';
+    let currentCategory = 'All';
 
-        // Update active class
-        buttons.forEach((b) => {
-          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
-          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
-        });
+    function toSlug(str: string): string {
+      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
 
-        btn.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
-        btn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+    // Build lookup map for exact category names from slugs or names
+    const categoryMap = new Map<string, string>();
+    categoryButtons.forEach((btn) => {
+      const cat = btn.getAttribute('data-category');
+      if (cat) {
+        categoryMap.set(cat.toLowerCase(), cat);
+        categoryMap.set(toSlug(cat), cat);
+      }
+    });
 
-        let visibleCount = 0;
-        items.forEach((item) => {
-          const itemCat = item.getAttribute('data-item-category');
-          if (cat === 'All' || itemCat === cat) {
-            item.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            item.classList.add('hidden');
-          }
-        });
+    function getCategoryScope(category: string): string | null {
+      if (category === 'All') return null;
+      const matchingItem = document.querySelector(`.project-item[data-item-category="${category}"]`);
+      return matchingItem?.getAttribute('data-item-scope') || null;
+    }
 
-        if (noProjects) {
-          if (visibleCount === 0) {
-            noProjects.classList.remove('hidden');
-          } else {
-            noProjects.classList.add('hidden');
-          }
+    function syncButtons() {
+      scopeButtons.forEach((b) => {
+        const s = b.getAttribute('data-scope');
+        if (s === currentScope) {
+          b.classList.add('active-scope', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'shadow-sm', 'border', 'border-zinc-200', 'dark:border-zinc-700');
+          b.classList.remove('text-zinc-500');
+        } else {
+          b.classList.remove('active-scope', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'shadow-sm', 'border', 'border-zinc-200', 'dark:border-zinc-700');
+          b.classList.add('text-zinc-500');
         }
       });
+
+      categoryButtons.forEach((b) => {
+        const c = b.getAttribute('data-category');
+        if (c === currentCategory) {
+          b.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
+          b.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+        } else {
+          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-sm', 'shadow-indigo-600/20');
+          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
+        }
+      });
+    }
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const itemCat = item.getAttribute('data-item-category') || '';
+        const itemScope = item.getAttribute('data-item-scope') || '';
+
+        const matchesScope = currentScope === 'all' || itemScope === currentScope;
+        const matchesCategory = currentCategory === 'All' || itemCat === currentCategory;
+
+        if (matchesScope && matchesCategory) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (noProjects) {
+        if (visibleCount === 0) {
+          noProjects.classList.remove('hidden');
+        } else {
+          noProjects.classList.add('hidden');
+        }
+      }
+    }
+
+    function updateUrlAndStorage(pushState = true) {
+      try {
+        localStorage.setItem('portfolio_active_scope', currentScope);
+        localStorage.setItem('portfolio_active_category', currentCategory);
+      } catch (_) {}
+
+      const url = new URL(window.location.href);
+      if (currentCategory && currentCategory !== 'All') {
+        url.searchParams.set('category', toSlug(currentCategory));
+      } else {
+        url.searchParams.delete('category');
+        url.searchParams.delete('cat');
+      }
+
+      if (currentScope && currentScope !== 'all') {
+        url.searchParams.set('scope', currentScope);
+      } else {
+        url.searchParams.delete('scope');
+      }
+
+      const newUrl = url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '');
+      if (pushState && window.location.href !== url.href) {
+        window.history.pushState({ scope: currentScope, category: currentCategory }, '', newUrl);
+      } else if (!pushState) {
+        window.history.replaceState({ scope: currentScope, category: currentCategory }, '', newUrl);
+      }
+    }
+
+    function restoreState() {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('category') || params.get('cat') || window.location.hash.replace(/^#/, '');
+      const scopeParam = params.get('scope');
+
+      let resolvedCategory = 'All';
+      if (catParam) {
+        const normalized = decodeURIComponent(catParam).toLowerCase().trim();
+        resolvedCategory = categoryMap.get(normalized) || categoryMap.get(toSlug(normalized)) || 'All';
+      } else {
+        try {
+          const savedCat = localStorage.getItem('portfolio_active_category');
+          if (savedCat && categoryMap.has(savedCat.toLowerCase())) {
+            resolvedCategory = categoryMap.get(savedCat.toLowerCase()) || 'All';
+          }
+        } catch (_) {}
+      }
+
+      let resolvedScope = 'all';
+      if (scopeParam && ['all', 'software', 'design'].includes(scopeParam.toLowerCase())) {
+        resolvedScope = scopeParam.toLowerCase();
+      } else if (!catParam) {
+        try {
+          const savedScope = localStorage.getItem('portfolio_active_scope');
+          if (savedScope && ['all', 'software', 'design'].includes(savedScope)) {
+            resolvedScope = savedScope;
+          }
+        } catch (_) {}
+      }
+
+      // Auto-align scope if selected category belongs to a specific scope
+      if (resolvedCategory !== 'All') {
+        const catScope = getCategoryScope(resolvedCategory);
+        if (catScope && resolvedScope !== 'all' && resolvedScope !== catScope) {
+          resolvedScope = catScope;
+        }
+      }
+
+      currentScope = resolvedScope;
+      currentCategory = resolvedCategory;
+
+      syncButtons();
+      applyFilters();
+      updateUrlAndStorage(false);
+    }
+
+    // Scope Switcher logic
+    scopeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const newScope = btn.getAttribute('data-scope') || 'all';
+        currentScope = newScope;
+
+        // If category is not in this new scope, reset category to 'All'
+        if (currentCategory !== 'All' && currentScope !== 'all') {
+          const catScope = getCategoryScope(currentCategory);
+          if (catScope && catScope !== currentScope) {
+            currentCategory = 'All';
+          }
+        }
+
+        syncButtons();
+        applyFilters();
+        updateUrlAndStorage(true);
+      });
     });
+
+    // Category Filter logic
+    categoryButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentCategory = btn.getAttribute('data-category') || 'All';
+
+        if (currentCategory !== 'All') {
+          const catScope = getCategoryScope(currentCategory);
+          if (catScope && currentScope !== 'all' && currentScope !== catScope) {
+            currentScope = catScope;
+          }
+        }
+
+        syncButtons();
+        applyFilters();
+        updateUrlAndStorage(true);
+      });
+    });
+
+    // Handle browser Back / Forward buttons
+    window.addEventListener('popstate', () => {
+      restoreState();
+    });
+
+    // Initialize state on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', restoreState);
+    } else {
+      restoreState();
+    }
   </script>
 </BaseLayout>

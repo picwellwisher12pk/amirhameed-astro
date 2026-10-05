@@ -1,9 +1,6 @@
 ---
 title: Improve Your Email Workflow With Modular Design | Smashing Magazine
-description: >-
-  Whether you’re in a Fortune 500 company or part a two-person team launching
-  your first web app, transactional email providers is one of the most important
-  tools
+description: Whether you’re in a Fortune 500 company or part a two-person team launching your first web app, transactional email providers is one of the most important tools
 pubDate: '2014-08-04'
 categories:
   - Technology

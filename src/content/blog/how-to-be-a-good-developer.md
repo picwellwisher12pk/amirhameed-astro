@@ -1,9 +1,6 @@
 ---
 title: How to be a Good Developer
-description: >-
-  As a PHP developer, or any kind of developer as a matter of fact, you need to
-  constantly improve yourself in this ever-changing industry; you need to learn
-  and
+description: As a PHP developer, or any kind of developer as a matter of fact, you need to constantly improve yourself in this ever-changing industry; you need to learn and
 pubDate: '2014-10-14'
 categories:
   - General

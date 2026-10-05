@@ -6,7 +6,7 @@ categories:
   - General
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/06/castle-assigment.jpg
+heroImage: /wp-content/uploads/2014/06/castle-assigment.jpg
 ---
 
 

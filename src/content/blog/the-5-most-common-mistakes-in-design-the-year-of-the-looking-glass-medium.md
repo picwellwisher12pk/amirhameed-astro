@@ -1,9 +1,6 @@
 ---
 title: The 5 Most Common Mistakes in Design — The Year of the Looking Glass — Medium
-description: >-
-  There’s no learning without mistakes. And I’ve done the following (as well as
-  seen the following done) too many times to count. Luckily, there’s this thing
-  call
+description: There’s no learning without mistakes. And I’ve done the following (as well as seen the following done) too many times to count. Luckily, there’s this thing call
 pubDate: '2014-12-12'
 categories:
   - General

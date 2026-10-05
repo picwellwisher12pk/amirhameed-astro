@@ -1,9 +1,6 @@
 ---
 title: Design Responsive Websites In The Browser With Webflow | Smashing Magazine
-description: >-
-  This article is the first part of a series of articles on emerging responsive
-  design tools. Today, Richard Knight explores the advantages of Webflow and how
-  you
+description: This article is the first part of a series of articles on emerging responsive design tools. Today, Richard Knight explores the advantages of Webflow and how you
 pubDate: '2014-08-05'
 categories:
   - Technology

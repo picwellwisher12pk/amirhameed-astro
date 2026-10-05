@@ -1,9 +1,6 @@
 ---
 title: Using Git Inside of Sublime Text to Improve Workflow ♥ Scotch
-description: >-
-  Improving workflow and increasing productivity is very important to us
-  developers. Every second counts since the time we spend on small tasks adds
-  up. Small tas
+description: Improving workflow and increasing productivity is very important to us developers. Every second counts since the time we spend on small tasks adds up. Small tas
 pubDate: '2014-11-01'
 categories:
   - Technology

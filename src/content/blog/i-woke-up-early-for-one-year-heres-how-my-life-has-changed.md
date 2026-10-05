@@ -1,9 +1,6 @@
 ---
 title: I woke up early for one year. Here's how my life has changed.
-description: >-
-  The habit of getting up early has been the most life changing thing I have
-  ever done. A little over a year ago, I wrote this post about how to build a
-  killer mo
+description: The habit of getting up early has been the most life changing thing I have ever done. A little over a year ago, I wrote this post about how to build a killer mo
 pubDate: '2014-08-20'
 categories:
   - inspiration

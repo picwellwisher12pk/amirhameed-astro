@@ -1,8 +1,6 @@
 ---
 title: Secrets of the Chrome Developer Tools on Vimeo
-description: >-
-  Secrets of the Chrome Developer Tools on Vimeo on Vimeo via Secrets of the
-  Chrome Developer Tools on Vimeo.
+description: Secrets of the Chrome Developer Tools on Vimeo on Vimeo via Secrets of the Chrome Developer Tools on Vimeo.
 pubDate: '2014-08-04'
 categories:
   - Technology

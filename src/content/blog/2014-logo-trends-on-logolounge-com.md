@@ -1,9 +1,6 @@
 ---
 title: 2014 Logo Trends on LogoLounge.com
-description: >-
-  If home is our first place, and work is our second place, then mobile screens
-  have definitely become our third place. Smart phone use has increased from 21
-  perc
+description: If home is our first place, and work is our second place, then mobile screens have definitely become our third place. Smart phone use has increased from 21 perc
 pubDate: '2014-08-02'
 categories:
   - inspiration

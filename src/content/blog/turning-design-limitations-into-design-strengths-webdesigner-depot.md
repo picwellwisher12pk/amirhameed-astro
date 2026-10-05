@@ -1,9 +1,6 @@
 ---
 title: Turning design limitations into design strengths! | Webdesigner Depot
-description: >-
-  Think of design as a road map for consumers, taking them where you want them
-  to go. Design makes an efficient way to get across the message and still make
-  it pr
+description: Think of design as a road map for consumers, taking them where you want them to go. Design makes an efficient way to get across the message and still make it pr
 pubDate: '2014-09-24'
 categories:
   - Technology

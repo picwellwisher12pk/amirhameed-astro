@@ -1,9 +1,6 @@
 ---
 title: 20 Useful Docs and Guides for Front-End Developers
-description: >-
-  I come across so many interesting info-apps and documents in my daily
-  research, so I thought I’d provide a list of those here. True, not everyone
-  likes the “lis
+description: I come across so many interesting info-apps and documents in my daily research, so I thought I’d provide a list of those here. True, not everyone likes the “lis
 pubDate: '2014-08-20'
 categories:
   - Technology

@@ -1,0 +1,775 @@
+---
+// Interactive WebGL Particle Sandbox Component
+// Allows visitors to upload custom images, adjust physics/displacement parameters,
+// and explore all 8 GPU interaction modes in real time.
+---
+
+<div class="particle-sandbox-wrapper rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 text-white overflow-hidden shadow-2xl">
+  <!-- Sandbox Top Toolbar -->
+  <div class="px-5 py-4 border-b border-zinc-800/80 bg-zinc-900/80 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#d4af37] to-amber-200 flex items-center justify-center text-zinc-950 font-black text-sm shadow-md">
+        ✦
+      </div>
+      <div>
+        <h2 class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+          <span>WebGL Particle Physics Laboratory</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30">Live GPU</span>
+        </h2>
+        <p class="text-[11px] text-zinc-400">
+          Upload an image or pick a preset to transform pixels into interactive stardust.
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Controls: Upload & Presets -->
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Hidden File Input -->
+      <input type="file" id="sandbox-file-input" accept="image/*" class="hidden" />
+      
+      <button 
+        id="sandbox-upload-btn"
+        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs font-semibold shadow-md transition-all cursor-pointer hover:scale-105"
+        title="Upload your own picture (JPEG, PNG, WebP)"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        <span>Upload Your Image</span>
+      </button>
+
+      <!-- Preset selector pills -->
+      <div class="flex items-center gap-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+        <span class="px-2 text-zinc-500 text-[10px] uppercase">Presets:</span>
+        <button data-preset="/images/amir-portrait-luxury.jpg" class="preset-pill px-2.5 py-1 rounded-lg bg-zinc-800 text-white font-medium hover:bg-zinc-700 transition-colors cursor-pointer active-preset">
+          Portrait
+        </button>
+        <button data-preset="/images/3.jpg" class="preset-pill px-2.5 py-1 rounded-lg hover:bg-zinc-800 hover:text-white transition-colors cursor-pointer">
+          Sculpture
+        </button>
+        <button data-preset="/images/4.jpg" class="preset-pill px-2.5 py-1 rounded-lg hover:bg-zinc-800 hover:text-white transition-colors cursor-pointer">
+          Artistic
+        </button>
+      </div>
+
+      <!-- Fullscreen Button -->
+      <button 
+        id="sandbox-fullscreen-btn"
+        class="p-2 rounded-xl border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+        title="Toggle Fullscreen"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Sandbox Body: Canvas Area + Parameters Sidebar -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+    
+    <!-- Left / Center: Interactive Canvas Stage (Cols 1-8) -->
+    <div id="sandbox-stage" class="lg:col-span-8 relative bg-zinc-950 flex items-center justify-center overflow-hidden select-none min-h-[420px] lg:min-h-[580px] border-b lg:border-b-0 lg:border-r border-zinc-800">
+      
+      <!-- Dropzone highlight overlay -->
+      <div id="sandbox-drop-overlay" class="absolute inset-0 z-30 bg-indigo-900/60 border-4 border-dashed border-indigo-400 flex flex-col items-center justify-center pointer-events-none opacity-0 transition-opacity">
+        <span class="text-3xl mb-2">📥</span>
+        <span class="text-sm font-bold text-white uppercase tracking-wider font-mono">Drop your image here</span>
+      </div>
+
+      <!-- WebGL Particle Canvas -->
+      <canvas id="sandbox-canvas" class="w-full h-full block cursor-crosshair"></canvas>
+
+      <!-- 2D Overlay Canvas for Constellation Synaptic Lines -->
+      <canvas id="sandbox-constell-canvas" class="absolute inset-0 pointer-events-none z-10"></canvas>
+
+      <!-- Stage Overlays: Current Mode Badge & Quick Instructions -->
+      <div class="absolute top-4 left-4 z-20 flex items-center gap-2 pointer-events-none">
+        <div class="px-3 py-1 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-800 text-xs font-mono text-[#d4af37] flex items-center gap-2 shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="active-mode-label">Mode 1: Volumetric Quantum Aura</span>
+        </div>
+      </div>
+
+      <!-- Live Particle Stats Badge (Bottom Left) -->
+      <div class="absolute bottom-4 left-4 z-20 flex items-center gap-3 pointer-events-none text-[11px] font-mono text-zinc-400 bg-zinc-950/70 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800/80">
+        <div>Particles: <span id="stat-particles" class="text-white font-bold">54,000</span></div>
+        <span class="text-zinc-700">|</span>
+        <div>FPS: <span id="stat-fps" class="text-emerald-400 font-bold">60</span></div>
+      </div>
+
+      <!-- Action helper (Bottom Right) -->
+      <div class="absolute bottom-4 right-4 z-20 pointer-events-none text-[11px] font-mono text-zinc-500 bg-zinc-950/70 backdrop-blur-md px-3 py-1 rounded-lg border border-zinc-800/60 hidden sm:block">
+        Hover over canvas to interact
+      </div>
+    </div>
+
+    <!-- Right: Physics & Effects Control Deck (Cols 9-12) -->
+    <div class="lg:col-span-4 p-5 bg-zinc-900/60 overflow-y-auto space-y-6 max-h-[580px]">
+      
+      <!-- 1. Interactive Hover / Displacement Effects Switcher -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold text-white uppercase tracking-wider font-mono">
+            Hover &amp; Displacement Effect
+          </label>
+          <span class="text-[10px] font-mono text-[#d4af37] bg-[#d4af37]/15 px-2 py-0.5 rounded-full border border-[#d4af37]/30">8 Modes</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2" id="sandbox-mode-grid">
+          <button data-mode="1" class="mode-card p-2.5 rounded-xl text-left border transition-all cursor-pointer bg-[#d4af37]/15 border-[#d4af37]/60 text-white active-mode">
+            <div class="text-[11px] font-bold">1. Quantum Aura</div>
+            <div class="text-[10px] text-zinc-400 mt-0.5">Orbital drift &amp; wave</div>
+          </button>
+          
+          <button data-mode="2" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">2. Silk Ripple</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Concentric gold waves</div>
+          </button>
+
+          <button data-mode="3" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">3. Lantern Wand</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Micro attraction bloom</div>
+          </button>
+
+          <button data-mode="4" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">4. Gravity Lens</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Spacetime curvature</div>
+          </button>
+
+          <button data-mode="5" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">5. Stardust Wake</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Fluid curl turbulence</div>
+          </button>
+
+          <button data-mode="6" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">6. Soft Elastic</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Damped membrane</div>
+          </button>
+
+          <button data-mode="7" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">7. Neural Web</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Synaptic axon sparks</div>
+          </button>
+
+          <button data-mode="8" class="mode-card p-2.5 rounded-xl text-left border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all cursor-pointer">
+            <div class="text-[11px] font-bold">8. Cyber Scanlines</div>
+            <div class="text-[10px] text-zinc-500 mt-0.5">Laser sweep &amp; glitch</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Real-Time Physics Parameters Sliders -->
+      <div class="space-y-4 pt-4 border-t border-zinc-800/80">
+        <div class="text-xs font-bold text-white uppercase tracking-wider font-mono">
+          Physics Parameters
+        </div>
+
+        <!-- Slider 1: Repel Force -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-zinc-400">Repel / Displacement Force</span>
+            <span id="val-repel" class="text-[#d4af37] font-bold">25.0</span>
+          </div>
+          <input 
+            type="range" 
+            id="slider-repel" 
+            min="0" 
+            max="60" 
+            step="1" 
+            value="25"
+            class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg cursor-pointer" 
+          />
+        </div>
+
+        <!-- Slider 2: Cursor Interaction Radius -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-zinc-400">Cursor Interaction Radius</span>
+            <span id="val-radius" class="text-[#d4af37] font-bold">150px</span>
+          </div>
+          <input 
+            type="range" 
+            id="slider-radius" 
+            min="60" 
+            max="280" 
+            step="5" 
+            value="150"
+            class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg cursor-pointer" 
+          />
+        </div>
+
+        <!-- Slider 3: Particle Base Size -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-zinc-400">Particle Base Size</span>
+            <span id="val-size" class="text-[#d4af37] font-bold">1.2x</span>
+          </div>
+          <input 
+            type="range" 
+            id="slider-size" 
+            min="0.6" 
+            max="2.8" 
+            step="0.1" 
+            value="1.2"
+            class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg cursor-pointer" 
+          />
+        </div>
+
+        <!-- Slider 4: Effect Speed -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-zinc-400">Animation Wave Speed</span>
+            <span id="val-speed" class="text-[#d4af37] font-bold">1.0x</span>
+          </div>
+          <input 
+            type="range" 
+            id="slider-speed" 
+            min="0.2" 
+            max="3.0" 
+            step="0.1" 
+            value="1.0"
+            class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg cursor-pointer" 
+          />
+        </div>
+
+        <!-- Slider 5: Effect Intensity -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-zinc-400">Effect Intensity</span>
+            <span id="val-intensity" class="text-[#d4af37] font-bold">1.0x</span>
+          </div>
+          <input 
+            type="range" 
+            id="slider-intensity" 
+            min="0.2" 
+            max="2.5" 
+            step="0.1" 
+            value="1.0"
+            class="w-full accent-[#d4af37] h-1.5 bg-zinc-800 rounded-lg cursor-pointer" 
+          />
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons: Snapshot & Reset -->
+      <div class="pt-4 border-t border-zinc-800/80 flex items-center gap-2">
+        <button 
+          id="sandbox-snapshot-btn"
+          class="flex-1 py-2 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-white transition-colors cursor-pointer text-center"
+        >
+          📸 Snapshot Frame
+        </button>
+        <button 
+          id="sandbox-reset-btn"
+          class="py-2 px-3 rounded-xl border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  import { VS_SOURCE, FS_SOURCE } from "../lib/luxury-particles/shaders";
+  import { sampleImageTargets, type ConstellationNode } from "../lib/luxury-particles/sampler";
+
+  function initParticleSandbox() {
+    const canvas = document.getElementById("sandbox-canvas") as HTMLCanvasElement | null;
+    const constellCanvas = document.getElementById("sandbox-constell-canvas") as HTMLCanvasElement | null;
+    const constellCtx = constellCanvas?.getContext("2d") || null;
+    const stage = document.getElementById("sandbox-stage");
+    const dropOverlay = document.getElementById("sandbox-drop-overlay");
+    const fileInput = document.getElementById("sandbox-file-input") as HTMLInputElement | null;
+    const uploadBtn = document.getElementById("sandbox-upload-btn");
+    const activeModeLabel = document.getElementById("active-mode-label");
+    const statParticles = document.getElementById("stat-particles");
+    const statFps = document.getElementById("stat-fps");
+    const fullscreenBtn = document.getElementById("sandbox-fullscreen-btn");
+    const snapshotBtn = document.getElementById("sandbox-snapshot-btn");
+    const resetBtn = document.getElementById("sandbox-reset-btn");
+
+    if (!canvas) return;
+
+    const gl = (canvas.getContext("webgl", { preserveDrawingBuffer: true }) ||
+      canvas.getContext("experimental-webgl", { preserveDrawingBuffer: true })) as WebGLRenderingContext | null;
+
+    if (!gl) {
+      console.warn("WebGL not supported in sandbox");
+      return;
+    }
+
+    // Sandbox state
+    const PARAMS = {
+      particleCount: window.innerWidth < 768 ? 32000 : 54000,
+      interactiveMode: 1,
+      repelStrength: 25.0,
+      cursorRadius: 150.0,
+      particleScale: 1.2,
+      effectSpeed: 1.0,
+      effectIntensity: 1.0,
+    };
+
+    const MODE_NAMES: Record<number, string> = {
+      1: "1: Volumetric Quantum Aura",
+      2: "2: Silk Surface Ripple",
+      3: "3: Celestial Lantern Wand",
+      4: "4: Gravitational Lens",
+      5: "5: Fluid Stardust Wake",
+      6: "6: Soft Elastic Physics",
+      7: "7: Neural Constellation",
+      8: "8: Holographic Cyber Scanlines",
+    };
+
+    let currentImage = new Image();
+    let isImageLoaded = false;
+    let targetVBO: WebGLBuffer | null = null;
+    let baseVBO: WebGLBuffer | null = null;
+    let constellationNodes: ConstellationNode[] = [];
+
+    // Pointer variables
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let targetMouseX = -9999;
+    let targetMouseY = -9999;
+    let mouseVelX = 0;
+    let mouseVelY = 0;
+    let smoothVelX = 0;
+    let smoothVelY = 0;
+    let rawMouseActive = 0.0;
+    let lastMoveTime = performance.now();
+
+    // Shader program
+    function createShader(type: number, source: string) {
+      if (!gl) return null;
+      const s = gl.createShader(type);
+      if (!s) return null;
+      gl.shaderSource(s, source);
+      gl.compileShader(s);
+      return s;
+    }
+
+    const vs = createShader(gl.VERTEX_SHADER, VS_SOURCE);
+    const fs = createShader(gl.FRAGMENT_SHADER, FS_SOURCE);
+    if (!vs || !fs) return;
+
+    const program = gl.createProgram();
+    if (!program) return;
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    // Attribute Locations
+    const aTargetALoc = gl.getAttribLocation(program, "a_targetA");
+    const aColorALoc = gl.getAttribLocation(program, "a_colorA");
+    const aTargetBLoc = gl.getAttribLocation(program, "a_targetB");
+    const aColorBLoc = gl.getAttribLocation(program, "a_colorB");
+    const aOriginLoc = gl.getAttribLocation(program, "a_origin");
+    const aParamsLoc = gl.getAttribLocation(program, "a_params");
+    const aScatterLoc = gl.getAttribLocation(program, "a_scatter");
+
+    // Uniform Locations
+    const uTimeLoc = gl.getUniformLocation(program, "u_time");
+    const uResolutionLoc = gl.getUniformLocation(program, "u_resolution");
+    const uMouseLoc = gl.getUniformLocation(program, "u_mouse");
+    const uMouseVelLoc = gl.getUniformLocation(program, "u_mouse_vel");
+    const uMouseSpeedLoc = gl.getUniformLocation(program, "u_mouse_speed");
+    const uMouseActiveLoc = gl.getUniformLocation(program, "u_mouse_active");
+    const uCursorRadiusLoc = gl.getUniformLocation(program, "u_cursor_radius");
+    const uDimFactorLoc = gl.getUniformLocation(program, "u_dim_factor");
+    const uMorphTLoc = gl.getUniformLocation(program, "u_morph_t");
+    const uMorphStyleLoc = gl.getUniformLocation(program, "u_morph_style");
+    const uInteractiveModeLoc = gl.getUniformLocation(program, "u_interactive_mode");
+    const uParamIntensityLoc = gl.getUniformLocation(program, "u_param_intensity");
+    const uParamSpeedLoc = gl.getUniformLocation(program, "u_param_speed");
+    const uRepelStrengthLoc = gl.getUniformLocation(program, "u_repel_strength");
+    const uCenterALoc = gl.getUniformLocation(program, "u_centerA");
+    const uSizeALoc = gl.getUniformLocation(program, "u_sizeA");
+    const uCenterBLoc = gl.getUniformLocation(program, "u_centerB");
+    const uSizeBLoc = gl.getUniformLocation(program, "u_sizeB");
+    const uHeroAreaLoc = gl.getUniformLocation(program, "u_hero_area");
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    // Build particle buffers from current loaded image
+    function rebuildBuffers() {
+      if (!gl || !isImageLoaded) return;
+      constellationNodes = [];
+
+      const buffer = sampleImageTargets(currentImage, PARAMS.particleCount, constellationNodes);
+      if (targetVBO) gl.deleteBuffer(targetVBO);
+      targetVBO = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
+      gl.bufferData(gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW);
+
+      const STRIDE = 7;
+      const baseBuffer = new Float32Array(PARAMS.particleCount * STRIDE);
+      for (let p = 0; p < PARAMS.particleCount; p++) {
+        const nox = Math.random() * 1.06 - 0.03;
+        const noy = Math.random() * 1.06 - 0.03;
+        const isScatter = p % 120 === 0 ? 1.0 : 0.0;
+        const delay = 0.0; // Ready immediately in sandbox
+        const duration = 600.0;
+        const size = (Math.random() * 1.3 + 0.9) * PARAMS.particleScale;
+        const curl = (Math.random() < 0.5 ? -1.0 : 1.0) * (0.8 + Math.random() * 1.4);
+
+        const base = p * STRIDE;
+        baseBuffer[base] = nox;
+        baseBuffer[base + 1] = noy;
+        baseBuffer[base + 2] = delay;
+        baseBuffer[base + 3] = duration;
+        baseBuffer[base + 4] = size;
+        baseBuffer[base + 5] = curl;
+        baseBuffer[base + 6] = isScatter;
+      }
+
+      if (baseVBO) gl.deleteBuffer(baseVBO);
+      baseVBO = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, baseVBO);
+      gl.bufferData(gl.ARRAY_BUFFER, baseBuffer, gl.STATIC_DRAW);
+
+      if (statParticles) {
+        statParticles.textContent = PARAMS.particleCount.toLocaleString();
+      }
+    }
+
+    function loadImage(src: string) {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        currentImage = img;
+        isImageLoaded = true;
+        rebuildBuffers();
+      };
+      img.src = src;
+    }
+
+    loadImage("/images/amir-portrait-luxury.jpg");
+
+    // File upload handler
+    uploadBtn?.addEventListener("click", () => fileInput?.click());
+    fileInput?.addEventListener("change", (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        loadImage(objectUrl);
+        // Clear active pill styling
+        document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active-preset", "bg-zinc-800", "text-white"));
+      }
+    });
+
+    // Drag and drop onto stage
+    stage?.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      if (dropOverlay) dropOverlay.classList.remove("opacity-0");
+    });
+    stage?.addEventListener("dragleave", () => {
+      if (dropOverlay) dropOverlay.classList.add("opacity-0");
+    });
+    stage?.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (dropOverlay) dropOverlay.classList.add("opacity-0");
+      const file = e.dataTransfer?.files?.[0];
+      if (file && file.type.startsWith("image/")) {
+        const objectUrl = URL.createObjectURL(file);
+        loadImage(objectUrl);
+        document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active-preset", "bg-zinc-800", "text-white"));
+      }
+    });
+
+    // Preset selector buttons
+    document.querySelectorAll(".preset-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const preset = btn.getAttribute("data-preset");
+        if (preset) {
+          loadImage(preset);
+          document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active-preset", "bg-zinc-800", "text-white"));
+          btn.classList.add("active-preset", "bg-zinc-800", "text-white");
+        }
+      });
+    });
+
+    // Mode cards selector
+    document.querySelectorAll(".mode-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const mode = parseInt(card.getAttribute("data-mode") || "1", 10);
+        PARAMS.interactiveMode = mode;
+        if (activeModeLabel) activeModeLabel.textContent = `Mode ${MODE_NAMES[mode] || mode}`;
+
+        document.querySelectorAll(".mode-card").forEach((c) => {
+          c.classList.remove("bg-[#d4af37]/15", "border-[#d4af37]/60", "text-white", "active-mode");
+          c.classList.add("border-zinc-800", "bg-zinc-900", "text-zinc-400");
+        });
+        card.classList.add("bg-[#d4af37]/15", "border-[#d4af37]/60", "text-white", "active-mode");
+        card.classList.remove("border-zinc-800", "bg-zinc-900", "text-zinc-400");
+      });
+    });
+
+    // Sliders wiring
+    const sliderRepel = document.getElementById("slider-repel") as HTMLInputElement | null;
+    const valRepel = document.getElementById("val-repel");
+    sliderRepel?.addEventListener("input", () => {
+      PARAMS.repelStrength = parseFloat(sliderRepel.value);
+      if (valRepel) valRepel.textContent = PARAMS.repelStrength.toFixed(1);
+    });
+
+    const sliderRadius = document.getElementById("slider-radius") as HTMLInputElement | null;
+    const valRadius = document.getElementById("val-radius");
+    sliderRadius?.addEventListener("input", () => {
+      PARAMS.cursorRadius = parseFloat(sliderRadius.value);
+      if (valRadius) valRadius.textContent = `${PARAMS.cursorRadius}px`;
+    });
+
+    const sliderSize = document.getElementById("slider-size") as HTMLInputElement | null;
+    const valSize = document.getElementById("val-size");
+    sliderSize?.addEventListener("input", () => {
+      PARAMS.particleScale = parseFloat(sliderSize.value);
+      if (valSize) valSize.textContent = `${PARAMS.particleScale.toFixed(1)}x`;
+      rebuildBuffers();
+    });
+
+    const sliderSpeed = document.getElementById("slider-speed") as HTMLInputElement | null;
+    const valSpeed = document.getElementById("val-speed");
+    sliderSpeed?.addEventListener("input", () => {
+      PARAMS.effectSpeed = parseFloat(sliderSpeed.value);
+      if (valSpeed) valSpeed.textContent = `${PARAMS.effectSpeed.toFixed(1)}x`;
+    });
+
+    const sliderIntensity = document.getElementById("slider-intensity") as HTMLInputElement | null;
+    const valIntensity = document.getElementById("val-intensity");
+    sliderIntensity?.addEventListener("input", () => {
+      PARAMS.effectIntensity = parseFloat(sliderIntensity.value);
+      if (valIntensity) valIntensity.textContent = `${PARAMS.effectIntensity.toFixed(1)}x`;
+    });
+
+    // Reset button
+    resetBtn?.addEventListener("click", () => {
+      PARAMS.interactiveMode = 1;
+      PARAMS.repelStrength = 25.0;
+      PARAMS.cursorRadius = 150.0;
+      PARAMS.particleScale = 1.2;
+      PARAMS.effectSpeed = 1.0;
+      PARAMS.effectIntensity = 1.0;
+      if (sliderRepel) sliderRepel.value = "25";
+      if (sliderRadius) sliderRadius.value = "150";
+      if (sliderSize) sliderSize.value = "1.2";
+      if (sliderSpeed) sliderSpeed.value = "1.0";
+      if (sliderIntensity) sliderIntensity.value = "1.0";
+      if (valRepel) valRepel.textContent = "25.0";
+      if (valRadius) valRadius.textContent = "150px";
+      if (valSize) valSize.textContent = "1.2x";
+      if (valSpeed) valSpeed.textContent = "1.0x";
+      if (valIntensity) valIntensity.textContent = "1.0x";
+      if (activeModeLabel) activeModeLabel.textContent = `Mode ${MODE_NAMES[1]}`;
+      rebuildBuffers();
+    });
+
+    // Fullscreen Toggle
+    fullscreenBtn?.addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        stage?.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+
+    // Snapshot Frame
+    snapshotBtn?.addEventListener("click", () => {
+      const dataUrl = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `particle-art-${Date.now()}.png`;
+      a.click();
+    });
+
+    // Mouse Tracking relative to canvas
+    stage?.addEventListener("pointermove", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const now = performance.now();
+      const dt = Math.max(1, now - lastMoveTime);
+      lastMoveTime = now;
+
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+
+      if (targetMouseX > -5000) {
+        mouseVelX = Math.max(-80, Math.min(80, (px - targetMouseX) / (dt / 16.6)));
+        mouseVelY = Math.max(-80, Math.min(80, (py - targetMouseY) / (dt / 16.6)));
+      }
+
+      targetMouseX = px;
+      targetMouseY = py;
+    });
+
+    stage?.addEventListener("pointerleave", () => {
+      targetMouseX = -9999;
+      targetMouseY = -9999;
+      mouseVelX = 0;
+      mouseVelY = 0;
+    });
+
+    // Animation & Render Loop
+    let lastFpsTime = performance.now();
+    let frameCount = 0;
+    const startTime = performance.now();
+
+    function render(timestamp: number) {
+      if (!gl || !isImageLoaded || !targetVBO || !baseVBO) {
+        requestAnimationFrame(render);
+        return;
+      }
+
+      frameCount++;
+      if (timestamp - lastFpsTime >= 1000) {
+        if (statFps) statFps.textContent = String(frameCount);
+        frameCount = 0;
+        lastFpsTime = timestamp;
+      }
+
+      const rect = stage?.getBoundingClientRect();
+      const curW = rect?.width || 800;
+      const curH = rect?.height || 580;
+
+      if (canvas.width !== curW || canvas.height !== curH) {
+        canvas.width = curW;
+        canvas.height = curH;
+        if (constellCanvas) {
+          constellCanvas.width = curW;
+          constellCanvas.height = curH;
+        }
+      }
+
+      const elapsed = timestamp - startTime;
+
+      // Pointer smoothing
+      if (targetMouseX > -5000) {
+        if (mouseX < -5000) {
+          mouseX = targetMouseX;
+          mouseY = targetMouseY;
+        } else {
+          mouseX += (targetMouseX - mouseX) * 0.35;
+          mouseY += (targetMouseY - mouseY) * 0.35;
+        }
+        smoothVelX = mouseVelX;
+        smoothVelY = mouseVelY;
+        rawMouseActive = Math.min(1.0, rawMouseActive + 0.05);
+      } else {
+        if (mouseX > -5000) {
+          mouseX += (-9999 - mouseX) * 0.15;
+          mouseY += (-9999 - mouseY) * 0.15;
+          if (mouseX < -8000) {
+            mouseX = -9999;
+            mouseY = -9999;
+          }
+        }
+        rawMouseActive = Math.max(0.0, rawMouseActive - 0.05);
+      }
+
+      const easedMouseActive = rawMouseActive * rawMouseActive * (3.0 - 2.0 * rawMouseActive);
+
+      // Center image in canvas
+      const imgAspect = (currentImage.naturalWidth || 1) / (currentImage.naturalHeight || 1);
+      const targetH = curH * 0.85;
+      const targetW = targetH * imgAspect;
+      const centerCX = curW * 0.5;
+      const centerCY = curH * 0.5;
+
+      gl.viewport(0, 0, curW, curH);
+      gl.clearColor(0.02, 0.02, 0.04, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.uniform1f(uTimeLoc, elapsed);
+      gl.uniform2f(uResolutionLoc, curW, curH);
+      gl.uniform2f(uMouseLoc, mouseX, mouseY);
+      gl.uniform2f(uMouseVelLoc, smoothVelX, smoothVelY);
+      gl.uniform1f(uMouseSpeedLoc, Math.hypot(smoothVelX, smoothVelY));
+      gl.uniform1f(uMouseActiveLoc, easedMouseActive);
+      gl.uniform1f(uCursorRadiusLoc, PARAMS.cursorRadius);
+      gl.uniform1f(uDimFactorLoc, 0.95);
+      gl.uniform1f(uMorphTLoc, 0.0);
+      gl.uniform1i(uMorphStyleLoc, 1);
+      gl.uniform1i(uInteractiveModeLoc, PARAMS.interactiveMode);
+      gl.uniform1f(uParamIntensityLoc, PARAMS.effectIntensity);
+      gl.uniform1f(uParamSpeedLoc, PARAMS.effectSpeed);
+      gl.uniform1f(uRepelStrengthLoc, PARAMS.repelStrength);
+      gl.uniform2f(uCenterALoc, centerCX, centerCY);
+      gl.uniform1f(uSizeALoc, targetH);
+      gl.uniform2f(uCenterBLoc, centerCX, centerCY);
+      gl.uniform1f(uSizeBLoc, targetH);
+      gl.uniform2f(uHeroAreaLoc, 0.0, 0.0);
+
+      // Bind VBOs
+      gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
+      gl.enableVertexAttribArray(aTargetALoc);
+      gl.vertexAttribPointer(aTargetALoc, 2, gl.FLOAT, false, 5 * 4, 0);
+      gl.enableVertexAttribArray(aColorALoc);
+      gl.vertexAttribPointer(aColorALoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
+
+      gl.enableVertexAttribArray(aTargetBLoc);
+      gl.vertexAttribPointer(aTargetBLoc, 2, gl.FLOAT, false, 5 * 4, 0);
+      gl.enableVertexAttribArray(aColorBLoc);
+      gl.vertexAttribPointer(aColorBLoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, baseVBO);
+      gl.enableVertexAttribArray(aOriginLoc);
+      gl.vertexAttribPointer(aOriginLoc, 2, gl.FLOAT, false, 7 * 4, 0);
+      gl.enableVertexAttribArray(aParamsLoc);
+      gl.vertexAttribPointer(aParamsLoc, 4, gl.FLOAT, false, 7 * 4, 2 * 4);
+      gl.enableVertexAttribArray(aScatterLoc);
+      gl.vertexAttribPointer(aScatterLoc, 1, gl.FLOAT, false, 7 * 4, 6 * 4);
+
+      gl.drawArrays(gl.POINTS, 0, PARAMS.particleCount);
+
+      // 2D Canvas Neural Constellations
+      if (constellCtx) {
+        constellCtx.clearRect(0, 0, curW, curH);
+
+        if (PARAMS.interactiveMode === 7 && easedMouseActive > 0.01 && mouseX > -100 && constellationNodes.length > 0) {
+          const maxDist = PARAMS.cursorRadius * 1.35;
+          const nodes: { x: number; y: number; dist: number }[] = [];
+
+          for (let i = 0; i < constellationNodes.length; i++) {
+            const n = constellationNodes[i];
+            const px = centerCX + n.nx * targetH;
+            const py = centerCY + n.ny * targetH;
+            const d = Math.hypot(px - mouseX, py - mouseY);
+            if (d < maxDist) {
+              nodes.push({ x: px, y: py, dist: d });
+            }
+          }
+
+          if (nodes.length > 0) {
+            nodes.sort((a, b) => a.dist - b.dist);
+            const count = Math.min(nodes.length, 14);
+
+            constellCtx.save();
+            constellCtx.lineWidth = 1.0;
+            for (let i = 0; i < count; i++) {
+              const n = nodes[i];
+              const alpha = (1.0 - n.dist / maxDist) * 0.75 * PARAMS.effectIntensity;
+              constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
+              constellCtx.beginPath();
+              constellCtx.moveTo(mouseX, mouseY);
+              constellCtx.lineTo(n.x, n.y);
+              constellCtx.stroke();
+            }
+            constellCtx.restore();
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initParticleSandbox);
+  } else {
+    initParticleSandbox();
+  }
+</script>

@@ -1,9 +1,6 @@
 ---
 title: PhpStorm 8 Released - See What's New and Grab a Free License
-description: >-
-  This week marks the release of PhpStorm 8. It’s no secret PhpStorm has been a
-  long personal favorite of mine after having won me over from Zend Studio,
-  Netbeans
+description: This week marks the release of PhpStorm 8. It’s no secret PhpStorm has been a long personal favorite of mine after having won me over from Zend Studio, Netbeans
 pubDate: '2014-09-21'
 categories:
   - Technology

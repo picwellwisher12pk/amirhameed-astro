@@ -1,9 +1,6 @@
 ---
 title: Help! My Portfolio Sucks · An A List Apart Column
-description: >-
-  What if a lot of your past work reflects times when you satisfied the client,
-  but couldn’t sell them on your best ideas? How do you build a portfolio out of
-  cho
+description: What if a lot of your past work reflects times when you satisfied the client, but couldn’t sell them on your best ideas? How do you build a portfolio out of cho
 pubDate: '2014-12-18'
 categories:
   - Design

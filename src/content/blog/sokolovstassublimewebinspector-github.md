@@ -1,9 +1,6 @@
 ---
 title: sokolovstas/SublimeWebInspector - Github
-description: >-
-  Sublime Web Inspector works on top of WebInspectorProtocol. All information is
-  displayed in console and text files. You can click on objects from console or
-  sta
+description: Sublime Web Inspector works on top of WebInspectorProtocol. All information is displayed in console and text files. You can click on objects from console or sta
 pubDate: '2014-08-05'
 categories:
   - Technology

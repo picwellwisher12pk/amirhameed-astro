@@ -1,9 +1,6 @@
 ---
 title: CSS shapes in email » STYLECampaign »
-description: >-
-  CSS shapes allow us to move away from boxy designs, towards organic magazine
-  style layouts. In the photo below the text follows the contours of the image,
-  as we
+description: CSS shapes allow us to move away from boxy designs, towards organic magazine style layouts. In the photo below the text follows the contours of the image, as we
 pubDate: '2014-10-08'
 categories:
   - Tutorial

@@ -1,9 +1,6 @@
 ---
 title: 4 Reasons Why SEM Is Better Than SEO | Fast Company | Business + Innovation
-description: >-
-  What SEO is justifiably famous for is its ability to convince the search
-  engines--the algorithms that index your website--that your webpage is the most
-  relevant
+description: What SEO is justifiably famous for is its ability to convince the search engines--the algorithms that index your website--that your webpage is the most relevant
 pubDate: '2014-07-25'
 categories:
   - Technology

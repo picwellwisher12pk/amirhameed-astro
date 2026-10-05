@@ -1,9 +1,6 @@
 ---
 title: Introduction to the Swift Programming Language
-description: >-
-  One of the major and most surprising announcements to come out of Apple’s
-  Worldwide Developers Conference was the introduction of Swift, a new
-  programming langu
+description: One of the major and most surprising announcements to come out of Apple’s Worldwide Developers Conference was the introduction of Swift, a new programming langu
 pubDate: '2014-07-26'
 categories:
   - Technology

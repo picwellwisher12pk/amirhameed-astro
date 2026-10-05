@@ -1,6 +1,6 @@
 ---
 // Luxury Classical Cinematic Fullscreen High-Density Nano-Particle Cloud Intro (WebGL GPU-Accelerated)
-// 5 Switchable Organic Interaction Modes: 3D Hologram, Silk Ripple, Celestial Lantern, Gravity Lens, Fluid Wake
+// 8 Switchable Organic Interaction Modes
 ---
 
 <!-- Pitch-black cinematic veil (active during luxury theme entrance) -->
@@ -97,699 +97,26 @@
 </div>
 
 <script>
-  // =========================================================================
-  // 🎛️ LUXURY PARTICLE SYSTEM CONFIGURATION - TWEAK ANY SETTING FREELY
-  // =========================================================================
-  const DEFAULT_IMAGE_LAYOUTS = [
-    {
-      scale: 1.0936430948476303,
-      alignX: 0.7600426894343649,
-      alignY: 0.48698481561822127,
-    },
-    {
-      scale: 1.5,
-      alignX: 0.7465314834578441,
-      alignY: 0.48590021691973967,
-    },
-    {
-      scale: 1.1170019439785475,
-      alignX: 0.8046424759871932,
-      alignY: 0.4436008676789588,
-    },
-  ];
+  import {
+    PARTICLE_CONFIG,
+    restoreSavedSettings,
+    getImageLayout,
+  } from "../lib/luxury-particles/config";
+  import { VS_SOURCE, FS_SOURCE } from "../lib/luxury-particles/shaders";
+  import {
+    loadAllConfigImages,
+    sampleImageTargets,
+    type ConstellationNode,
+  } from "../lib/luxury-particles/sampler";
+  import {
+    setupGizmoInteractions,
+    updateGizmoPosition,
+    registerLuxuryParticleStudioApi,
+    type GizmoState,
+  } from "../lib/luxury-particles/gizmo";
 
-  const PARTICLE_CONFIG = {
-    // 1. POSITIONING & SIZING PER IMAGE
-    imageLayouts: JSON.parse(JSON.stringify(DEFAULT_IMAGE_LAYOUTS)),
-
-    // 2. 🔮 7 SWITCHABLE ORGANIC INTERACTIVE MODES
-    // 1: 3D Holographic Parallax (Tilt & Depth Relief)
-    // 2: Silk Surface Ripple (Liquid Gold Waves)
-    // 3: Celestial Lantern (Bioluminescent Light)
-    // 4: Gravitational Lens (Cosmic Curvature)
-    // 5: Fluid Stardust Wake (Curl Turbulence)
-    // 6: Soft Physics Displace (Elastic Damped Membrane)
-    // 7: Neural Constellation (Synaptic Filaments)
-    interactiveMode: 1,
-    isRandomMode: true,
-    effectIntensity: 1.0,
-    effectSpeed: 1.0,
-    cursorRadius: 140.0,
-    repelStrength: 20.0,
-    returnSpeed: 0.035,
-    dragDamping: 0.9,
-
-    // 3. OPACITY & TEXT CONTRAST (Steady 50% opacity from loading across entire life cycle)
-    initialOpacity: 0.5,
-    settledDimOpacity: 0.5,
-    dimTransitionDuration: 1.0,
-
-    // 4. TIMING & GRADUAL SEQUENTIAL REVEAL
-    introGatherDuration: 2600,
-    elementStaggerDelay: 320,
-    elementRevealStartDelay: 500, // Start revealing elements after 500ms
-
-    // 5. SCROLL ARCHITECTURE & MULTI-PICTURE MORPHING
-    fixedInViewport: true,
-    morphPlateau: 0.28,
-    morphStyle: 1, // 1:WaveWipe 2:GravityCollapse 3:LiquidFlow 4:Lightning 5:RadialIris
-    images: [
-      "/images/amir-portrait-luxury.jpg",
-      // "/images/2.jpg",
-      "/images/3.jpg",
-      "/images/4.jpg",
-    ],
-  };
-
-  // Restore saved layouts & mode from localStorage
-  function restoreSavedSettings() {
-    try {
-      const lockedMode = localStorage.getItem("luxury_particle_locked_mode");
-      if (lockedMode) {
-        const modeNum = parseInt(lockedMode, 10);
-        if (modeNum >= 1 && modeNum <= 7) {
-          PARTICLE_CONFIG.interactiveMode = modeNum;
-          PARTICLE_CONFIG.isRandomMode = false;
-        }
-      } else {
-        // Random mode selected fresh on each page load!
-        PARTICLE_CONFIG.interactiveMode = Math.floor(Math.random() * 7) + 1;
-        PARTICLE_CONFIG.isRandomMode = true;
-      }
-
-      // Clear legacy single-mode storage so it doesn't freeze the random selection
-      localStorage.removeItem("luxury_particle_mode");
-
-      const raw = localStorage.getItem("luxury_particle_layouts");
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          parsed.forEach((layout, i) => {
-            if (layout && typeof layout.scale === "number") {
-              PARTICLE_CONFIG.imageLayouts[i] = {
-                scale: layout.scale,
-                alignX: layout.alignX,
-                alignY: layout.alignY,
-              };
-            }
-          });
-        }
-      }
-    } catch (e) {
-      console.warn("Could not restore particle settings from localStorage", e);
-    }
-  }
   restoreSavedSettings();
-
-  function saveSettingsToStorage() {
-    try {
-      localStorage.setItem(
-        "luxury_particle_layouts",
-        JSON.stringify(PARTICLE_CONFIG.imageLayouts),
-      );
-      if (!PARTICLE_CONFIG.isRandomMode) {
-        localStorage.setItem(
-          "luxury_particle_locked_mode",
-          String(PARTICLE_CONFIG.interactiveMode),
-        );
-      } else {
-        localStorage.removeItem("luxury_particle_locked_mode");
-      }
-    } catch (e) {
-      console.warn("Could not save particle settings to localStorage", e);
-    }
-  }
-
-  function getImageLayout(index: number) {
-    if (PARTICLE_CONFIG.imageLayouts[index]) {
-      return PARTICLE_CONFIG.imageLayouts[index];
-    }
-    const fallback = { scale: 1.0, alignX: 0.5, alignY: 0.5 };
-    PARTICLE_CONFIG.imageLayouts[index] = fallback;
-    return fallback;
-  }
-
-  // Expose configuration globally for testing & tweaking: window.PARTICLE_CONFIG
   (window as any).PARTICLE_CONFIG = PARTICLE_CONFIG;
-
-  // WebGL Shaders with 5 Switchable Organic Interaction Modes
-  const VS_SOURCE = `
-    attribute vec2 a_targetA;
-    attribute vec3 a_colorA;
-    attribute vec2 a_targetB;
-    attribute vec3 a_colorB;
-    attribute vec2 a_origin;
-    attribute vec4 a_params; // x: delay, y: duration, z: size, w: curl
-    attribute float a_scatter; // 0.0: assembles into picture (99%), 1.0: permanent wanderer (1%)
-
-    uniform float u_time;
-    uniform vec2 u_resolution;
-    uniform vec2 u_mouse;
-    uniform vec2 u_mouse_vel;
-    uniform float u_mouse_speed;
-    uniform float u_mouse_active;
-    uniform float u_cursor_radius;
-    uniform float u_dim_factor;
-    uniform float u_morph_t; // 0.0 to 1.0 morph between Image A and Image B
-    uniform int u_morph_style; // 1:WaveWipe 2:GravityCollapse 3:LiquidFlow 4:Lightning 5:RadialIris
-
-    // Interactive Mode & Parameters
-    uniform int u_interactive_mode; // 1: Hologram, 2: Ripple, 3: Lantern, 4: Gravity, 5: Fluid
-    uniform float u_param_intensity;
-    uniform float u_param_speed;
-    uniform float u_repel_strength;
-
-    // Dynamic Live Transforms (Scale and Center per Image)
-    uniform vec2 u_centerA;
-    uniform float u_sizeA;
-    uniform vec2 u_centerB;
-    uniform float u_sizeB;
-
-    // Hero content area for invert effect (left side of screen)
-    uniform vec2 u_hero_area; // x: width of hero area (in pixels), y: unused
-
-    varying vec3 v_color;
-    varying float v_alpha;
-
-    // Simplex Noise & Divergence-Free Curl Field
-    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-    float snoise(vec2 v) {
-      const vec4 C = vec4(0.211324865405187,
-                          0.366025403784439,
-                         -0.577350269189626,
-                          0.024390243902439);
-      vec2 i  = floor(v + dot(v, C.yy));
-      vec2 x0 = v - i + dot(i, C.xx);
-      vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-      vec4 x12 = x0.xyxy + C.xxzz;
-      x12.xy -= i1;
-      i = mod289(i);
-      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
-            + i.x + vec3(0.0, i1.x, 1.0));
-      vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
-      m = m * m;
-      m = m * m;
-      vec3 x = 2.0 * fract(p * C.www) - 1.0;
-      vec3 h = abs(x) - 0.5;
-      vec3 ox = floor(x + 0.5);
-      vec3 a0 = x - ox;
-      m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
-      vec3 g;
-      g.x  = a0.x  * x0.x  + h.x  * x0.y;
-      g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-      return 130.0 * dot(m, g);
-    }
-
-    vec2 curlNoise(vec2 p) {
-      float eps = 0.5;
-      float n1 = snoise(vec2(p.x, p.y + eps));
-      float n2 = snoise(vec2(p.x, p.y - eps));
-      float n3 = snoise(vec2(p.x + eps, p.y));
-      float n4 = snoise(vec2(p.x - eps, p.y));
-      float dx = (n1 - n2) / (2.0 * eps);
-      float dy = (n3 - n4) / (2.0 * eps);
-      return vec2(dx, -dy);
-    }
-
-    void main() {
-      float delay = a_params.x;
-      float duration = a_params.y;
-      float size = a_params.z;
-      float curl = a_params.w;
-
-      float pElapsed = max(0.0, u_time - delay);
-      float progress = clamp(pElapsed / duration, 0.0, 1.0);
-
-      // Smooth quintic ease out for majestic cinematic gathering
-      float t = 1.0 - progress;
-      float ease = 1.0 - t * t * t * t;
-
-      // Dynamically compute screen pixel target coordinates from normalized coordinates
-      vec2 targetPosA = u_centerA + a_targetA * u_sizeA;
-      vec2 targetPosB = u_centerB + a_targetB * u_sizeB;
-
-      // High-entropy per-particle pseudo-random seeds: breaks any artificial banding
-      float pRnd1 = fract(sin(dot(a_targetA.xy + vec2(curl, size), vec2(12.9898, 78.233))) * 43758.5453);
-      float pRnd2 = fract(sin(dot(a_targetB.xy + vec2(size, -curl), vec2(39.346, 11.135))) * 28462.6315);
-      float pRnd3 = fract(a_params.x * 0.0071 + curl * 13.37);
-
-      // Screen origin in absolute pixels:
-      vec2 screenOrigin = a_origin * u_resolution;
-
-      // Ambient wandering flow across viewport:
-      // When page loads, particles move randomly "here and there"
-      vec2 driftCoord = screenOrigin * 0.0016 + vec2(u_time * 0.00015, -u_time * 0.00012);
-      vec2 curlWander = curlNoise(driftCoord) * 36.0;
-      vec2 harmonicWander = vec2(
-        sin(u_time * 0.0013 * (0.7 + pRnd1 * 0.6) + pRnd2 * 6.283) * 26.0,
-        cos(u_time * 0.0010 * (0.7 + pRnd2 * 0.6) + pRnd3 * 6.283) * 22.0
-      );
-      vec2 liveOrigin = screenOrigin + curlWander + harmonicWander;
-
-      // =====================================================================
-      // 5 SELECTABLE MORPH STYLES (u_morph_style 1–5)
-      // =====================================================================
-      vec2 screenCenter = u_resolution * 0.5;
-      float mt = u_morph_t; // 0=Image A, 1=Image B
-      vec2 morphedTarget;
-      vec3 morphedColor;
-      float morphHighlight = 0.0; // extra brightness at the wave/transition front
-      // ---------------------------------------------------------------
-      // STYLE 1: DIRECT SPATIAL FLOW
-      // Particles flow directly from their A target to B target.
-      // Individual stochastic dispersion: ZERO strips, ZERO bands.
-      // Particles embark and arrive independently with organic micro-arcs.
-      // ---------------------------------------------------------------
-      if (u_morph_style == 1) {
-        vec2 midPt = (targetPosA + targetPosB) * 0.5;
-        float distFromCenter = length(midPt - screenCenter);
-        float maxDist = max(1.0, length(u_resolution) * 0.52);
-        float normDist = clamp(distFromCenter / maxDist, 0.0, 1.0);
-
-        // Blending gentle spatial wave with heavy individual particle noise:
-        // Ensures particles in the same region do NOT move in lockstep strips
-        float particleJitter = (pRnd1 - 0.5) * 0.38 + (pRnd2 - 0.5) * 0.16;
-        float particleOffset = normDist * 0.18 + particleJitter;
-        float windowWidth = 0.52;
-        float localT = clamp((mt * (1.0 + windowWidth) - particleOffset) / windowWidth, 0.0, 1.0);
-
-        // Double-smooth for buttery ease in/out
-        float smoothT = localT * localT * (3.0 - 2.0 * localT);
-        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
-
-        // Individual organic micro-arc trajectory:
-        // Each particle curves along its own random angle rather than a uniform direction
-        float arcHeight = length(targetPosB - targetPosA) * 0.08 * (0.6 + pRnd3 * 0.8);
-        vec2 randomArcDir = vec2(cos(pRnd1 * 6.28318), sin(pRnd1 * 6.28318));
-        vec2 centerBias = normalize(screenCenter - midPt + vec2(0.001));
-        vec2 arcDir = normalize(mix(randomArcDir, centerBias, 0.35));
-        float arcAmt = 4.0 * smoothT * (1.0 - smoothT);
-        vec2 arcOffset = arcDir * (arcHeight * arcAmt);
-
-        morphedTarget = mix(targetPosA, targetPosB, smoothT) + arcOffset;
-        morphedColor = mix(a_colorA, a_colorB, smoothT);
-        morphHighlight = 3.0 * localT * (1.0 - localT) * 0.55;
-
-      // ---------------------------------------------------------------
-      // STYLE 2: WIND SWIRL & VORTEX
-      // Phase 1 (0→0.50): Windstorm blows in; particles spin into a
-      //   swirling vortex destroying Image A.
-      // Phase 2 (0.50→1.0): Wind subsides; particles spiral inward
-      //   to assemble Image B in its respective shape.
-      // ---------------------------------------------------------------
-      } else if (u_morph_style == 2) {
-        float windSplit = 0.50;
-
-        if (mt <= windSplit) {
-          float p = mt / windSplit;
-          // Left-to-right wind arrival front
-          float windFront = clamp(p * 1.5 - (targetPosA.x / max(1.0, u_resolution.x)) * 0.5, 0.0, 1.0);
-          float pe = windFront * windFront * (3.0 - 2.0 * windFront);
-
-          // Whirlwind vortex around local image center
-          vec2 rel = targetPosA - u_centerA;
-          float swirlAngle = pe * 3.6 * (0.8 + 0.4 * abs(curl));
-          float cA = cos(swirlAngle); float sA = sin(swirlAngle);
-          vec2 spun = vec2(rel.x * cA - rel.y * sA, rel.x * sA + rel.y * cA);
-
-          // Linear wind drift: gusting diagonally right and up
-          vec2 windDraft = vec2(300.0, -80.0) * (pe * pe);
-
-          // Curl turbulence
-          vec2 curlSample = targetPosA * 0.005 + vec2(u_time * 0.0004, pe * 0.5);
-          vec2 curlField = curlNoise(curlSample) * (140.0 * pe);
-
-          morphedTarget = u_centerA + mix(rel, spun, pe) + windDraft + curlField;
-          morphedColor = mix(a_colorA, vec3(0.95, 0.88, 0.55), pe * 0.45);
-          morphHighlight = pe * 0.45;
-
-        } else {
-          float p = (mt - windSplit) / (1.0 - windSplit);
-          // Gathering front: particles settle into Image B
-          float gatherFront = clamp(p * 1.5 - (1.0 - targetPosB.x / max(1.0, u_resolution.x)) * 0.5, 0.0, 1.0);
-          float ge = gatherFront * gatherFront * (3.0 - 2.0 * gatherFront);
-
-          // Spiral in towards Image B
-          vec2 relB = targetPosB - u_centerB;
-          float returnAngle = (1.0 - ge) * 3.6 * (0.8 + 0.4 * abs(curl));
-          float cB = cos(returnAngle); float sB = sin(returnAngle);
-          vec2 spunB = vec2(relB.x * cB - relB.y * sB, relB.x * sB + relB.y * cB);
-
-          vec2 residualDraft = vec2(300.0, -80.0) * (1.0 - ge) * (1.0 - ge);
-          vec2 residualCurl = curlNoise(targetPosB * 0.005 + vec2(p * 0.5)) * (140.0 * (1.0 - ge));
-
-          vec2 vortexSource = u_centerB + spunB + residualDraft + residualCurl;
-
-          morphedTarget = mix(vortexSource, targetPosB, ge);
-          morphedColor = mix(vec3(0.95, 0.88, 0.55), a_colorB, ge);
-          morphHighlight = (1.0 - ge) * 0.40;
-        }
-
-      // ---------------------------------------------------------------
-      // STYLE 3: DIAGONAL WAVE WIPE (editorial page-turn)
-      // A light-seam sweeps diagonally; particles transform on contact.
-      // ---------------------------------------------------------------
-      } else if (u_morph_style == 3) {
-        vec2 sweepDir = normalize(vec2(0.65, 0.35));
-        vec2 midPt = (targetPosA + targetPosB) * 0.5;
-        float proj = dot(midPt / u_resolution, sweepDir);
-        float wavePos = mt * 1.08 - 0.04;
-        float waveBand = 0.10;
-        float signedD = wavePos - proj;
-        float localT = clamp(signedD / waveBand + 0.5, 0.0, 1.0);
-        float smoothT = localT * localT * (3.0 - 2.0 * localT);
-        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
-        morphedTarget = mix(targetPosA, targetPosB, smoothT);
-        morphedColor = mix(a_colorA, a_colorB, smoothT);
-        morphHighlight = 4.0 * localT * (1.0 - localT);
-
-      // ---------------------------------------------------------------
-      // STYLE 4: GRAVITY COLLAPSE (black hole singularity)
-      // All particles implode to a bright point, then explode to Image B.
-      // ---------------------------------------------------------------
-      } else if (u_morph_style == 4) {
-        float collapseEnd = 0.44;
-        float expandStart = 0.56;
-        if (mt <= collapseEnd) {
-          float p = mt / collapseEnd;
-          float pe = p * p * p;
-          morphedTarget = mix(targetPosA, screenCenter, pe);
-          morphedColor = mix(a_colorA, vec3(1.0, 0.9, 0.5), pe);
-          morphHighlight = pe * 0.9;
-        } else if (mt < expandStart) {
-          morphedTarget = screenCenter;
-          morphedColor = vec3(1.0, 0.95, 0.6);
-          morphHighlight = 1.0;
-        } else {
-          float p = (mt - expandStart) / (1.0 - expandStart);
-          float pe = 1.0 - (1.0 - p) * (1.0 - p) * (1.0 - p);
-          morphedTarget = mix(screenCenter, targetPosB, pe);
-          morphedColor = mix(vec3(1.0, 0.95, 0.6), a_colorB, pe);
-          morphHighlight = (1.0 - p) * 0.5;
-        }
-
-      // ---------------------------------------------------------------
-      // STYLE 5: RADIAL IRIS (camera aperture reveal)
-      // Soft stochastic particle dispersion: NO hard concentric rings/bands.
-      // ---------------------------------------------------------------
-      } else {
-        vec2 midPt2 = (targetPosA + targetPosB) * 0.5;
-        float distFromCenter = length(midPt2 - screenCenter);
-        float maxDist = max(1.0, length(u_resolution) * 0.5);
-        float normDist = clamp(distFromCenter / maxDist, 0.0, 1.0);
-
-        // Heavy per-particle dither breaks circular bands into dispersed stardust
-        float noisyDist = normDist + (pRnd1 - 0.5) * 0.32 + (pRnd2 - 0.5) * 0.14;
-        float irisWidth = 0.38;
-        float irisPos = mt * (1.0 + irisWidth) - irisWidth * 0.5;
-        float localT = clamp((irisPos - noisyDist) / irisWidth + 0.5, 0.0, 1.0);
-
-        float smoothT = localT * localT * (3.0 - 2.0 * localT);
-        smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
-
-        // Individual organic micro-twist per particle
-        float irisTwist = (1.0 - smoothT) * smoothT * curl * (0.3 + pRnd3 * 0.4);
-        float cI = cos(irisTwist); float sI = sin(irisTwist);
-        vec2 diffAB = targetPosB - targetPosA;
-        vec2 twistedB = targetPosA + vec2(diffAB.x * cI - diffAB.y * sI, diffAB.x * sI + diffAB.y * cI);
-
-        morphedTarget = mix(targetPosA, twistedB, smoothT);
-        morphedColor = mix(a_colorA, a_colorB, smoothT);
-        morphHighlight = 3.5 * localT * (1.0 - localT) * 0.65;
-      }
-
-      vec3 goldHighlight = vec3(1.0, 0.87, 0.38);
-      vec3 finalColor = mix(morphedColor, goldHighlight, clamp(morphHighlight, 0.0, 1.0) * 0.65);
-      float pointSize = size * (1.0 + morphHighlight * 0.6 + (1.0 - progress) * 0.6);
-
-      // Gathering flight with dynamic swirl:
-      // When progress == 0.0, gatherSwirl is 0 so particle is at liveOrigin drifting freely.
-      // As progress goes from 0.0 to 1.0, gatherSwirl gracefully spirals into morphedTarget.
-      float gatherSwirl = sin(progress * 3.14159) * curl * 0.85;
-      vec2 diff = liveOrigin - morphedTarget;
-      float cosA = cos(gatherSwirl);
-      float sinA = sin(gatherSwirl);
-      vec2 rotatedDiff = vec2(
-        diff.x * cosA - diff.y * sinA,
-        diff.x * sinA + diff.y * cosA
-      );
-      vec2 currentOrigin = morphedTarget + rotatedDiff;
-      vec2 pos = mix(currentOrigin, morphedTarget, ease);
-
-      // Subtle breathing ambient shimmer when settled
-      if (progress >= 1.0) {
-        float shimmer = sin(u_time * 0.002 + morphedTarget.x * 0.01 + morphedTarget.y * 0.01) * 0.6;
-        pos.y += shimmer;
-      }
-
-      // ---------------------------------------------------------------
-      // 1% PERMANENT SCATTERED WANDERERS:
-      // They NEVER assemble into the picture; they remain distributed
-      // across the viewport, drifting continuously in cosmic currents.
-      // ---------------------------------------------------------------
-      if (a_scatter > 0.5) {
-        // While particles are assembling (500ms to 2400ms), wanderers migrate toward assembly center
-        // Once assembly completes, inward motion stops and they continue scattered in viewport
-        float gatherProgress = clamp((u_time - 500.0) / 1900.0, 0.0, 1.0);
-        float pullEase = gatherProgress * gatherProgress * (3.0 - 2.0 * gatherProgress);
-        pullEase = pullEase * pullEase * (3.0 - 2.0 * pullEase);
-
-        float pullFraction = 0.18 + 0.28 * pRnd2;
-        vec2 assemblyCenter = u_centerA;
-        vec2 toCenter = assemblyCenter - screenOrigin;
-        vec2 inwardOffset = toCenter * (pullFraction * pullEase);
-
-        vec2 cosmicNoise = curlNoise(screenOrigin * 0.0011 + vec2(u_time * 0.00010, -u_time * 0.00008)) * 65.0;
-        vec2 cosmicSine = vec2(
-          sin(u_time * 0.0009 * (0.6 + pRnd3 * 0.8) + pRnd1 * 6.283) * 45.0,
-          cos(u_time * 0.0007 * (0.6 + pRnd2 * 0.8) + pRnd3 * 6.283) * 35.0
-        );
-        pos = screenOrigin + inwardOffset + cosmicNoise + cosmicSine;
-
-        // Soft sparkling celestial gold dust
-        finalColor = mix(vec3(0.96, 0.84, 0.43), vec3(1.0, 0.94, 0.72), pRnd1);
-        pointSize = size * (1.15 + sin(u_time * 0.0028 + pRnd2 * 6.283) * 0.35);
-      }
-
-      // =====================================================================
-      // 🔮 8 SWITCHABLE ORGANIC INTERACTIVE MODES
-      // =====================================================================
-      if (u_mouse_active > 0.01) {
-        vec2 toMouse = pos - u_mouse;
-        float d = length(toMouse);
-
-        // -------------------------------------------------------------
-        // MODE 1: Volumetric Quantum Aura (Pure Particle Movements Only)
-        // -------------------------------------------------------------
-        if (u_interactive_mode == 1) {
-          vec2 center = mix(u_centerA, u_centerB, u_morph_t);
-          float curSize = mix(u_sizeA, u_sizeB, u_morph_t);
-          float distToCenter = length(pos - center);
-          float normFaceDist = distToCenter / max(1.0, curSize * 0.45);
-
-          // 1. Concentric Quantum Interference Wave
-          float waveSpeed = u_time * 0.0055 * u_param_speed;
-          float ringWave = sin(d * 0.048 - waveSpeed);
-          float ringDecay = exp(-d * 0.0070);
-          float ringIntensity = ringWave * ringDecay * u_param_intensity;
-
-          // 2. Silhouette Aura Factor: Keeps facial core (eyes/nose/mouth) 100% solid & unwarped
-          float outerFactor = smoothstep(0.18, 0.95, normFaceDist);
-          vec2 tangent = vec2(-toMouse.y, toMouse.x);
-          vec2 normTangent = length(tangent) > 0.001 ? normalize(tangent) : vec2(0.0, 1.0);
-          vec2 normRadial = d > 0.001 ? (toMouse / d) : vec2(1.0, 0.0);
-          
-          // Pure particle movements: Orbital quantum harmonic drift + radial breathing wave
-          vec2 orbitalPush = normTangent * (sin(d * 0.04 + waveSpeed * 1.5) * 7.5 * outerFactor * ringDecay * u_param_intensity);
-          vec2 radialPulse = normRadial * (ringIntensity * 5.5 * outerFactor);
-          pos += (orbitalPush + radialPulse) * u_mouse_active;
-          // Note: Zero color bloom/glow and zero pointSize change. Pure particle displacement only.
-        }
-
-        // -------------------------------------------------------------
-        // MODE 2: Silk Surface Ripple (Liquid Gold Waves)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 2) {
-          float maxRippleDist = u_cursor_radius * 2.2;
-          if (d < maxRippleDist && d > 0.01) {
-            float wavePhase = d * 0.075 - u_time * 0.007 * u_param_speed;
-            float wave = sin(wavePhase);
-            float decay = exp(-d * 0.011) * (1.0 - smoothstep(u_cursor_radius * 0.6, maxRippleDist, d));
-            vec2 rippleDisplace = normalize(toMouse) * (wave * 20.0 * decay * u_param_intensity);
-            pos += rippleDisplace * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 3: Celestial Lantern (Physical Micro Attraction)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 3) {
-          float lanternRadius = u_cursor_radius * 1.6;
-          if (d < lanternRadius && d > 0.01) {
-            float lightFalloff = max(0.0, 1.0 - d / lanternRadius);
-            lightFalloff = lightFalloff * lightFalloff * (3.0 - 2.0 * lightFalloff);
-            // Subtle ambient physical attraction toward cursor
-            pos += normalize(-toMouse) * (lightFalloff * 8.0 * u_param_intensity) * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 4: Gravitational Lens (Cosmic Curvature)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 4) {
-          float maxGravDist = u_cursor_radius * 1.8;
-          if (d < maxGravDist && d > 1.0) {
-            float r0 = u_cursor_radius * 0.45;
-            vec2 tangent = vec2(-toMouse.y, toMouse.x);
-            float deflection = (r0 / (d + 25.0)) * (34.0 * u_param_intensity);
-            float falloff = 1.0 - smoothstep(r0, maxGravDist, d);
-            vec2 gravDisplace = (normalize(tangent) * deflection + normalize(-toMouse) * (deflection * 0.35)) * falloff;
-            pos += gravDisplace * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 5: Fluid Stardust Wake (Curl Turbulence)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 5) {
-          if (d < u_cursor_radius && d > 0.01) {
-            float normD = d / u_cursor_radius;
-            float falloff = 1.0 - normD;
-            falloff = falloff * falloff * (3.0 - 2.0 * falloff);
-
-            vec2 velocityWake = u_mouse_vel * (0.38 * u_param_intensity) * falloff;
-            vec2 curlCoord = pos * 0.0065 + vec2(u_time * 0.0006, -u_time * 0.0005);
-            vec2 fluidVortex = curlNoise(curlCoord) * (46.0 * u_param_intensity) * falloff;
-            vec2 radialPush = normalize(toMouse) * (u_repel_strength * falloff * (1.0 - normD * 0.5));
-
-            float particleInertia = 0.75 + 0.5 * abs(curl);
-            vec2 totalDisplacement = (velocityWake + fluidVortex + radialPush) * particleInertia;
-            pos += totalDisplacement * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 6: Simple Soft Physics (Elastic Damped Membrane)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 6) {
-          float sigma = u_cursor_radius * 0.58;
-          float gaussian = exp(- (d * d) / (2.0 * sigma * sigma));
-          
-          if (gaussian > 0.0008) {
-            vec2 pushDir = (d > 0.01) ? (toMouse / d) : vec2(0.0, 1.0);
-            float softPush = gaussian * (22.0 * u_param_intensity);
-            vec2 viscousDrag = u_mouse_vel * (0.16 * u_param_intensity) * gaussian;
-            float springPhase = u_time * 0.005 * u_param_speed - d * 0.025;
-            float springWave = sin(springPhase) * gaussian * (3.0 * u_param_intensity);
-            
-            vec2 displacement = pushDir * softPush + viscousDrag + pushDir * springWave;
-            pos += displacement * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 7: Neural Constellation (Synaptic Web & Nodal Beacons)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 7) {
-          float constellRadius = u_cursor_radius * 1.5;
-          if (d < constellRadius && d > 0.01) {
-            float normD = d / constellRadius;
-            float falloff = 1.0 - normD;
-            falloff = falloff * falloff * (3.0 - 2.0 * falloff);
-
-            // Subtle magnetic synaptic tension toward cursor
-            pos += normalize(-toMouse) * (falloff * 7.0 * u_param_intensity) * u_mouse_active;
-
-            // Micro electrical twitch / synaptic shimmer
-            float twitch = sin(u_time * 0.02 + pos.x * 0.15 + pos.y * 0.15) * (falloff * 2.0 * u_param_intensity);
-            pos.y += twitch * u_mouse_active;
-          }
-        }
-
-        // -------------------------------------------------------------
-        // MODE 8: Holographic Cyber Scanlines (Laser Sweep & Prismatic Slices)
-        // -------------------------------------------------------------
-        else if (u_interactive_mode == 8) {
-          // 1. Continuous Vertical Holographic Laser Sweep
-          float sweepProgress = fract(u_time * 0.00035 * u_param_speed);
-          float laserY = sweepProgress * u_resolution.y;
-          float beamDist = abs(pos.y - laserY);
-          float laserBeam = smoothstep(55.0, 0.0, beamDist) * u_param_intensity;
-
-          // 2. High-Tech Horizontal Micro-Scanline Frequency (Quantum comb)
-          float scanFreq = sin(pos.y * 0.75 + u_time * 0.015);
-          float glitchJitter = step(0.94, sin(pos.y * 0.25 + u_time * 0.04)) * 3.5;
-          
-          // Subtle horizontal slice shimmer only when beam passes or cursor is near
-          float cursorProximity = max(0.0, 1.0 - d / (u_cursor_radius * 1.3));
-          float activeSlice = max(laserBeam, cursorProximity * 0.75);
-          pos.x += (scanFreq * 2.2 + glitchJitter) * activeSlice * u_param_intensity * u_mouse_active;
-
-          // 3. Interactive Cursor Interference Beam (Cross-field laser)
-          if (abs(pos.x - u_mouse.x) < 2.5 && d < u_cursor_radius * 1.2) {
-            pointSize += 1.5 * u_mouse_active;
-          }
-
-          // 4. Prismatic Cyan-Gold Chromatic Holographic Shimmer
-          if (activeSlice > 0.05) {
-            vec3 cyberHolo = vec3(0.55, 0.92, 1.0); // Cyan laser
-            vec3 goldHolo = vec3(1.0, 0.88, 0.52);  // Champagne gold
-            vec3 holoGlint = mix(goldHolo, cyberHolo, sin(pos.y * 0.1 + u_time * 0.008) * 0.5 + 0.5);
-            finalColor = mix(finalColor, holoGlint, activeSlice * 0.65 * u_mouse_active);
-            pointSize += activeSlice * 1.4 * u_mouse_active;
-          }
-        }
-      }
-
-      // Map to clip space (-1 to 1)
-      vec2 zeroToOne = pos / u_resolution;
-      vec2 zeroToTwo = zeroToOne * 2.0;
-      vec2 clipSpace = zeroToTwo - 1.0;
-      clipSpace.y = -clipSpace.y; // Invert Y for screen
-
-      gl_Position = vec4(clipSpace, 0.0, 1.0);
-      gl_PointSize = pointSize;
-
-      // Invert effect for particles over hero content area (left side)
-      float heroWidth = u_hero_area.x;
-      float inHeroArea = step(pos.x, heroWidth);
-      vec3 invertedColor = 1.0 - finalColor;
-      v_color = mix(finalColor, invertedColor, inHeroArea * 0.7); // 70% invert strength
-
-      // Fixed 50% opacity from loading across entire life cycle:
-      float initialFade = min(1.0, u_time / 80.0);
-      float baseOpacity = 0.50;
-
-      if (a_scatter > 0.5) {
-        // 1% ambient wanderers: higher opacity (95%) with subtle starry twinkle for better visibility above content
-        float twinkle = 0.88 + 0.12 * sin(u_time * 0.003 + pRnd1 * 6.283);
-        v_alpha = initialFade * 0.95 * twinkle;
-      } else {
-        // 99% assembling image particles: steady 50% opacity throughout
-        v_alpha = initialFade * baseOpacity;
-      }
-    }
-  `;
-
-  const FS_SOURCE = `
-    precision mediump float;
-    varying vec3 v_color;
-    varying float v_alpha;
-
-    void main() {
-      // Circular nano particle with soft celestial stardust core and ethereal halo
-      vec2 coord = gl_PointCoord - vec2(0.5);
-      float dist = length(coord);
-      if (dist > 0.5) discard;
-      float core = smoothstep(0.22, 0.0, dist);
-      float halo = smoothstep(0.5, 0.08, dist);
-      float intensity = halo * 0.75 + core * 0.55;
-      gl_FragColor = vec4(v_color, v_alpha * intensity);
-    }
-  `;
 
   let currentAnimId: number | null = null;
   let constellCanvas: HTMLCanvasElement | null = null;
@@ -809,7 +136,6 @@
   let pendingMode: number | null = null;
   let lastMoveTime = performance.now();
 
-  // Window-level mouse tracking for kinetic velocity & parallax interaction
   window.addEventListener(
     "pointermove",
     (e: MouseEvent | PointerEvent) => {
@@ -838,198 +164,21 @@
     mouseVelY = 0;
   });
 
-  // Pre-load all images configured in PARTICLE_CONFIG.images
-  async function loadAllConfigImages(
-    srcList: string[],
-  ): Promise<HTMLImageElement[]> {
-    const list =
-      srcList && srcList.length > 0
-        ? srcList
-        : ["/images/amir-portrait-luxury.jpg"];
-    const promises = list.map((src) => {
-      return new Promise<HTMLImageElement>((resolve) => {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
-        img.onerror = () => {
-          console.warn(`[LuxuryParticles] Could not load image: ${src}`);
-          resolve(img);
-        };
-        img.src = src;
-      });
-    });
-    return Promise.all(promises);
-  }
-
-  // Sample target positions and colors for any image in NORMALIZED image coordinates (nx, ny)
-  function sampleImageTargets(
-    img: HTMLImageElement,
-    particleCount: number,
-  ): Float32Array {
-    const imgW = img.naturalWidth || 1800;
-    const imgH = img.naturalHeight || 1800;
-    const imgAspect = imgW / imgH;
-
-    const sampleW = 400;
-    const sampleH = Math.max(250, Math.round(400 / imgAspect));
-    const offscreen = document.createElement("canvas");
-    offscreen.width = sampleW;
-    offscreen.height = sampleH;
-    const offCtx = offscreen.getContext("2d");
-
-    const buffer = new Float32Array(particleCount * 5); // 5 floats: nx, ny, r, g, b
-
-    if (!offCtx || imgW === 0 || imgH === 0) {
-      for (let i = 0; i < particleCount; i++) {
-        buffer[i * 5] = (Math.random() - 0.5) * imgAspect;
-        buffer[i * 5 + 1] = Math.random() - 0.5;
-        buffer[i * 5 + 2] = 0.96;
-        buffer[i * 5 + 3] = 0.84;
-        buffer[i * 5 + 4] = 0.43;
+  const state: GizmoState = {
+    studioActive: false,
+    studioGizmoVisible: true,
+    selectedImageIdx: 0,
+    studioManualMorph: null,
+    activeImageAspects: [],
+    switchMode: (m: number) => {
+      if (m !== PARTICLE_CONFIG.interactiveMode) {
+        pendingMode = m;
+        modeTransitionProgress = 1.0;
       }
-      return buffer;
-    }
+    },
+  };
 
-    offCtx.drawImage(img, 0, 0, sampleW, sampleH);
-    const imgData = offCtx.getImageData(0, 0, sampleW, sampleH).data;
-    const totalPixels = sampleW * sampleH;
-
-    const cdf = new Float64Array(totalPixels);
-    let runningSum = 0;
-
-    for (let i = 0; i < totalPixels; i++) {
-      const idx = i * 4;
-      const r = imgData[idx] / 255;
-      const g = imgData[idx + 1] / 255;
-      const b = imgData[idx + 2] / 255;
-      const a = imgData[idx + 3] / 255;
-
-      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-      let weight = 0;
-
-      if (a > 0.08) {
-        if (lum > 0.04) {
-          weight = (Math.pow(lum, 0.82) * 1.2 + 0.12) * a;
-        } else if (r > 0.02 || g > 0.02 || b > 0.02) {
-          weight = 0.05 * a;
-        }
-      }
-
-      runningSum += weight;
-      cdf[i] = runningSum;
-    }
-
-    const totalWeight = runningSum > 0 ? runningSum : 1;
-
-    for (let p = 0; p < particleCount; p++) {
-      const rnd = Math.random() * totalWeight;
-
-      let low = 0;
-      let high = totalPixels - 1;
-      while (low < high) {
-        const mid = (low + high) >> 1;
-        if (cdf[mid] < rnd) {
-          low = mid + 1;
-        } else {
-          high = mid;
-        }
-      }
-
-      const pixelIndex = low;
-      const py = Math.floor(pixelIndex / sampleW);
-      const px = pixelIndex % sampleW;
-
-      // Sub-pixel continuous random jitter: completely eliminates grid
-      const subX = px + Math.random();
-      const subY = py + Math.random();
-
-      // Normalized coordinates centered at (0, 0):
-      const nx = (subX / sampleW - 0.5) * imgAspect;
-      const ny = subY / sampleH - 0.5;
-
-      const samplePx = Math.min(sampleW - 1, Math.max(0, Math.floor(subX)));
-      const samplePy = Math.min(sampleH - 1, Math.max(0, Math.floor(subY)));
-      const byteIdx = (samplePy * sampleW + samplePx) * 4;
-      const r = imgData[byteIdx] / 255;
-      const g = imgData[byteIdx + 1] / 255;
-      const b = imgData[byteIdx + 2] / 255;
-
-      const isGold = Math.random() < 0.14;
-      const finalR = isGold ? 0.96 : r;
-      const finalG = isGold ? 0.84 : g;
-      const finalB = isGold ? 0.43 : b;
-
-      const base = p * 5;
-      buffer[base] = nx;
-      buffer[base + 1] = ny;
-      buffer[base + 2] = finalR;
-      buffer[base + 3] = finalG;
-      buffer[base + 4] = finalB;
-
-      if (p % 110 === 0 && constellationNodes.length < 500) {
-        constellationNodes.push({ nx, ny });
-      }
-    }
-
-    // -------------------------------------------------------------------------
-    // Isotropic 2D Space-Filling Curve (Morton Z-Order) + Continuous Random Jitter
-    // Eliminates all horizontal/vertical strips, bands, and scanlines.
-    // Preserves 2D spatial locality in all directions equally without raster lines.
-    // -------------------------------------------------------------------------
-    function computeSpatialKey(nx: number, ny: number): number {
-      const u = Math.max(
-        0,
-        Math.min(1023, Math.floor((nx / imgAspect + 0.5) * 1023)),
-      );
-      const v = Math.max(0, Math.min(1023, Math.floor((ny + 0.5) * 1023)));
-
-      let x = u;
-      let y = v;
-      x = (x | (x << 8)) & 0x00ff00ff;
-      x = (x | (x << 4)) & 0x0f0f0f0f;
-      x = (x | (x << 2)) & 0x33333333;
-      x = (x | (x << 1)) & 0x55555555;
-
-      y = (y | (y << 8)) & 0x00ff00ff;
-      y = (y | (y << 4)) & 0x0f0f0f0f;
-      y = (y | (y << 2)) & 0x33333333;
-      y = (y | (y << 1)) & 0x55555555;
-
-      // Random continuous sub-cell dither: breaks any artificial banding
-      return (x | (y << 1)) + (Math.random() - 0.5) * 32.0;
-    }
-
-    const indices = new Int32Array(particleCount);
-    const keys = new Float64Array(particleCount);
-    for (let i = 0; i < particleCount; i++) {
-      indices[i] = i;
-      const base = i * 5;
-      keys[i] = computeSpatialKey(buffer[base], buffer[base + 1]);
-    }
-
-    indices.sort((a, b) => keys[a] - keys[b]);
-
-    const sortedBuffer = new Float32Array(particleCount * 5);
-    for (let i = 0; i < particleCount; i++) {
-      const src = indices[i] * 5;
-      const dst = i * 5;
-      sortedBuffer[dst] = buffer[src];
-      sortedBuffer[dst + 1] = buffer[src + 1];
-      sortedBuffer[dst + 2] = buffer[src + 2];
-      sortedBuffer[dst + 3] = buffer[src + 3];
-      sortedBuffer[dst + 4] = buffer[src + 4];
-    }
-
-    return sortedBuffer;
-  }
-
-  // State for Interactive Particle Placement Studio
-  let studioActive = false;
-  let studioGizmoVisible = true;
-  let studioManualMorph: number | null = null;
-  let selectedImageIdx = 0;
-  let activeImageAspects: number[] = [];
-  let constellationNodes: { nx: number; ny: number }[] = [];
+  let constellationNodes: ConstellationNode[] = [];
 
   interface ForegroundStardust {
     nox: number;
@@ -1076,11 +225,11 @@
         isGold: Math.random() < 0.72,
       });
     }
+
     const portraitImg = document.getElementById(
       "luxury-portrait-img",
     ) as HTMLImageElement | null;
     const morpher = document.getElementById("luxury-morphing-container");
-    const studioBtn = document.getElementById("particle-studio-btn");
 
     constellationNodes = [];
 
@@ -1089,8 +238,6 @@
       veil?.classList.add("hidden");
       canvas?.classList.add("hidden");
       constellCanvas?.classList.add("hidden");
-      studioBtn?.classList.add("hidden");
-      closeStudioPanel();
       if (portraitImg) {
         portraitImg.style.opacity = "1";
         portraitImg.style.display = "";
@@ -1109,7 +256,6 @@
       constellCanvas.classList.remove("hidden");
       constellCanvas.style.opacity = "1";
     }
-    studioBtn?.classList.remove("hidden");
 
     if (portraitImg) {
       portraitImg.style.opacity = "0";
@@ -1126,21 +272,28 @@
       canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
 
     if (!gl) {
-      fallbackCanvas2D(canvas, veil);
+      fallbackCanvas2D(veil);
       return;
     }
 
     const loadedImages = await loadAllConfigImages(PARTICLE_CONFIG.images);
     if (!loadedImages || loadedImages.length === 0) {
-      fallbackCanvas2D(canvas, veil);
+      fallbackCanvas2D(veil);
       return;
     }
 
-    activeImageAspects = loadedImages.map(
+    state.activeImageAspects = loadedImages.map(
       (img) => (img.naturalWidth || 1800) / (img.naturalHeight || 1800),
     );
 
-    setupInteractiveStudioUI();
+    registerLuxuryParticleStudioApi(state);
+    setupGizmoInteractions(state, () => {
+      targetMouseX = -9999;
+      targetMouseY = -9999;
+      mouseVelX = 0;
+      mouseVelY = 0;
+    });
+
     runWebGLMultiPointCloud(gl, canvas, loadedImages, veil);
   }
 
@@ -1184,12 +337,11 @@
 
     const screenW = canvas.width;
     const screenH = canvas.height;
-
     const isMobile = screenW < 768;
     const TARGET_PARTICLES = isMobile ? 48000 : 92000;
 
     const targetBuffers = loadedImages.map((img) =>
-      sampleImageTargets(img, TARGET_PARTICLES),
+      sampleImageTargets(img, TARGET_PARTICLES, constellationNodes),
     );
 
     const targetVBOs = targetBuffers.map((buffer) => {
@@ -1202,15 +354,9 @@
     const STRIDE = 7;
     const baseBuffer = new Float32Array(TARGET_PARTICLES * STRIDE);
     for (let p = 0; p < TARGET_PARTICLES; p++) {
-      // Normalized screen coordinates [-0.03, 1.03] so particles cover full screen
       const nox = Math.random() * 1.06 - 0.03;
       const noy = Math.random() * 1.06 - 0.03;
-
-      // 1% of particles permanently stay scattered in viewport
-      // 99% assemble into the pictures
       const isScatter = p % 100 === 0 ? 1.0 : 0.0;
-
-      // Half-second (500ms) delay before 99% start assembling, staggered over 0-600ms
       const delay = 500.0 + Math.random() * 600.0;
       const duration = 1400.0 + Math.random() * 500.0;
       const size = Math.random() * 1.3 + 0.9;
@@ -1251,23 +397,10 @@
     const uDimFactorLoc = gl.getUniformLocation(program, "u_dim_factor");
     const uMorphTLoc = gl.getUniformLocation(program, "u_morph_t");
     const uMorphStyleLoc = gl.getUniformLocation(program, "u_morph_style");
-
-    // Mode uniforms
-    const uInteractiveModeLoc = gl.getUniformLocation(
-      program,
-      "u_interactive_mode",
-    );
-    const uParamIntensityLoc = gl.getUniformLocation(
-      program,
-      "u_param_intensity",
-    );
+    const uInteractiveModeLoc = gl.getUniformLocation(program, "u_interactive_mode");
+    const uParamIntensityLoc = gl.getUniformLocation(program, "u_param_intensity");
     const uParamSpeedLoc = gl.getUniformLocation(program, "u_param_speed");
-    const uRepelStrengthLoc = gl.getUniformLocation(
-      program,
-      "u_repel_strength",
-    );
-
-    // Dynamic Live Transform Uniforms
+    const uRepelStrengthLoc = gl.getUniformLocation(program, "u_repel_strength");
     const uCenterALoc = gl.getUniformLocation(program, "u_centerA");
     const uSizeALoc = gl.getUniformLocation(program, "u_sizeA");
     const uCenterBLoc = gl.getUniformLocation(program, "u_centerB");
@@ -1278,73 +411,54 @@
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     let startTime: number | null = null;
-    let elementsRevealed = false;
-    let mouseActive = 0.0;
     let dimStartTime: number | null = null;
+    let elementsRevealed = false;
 
     function render(timestamp: number) {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
 
-      const curW = window.innerWidth;
-      const curH = window.innerHeight;
+      let curW = window.innerWidth;
+      let curH = window.innerHeight;
       if (canvas.width !== curW || canvas.height !== curH) {
         canvas.width = curW;
         canvas.height = curH;
+        if (constellCanvas) {
+          constellCanvas.width = curW;
+          constellCanvas.height = curH;
+        }
       }
 
-      // Smooth kinetic velocity with exponential drag
-      smoothVelX += (mouseVelX - smoothVelX) * 0.22;
-      smoothVelY += (mouseVelY - smoothVelY) * 0.22;
-      mouseVelX *= PARTICLE_CONFIG.dragDamping || 0.9;
-      mouseVelY *= PARTICLE_CONFIG.dragDamping || 0.9;
+      const lagFactor = 0.28;
+      const hasRealCursor = (window as any).__cx !== undefined;
+      const effectiveTargetX = hasRealCursor ? (window as any).__cx : targetMouseX;
+      const effectiveTargetY = hasRealCursor ? (window as any).__cy : targetMouseY;
 
-      const cursorSpeed = Math.hypot(smoothVelX, smoothVelY);
-
-      // Use the custom cursor circle's lagged position for repulsion,
-      // so particles repel from where the circle IS, not the raw pointer.
-      const __cx = (window as any).__cx;
-      const __cy = (window as any).__cy;
-      const useCircle = typeof __cx === 'number' && __cx > -200;
-
-      if (useCircle) {
-        mouseX = __cx;
-        mouseY = __cy;
-      } else if (targetMouseX > -5000) {
-        // Fallback: original spring follower when circle not available
+      if (effectiveTargetX > -5000) {
         if (mouseX < -5000) {
-          mouseX = targetMouseX;
-          mouseY = targetMouseY;
-          interpVelX = 0;
-          interpVelY = 0;
+          mouseX = effectiveTargetX;
+          mouseY = effectiveTargetY;
         } else {
-          const springK = Math.max(
-            0.04,
-            Math.min(0.24, (PARTICLE_CONFIG.returnSpeed || 0.12) * 1.15),
-          );
-          const damping = 0.74;
-          interpVelX =
-            (interpVelX + (targetMouseX - mouseX) * springK) * damping;
-          interpVelY =
-            (interpVelY + (targetMouseY - mouseY) * springK) * damping;
-          mouseX += interpVelX;
-          mouseY += interpVelY;
+          mouseX += (effectiveTargetX - mouseX) * lagFactor;
+          mouseY += (effectiveTargetY - mouseY) * lagFactor;
         }
+        interpVelX += (mouseVelX - interpVelX) * 0.15;
+        interpVelY += (mouseVelY - interpVelY) * 0.15;
+        smoothVelX = interpVelX;
+        smoothVelY = interpVelY;
       } else {
-        // Pointer off-screen
-        interpVelX *= 0.8;
-        interpVelY *= 0.8;
-        mouseX += interpVelX;
-        mouseY += interpVelY;
-        if (rawMouseActive <= 0.002) {
-          mouseX = -9999;
-          mouseY = -9999;
+        if (mouseX > -5000) {
+          mouseX += (-9999 - mouseX) * 0.15;
+          mouseY += (-9999 - mouseY) * 0.15;
+          if (mouseX < -8000) {
+            mouseX = -9999;
+            mouseY = -9999;
+          }
         }
         smoothVelX = 0;
         smoothVelY = 0;
       }
 
-      // Smooth Ease-In and Ease-Out for Pointer Force Field Activation & Deactivation
       const isPointerOnscreen = targetMouseX > -5000 && elapsed > 1600;
       const targetMouseActive = isPointerOnscreen ? 1.0 : 0.0;
       if (rawMouseActive < targetMouseActive) {
@@ -1352,11 +466,9 @@
       } else if (rawMouseActive > targetMouseActive) {
         rawMouseActive = Math.max(targetMouseActive, rawMouseActive - 0.035);
       }
-      // Smooth S-Curve Ease In & Out: Hermite cubic 3t^2 - 2t^3
       const easedMouseActive =
         rawMouseActive * rawMouseActive * (3.0 - 2.0 * rawMouseActive);
 
-      // Smooth Ease-In and Ease-Out Mode Transitions
       if (pendingMode !== null) {
         modeTransitionProgress = Math.max(0.0, modeTransitionProgress - 0.075);
         if (modeTransitionProgress <= 0.0) {
@@ -1366,7 +478,6 @@
       } else if (modeTransitionProgress < 1.0) {
         modeTransitionProgress = Math.min(1.0, modeTransitionProgress + 0.065);
       }
-      // Cubic Hermite Ease-In & Out for Mode Switching
       const modeEase =
         modeTransitionProgress *
         modeTransitionProgress *
@@ -1393,9 +504,8 @@
 
       if (numImages > 1) {
         let scrollFraction = 0.0;
-
-        if (studioManualMorph !== null) {
-          scrollFraction = studioManualMorph;
+        if (state.studioManualMorph !== null) {
+          scrollFraction = state.studioManualMorph;
         } else {
           const scrollY = window.scrollY || window.pageYOffset || 0;
           const docHeight = document.documentElement.scrollHeight;
@@ -1440,48 +550,35 @@
       gl.uniform2f(uResolutionLoc, curW, curH);
       gl.uniform2f(uMouseLoc, mouseX, mouseY);
       gl.uniform2f(uMouseVelLoc, smoothVelX, smoothVelY);
-      gl.uniform1f(uMouseSpeedLoc, cursorSpeed);
+      gl.uniform1f(uMouseSpeedLoc, Math.hypot(smoothVelX, smoothVelY));
       gl.uniform1f(uMouseActiveLoc, easedMouseActive);
       gl.uniform1f(uCursorRadiusLoc, PARTICLE_CONFIG.cursorRadius);
       gl.uniform1f(uDimFactorLoc, currentDim);
       gl.uniform1f(uMorphTLoc, morphT);
       gl.uniform1i(uMorphStyleLoc, PARTICLE_CONFIG.morphStyle);
-
-      // Active Interactive Mode & Tuning Parameters (Eased during mode transition)
       gl.uniform1i(uInteractiveModeLoc, PARTICLE_CONFIG.interactiveMode);
-      gl.uniform1f(
-        uParamIntensityLoc,
-        PARTICLE_CONFIG.effectIntensity * modeEase,
-      );
+      gl.uniform1f(uParamIntensityLoc, PARTICLE_CONFIG.effectIntensity * modeEase);
       gl.uniform1f(uParamSpeedLoc, PARTICLE_CONFIG.effectSpeed);
       gl.uniform1f(uRepelStrengthLoc, PARTICLE_CONFIG.repelStrength * modeEase);
-
-      // Transforms
       gl.uniform2f(uCenterALoc, centerAX, centerAY);
       gl.uniform1f(uSizeALoc, sizeA);
       gl.uniform2f(uCenterBLoc, centerBX, centerBY);
       gl.uniform1f(uSizeBLoc, sizeB);
-
-      // Hero content area for invert effect (left 50% of screen)
       gl.uniform2f(uHeroAreaLoc, curW * 0.5, 0.0);
 
-      // Bind Target A
-      const vboA = targetVBOs[imgIndexA];
-      gl.bindBuffer(gl.ARRAY_BUFFER, vboA);
+      // Bind VBOs
+      gl.bindBuffer(gl.ARRAY_BUFFER, targetVBOs[imgIndexA]);
       gl.enableVertexAttribArray(aTargetALoc);
       gl.vertexAttribPointer(aTargetALoc, 2, gl.FLOAT, false, 5 * 4, 0);
       gl.enableVertexAttribArray(aColorALoc);
       gl.vertexAttribPointer(aColorALoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
 
-      // Bind Target B
-      const vboB = targetVBOs[imgIndexB];
-      gl.bindBuffer(gl.ARRAY_BUFFER, vboB);
+      gl.bindBuffer(gl.ARRAY_BUFFER, targetVBOs[imgIndexB]);
       gl.enableVertexAttribArray(aTargetBLoc);
       gl.vertexAttribPointer(aTargetBLoc, 2, gl.FLOAT, false, 5 * 4, 0);
       gl.enableVertexAttribArray(aColorBLoc);
       gl.vertexAttribPointer(aColorBLoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
 
-      // Bind Base
       gl.bindBuffer(gl.ARRAY_BUFFER, baseVBO);
       gl.enableVertexAttribArray(aOriginLoc);
       gl.vertexAttribPointer(aOriginLoc, 2, gl.FLOAT, false, 7 * 4, 0);
@@ -1492,45 +589,25 @@
 
       gl.drawArrays(gl.POINTS, 0, TARGET_PARTICLES);
 
-      // Render Neural Constellation Synaptic Filaments
-      if (constellCtx && constellCanvas) {
-        if (constellCanvas.width !== curW || constellCanvas.height !== curH) {
-          constellCanvas.width = curW;
-          constellCanvas.height = curH;
-        }
+      // Render Foreground Stardust & Constellations
+      if (constellCtx) {
         constellCtx.clearRect(0, 0, curW, curH);
-
-        // -------------------------------------------------------------
-        // Render Foreground Stardust Particles (Floating ABOVE text & images at z-[20])
-        // Tendency to move toward assembly location while assembling, then stops
-        // -------------------------------------------------------------
-        const gatherProgress = Math.min(
-          1.0,
-          Math.max(0.0, (elapsed - 500.0) / 1900.0),
-        );
-        let pullEase =
-          gatherProgress * gatherProgress * (3.0 - 2.0 * gatherProgress);
+        const gatherProgress = Math.min(1.0, Math.max(0.0, (elapsed - 500.0) / 1900.0));
+        let pullEase = gatherProgress * gatherProgress * (3.0 - 2.0 * gatherProgress);
         pullEase = pullEase * pullEase * (3.0 - 2.0 * pullEase);
 
         const initialFade = Math.min(1.0, elapsed / 80.0);
         const timeSec = elapsed * 0.001;
 
-        const targetCX = centerAX;
-        const targetCY = centerAY;
-
-        const count = foregroundParticles.length;
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < foregroundParticles.length; i++) {
           const p = foregroundParticles[i];
           const originX = p.nox * curW;
           const originY = p.noy * curH;
-
-          // While assembling, migrate toward picture center, stopping when assembly finishes
-          const toCX = targetCX - originX;
-          const toCY = targetCY - originY;
+          const toCX = centerAX - originX;
+          const toCY = centerAY - originY;
           const pullX = toCX * (p.pullFraction * pullEase);
           const pullY = toCY * (p.pullFraction * pullEase);
 
-          // Continuous organic ambient drift across viewport
           const wanderX =
             Math.sin(timeSec * 0.7 * p.speed + p.seed1) * 35.0 +
             Math.cos(timeSec * 0.4 + p.seed2) * 15.0;
@@ -1541,16 +618,15 @@
           let px = originX + pullX + wanderX;
           let py = originY + pullY + wanderY;
 
-          // Interactive cursor force field displacement
           if (easedMouseActive > 0.01 && mouseX > -100) {
             const dx = px - mouseX;
             const dy = py - mouseY;
             const dist = Math.hypot(dx, dy);
-            const radius = PARTICLE_CONFIG.cursorRadius * 1.25;
+            const radius = PARTICLE_CONFIG.cursorRadius * 1.5;
             if (dist < radius && dist > 1.0) {
               const force =
                 (1.0 - dist / radius) *
-                22.0 *
+                35.0 *
                 easedMouseActive *
                 PARTICLE_CONFIG.effectIntensity;
               px += (dx / dist) * force;
@@ -1558,11 +634,8 @@
             }
           }
 
-          // Fixed 50% opacity across entire life cycle
-          const twinkle =
-            0.88 + 0.12 * Math.sin(timeSec * 2.2 + p.seed3);
+          const twinkle = 0.88 + 0.12 * Math.sin(timeSec * 2.2 + p.seed3);
           const alpha = initialFade * 0.50 * twinkle;
-
           const fillStyle = p.isGold
             ? `rgba(212, 175, 55, ${alpha.toFixed(3)})`
             : `rgba(255, 238, 180, ${alpha.toFixed(3)})`;
@@ -1572,111 +645,18 @@
           constellCtx.arc(px, py, p.size, 0, Math.PI * 2);
           constellCtx.fill();
         }
-
-        if (
-          PARTICLE_CONFIG.interactiveMode === 7 &&
-          mouseActive > 0.01 &&
-          mouseX > -100 &&
-          constellationNodes.length > 0
-        ) {
-          const maxConnDist = PARTICLE_CONFIG.cursorRadius * 1.35;
-          const activeLayout = getImageLayout(imgIndexA);
-          const activeSize = curH * activeLayout.scale;
-          const activeCX = curW * activeLayout.alignX;
-          const activeCY = curH * activeLayout.alignY;
-
-          // Find active nodes in cursor vicinity
-          const activeNodes: { x: number; y: number; dist: number }[] = [];
-          for (let i = 0; i < constellationNodes.length; i++) {
-            const node = constellationNodes[i];
-            const px = activeCX + node.nx * activeSize;
-            const py = activeCY + node.ny * activeSize;
-            const d = Math.hypot(px - mouseX, py - mouseY);
-            if (d < maxConnDist) {
-              activeNodes.push({ x: px, y: py, dist: d });
-            }
-          }
-
-          if (activeNodes.length > 0) {
-            activeNodes.sort((a, b) => a.dist - b.dist);
-            const maxMouseLinks = Math.min(activeNodes.length, 14);
-
-            constellCtx.save();
-            constellCtx.lineWidth = 1.0;
-
-            // 1. Draw glowing synaptic axon filaments to mouse
-            for (let i = 0; i < maxMouseLinks; i++) {
-              const n = activeNodes[i];
-              const alpha =
-                (1.0 - n.dist / maxConnDist) *
-                0.75 *
-                PARTICLE_CONFIG.effectIntensity;
-              constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
-              constellCtx.beginPath();
-              constellCtx.moveTo(mouseX, mouseY);
-              constellCtx.lineTo(n.x, n.y);
-              constellCtx.stroke();
-
-              // Action potential traveling spark pulse
-              const pulseT =
-                (elapsed * 0.0028 * PARTICLE_CONFIG.effectSpeed + i * 0.18) %
-                1.0;
-              const sx = mouseX + (n.x - mouseX) * pulseT;
-              const sy = mouseY + (n.y - mouseY) * pulseT;
-              constellCtx.fillStyle = `rgba(255, 245, 180, ${(alpha * 1.3).toFixed(3)})`;
-              constellCtx.beginPath();
-              constellCtx.arc(sx, sy, 1.8, 0, Math.PI * 2);
-              constellCtx.fill();
-            }
-
-            // 2. Inter-node synaptic mesh
-            const nodeConnLimit = 48;
-            for (let i = 0; i < activeNodes.length; i++) {
-              for (let j = i + 1; j < activeNodes.length; j++) {
-                const d = Math.hypot(
-                  activeNodes[i].x - activeNodes[j].x,
-                  activeNodes[i].y - activeNodes[j].y,
-                );
-                if (d < nodeConnLimit) {
-                  const alpha =
-                    (1.0 - d / nodeConnLimit) *
-                    0.42 *
-                    (1.0 - activeNodes[i].dist / maxConnDist) *
-                    PARTICLE_CONFIG.effectIntensity;
-                  if (alpha > 0.02) {
-                    constellCtx.strokeStyle = `rgba(212, 175, 55, ${alpha.toFixed(3)})`;
-                    constellCtx.beginPath();
-                    constellCtx.moveTo(activeNodes[i].x, activeNodes[i].y);
-                    constellCtx.lineTo(activeNodes[j].x, activeNodes[j].y);
-                    constellCtx.stroke();
-                  }
-                }
-              }
-            }
-
-            // 3. Central neural cursor core
-            constellCtx.fillStyle = "rgba(212, 175, 55, 0.45)";
-            constellCtx.beginPath();
-            constellCtx.arc(mouseX, mouseY, 3.5, 0, Math.PI * 2);
-            constellCtx.fill();
-
-            constellCtx.restore();
-          }
-        }
       }
 
-      if (studioActive && studioGizmoVisible) {
-        updateGizmoPosition(curW, curH);
+      if (state.studioActive && state.studioGizmoVisible) {
+        updateGizmoPosition(state, curW, curH);
       }
 
-      // Start revealing elements early (after elementRevealStartDelay) instead of waiting for full particle gather
       if (elapsed > PARTICLE_CONFIG.elementRevealStartDelay && !elementsRevealed) {
         elementsRevealed = true;
         if (veil) {
           veil.classList.add("opacity-0");
           setTimeout(() => veil.classList.add("hidden"), 1000);
         }
-
         revealSequentialElements(() => {
           setTimeout(() => {
             dimStartTime = performance.now();
@@ -1690,10 +670,7 @@
     currentAnimId = requestAnimationFrame(render);
   }
 
-  function fallbackCanvas2D(
-    canvas: HTMLCanvasElement,
-    veil: HTMLElement | null,
-  ) {
+  function fallbackCanvas2D(veil: HTMLElement | null) {
     if (veil) {
       veil.classList.add("opacity-0");
       setTimeout(() => veil.classList.add("hidden"), 900);
@@ -1740,887 +717,6 @@
     }, finalDelay);
   }
 
-  // =========================================================================
-  // 🛠️ INTERACTIVE PARTICLE PLACEMENT STUDIO & MODE CONTROLLER
-  // =========================================================================
-  function setupInteractiveStudioUI() {
-    const studioBtn = document.getElementById("particle-studio-btn");
-    const studioPanel = document.getElementById("particle-studio-panel");
-    const studioCloseBtn = document.getElementById("studio-close-btn");
-    const imageTabsContainer = document.getElementById("studio-image-tabs");
-    const morphMarkersContainer = document.getElementById(
-      "studio-morph-markers",
-    );
-    const scaleSlider = document.getElementById(
-      "studio-scale-slider",
-    ) as HTMLInputElement | null;
-    const alignXSlider = document.getElementById(
-      "studio-alignx-slider",
-    ) as HTMLInputElement | null;
-    const alignYSlider = document.getElementById(
-      "studio-aligny-slider",
-    ) as HTMLInputElement | null;
-    const morphSlider = document.getElementById(
-      "studio-morph-slider",
-    ) as HTMLInputElement | null;
-    const toggleGizmo = document.getElementById(
-      "studio-toggle-gizmo",
-    ) as HTMLInputElement | null;
-    const syncScrollBtn = document.getElementById("studio-sync-scroll-btn");
-    const copyBtn = document.getElementById("studio-copy-btn");
-    const saveBtn = document.getElementById("studio-save-btn");
-    const resetBtn = document.getElementById("studio-reset-btn");
-    const gizmo = document.getElementById("particle-placement-gizmo");
-    const dragHeader = document.getElementById("studio-drag-header");
-
-    // Dock & Toast Elements
-    const modeDock = document.getElementById("luxury-mode-dock");
-    const modeDockMinimized = document.getElementById(
-      "luxury-mode-dock-minimized",
-    );
-    const dockMinimizeBtn = document.getElementById("dock-minimize-btn");
-    const dockLockBtn = document.getElementById("dock-lock-btn");
-    const dockRandomBtn = document.getElementById("dock-random-btn");
-    const toastEl = document.getElementById("luxury-mode-toast");
-    const toastTitle = document.getElementById("toast-title");
-    const toastDesc = document.getElementById("toast-desc");
-    let toastTimer: any = null;
-
-    const MODE_DESCRIPTIONS = [
-      {
-        name: "Volumetric Quantum Aura",
-        desc: "Move cursor — concentric holographic orbital drift and breathing aura around silhouette with pristine face stability.",
-      },
-      {
-        name: "Silk Surface Ripple",
-        desc: "Move cursor over face — generates soft, concentric liquid gold waves radiating outwards.",
-      },
-      {
-        name: "Celestial Lantern",
-        desc: "Cursor acts as a bioluminescent light wand — igniting particles with warm stardust bloom without distortion.",
-      },
-      {
-        name: "Gravitational Lens",
-        desc: "Move cursor around face — cosmic space-time curvature bends particles along Einstein ring orbits.",
-      },
-      {
-        name: "Fluid Stardust Wake",
-        desc: "Swipe or flick cursor — leaves swirling fluid curl-noise eddies and velocity momentum behind.",
-      },
-      {
-        name: "Soft Physics Displace",
-        desc: "Simple, velvety soft displacement with Gaussian decay, viscous fluid drag, and elastic spring recovery.",
-      },
-      {
-        name: "Neural Constellation",
-        desc: "Luminous synaptic filaments connect particles to cursor with traveling neural action potentials.",
-      },
-      {
-        name: "Holographic Cyber Scanlines",
-        desc: "Vertical scanning laser sweep, horizontal quantum comb slices, and chromatic holographic nano-particle glints.",
-      },
-    ];
-
-    function showModeToast(mode: number, isLock = false, isRandom = false) {
-      if (!toastEl || !toastTitle || !toastDesc) return;
-      const info = MODE_DESCRIPTIONS[mode - 1] || MODE_DESCRIPTIONS[0];
-      if (isLock) {
-        toastTitle.textContent = `⭐ Mode ${mode} Locked: ${info.name}`;
-        toastDesc.textContent = `Saved as your permanent choice! This mode will stay active across all visits.`;
-      } else if (isRandom) {
-        toastTitle.textContent = `🎲 Random Effect Active: Mode ${mode} — ${info.name}`;
-        toastDesc.textContent = `${info.desc} (Randomized on every page load — press R to shuffle!)`;
-      } else {
-        toastTitle.textContent = `Mode ${mode}: ${info.name}`;
-        toastDesc.textContent = `${info.desc} (Click 'Keep This' to lock, or 'Random Load' to shuffle)`;
-      }
-      toastEl.classList.remove("opacity-0", "-translate-y-2");
-      toastEl.classList.add("opacity-100", "translate-y-0");
-
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toastEl.classList.remove("opacity-100", "translate-y-0");
-        toastEl.classList.add("opacity-0", "-translate-y-2");
-      }, 3400);
-    }
-    (window as any).showLuxuryModeToast = showModeToast;
-
-    // Mode Sliders
-    const intensitySlider = document.getElementById(
-      "studio-intensity-slider",
-    ) as HTMLInputElement | null;
-    const speedSlider = document.getElementById(
-      "studio-speed-slider",
-    ) as HTMLInputElement | null;
-    const radiusSlider = document.getElementById(
-      "studio-radius-slider",
-    ) as HTMLInputElement | null;
-
-    // Ensure LuxuryParticleStudio is registered even without legacy panel HTML
-
-    // Toggle button (legacy panel, optional)
-    studioBtn?.addEventListener("click", () => {
-      studioActive = !studioActive;
-      toggleStudioPanel(studioActive);
-    });
-
-    studioCloseBtn?.addEventListener("click", () => {
-      studioActive = false;
-      toggleStudioPanel(false);
-    });
-
-    // Mode Buttons Click Handlers
-    function updateActiveModeUI() {
-      // 1. Update Studio Panel Buttons
-      document
-        .querySelectorAll("#studio-mode-buttons .mode-btn")
-        .forEach((btn) => {
-          const mode = parseInt(btn.getAttribute("data-mode") || "1", 10);
-          const dot = btn.querySelector(".mode-dot");
-          if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
-            btn.className =
-              "mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer bg-[#d4af37] text-zinc-950 font-bold shadow-md";
-            dot?.classList.remove("bg-zinc-600");
-            dot?.classList.add("bg-zinc-950");
-          } else {
-            btn.className =
-              "mode-btn flex items-center justify-between px-3 py-2 rounded-lg font-mono text-[11px] text-left transition-all duration-300 ease-in-out cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800";
-            dot?.classList.remove("bg-zinc-950");
-            dot?.classList.add("bg-zinc-600");
-          }
-        });
-
-      // 2. Update Floating Dock Buttons
-      document.querySelectorAll(".dock-mode-btn").forEach((btn) => {
-        const mode = parseInt(btn.getAttribute("data-dock-mode") || "1", 10);
-        const badge = btn.querySelector(".dock-badge");
-        if (mode === (pendingMode || PARTICLE_CONFIG.interactiveMode)) {
-          btn.className =
-            "dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37] text-zinc-950 font-bold shadow-md";
-          badge?.classList.remove("bg-zinc-800");
-          badge?.classList.add("bg-zinc-950", "text-[#d4af37]");
-        } else {
-          btn.className =
-            "dock-mode-btn px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800";
-          badge?.classList.remove("bg-zinc-950", "text-[#d4af37]");
-          badge?.classList.add("bg-zinc-800");
-        }
-      });
-
-      // 3. Update Random vs Lock Button State in Dock
-      const randomText = document.getElementById("dock-random-text");
-      const lockText = document.getElementById("dock-lock-text");
-      const currentOrPendingMode =
-        pendingMode || PARTICLE_CONFIG.interactiveMode;
-      if (PARTICLE_CONFIG.isRandomMode) {
-        if (dockRandomBtn) {
-          dockRandomBtn.className =
-            "px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 bg-[#d4af37]/20 border border-[#d4af37]/60 text-[#d4af37] font-semibold shadow-sm";
-        }
-        if (randomText) randomText.textContent = "Random: ON";
-        if (dockLockBtn) {
-          dockLockBtn.className =
-            "px-3 py-1.5 rounded-full bg-zinc-900/80 hover:bg-[#d4af37] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 font-medium text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-sm whitespace-nowrap";
-        }
-        if (lockText) lockText.textContent = "Keep This";
-      } else {
-        if (dockRandomBtn) {
-          dockRandomBtn.className =
-            "px-2.5 py-1.5 rounded-full transition-all duration-300 ease-in-out cursor-pointer text-[11px] flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-transparent";
-        }
-        if (randomText) randomText.textContent = "Random Load";
-        if (dockLockBtn) {
-          dockLockBtn.className =
-            "px-3 py-1.5 rounded-full bg-[#d4af37] text-zinc-950 font-bold border border-[#d4af37] text-[11px] transition-all duration-300 ease-in-out cursor-pointer flex items-center gap-1.5 shadow-md whitespace-nowrap";
-        }
-        if (lockText)
-          lockText.textContent = `✓ Kept (Mode ${currentOrPendingMode})`;
-      }
-
-      // Update dynamic slider labels based on active mode
-      const intensityLabel = document.getElementById("studio-intensity-label");
-      const speedLabel = document.getElementById("studio-speed-label");
-      if (intensityLabel && speedLabel) {
-        const displayMode = currentOrPendingMode;
-        if (displayMode === 1) {
-          intensityLabel.textContent = "Quantum Aura Field Strength";
-          speedLabel.textContent = "Laser Ring Wave Speed";
-        } else if (displayMode === 2) {
-          intensityLabel.textContent = "Liquid Wave Amplitude";
-          speedLabel.textContent = "Ripple Wave Speed";
-        } else if (displayMode === 3) {
-          intensityLabel.textContent = "Lantern Radiance & Bloom";
-          speedLabel.textContent = "Bioluminescent Ambient Lift";
-        } else if (displayMode === 4) {
-          intensityLabel.textContent = "Gravitational Curvature Strength";
-          speedLabel.textContent = "Einstein Radius Streamlines";
-        } else if (displayMode === 5) {
-          intensityLabel.textContent = "Curl Turbulence & Wake";
-          speedLabel.textContent = "Swipe Force Momentum";
-        } else if (displayMode === 6) {
-          intensityLabel.textContent = "Soft Elastic Cushion Strength";
-          speedLabel.textContent = "Viscous Drag & Fluid Momentum";
-        } else if (displayMode === 7) {
-          intensityLabel.textContent = "Synaptic Filament Density";
-          speedLabel.textContent = "Neural Pulse Signal Speed";
-        } else if (displayMode === 8) {
-          intensityLabel.textContent = "Scanline Laser Slice Width";
-          speedLabel.textContent = "Laser Sweep Velocity";
-        }
-      }
-    }
-
-    function switchMode(mode: number, showToast = true) {
-      if (mode === PARTICLE_CONFIG.interactiveMode && pendingMode === null)
-        return;
-      pendingMode = mode;
-      updateActiveModeUI();
-      saveSettingsToStorage();
-      if (showToast) {
-        showModeToast(mode);
-      }
-    }
-
-    function triggerRandomMode() {
-      localStorage.removeItem("luxury_particle_locked_mode");
-      PARTICLE_CONFIG.isRandomMode = true;
-      let nextMode = Math.floor(Math.random() * 8) + 1;
-      if (nextMode === PARTICLE_CONFIG.interactiveMode) {
-        nextMode = (nextMode % 8) + 1;
-      }
-      switchMode(nextMode, false);
-      showModeToast(nextMode, false, true);
-    }
-
-    // Studio panel buttons listener
-    document
-      .querySelectorAll("#studio-mode-buttons .mode-btn")
-      .forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const mode = parseInt(
-            (e.currentTarget as HTMLElement).getAttribute("data-mode") || "1",
-            10,
-          );
-          switchMode(mode);
-        });
-      });
-
-    // Dock buttons listener
-    document.querySelectorAll(".dock-mode-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const mode = parseInt(
-          (e.currentTarget as HTMLElement).getAttribute("data-dock-mode") ||
-            "1",
-          10,
-        );
-        switchMode(mode);
-      });
-    });
-
-    // Randomize on Load Button Listener
-    dockRandomBtn?.addEventListener("click", () => {
-      triggerRandomMode();
-    });
-
-    // Dock Minimize & Restore
-    dockMinimizeBtn?.addEventListener("click", () => {
-      modeDock?.classList.add("hidden");
-      modeDockMinimized?.classList.remove("hidden");
-      modeDockMinimized?.classList.add("flex");
-    });
-
-    modeDockMinimized?.addEventListener("click", () => {
-      modeDockMinimized?.classList.add("hidden");
-      modeDockMinimized?.classList.remove("flex");
-      modeDock?.classList.remove("hidden");
-    });
-
-    // Lock Mode Button
-    dockLockBtn?.addEventListener("click", () => {
-      const mode = PARTICLE_CONFIG.interactiveMode;
-      localStorage.setItem("luxury_particle_locked_mode", String(mode));
-      PARTICLE_CONFIG.isRandomMode = false;
-      saveSettingsToStorage();
-      updateActiveModeUI();
-      showModeToast(mode, true);
-    });
-
-    // Keyboard Shortcuts: Keys 1 to 8 to switch modes live, R to randomize
-    window.addEventListener("keydown", (e) => {
-      const activeTag = (document.activeElement?.tagName || "").toUpperCase();
-      if (activeTag === "INPUT" || activeTag === "TEXTAREA") return;
-
-      if (e.key === "r" || e.key === "R") {
-        triggerRandomMode();
-        return;
-      }
-
-      if (["1", "2", "3", "4", "5", "6", "7", "8"].includes(e.key)) {
-        const mode = parseInt(e.key, 10);
-        switchMode(mode);
-      }
-    });
-
-    updateActiveModeUI();
-
-    // Mode Sliders Listeners
-    intensitySlider?.addEventListener("input", () => {
-      PARTICLE_CONFIG.effectIntensity = parseFloat(intensitySlider.value);
-      const valEl = document.getElementById("studio-intensity-val");
-      if (valEl)
-        valEl.textContent = `${PARTICLE_CONFIG.effectIntensity.toFixed(2)}x`;
-    });
-
-    speedSlider?.addEventListener("input", () => {
-      PARTICLE_CONFIG.effectSpeed = parseFloat(speedSlider.value);
-      const valEl = document.getElementById("studio-speed-val");
-      if (valEl)
-        valEl.textContent = `${PARTICLE_CONFIG.effectSpeed.toFixed(2)}x`;
-    });
-
-    radiusSlider?.addEventListener("input", () => {
-      PARTICLE_CONFIG.cursorRadius = parseFloat(radiusSlider.value);
-      const valEl = document.getElementById("studio-radius-val");
-      if (valEl)
-        valEl.textContent = `${Math.round(PARTICLE_CONFIG.cursorRadius)}px`;
-    });
-
-    // Render image selector tabs
-    if (imageTabsContainer) {
-      imageTabsContainer.innerHTML = "";
-      PARTICLE_CONFIG.images.forEach((_, idx) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = `py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center ${
-          idx === selectedImageIdx
-            ? "bg-[#d4af37] text-zinc-950 font-bold shadow-md"
-            : "text-zinc-400 hover:text-white hover:bg-zinc-800"
-        }`;
-        btn.textContent = `Image ${idx + 1}`;
-        btn.onclick = () => {
-          selectImageTab(idx);
-        };
-        imageTabsContainer.appendChild(btn);
-      });
-    }
-
-    // Render morph scrub markers
-    if (morphMarkersContainer) {
-      morphMarkersContainer.innerHTML = "";
-      PARTICLE_CONFIG.images.forEach((_, idx) => {
-        const span = document.createElement("span");
-        span.textContent = `Img ${idx + 1}`;
-        morphMarkersContainer.appendChild(span);
-      });
-    }
-
-    syncControlsToActiveImage();
-
-    // Scale slider input
-    scaleSlider?.addEventListener("input", () => {
-      const layout = getImageLayout(selectedImageIdx);
-      layout.scale = parseFloat(scaleSlider.value);
-      const valEl = document.getElementById("studio-scale-val");
-      if (valEl) valEl.textContent = `${layout.scale.toFixed(2)}x`;
-      updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveSettingsToStorage();
-    });
-
-    // Align X slider input
-    alignXSlider?.addEventListener("input", () => {
-      const layout = getImageLayout(selectedImageIdx);
-      layout.alignX = parseFloat(alignXSlider.value);
-      const valEl = document.getElementById("studio-alignx-val");
-      if (valEl) valEl.textContent = `${Math.round(layout.alignX * 100)}%`;
-      updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveSettingsToStorage();
-    });
-
-    // Align Y slider input
-    alignYSlider?.addEventListener("input", () => {
-      const layout = getImageLayout(selectedImageIdx);
-      layout.alignY = parseFloat(alignYSlider.value);
-      const valEl = document.getElementById("studio-aligny-val");
-      if (valEl) valEl.textContent = `${Math.round(layout.alignY * 100)}%`;
-      updateGizmoPosition(window.innerWidth, window.innerHeight);
-      saveSettingsToStorage();
-    });
-
-    // Preset buttons for X
-    document.querySelectorAll(".preset-x-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const target = e.currentTarget as HTMLElement;
-        const val = parseFloat(target.getAttribute("data-val") || "0.5");
-        const layout = getImageLayout(selectedImageIdx);
-        layout.alignX = val;
-        if (alignXSlider) alignXSlider.value = String(val);
-        const valEl = document.getElementById("studio-alignx-val");
-        if (valEl) valEl.textContent = `${Math.round(val * 100)}%`;
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-        saveSettingsToStorage();
-      });
-    });
-
-    // Toggle gizmo visibility checkbox
-    toggleGizmo?.addEventListener("change", () => {
-      studioGizmoVisible = toggleGizmo.checked;
-      if (!studioGizmoVisible && gizmo) {
-        gizmo.classList.add("hidden");
-      } else if (studioGizmoVisible && studioActive && gizmo) {
-        gizmo.classList.remove("hidden");
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-      }
-    });
-
-    // Morph scrub slider input
-    morphSlider?.addEventListener("input", () => {
-      const pct = parseFloat(morphSlider.value);
-      studioManualMorph = pct / 100;
-      const morphValEl = document.getElementById("studio-morph-val");
-      if (morphValEl) morphValEl.textContent = `${Math.round(pct)}%`;
-    });
-
-    syncScrollBtn?.addEventListener("click", () => {
-      studioManualMorph = null;
-      if (morphSlider) {
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        const docHeight = document.documentElement.scrollHeight;
-        const winHeight = window.innerHeight;
-        const maxScroll = Math.max(1, docHeight - winHeight);
-        const curPct = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
-        morphSlider.value = curPct.toFixed(1);
-        const morphValEl = document.getElementById("studio-morph-val");
-        if (morphValEl) morphValEl.textContent = `${Math.round(curPct)}%`;
-      }
-    });
-
-    // Copy Configuration Code
-    copyBtn?.addEventListener("click", () => {
-      const code = `interactiveMode: ${PARTICLE_CONFIG.interactiveMode},\nimageLayouts: ${JSON.stringify(PARTICLE_CONFIG.imageLayouts, null, 2)},\neffectIntensity: ${PARTICLE_CONFIG.effectIntensity},\ncursorRadius: ${PARTICLE_CONFIG.cursorRadius},`;
-      navigator.clipboard.writeText(code).then(() => {
-        const textEl = document.getElementById("studio-copy-text");
-        if (textEl) textEl.textContent = "✓ Copied!";
-        setTimeout(() => {
-          if (textEl) textEl.textContent = "Copy Code";
-        }, 2000);
-      });
-    });
-
-    // Save to Browser button
-    saveBtn?.addEventListener("click", () => {
-      saveSettingsToStorage();
-      const textEl = document.getElementById("studio-save-text");
-      if (textEl) textEl.textContent = "✓ Saved!";
-      setTimeout(() => {
-        if (textEl) textEl.textContent = "Save to Browser";
-      }, 2000);
-    });
-
-    // Reset Defaults
-    resetBtn?.addEventListener("click", () => {
-      if (confirm("Reset all particle settings to defaults?")) {
-        localStorage.removeItem("luxury_particle_layouts");
-        localStorage.removeItem("luxury_particle_mode");
-        PARTICLE_CONFIG.imageLayouts = JSON.parse(
-          JSON.stringify(DEFAULT_IMAGE_LAYOUTS),
-        );
-        PARTICLE_CONFIG.interactiveMode = 1;
-        updateActiveModeUI();
-        syncControlsToActiveImage();
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-      }
-    });
-
-    // Morph Style Buttons (Dev-Only)
-    function updateMorphStyleUI() {
-      document.querySelectorAll(".morph-style-btn").forEach((btn) => {
-        const style = parseInt(btn.getAttribute("data-style") || "1", 10);
-        const dot = btn.querySelector(".morph-style-dot");
-        if (style === PARTICLE_CONFIG.morphStyle) {
-          (btn as HTMLElement).className =
-            "morph-style-btn flex items-center justify-between px-3 py-1.5 rounded-lg font-mono text-[11px] text-left transition-all duration-200 cursor-pointer bg-amber-400/20 text-amber-300 font-bold border border-amber-400/40";
-          dot?.classList.remove("bg-zinc-600");
-          dot?.classList.add("bg-amber-400");
-        } else {
-          (btn as HTMLElement).className =
-            "morph-style-btn flex items-center justify-between px-3 py-1.5 rounded-lg font-mono text-[11px] text-left transition-all duration-200 cursor-pointer text-zinc-300 hover:text-white hover:bg-zinc-800";
-          dot?.classList.remove("bg-amber-400");
-          dot?.classList.add("bg-zinc-600");
-        }
-      });
-    }
-    document.querySelectorAll(".morph-style-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const style = parseInt(
-          (e.currentTarget as HTMLElement).getAttribute("data-style") || "1",
-          10,
-        );
-        PARTICLE_CONFIG.morphStyle = style;
-        updateMorphStyleUI();
-      });
-    });
-    updateMorphStyleUI();
-
-    // =========================================================================
-    // EXPOSE LUXURY PARTICLE STUDIO API FOR UNIFIED TABBED STUDIO MODAL
-    // =========================================================================
-    (window as any).LuxuryParticleStudio = {
-      getConfig: () => PARTICLE_CONFIG,
-      switchMode: (m: number) => switchMode(m),
-      setMorphStyle: (s: number) => {
-        PARTICLE_CONFIG.morphStyle = s;
-        updateMorphStyleUI();
-      },
-      setMorphProgress: (pct: number | null) => {
-        studioManualMorph = pct !== null ? pct / 100 : null;
-      },
-      testMorphAnimation: (durationMs = 3000) => {
-        const start = performance.now();
-        function animStep(now: number) {
-          const elapsed = now - start;
-          const progress = Math.min(1.0, elapsed / durationMs);
-          const t = progress <= 0.5 ? progress * 2 : (1.0 - progress) * 2;
-          studioManualMorph = t;
-          window.dispatchEvent(
-            new CustomEvent("particle-studio:morph-updated", {
-              detail: { pct: t * 100 },
-            }),
-          );
-          if (progress < 1.0) {
-            requestAnimationFrame(animStep);
-          } else {
-            studioManualMorph = null;
-            window.dispatchEvent(
-              new CustomEvent("particle-studio:morph-updated", {
-                detail: { pct: 0 },
-              }),
-            );
-          }
-        }
-        requestAnimationFrame(animStep);
-      },
-      setPhysics: (intensity: number, speed: number, radius: number) => {
-        PARTICLE_CONFIG.effectIntensity = intensity;
-        PARTICLE_CONFIG.effectSpeed = speed;
-        PARTICLE_CONFIG.cursorRadius = radius;
-      },
-      selectImageTab: (idx: number) => selectImageTab(idx),
-      setLayout: (
-        idx: number,
-        scale: number,
-        alignX: number,
-        alignY: number,
-      ) => {
-        const layout = getImageLayout(idx);
-        layout.scale = scale;
-        layout.alignX = alignX;
-        layout.alignY = alignY;
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-        saveSettingsToStorage();
-      },
-      getLayout: (idx: number) => {
-        return getImageLayout(idx);
-      },
-      toggleGizmo: (visible: boolean) => {
-        studioGizmoVisible = visible;
-        studioActive = visible;
-        const gizmo = document.getElementById("particle-placement-gizmo");
-        if (gizmo) {
-          if (visible) {
-            gizmo.classList.remove("hidden");
-            updateGizmoPosition(window.innerWidth, window.innerHeight);
-          } else {
-            gizmo.classList.add("hidden");
-          }
-        }
-      },
-      triggerRandomMode: () => {
-        triggerRandomMode();
-        return PARTICLE_CONFIG.interactiveMode;
-      },
-      lockCurrentMode: () => {
-        const mode = PARTICLE_CONFIG.interactiveMode;
-        localStorage.setItem("luxury_particle_locked_mode", String(mode));
-        PARTICLE_CONFIG.isRandomMode = false;
-        saveSettingsToStorage();
-        updateActiveModeUI();
-        return mode;
-      },
-      getCurrentMode: () => PARTICLE_CONFIG.interactiveMode,
-      isRandomMode: () => PARTICLE_CONFIG.isRandomMode,
-      isLocked: () => !!localStorage.getItem("luxury_particle_locked_mode"),
-      resetDefaults: () => {
-        localStorage.removeItem("luxury_particle_layouts");
-        localStorage.removeItem("luxury_particle_mode");
-        localStorage.removeItem("luxury_particle_locked_mode");
-        PARTICLE_CONFIG.imageLayouts = JSON.parse(
-          JSON.stringify(DEFAULT_IMAGE_LAYOUTS),
-        );
-        PARTICLE_CONFIG.interactiveMode = 1;
-        PARTICLE_CONFIG.morphStyle = 1;
-        updateActiveModeUI();
-        syncControlsToActiveImage();
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-      },
-      saveSettings: () => saveSettingsToStorage(),
-    };
-
-    setupGizmoInteractions();
-    setupPanelDrag(dragHeader, studioPanel);
-  }
-
-  function toggleStudioPanel(open: boolean) {
-    const studioPanel = document.getElementById("particle-studio-panel");
-    const gizmo = document.getElementById("particle-placement-gizmo");
-    if (!studioPanel) return;
-
-    if (open) {
-      studioPanel.classList.remove("hidden");
-      if (studioGizmoVisible && gizmo) {
-        gizmo.classList.remove("hidden");
-        updateGizmoPosition(window.innerWidth, window.innerHeight);
-      }
-      syncControlsToActiveImage();
-    } else {
-      studioPanel.classList.add("hidden");
-      gizmo?.classList.add("hidden");
-      studioManualMorph = null;
-    }
-  }
-
-  function closeStudioPanel() {
-    studioActive = false;
-    toggleStudioPanel(false);
-  }
-
-  function selectImageTab(idx: number) {
-    selectedImageIdx = idx;
-    const tabs = document.querySelectorAll("#studio-image-tabs button");
-    tabs.forEach((tab, i) => {
-      if (i === idx) {
-        tab.className =
-          "py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center bg-[#d4af37] text-zinc-950 font-bold shadow-md";
-      } else {
-        tab.className =
-          "py-1.5 px-2 rounded-md font-mono text-[11px] transition-all cursor-pointer text-center text-zinc-400 hover:text-white hover:bg-zinc-800";
-      }
-    });
-
-    const numImages = PARTICLE_CONFIG.images.length;
-    if (numImages > 1) {
-      studioManualMorph = idx / (numImages - 1);
-      const morphSlider = document.getElementById(
-        "studio-morph-slider",
-      ) as HTMLInputElement | null;
-      if (morphSlider) {
-        morphSlider.value = String(studioManualMorph * 100);
-        const morphValEl = document.getElementById("studio-morph-val");
-        if (morphValEl)
-          morphValEl.textContent = `${Math.round(studioManualMorph * 100)}%`;
-      }
-    }
-
-    syncControlsToActiveImage();
-    updateGizmoPosition(window.innerWidth, window.innerHeight);
-  }
-
-  function syncControlsToActiveImage() {
-    const layout = getImageLayout(selectedImageIdx);
-    const scaleSlider = document.getElementById(
-      "studio-scale-slider",
-    ) as HTMLInputElement | null;
-    const alignXSlider = document.getElementById(
-      "studio-alignx-slider",
-    ) as HTMLInputElement | null;
-    const alignYSlider = document.getElementById(
-      "studio-aligny-slider",
-    ) as HTMLInputElement | null;
-
-    if (scaleSlider) scaleSlider.value = layout.scale.toFixed(2);
-    if (alignXSlider) alignXSlider.value = layout.alignX.toFixed(3);
-    if (alignYSlider) alignYSlider.value = layout.alignY.toFixed(3);
-
-    const scaleVal = document.getElementById("studio-scale-val");
-    const alignXVal = document.getElementById("studio-alignx-val");
-    const alignYVal = document.getElementById("studio-aligny-val");
-
-    if (scaleVal) scaleVal.textContent = `${layout.scale.toFixed(2)}x`;
-    if (alignXVal)
-      alignXVal.textContent = `${Math.round(layout.alignX * 100)}%`;
-    if (alignYVal)
-      alignYVal.textContent = `${Math.round(layout.alignY * 100)}%`;
-  }
-
-  function updateGizmoPosition(screenW: number, screenH: number) {
-    const gizmo = document.getElementById("particle-placement-gizmo");
-    if (!gizmo || !studioActive || !studioGizmoVisible) return;
-
-    const layout = getImageLayout(selectedImageIdx);
-    const aspect = activeImageAspects[selectedImageIdx] || 1.0;
-    const size = screenH * layout.scale;
-    const drawW = size * aspect;
-    const drawH = size;
-    const centerX = screenW * layout.alignX;
-    const centerY = screenH * layout.alignY;
-
-    const left = centerX - drawW / 2;
-    const top = centerY - drawH / 2;
-
-    gizmo.style.left = `${left}px`;
-    gizmo.style.top = `${top}px`;
-    gizmo.style.width = `${drawW}px`;
-    gizmo.style.height = `${drawH}px`;
-
-    const label = document.getElementById("gizmo-label");
-    const coords = document.getElementById("gizmo-coords");
-    if (label) label.textContent = `Image ${selectedImageIdx + 1}`;
-    if (coords) {
-      coords.textContent = `X: ${(layout.alignX * 100).toFixed(1)}% Y: ${(layout.alignY * 100).toFixed(1)}% S: ${layout.scale.toFixed(2)}x`;
-    }
-  }
-
-  function setupGizmoInteractions() {
-    const gizmo = document.getElementById("particle-placement-gizmo");
-    if (!gizmo) return;
-
-    let isDragging = false;
-    let isScaling = false;
-    let startX = 0;
-    let startY = 0;
-    let startAlignX = 0;
-    let startAlignY = 0;
-    let startScale = 1.0;
-    let startDist = 0;
-
-    gizmo.addEventListener("pointerdown", (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-
-      const target = e.target as HTMLElement;
-      const layout = getImageLayout(selectedImageIdx);
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-
-      targetMouseX = -9999;
-      targetMouseY = -9999;
-      mouseVelX = 0;
-      mouseVelY = 0;
-
-      if (target.classList.contains("gizmo-handle")) {
-        isScaling = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startScale = layout.scale;
-        const cx = screenW * layout.alignX;
-        const cy = screenH * layout.alignY;
-        startDist = Math.hypot(e.clientX - cx, e.clientY - cy);
-      } else {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startAlignX = layout.alignX;
-        startAlignY = layout.alignY;
-      }
-
-      window.addEventListener("pointermove", onPointerMove);
-      window.addEventListener("pointerup", onPointerUp);
-    });
-
-    function onPointerMove(e: PointerEvent) {
-      const layout = getImageLayout(selectedImageIdx);
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-
-      if (isDragging) {
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        layout.alignX = Math.max(
-          0.02,
-          Math.min(0.98, startAlignX + dx / screenW),
-        );
-        layout.alignY = Math.max(
-          0.02,
-          Math.min(0.98, startAlignY + dy / screenH),
-        );
-        syncControlsToActiveImage();
-        updateGizmoPosition(screenW, screenH);
-        window.dispatchEvent(
-          new CustomEvent("particle-studio:layout-updated", {
-            detail: { idx: selectedImageIdx, layout },
-          }),
-        );
-      } else if (isScaling) {
-        const cx = screenW * layout.alignX;
-        const cy = screenH * layout.alignY;
-        const curDist = Math.hypot(e.clientX - cx, e.clientY - cy);
-        const ratio = curDist / Math.max(10, startDist);
-        layout.scale = Math.max(0.2, Math.min(2.5, startScale * ratio));
-        syncControlsToActiveImage();
-        updateGizmoPosition(screenW, screenH);
-        window.dispatchEvent(
-          new CustomEvent("particle-studio:layout-updated", {
-            detail: { idx: selectedImageIdx, layout },
-          }),
-        );
-      }
-    }
-
-    function onPointerUp() {
-      if (isDragging || isScaling) {
-        saveSettingsToStorage();
-      }
-      isDragging = false;
-      isScaling = false;
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-    }
-  }
-
-  function setupPanelDrag(
-    header: HTMLElement | null,
-    panel: HTMLElement | null,
-  ) {
-    if (!header || !panel) return;
-
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    let initialLeft = 0;
-    let initialTop = 0;
-
-    header.addEventListener("pointerdown", (e) => {
-      if ((e.target as HTMLElement).closest("#studio-close-btn")) return;
-      isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      const rect = panel.getBoundingClientRect();
-      initialLeft = rect.left;
-      initialTop = rect.top;
-
-      panel.style.bottom = "auto";
-      panel.style.right = "auto";
-      panel.style.left = `${initialLeft}px`;
-      panel.style.top = `${initialTop}px`;
-
-      window.addEventListener("pointermove", onPointerMove);
-      window.addEventListener("pointerup", onPointerUp);
-    });
-
-    function onPointerMove(e: PointerEvent) {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      panel.style.left = `${Math.max(10, Math.min(window.innerWidth - 410, initialLeft + dx))}px`;
-      panel.style.top = `${Math.max(10, Math.min(window.innerHeight - 150, initialTop + dy))}px`;
-    }
-
-    function onPointerUp() {
-      isDragging = false;
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-    }
-  }
-
   const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       if (
@@ -2637,10 +733,6 @@
           document
             .getElementById("luxury-particle-canvas")
             ?.classList.add("hidden");
-          document
-            .getElementById("particle-studio-btn")
-            ?.classList.add("hidden");
-          closeStudioPanel();
           const portraitImg = document.getElementById("luxury-portrait-img");
           if (portraitImg) {
             portraitImg.style.opacity = "1";

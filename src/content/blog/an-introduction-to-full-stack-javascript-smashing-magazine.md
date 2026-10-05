@@ -1,9 +1,6 @@
 ---
 title: An Introduction To Full-Stack JavaScript | Smashing Magazine
-description: >-
-  Nowadays, with any Web app you build, you have dozens of architectural
-  decisions to make. And you want to make the right ones: You want to use
-  technologies that
+description: 'Nowadays, with any Web app you build, you have dozens of architectural decisions to make. And you want to make the right ones: You want to use technologies that'
 pubDate: '2014-08-06'
 categories:
   - Technology

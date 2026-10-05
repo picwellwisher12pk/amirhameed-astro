@@ -1,9 +1,6 @@
 ---
 title: Hack the  – The Pastry Box Project
-description: >-
-  There are no true rules in reading. Apart from the visual process which we all
-  share, everything else is utterly intimate and subjective. It can be anything
-  fro
+description: There are no true rules in reading. Apart from the visual process which we all share, everything else is utterly intimate and subjective. It can be anything fro
 pubDate: '2014-09-02'
 categories:
   - Technology

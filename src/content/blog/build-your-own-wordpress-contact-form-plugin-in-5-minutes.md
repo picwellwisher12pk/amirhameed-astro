@@ -1,9 +1,6 @@
 ---
 title: Build Your Own WordPress Contact Form Plugin in 5 Minutes
-description: >-
-  Most websites are typically designed to comply with standard web practices by
-  including a dedicated page where a contact form is located. This provides
-  visitors
+description: Most websites are typically designed to comply with standard web practices by including a dedicated page where a contact form is located. This provides visitors
 pubDate: '2014-07-26'
 categories:
   - Technology

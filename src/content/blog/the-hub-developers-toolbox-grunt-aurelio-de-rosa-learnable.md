@@ -1,9 +1,6 @@
 ---
 title: 'The Hub - Developer''s Toolbox: Grunt - Aurelio De Rosa - Learnable'
-description: >-
-  Improve the performance of a website by automating the testing and building
-  process to improve the development workflow. Watch as Aurelio gives you a tour
-  of Gr
+description: Improve the performance of a website by automating the testing and building process to improve the development workflow. Watch as Aurelio gives you a tour of Gr
 pubDate: '2014-10-20'
 categories:
   - Technology

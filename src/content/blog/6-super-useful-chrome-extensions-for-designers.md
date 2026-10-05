@@ -1,9 +1,6 @@
 ---
 title: 6 Super-Useful Chrome Extensions for Designers
-description: >-
-  If you are a Chrome user, you probably love it for it’s speed and simplicity.
-  However, no matter how much you like simplicity, sooner or later you’ll need
-  will
+description: If you are a Chrome user, you probably love it for it’s speed and simplicity. However, no matter how much you like simplicity, sooner or later you’ll need will
 pubDate: '2014-08-20'
 categories:
   - Technology

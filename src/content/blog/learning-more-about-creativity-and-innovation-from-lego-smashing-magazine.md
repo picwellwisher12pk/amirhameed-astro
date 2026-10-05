@@ -1,9 +1,6 @@
 ---
 title: Learning More About Creativity And Innovation From LEGO | Smashing Magazine
-description: >-
-  Many companies and design agencies tend to look at the design and creativity
-  stage from a narrow perspective. Usually, the design team is locked inside the
-  idea
+description: Many companies and design agencies tend to look at the design and creativity stage from a narrow perspective. Usually, the design team is locked inside the idea
 pubDate: '2014-08-08'
 categories:
   - inspiration

@@ -1,9 +1,6 @@
 ---
 title: 10 Movies Every Entrepreneur Should Watch | LinkedIn
-description: >-
-  No one ever said being an entrepreneur would be easy. A million obstacles seem
-  to stand in the way each and every day. The naysayers and budget woes can be
-  enou
+description: No one ever said being an entrepreneur would be easy. A million obstacles seem to stand in the way each and every day. The naysayers and budget woes can be enou
 pubDate: '2014-08-05'
 categories:
   - General

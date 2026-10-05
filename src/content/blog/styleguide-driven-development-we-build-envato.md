@@ -1,9 +1,6 @@
 ---
 title: Styleguide Driven Development - We build Envato
-description: >-
-  tyleguide Driven Development (SDD) is a practice that encourages the
-  separation of UX, Design & Frontend from Backend concerns. This is achieved by
-  developing t
+description: tyleguide Driven Development (SDD) is a practice that encourages the separation of UX, Design & Frontend from Backend concerns. This is achieved by developing t
 pubDate: '2014-08-19'
 categories:
   - Technology

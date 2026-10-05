@@ -1,9 +1,6 @@
 ---
 title: What's New in Chrome 39
-description: >-
-  Despite being six years old, Chrome is rapidly approaching middle age in
-  version numbers. Chrome 39 has been released and you probably have it
-  installed. There
+description: Despite being six years old, Chrome is rapidly approaching middle age in version numbers. Chrome 39 has been released and you probably have it installed. There
 pubDate: '2014-11-30'
 categories:
   - Technology

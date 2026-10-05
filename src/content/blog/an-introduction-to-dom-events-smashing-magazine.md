@@ -1,9 +1,6 @@
 ---
 title: An Introduction To DOM Events | Smashing Magazine
-description: >-
-  Click, touch, load, drag, change, input, error, resize — the list of possible
-  DOM events is lengthy. Events can be triggered on any part of a document,
-  whether
+description: Click, touch, load, drag, change, input, error, resize — the list of possible DOM events is lengthy. Events can be triggered on any part of a document, whether
 pubDate: '2014-08-06'
 categories:
   - Technology

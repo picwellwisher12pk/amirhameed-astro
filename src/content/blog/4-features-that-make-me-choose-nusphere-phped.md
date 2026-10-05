@@ -1,9 +1,6 @@
 ---
 title: 4 Features That Make Me Choose NuSphere PhpED
-description: >-
-  In the last survey on the best PHP IDE for 2014, my longtime favorite PhpED
-  was missing. I didn’t act on it then, but what better way to spread the love
-  than to
+description: In the last survey on the best PHP IDE for 2014, my longtime favorite PhpED was missing. I didn’t act on it then, but what better way to spread the love than to
 pubDate: '2014-08-01'
 categories:
   - Technology

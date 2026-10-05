@@ -1,9 +1,6 @@
 ---
 title: 3 Ways to Develop Cross Platform Desktop Apps with PHP
-description: >-
-  PHP as a cross-platform desktop app development language? Blasphemy!
-  Nonetheless, it’s possible. A few years ago, everything those interested in
-  bringing PHP to
+description: PHP as a cross-platform desktop app development language? Blasphemy! Nonetheless, it’s possible. A few years ago, everything those interested in bringing PHP to
 pubDate: '2014-12-06'
 categories:
   - Technology

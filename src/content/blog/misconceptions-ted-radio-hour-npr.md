@@ -1,9 +1,6 @@
 ---
 title: 'Misconceptions : TED Radio Hour : NPR'
-description: >-
-  In this hour, TED speakers move beyond conventional wisdom and reveal complex
-  realities about what we think we know to be true. via Misconceptions : TED
-  Radio H
+description: 'In this hour, TED speakers move beyond conventional wisdom and reveal complex realities about what we think we know to be true. via Misconceptions : TED Radio H'
 pubDate: '2014-07-25'
 categories:
   - Science

@@ -1,9 +1,6 @@
 ---
 title: The most astounding fact | memolition
-description: >-
-  Astrophysicist Dr. Neil DeGrasse Tyson was asked by a reader of TIME magazine,
-  “What is the most astounding fact you can share with us about the Universe?”
-  This
+description: Astrophysicist Dr. Neil DeGrasse Tyson was asked by a reader of TIME magazine, “What is the most astounding fact you can share with us about the Universe?” This
 pubDate: '2014-07-25'
 categories:
   - Science

@@ -1,9 +1,6 @@
 ---
 title: Turning WordPress into a Self-Hosted Business Powerhouse
-description: >-
-  As a web developer, chances are you have a mid to high end hosting plan with a
-  large amount of resources you probably don’t come close to using.You might
-  also b
+description: As a web developer, chances are you have a mid to high end hosting plan with a large amount of resources you probably don’t come close to using.You might also b
 pubDate: '2014-10-20'
 categories:
   - Technology

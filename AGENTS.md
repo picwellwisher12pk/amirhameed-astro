@@ -18,7 +18,7 @@ Whenever Amir asks to add a new project or idea to the website:
    featured: true # Set true if this should appear on the homepage
    status: "completed" # completed | in-progress | concept
    demoUrl: "https://demo.example.com" # optional
-   repoUrl: "https://github.com/amirhameed/repo" # optional
+   repoUrl: "https://github.com/picwellwisher12pk/repo" # optional
    heroImage: "/images/projects/preview.png" # optional, placed in public/
    ---
 

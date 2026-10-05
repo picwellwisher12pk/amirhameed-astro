@@ -1,9 +1,6 @@
 ---
 title: SolidRocks for Vray
-description: >-
-  SolidRocks is an Autodesk™ 3dsmax™ plugin which automates the complex process
-  of setting up rendering. It brings the best of the powerful V-Ray™ rendering
-  engin
+description: SolidRocks is an Autodesk™ 3dsmax™ plugin which automates the complex process of setting up rendering. It brings the best of the powerful V-Ray™ rendering engin
 pubDate: '2014-07-11'
 categories:
   - Technology

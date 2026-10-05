@@ -1,9 +1,6 @@
 ---
 title: Zen Coding
-description: >-
-  Zen Coding is an editor plugin for high-speed HTML, XML, XSL (or any other
-  structured code format) coding and editing. The core of this plugin is a
-  powerful abb
+description: Zen Coding is an editor plugin for high-speed HTML, XML, XSL (or any other structured code format) coding and editing. The core of this plugin is a powerful abb
 pubDate: '2014-07-08'
 categories:
   - My Writings
@@ -34,7 +31,7 @@ div#page>div.logo+ul#navigation>li\*5>a
 ## Current features of abbreviation engine
 
 *   ID and CLASS attributes: div#page.section.main.
-*   Custom attributes: div\[title\], a\[title="Hello world" rel\], td\[colspan=2\].
+*   Custom attributes: div, a, td[colspan=2].
 *   Element multiplication: li\*5 will output <li> tag five times.
 *   Item numbering with $ character: li.item$\*3 will output <li> tag three times, replacing $ character with item number.
 *   Multiple '$' characters in a row are used as zero padding, i.e.: li.item$$$ → li.item001
@@ -96,4 +93,6 @@ These plugins are developed by third-party and has their own ZC engine implement
 *   **Vim** (crossplatform) — [Sparkup](//github.com/rstacruz/sparkup\"), [Zen Coding for Vim](//www.vim.org/scripts/script.php?script_id=2981\")
 *   [ReSharper plugin](//confluence.jetbrains.net/display/ReSharper/ZenCoding\") for **Visual Studio**
 
-Find Zen Coding on Smashing Magazine: \[button href=""http://coding.smashingmagazine.com/2009/11/21/zen-coding-a-new-way-to-write-html-code/" title="" target="blank" shape="square, rounded, pill" size="mini, small, regular, large, x-large, jumbo" block="false" circle="false" icon_only="true" info="popover, tooltip" info_place="top, right, bottom, left" info_trigger="hover, click, focus" info_content=""\] Zen Coding at Smashing Magazine \[/button\] Go to the Source: \[button href="http://code.google.com/p/zen-coding/" title="Title" target="blank" shape="square, rounded, pill" size="mini, small, regular, large, x-large, jumbo" block="false" circle="false" icon_only="true" info="popover, tooltip" info_place="top, right, bottom, left" info_trigger="hover, click, focus" info_content=""\]Go to Source \[/button\]
+Find Zen Coding on Smashing Magazine: [button href=""http://coding.smashingmagazine.com/2009/11/21/zen-coding-a-new-way-to-write-html-code/" title="" target="blank" shape="square, rounded, pill" size="mini, small, regular, large, x-large, jumbo" block="false" circle="false" icon_only="true" info="popover, tooltip" info_place="top, right, bottom, left" info_trigger="hover, click, focus" info_content=""] Zen Coding at Smashing Magazine [/button] Go to the Source: 
+
+[Go to Source](http://code.google.com/p/zen-coding/)

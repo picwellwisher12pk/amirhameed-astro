@@ -1,9 +1,6 @@
 ---
 title: 'LESS : The dynamic stylesheet language.'
-description: >-
-  LESS extends CSS with dynamic behavior such as variables, mixins, operations
-  and functions. LESS runs on both the client-side (Chrome, Safari, Firefox) and
-  serv
+description: LESS extends CSS with dynamic behavior such as variables, mixins, operations and functions. LESS runs on both the client-side (Chrome, Safari, Firefox) and serv
 pubDate: '2014-06-23'
 categories:
   - Technology

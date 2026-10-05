@@ -1,9 +1,6 @@
 ---
 title: 'Screencast: Origin and Importance in the CSS Cascade'
-description: >-
-  “Origin & Importance” is one of the four steps of the CSS Cascade. This step
-  determines which declaration will win — between author, user, and browser (or
-  user-
+description: “Origin & Importance” is one of the four steps of the CSS Cascade. This step determines which declaration will win — between author, user, and browser (or user-
 pubDate: '2014-07-26'
 categories:
   - Technology

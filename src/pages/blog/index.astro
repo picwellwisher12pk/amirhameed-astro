@@ -144,6 +144,109 @@ const allCategories = ['All', ...new Set(allPosts.flatMap((p) => p.data.categori
       }
     }
 
+    function toSlug(str: string): string {
+      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    const catMap = new Map<string, string>();
+    catButtons.forEach((btn) => {
+      const c = btn.getAttribute('data-cat');
+      if (c) {
+        catMap.set(c.toLowerCase(), c);
+        catMap.set(toSlug(c), c);
+      }
+    });
+
+    function syncUI() {
+      catButtons.forEach((b) => {
+        const c = b.getAttribute('data-cat');
+        if (c === activeCat) {
+          b.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
+          b.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400', 'border-zinc-200', 'dark:border-zinc-800');
+        } else {
+          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
+          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400', 'border-zinc-200', 'dark:border-zinc-800');
+        }
+      });
+
+      langButtons.forEach((b) => {
+        const l = b.getAttribute('data-lang');
+        if (l === activeLang) {
+          b.classList.add('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
+          b.classList.remove('text-zinc-500');
+        } else {
+          b.classList.remove('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
+          b.classList.add('text-zinc-500');
+        }
+      });
+    }
+
+    function updateUrlAndStorage(pushState = true) {
+      try {
+        localStorage.setItem('blog_active_category', activeCat);
+        localStorage.setItem('blog_active_lang', activeLang);
+      } catch (_) {}
+
+      const url = new URL(window.location.href);
+      if (activeCat && activeCat !== 'All') {
+        url.searchParams.set('category', toSlug(activeCat));
+      } else {
+        url.searchParams.delete('category');
+        url.searchParams.delete('cat');
+      }
+
+      if (activeLang && activeLang !== 'all') {
+        url.searchParams.set('lang', activeLang);
+      } else {
+        url.searchParams.delete('lang');
+      }
+
+      const newUrl = url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '');
+      if (pushState && window.location.href !== url.href) {
+        window.history.pushState({ cat: activeCat, lang: activeLang }, '', newUrl);
+      } else if (!pushState) {
+        window.history.replaceState({ cat: activeCat, lang: activeLang }, '', newUrl);
+      }
+    }
+
+    function restoreState() {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('category') || params.get('cat') || window.location.hash.replace(/^#/, '');
+      const langParam = params.get('lang');
+
+      let resolvedCat = 'All';
+      if (catParam) {
+        const norm = decodeURIComponent(catParam).toLowerCase().trim();
+        resolvedCat = catMap.get(norm) || catMap.get(toSlug(norm)) || 'All';
+      } else {
+        try {
+          const saved = localStorage.getItem('blog_active_category');
+          if (saved && catMap.has(saved.toLowerCase())) {
+            resolvedCat = catMap.get(saved.toLowerCase()) || 'All';
+          }
+        } catch (_) {}
+      }
+
+      let resolvedLang = 'all';
+      if (langParam && ['all', 'en', 'ur'].includes(langParam.toLowerCase())) {
+        resolvedLang = langParam.toLowerCase();
+      } else if (!catParam) {
+        try {
+          const savedLang = localStorage.getItem('blog_active_lang');
+          if (savedLang && ['all', 'en', 'ur'].includes(savedLang)) {
+            resolvedLang = savedLang;
+          }
+        } catch (_) {}
+      }
+
+      activeCat = resolvedCat;
+      activeLang = resolvedLang;
+
+      syncUI();
+      applyFilters();
+      updateUrlAndStorage(false);
+    }
+
     searchInput?.addEventListener('input', (e) => {
       searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
       applyFilters();
@@ -151,29 +254,19 @@ const allCategories = ['All', ...new Set(allPosts.flatMap((p) => p.data.categori
 
     catButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        catButtons.forEach((b) => {
-          b.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
-          b.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400', 'border-zinc-200', 'dark:border-zinc-800');
-        });
-        btn.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-600', 'shadow-sm');
-        btn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-600', 'dark:text-zinc-400');
-
         activeCat = btn.getAttribute('data-cat') || 'All';
+        syncUI();
         applyFilters();
+        updateUrlAndStorage(true);
       });
     });
 
     langButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        langButtons.forEach((b) => {
-          b.classList.remove('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
-          b.classList.add('text-zinc-500');
-        });
-        btn.classList.add('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'font-semibold', 'shadow-xs');
-        btn.classList.remove('text-zinc-500');
-
         activeLang = btn.getAttribute('data-lang') || 'all';
+        syncUI();
         applyFilters();
+        updateUrlAndStorage(true);
       });
     });
 
@@ -182,9 +275,19 @@ const allCategories = ['All', ...new Set(allPosts.flatMap((p) => p.data.categori
       searchQuery = '';
       activeCat = 'All';
       activeLang = 'all';
-
-      catButtons[0]?.dispatchEvent(new Event('click'));
-      langButtons[0]?.dispatchEvent(new Event('click'));
+      syncUI();
+      applyFilters();
+      updateUrlAndStorage(true);
     });
+
+    window.addEventListener('popstate', () => {
+      restoreState();
+    });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', restoreState);
+    } else {
+      restoreState();
+    }
   </script>
 </BaseLayout>

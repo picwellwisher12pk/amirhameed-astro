@@ -1,9 +1,6 @@
 ---
 title: Let’s talk about margins — The Message — Medium
-description: >-
-  I saw a film recently on an airplane that made me cry. The film was a love
-  story but the love part of the story didn’t make me cry. No, the scene that
-  made me c
+description: I saw a film recently on an airplane that made me cry. The film was a love story but the love part of the story didn’t make me cry. No, the scene that made me c
 pubDate: '2014-08-19'
 categories:
   - General

@@ -1,9 +1,6 @@
 ---
 title: 'Work from Home Business Ideas : Pakistan'
-description: >-
-  If you want to work in your pajamas, want to set up your own working hours and
-  have a good coffee at the desk after a lot of work, then there are so many
-  other
+description: If you want to work in your pajamas, want to set up your own working hours and have a good coffee at the desk after a lot of work, then there are so many other
 pubDate: '2014-07-25'
 categories:
   - General

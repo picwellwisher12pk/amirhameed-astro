@@ -1,9 +1,6 @@
 ---
 title: CSS-Driven Internationalization In JavaScript | Smashing Magazine
-description: >-
-  Writing front-end code often requires developers to address the problem of
-  internationalization at some level. Despite the current standard, which
-  introduces a
+description: Writing front-end code often requires developers to address the problem of internationalization at some level. Despite the current standard, which introduces a
 pubDate: '2014-08-06'
 categories:
   - Technology

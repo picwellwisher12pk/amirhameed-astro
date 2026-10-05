@@ -1,9 +1,6 @@
 ---
 title: Prepare Your Wordpress Theme To Be Minified | Chris Wiegman
-description: >-
-  Minifying your WordPress themes is one of the best things you can do to help
-  reduce the number of http calls made to the server and thus help reduce the
-  loading
+description: Minifying your WordPress themes is one of the best things you can do to help reduce the number of http calls made to the server and thus help reduce the loading
 pubDate: '2014-08-08'
 categories:
   - Technology

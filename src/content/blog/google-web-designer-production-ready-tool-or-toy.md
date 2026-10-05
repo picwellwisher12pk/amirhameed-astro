@@ -1,9 +1,6 @@
 ---
 title: 'Google Web Designer: Production-Ready Tool or Toy?'
-description: >-
-  Google Web Designer is a graphical design tool for creating
-  HTML5/CSS3/Javascript banners and advertisements using animations and 3D
-  transforms. Using their gra
+description: Google Web Designer is a graphical design tool for creating HTML5/CSS3/Javascript banners and advertisements using animations and 3D transforms. Using their gra
 pubDate: '2014-09-23'
 categories:
   - Technology

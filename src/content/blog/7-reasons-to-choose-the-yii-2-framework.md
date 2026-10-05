@@ -1,9 +1,6 @@
 ---
 title: 7 Reasons to Choose the Yii 2 Framework
-description: >-
-  Late last year, SitePoint published an article highlighting the top PHP
-  frameworks. Tied for the number four spot was the Yii (pronounced Yee)
-  Framework. At tha
+description: Late last year, SitePoint published an article highlighting the top PHP frameworks. Tied for the number four spot was the Yii (pronounced Yee) Framework. At tha
 pubDate: '2014-10-29'
 categories:
   - General

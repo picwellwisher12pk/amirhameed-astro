@@ -1,9 +1,6 @@
 ---
 title: What did I learn while writing a Chrome and Firefox extension with React?
-description: >-
-  (Heads up: This might be a very long post to read. If you are interested, you
-  shall continue despite my notification. ) Little Background about me: I was
-  quite
+description: '(Heads up: This might be a very long post to read. If you are interested, you shall continue despite my notification. ) Little Background about me: I was quite'
 pubDate: '2018-11-09'
 categories:
   - Idea

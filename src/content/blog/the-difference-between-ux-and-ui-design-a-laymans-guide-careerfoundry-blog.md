@@ -1,9 +1,6 @@
 ---
 title: The Difference Between UX and UI Design- A Layman’s Guide | CareerFoundry Blog
-description: >-
-  We’ve all overheard conversations, walking down hip streets of the world’s
-  tech capitals, discussions about the great ‘UX’ of a product, or the poor ‘UI’
-  of a w
+description: We’ve all overheard conversations, walking down hip streets of the world’s tech capitals, discussions about the great ‘UX’ of a product, or the poor ‘UI’ of a w
 pubDate: '2014-08-13'
 categories:
   - General

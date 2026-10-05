@@ -1,9 +1,6 @@
 ---
 title: 'Diffbot: Crawling with Visual Machine Learning'
-description: >-
-  Have you ever wondered how social networks do URL previews so well when you
-  share links? How do they know which images to grab, whom to cite as an author,
-  or wh
+description: Have you ever wondered how social networks do URL previews so well when you share links? How do they know which images to grab, whom to cite as an author, or wh
 pubDate: '2014-07-30'
 categories:
   - Technology

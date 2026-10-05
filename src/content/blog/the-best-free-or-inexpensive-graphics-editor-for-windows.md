@@ -1,9 +1,6 @@
 ---
 title: The Best Free (or Inexpensive) Graphics Editor for Windows
-description: >-
-  There’s no arguing that Adobe Photoshop isn’t still the industry-standard
-  graphics editor for windows, whether it be to create new images from scratch
-  or to edi
+description: There’s no arguing that Adobe Photoshop isn’t still the industry-standard graphics editor for windows, whether it be to create new images from scratch or to edi
 pubDate: '2014-07-26'
 categories:
   - Technology

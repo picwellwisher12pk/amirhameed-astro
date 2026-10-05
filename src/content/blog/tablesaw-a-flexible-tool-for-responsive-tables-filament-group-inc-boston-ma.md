@@ -1,11 +1,6 @@
 ---
-title: >-
-  Tablesaw - A Flexible Tool for Responsive Tables | Filament Group, Inc.,
-  Boston, MA
-description: >-
-  Next to coming up with project names, managing tables in a responsive layout
-  is one of the trickiest problems in web development. For these reason web
-  developme
+title: Tablesaw - A Flexible Tool for Responsive Tables | Filament Group, Inc., Boston, MA
+description: Next to coming up with project names, managing tables in a responsive layout is one of the trickiest problems in web development. For these reason web developme
 pubDate: '2014-08-09'
 categories:
   - Technology

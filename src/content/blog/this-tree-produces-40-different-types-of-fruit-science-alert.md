@@ -1,9 +1,6 @@
 ---
 title: This tree produces 40 different types of fruit (Science Alert)
-description: >-
-  An art professor from Syracuse University in the US, Van Aken grew up on a
-  family farm before pursuing a career as an artist, and has combined his
-  knowledge of
+description: An art professor from Syracuse University in the US, Van Aken grew up on a family farm before pursuing a career as an artist, and has combined his knowledge of
 pubDate: '2014-07-25'
 categories:
   - Science

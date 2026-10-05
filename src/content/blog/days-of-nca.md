@@ -6,7 +6,7 @@ categories:
   - Memories
 tags: []
 language: en
-heroImage: https://amirhameed.com/wp-content/uploads/2014/07/3791_1139958774865_6719628_n.jpg
+heroImage: /wp-content/uploads/2014/07/3791_1139958774865_6719628_n.jpg
 ---
 
 

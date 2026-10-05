@@ -1,9 +1,6 @@
 ---
 title: Encouraging Children To Meditate – 4 Simple Tips & Video |
-description: >-
-  Children are under huge pressure and they are subjected to sensory overload.
-  Meditation and relaxation is a necessity to help build resilience and help
-  children
+description: Children are under huge pressure and they are subjected to sensory overload. Meditation and relaxation is a necessity to help build resilience and help children
 pubDate: '2014-07-26'
 categories:
   - General

@@ -1,9 +1,6 @@
 ---
 title: 'Freelancers: How to Increase Your Profits 75% with Client Follow Up'
-description: >-
-  I’m sure that headline got your attention–after all, what freelancer wouldn’t
-  like to increase their profits by 75%? Here’s the deal: a 5% increase in
-  customer
+description: 'I’m sure that headline got your attention–after all, what freelancer wouldn’t like to increase their profits by 75%? Here’s the deal: a 5% increase in customer'
 pubDate: '2014-08-08'
 categories:
   - Technology

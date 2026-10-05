@@ -1,9 +1,6 @@
 ---
 title: So You Think You Know How to Write a WordPress Theme?
-description: >-
-  In this article, we’ll get you started on WordPress theme development, dealing
-  with what you need to learn before you even think about coding. WordPress has
-  bec
+description: In this article, we’ll get you started on WordPress theme development, dealing with what you need to learn before you even think about coding. WordPress has bec
 pubDate: '2014-07-25'
 categories:
   - Technology

@@ -1,9 +1,6 @@
 ---
 title: Obvious Design Always Wins
-description: >-
-  If you’re like me, you are curious about how changing the interface of a
-  mobile application or website may influence the engagement and the earnings of
-  your pro
+description: If you’re like me, you are curious about how changing the interface of a mobile application or website may influence the engagement and the earnings of your pro
 pubDate: '2014-08-02'
 categories:
   - inspiration

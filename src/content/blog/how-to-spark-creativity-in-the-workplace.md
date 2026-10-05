@@ -1,9 +1,6 @@
 ---
 title: How to Spark Creativity in the Workplace
-description: >-
-  Creativity isn't just for "creatives." Rather, it’s a mental tool prized by
-  employers across all fields. Many believe it’s the key to business success,
-  even if
+description: Creativity isn't just for "creatives." Rather, it’s a mental tool prized by employers across all fields. Many believe it’s the key to business success, even if
 pubDate: '2014-07-25'
 categories:
   - General
