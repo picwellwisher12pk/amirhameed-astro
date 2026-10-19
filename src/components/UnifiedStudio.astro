@@ -385,6 +385,120 @@
         </div>
       </div>
 
+      <!-- 3. INTERACTIVE EYE GAZE & NATURAL BLINKING -->
+      <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-3.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 text-sm">👁</span>
+            <span class="text-xs font-bold text-white uppercase tracking-wider">
+              Eye Gaze &amp; Natural Blinking
+            </span>
+          </div>
+          <button
+            type="button"
+            id="u-btn-trigger-blink"
+            class="py-1 px-2.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 font-mono text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+            title="Trigger an immediate blink"
+          >
+            <span>😉 Blink Now</span>
+          </button>
+        </div>
+
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Living facial dynamics: portrait pupils follow your cursor across the screen while procedural eyelid physics trigger natural blinks.
+        </p>
+
+        <!-- Method Switcher -->
+        <div>
+          <label class="text-[11px] font-mono text-slate-300 block mb-1.5 font-semibold">Pipeline Architecture:</label>
+          <div class="grid grid-cols-3 gap-2" id="u-eye-mode-group">
+            <button
+              type="button"
+              class="u-eye-mode-btn p-2 rounded-xl border border-amber-400/50 bg-amber-400/15 text-amber-300 text-left text-xs font-medium transition-all cursor-pointer shadow-sm"
+              data-eye-mode="1"
+            >
+              <div class="font-bold text-[11px]">Option A</div>
+              <div class="text-[10px] text-slate-400">Shader Warp</div>
+            </button>
+            <button
+              type="button"
+              class="u-eye-mode-btn p-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:border-slate-600 hover:text-white text-left text-xs font-medium transition-all cursor-pointer"
+              data-eye-mode="2"
+            >
+              <div class="font-bold text-[11px]">Option B</div>
+              <div class="text-[10px] text-slate-400">Mask Tagged</div>
+            </button>
+            <button
+              type="button"
+              class="u-eye-mode-btn p-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:border-slate-600 hover:text-white text-left text-xs font-medium transition-all cursor-pointer"
+              data-eye-mode="0"
+            >
+              <div class="font-bold text-[11px]">Off</div>
+              <div class="text-[10px] text-slate-400">Disabled</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Manual Blink Transition Slider -->
+        <div class="p-3 rounded-xl bg-slate-950/70 border border-amber-400/30 space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-white font-bold flex items-center gap-1 font-mono">
+              <span class="text-amber-400">✦</span> Eyelid Transition Scrub:
+            </span>
+            <span id="u-eye-blink-manual-val" class="text-amber-300 font-bold font-mono">0.0% (Open)</span>
+          </div>
+          <input
+            id="u-slider-eye-blink-manual"
+            type="range"
+            min="0"
+            max="1"
+            step="0.005"
+            value="0"
+            class="w-full accent-amber-400 h-2 bg-slate-900 rounded-lg cursor-pointer"
+          />
+          <div class="flex gap-1.5 pt-0.5">
+            <button type="button" id="u-btn-manual-blink-0" class="flex-1 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] text-slate-300 cursor-pointer font-mono font-bold">0% (Open)</button>
+            <button type="button" id="u-btn-manual-blink-50" class="flex-1 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] text-slate-300 cursor-pointer font-mono font-bold">50% (Half)</button>
+            <button type="button" id="u-btn-manual-blink-100" class="flex-1 py-1 rounded bg-slate-900 hover:bg-slate-800 text-[10px] text-slate-300 cursor-pointer font-mono font-bold">100% (Shut)</button>
+            <button type="button" id="u-btn-manual-blink-auto" class="px-2 py-1 rounded bg-amber-500/20 text-amber-300 text-[10px] cursor-pointer font-mono font-bold border border-amber-400/40">Resume Auto</button>
+          </div>
+        </div>
+
+        <!-- Sliders: Gaze Strength & Blink Frequency -->
+        <div class="pt-2 border-t border-slate-700/60 space-y-3 font-mono text-xs">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Gaze Sensitivity:</span>
+              <span id="u-eye-gaze-val" class="text-amber-300 font-bold">1.00x</span>
+            </div>
+            <input
+              id="u-slider-eye-gaze"
+              type="range"
+              min="0"
+              max="2.5"
+              step="0.05"
+              value="1.0"
+              class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer"
+            />
+          </div>
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Blink Frequency:</span>
+              <span id="u-eye-blink-val" class="text-amber-300 font-bold">4.2s</span>
+            </div>
+            <input
+              id="u-slider-eye-blink"
+              type="range"
+              min="2.0"
+              max="9.0"
+              step="0.2"
+              value="4.2"
+              class="w-full accent-amber-400 h-2 bg-slate-950 rounded-lg cursor-pointer"
+            />
+          </div>
+        </div>
+      </div>
+
       <!-- Particle Physics Action Buttons -->
       <div class="flex items-center justify-between gap-2 pt-2">
         <button
@@ -1189,6 +1303,111 @@
     sIntensity?.addEventListener('input', syncPhysics);
     sSpeed?.addEventListener('input', syncPhysics);
     sRadius?.addEventListener('input', syncPhysics);
+
+    // -----------------------------------------------------------------------
+    // PARTICLE TAB: EYE GAZE TRACKING & PROCEDURAL BLINKING
+    // -----------------------------------------------------------------------
+    const eyeModeBtns = document.querySelectorAll('.u-eye-mode-btn');
+    const sEyeGaze = document.getElementById('u-slider-eye-gaze') as HTMLInputElement | null;
+    const sEyeBlink = document.getElementById('u-slider-eye-blink') as HTMLInputElement | null;
+    const vEyeGaze = document.getElementById('u-eye-gaze-val');
+    const vEyeBlink = document.getElementById('u-eye-blink-val');
+    const btnTriggerBlink = document.getElementById('u-btn-trigger-blink');
+
+    function syncEyeControls() {
+      const api = (window as any).LuxuryParticleStudio;
+      const config = api?.getConfig ? api.getConfig() : null;
+      const currentMode = config?.eyeAnim?.mode ?? 1;
+      const gazeStr = config?.eyeAnim?.gazeStrength ?? 1.0;
+      const blinkFreq = config?.eyeAnim?.blinkFrequency ?? 4.2;
+
+      eyeModeBtns.forEach(btn => {
+        const m = parseInt(btn.getAttribute('data-eye-mode') || '1', 10);
+        if (m === currentMode) {
+          btn.className = 'u-eye-mode-btn p-2 rounded-xl border border-amber-400 bg-amber-400/20 text-amber-300 font-bold text-left text-xs transition-all cursor-pointer shadow-sm';
+        } else {
+          btn.className = 'u-eye-mode-btn p-2 rounded-xl border border-slate-700/60 bg-slate-900/60 text-slate-400 hover:border-slate-600 hover:text-white text-left text-xs font-medium transition-all cursor-pointer';
+        }
+      });
+
+      if (sEyeGaze) sEyeGaze.value = gazeStr.toFixed(2);
+      if (vEyeGaze) vEyeGaze.textContent = `${gazeStr.toFixed(2)}x`;
+      if (sEyeBlink) sEyeBlink.value = blinkFreq.toFixed(1);
+      if (vEyeBlink) vEyeBlink.textContent = `${blinkFreq.toFixed(1)}s`;
+    }
+
+    eyeModeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const m = parseInt(btn.getAttribute('data-eye-mode') || '1', 10);
+        const api = (window as any).LuxuryParticleStudio;
+        if (api && api.setEyeMode) api.setEyeMode(m);
+        syncEyeControls();
+      });
+    });
+
+    sEyeGaze?.addEventListener('input', () => {
+      const val = parseFloat(sEyeGaze.value);
+      if (vEyeGaze) vEyeGaze.textContent = `${val.toFixed(2)}x`;
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.setGazeStrength) api.setGazeStrength(val);
+    });
+
+    sEyeBlink?.addEventListener('input', () => {
+      const val = parseFloat(sEyeBlink.value);
+      if (vEyeBlink) vEyeBlink.textContent = `${val.toFixed(1)}s`;
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.setBlinkFrequency) api.setBlinkFrequency(val);
+    });
+
+    btnTriggerBlink?.addEventListener('click', () => {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.triggerBlink) {
+        api.triggerBlink();
+        if (btnTriggerBlink) {
+          btnTriggerBlink.classList.add('scale-95', 'bg-amber-400/40');
+          setTimeout(() => {
+            btnTriggerBlink.classList.remove('scale-95', 'bg-amber-400/40');
+          }, 200);
+        }
+      }
+    });
+
+    const sManualBlink = document.getElementById('u-slider-eye-blink-manual') as HTMLInputElement | null;
+    const vManualBlink = document.getElementById('u-eye-blink-manual-val');
+    const btnMBlink0 = document.getElementById('u-btn-manual-blink-0');
+    const btnMBlink50 = document.getElementById('u-btn-manual-blink-50');
+    const btnMBlink100 = document.getElementById('u-btn-manual-blink-100');
+    const btnMBlinkAuto = document.getElementById('u-btn-manual-blink-auto');
+
+    function setManualBlinkVal(val: number | null) {
+      const api = (window as any).LuxuryParticleStudio;
+      if (api && api.setManualBlink) api.setManualBlink(val);
+      if (val !== null) {
+        if (sManualBlink && document.activeElement !== sManualBlink) sManualBlink.value = val.toFixed(3);
+        if (vManualBlink) {
+          const pct = (val * 100).toFixed(1);
+          let lbl = "Open";
+          if (val >= 0.95) lbl = "Shut";
+          else if (val >= 0.45 && val <= 0.55) lbl = "Half";
+          else if (val > 0.05) lbl = "Moving";
+          vManualBlink.textContent = `${pct}% (${lbl})`;
+        }
+      } else {
+        if (vManualBlink) vManualBlink.textContent = 'Auto Blinking';
+        if (sManualBlink) sManualBlink.value = '0';
+      }
+    }
+
+    sManualBlink?.addEventListener('input', () => {
+      setManualBlinkVal(parseFloat(sManualBlink.value));
+    });
+
+    btnMBlink0?.addEventListener('click', () => setManualBlinkVal(0.0));
+    btnMBlink50?.addEventListener('click', () => setManualBlinkVal(0.5));
+    btnMBlink100?.addEventListener('click', () => setManualBlinkVal(1.0));
+    btnMBlinkAuto?.addEventListener('click', () => setManualBlinkVal(null));
+
+    setTimeout(syncEyeControls, 500);
 
     // Image layout selection & sliders
     let activeImgIdx = 0;

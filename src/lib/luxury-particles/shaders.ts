@@ -35,6 +35,14 @@ export const VS_SOURCE = `
   // Hero content area for invert effect (left side of screen)
   uniform vec2 u_hero_area; // x: width of hero area (in pixels), y: unused
 
+  // Interactive Eye Gaze & Natural Blinking
+  uniform int u_eye_mode;        // 0: Disabled, 1: Option A (Shader Ellipse Warp), 2: Option B (Mask Tagged)
+  uniform vec4 u_eye_left;       // xy: center in normalized space, zw: radii (radX, radY)
+  uniform vec4 u_eye_right;      // xy: center in normalized space, zw: radii (radX, radY)
+  uniform vec2 u_eye_iris_rad;   // x: left iris radius, y: right iris radius
+  uniform vec2 u_gaze_offset;    // gaze displacement in screen pixels
+  uniform float u_blink_t;       // 0.0 (open) to 1.0 (closed)
+
   varying vec3 v_color;
   varying float v_alpha;
 
@@ -97,6 +105,113 @@ export const VS_SOURCE = `
     // Dynamically compute screen pixel target coordinates from normalized coordinates
     vec2 targetPosA = u_centerA + a_targetA * u_sizeA;
     vec2 targetPosB = u_centerB + a_targetB * u_sizeB;
+    vec3 colorA_mod = a_colorA;
+
+    // =====================================================================
+    // OPTION 2: TWO-STATE ASSET MORPH (True Open vs Closed Portrait)
+    // =====================================================================
+    if (u_eye_mode == 2 && progress > 0.25) {
+      // In Option 2, a_targetA is Open Portrait, a_targetB is Closed Portrait
+      float blinkEase = smoothstep(0.0, 1.0, u_blink_t);
+      targetPosA = mix(targetPosA, targetPosB, blinkEase);
+      colorA_mod = mix(colorA_mod, a_colorB, blinkEase);
+
+      // Add ultra-subtle micro-gaze tracking when eyes are open (u_blink_t < 0.6)
+      if (u_blink_t < 0.6) {
+        float eyeActive = clamp(1.0 - u_morph_t * 2.5, 0.0, 1.0);
+        float gazeFactor = (1.0 - smoothstep(0.0, 0.6, u_blink_t)) * eyeActive;
+        float irisDistL = length(a_targetA - u_eye_left.xy) / max(0.001, u_eye_iris_rad.x);
+        float irisDistR = length(a_targetA - u_eye_right.xy) / max(0.001, u_eye_iris_rad.y);
+
+        if (irisDistL < 0.75) {
+          float f = (1.0 - smoothstep(0.1, 0.75, irisDistL)) * gazeFactor;
+          targetPosA += u_gaze_offset * f;
+        } else if (irisDistR < 0.75) {
+          float f = (1.0 - smoothstep(0.1, 0.75, irisDistR)) * gazeFactor;
+          targetPosA += u_gaze_offset * f;
+        }
+      }
+    }
+    // =====================================================================
+    // OPTION 4: ULTRA-SUBTLE MICRO-MOVEMENT SHADER WARP (Micro-saccades & Soft Lid Dissolve)
+    // =====================================================================
+    else if (u_eye_mode == 1 && progress > 0.25) {
+      vec2 dL = (a_targetA - u_eye_left.xy) / max(vec2(0.001), u_eye_left.zw);
+      float distL = dot(dL, dL);
+      vec2 dR = (a_targetA - u_eye_right.xy) / max(vec2(0.001), u_eye_right.zw);
+      float distR = dot(dR, dR);
+
+      float eyeActive = clamp(1.0 - u_morph_t * 2.5, 0.0, 1.0);
+
+      // Left Eye
+      if (distL < 1.0) {
+        float socketFactorL = 1.0 - smoothstep(0.5, 1.0, distL);
+        float uRel = dL.x; // -1 to +1 horizontally across eye
+        float vRel = dL.y; // -1 (top) to +1 (bottom) vertically across eye
+
+        // Lash seam line where lids meet when closed (below center with natural arc)
+        float seamV = 0.22 + 0.08 * (1.0 - uRel * uRel);
+        float lidCurtainV = mix(-1.05, seamV, u_blink_t);
+
+        // Full eyelid curtain sweep: upper lid meets lash seam at blink_t = 1.0
+        if (vRel < seamV) {
+          float curtainTravel = (seamV - vRel) * u_eye_left.w * u_sizeA * (u_blink_t * 0.95) * socketFactorL * eyeActive;
+          targetPosA.y += curtainTravel;
+        } else {
+          float lowerRise = (seamV - vRel) * u_eye_left.w * u_sizeA * (u_blink_t * 0.20) * socketFactorL * eyeActive;
+          targetPosA.y += lowerRise;
+        }
+
+        // Ultra-subtle micro-gaze tracking: strictly inner iris only (leaves lashes, skin, frames frozen)
+        float irisDistL = length(a_targetA - u_eye_left.xy) / max(0.001, u_eye_iris_rad.x);
+        if (irisDistL < 0.70) {
+          float irisFactorL = 1.0 - smoothstep(0.1, 0.70, irisDistL);
+          float pupilCovered = clamp((lidCurtainV - vRel) / 0.4 + 0.5, 0.0, 1.0);
+          float gazeVisibility = 1.0 - pupilCovered * u_blink_t;
+          targetPosA += u_gaze_offset * (irisFactorL * eyeActive * max(0.0, gazeVisibility));
+        }
+
+        // Soft skin-tone dissolve instead of physical squash
+        if (u_blink_t > 0.02) {
+          float isCovered = smoothstep(lidCurtainV - 0.20, lidCurtainV + 0.08, vRel);
+          float skinTintFactor = socketFactorL * u_blink_t * (1.0 - isCovered * (1.0 - u_blink_t));
+          vec3 lidSkinColor = colorA_mod * 0.72 + vec3(0.16, 0.12, 0.09);
+          colorA_mod = mix(colorA_mod, lidSkinColor, clamp(skinTintFactor * eyeActive, 0.0, 1.0));
+        }
+      }
+      // Right Eye
+      else if (distR < 1.0) {
+        float socketFactorR = 1.0 - smoothstep(0.5, 1.0, distR);
+        float uRel = dR.x;
+        float vRel = dR.y;
+
+        float seamV = 0.22 + 0.08 * (1.0 - uRel * uRel);
+        float lidCurtainV = mix(-1.05, seamV, u_blink_t);
+
+        if (vRel < seamV) {
+          float curtainTravel = (seamV - vRel) * u_eye_right.w * u_sizeA * (u_blink_t * 0.95) * socketFactorR * eyeActive;
+          targetPosA.y += curtainTravel;
+        } else {
+          float lowerRise = (seamV - vRel) * u_eye_right.w * u_sizeA * (u_blink_t * 0.20) * socketFactorR * eyeActive;
+          targetPosA.y += lowerRise;
+        }
+
+        float irisDistR = length(a_targetA - u_eye_right.xy) / max(0.001, u_eye_iris_rad.y);
+        if (irisDistR < 0.70) {
+          float irisFactorR = 1.0 - smoothstep(0.1, 0.70, irisDistR);
+          float pupilCovered = clamp((lidCurtainV - vRel) / 0.4 + 0.5, 0.0, 1.0);
+          float gazeVisibility = 1.0 - pupilCovered * u_blink_t;
+          targetPosA += u_gaze_offset * (irisFactorR * eyeActive * max(0.0, gazeVisibility));
+        }
+
+        if (u_blink_t > 0.02) {
+          float isCovered = smoothstep(lidCurtainV - 0.20, lidCurtainV + 0.08, vRel);
+          float skinTintFactor = socketFactorR * u_blink_t * (1.0 - isCovered * (1.0 - u_blink_t));
+          vec3 lidSkinColor = colorA_mod * 0.72 + vec3(0.16, 0.12, 0.09);
+          colorA_mod = mix(colorA_mod, lidSkinColor, clamp(skinTintFactor * eyeActive, 0.0, 1.0));
+        }
+      }
+    }
 
     // High-entropy per-particle pseudo-random seeds: breaks any artificial banding
     float pRnd1 = fract(sin(dot(a_targetA.xy + vec2(curl, size), vec2(12.9898, 78.233))) * 43758.5453);
@@ -152,7 +267,7 @@ export const VS_SOURCE = `
       vec2 arcOffset = arcDir * (arcHeight * arcAmt);
 
       morphedTarget = mix(targetPosA, targetPosB, smoothT) + arcOffset;
-      morphedColor = mix(a_colorA, a_colorB, smoothT);
+      morphedColor = mix(colorA_mod, a_colorB, smoothT);
       morphHighlight = 3.0 * localT * (1.0 - localT) * 0.55;
 
     // ---------------------------------------------------------------
@@ -176,7 +291,7 @@ export const VS_SOURCE = `
         vec2 curlField = curlNoise(curlSample) * (140.0 * pe);
 
         morphedTarget = u_centerA + mix(rel, spun, pe) + windDraft + curlField;
-        morphedColor = mix(a_colorA, vec3(0.95, 0.88, 0.55), pe * 0.45);
+        morphedColor = mix(colorA_mod, vec3(0.95, 0.88, 0.55), pe * 0.45);
         morphHighlight = pe * 0.45;
       } else {
         float p = (mt - windSplit) / (1.0 - windSplit);
@@ -212,7 +327,7 @@ export const VS_SOURCE = `
       float smoothT = localT * localT * (3.0 - 2.0 * localT);
       smoothT = smoothT * smoothT * (3.0 - 2.0 * smoothT);
       morphedTarget = mix(targetPosA, targetPosB, smoothT);
-      morphedColor = mix(a_colorA, a_colorB, smoothT);
+      morphedColor = mix(colorA_mod, a_colorB, smoothT);
       morphHighlight = 4.0 * localT * (1.0 - localT);
 
     // ---------------------------------------------------------------
@@ -225,7 +340,7 @@ export const VS_SOURCE = `
         float p = mt / collapseEnd;
         float pe = p * p * p;
         morphedTarget = mix(targetPosA, screenCenter, pe);
-        morphedColor = mix(a_colorA, vec3(1.0, 0.9, 0.5), pe);
+        morphedColor = mix(colorA_mod, vec3(1.0, 0.9, 0.5), pe);
         morphHighlight = pe * 0.9;
       } else if (mt < expandStart) {
         morphedTarget = screenCenter;
@@ -262,7 +377,7 @@ export const VS_SOURCE = `
       vec2 twistedB = targetPosA + vec2(diffAB.x * cI - diffAB.y * sI, diffAB.x * sI + diffAB.y * cI);
 
       morphedTarget = mix(targetPosA, twistedB, smoothT);
-      morphedColor = mix(a_colorA, a_colorB, smoothT);
+      morphedColor = mix(colorA_mod, a_colorB, smoothT);
       morphHighlight = 3.5 * localT * (1.0 - localT) * 0.65;
     }
 

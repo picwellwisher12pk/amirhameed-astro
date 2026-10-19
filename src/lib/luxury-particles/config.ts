@@ -4,6 +4,22 @@ export interface ImageLayout {
   alignY: number;
 }
 
+export interface EyeDescriptor {
+  lx: number;
+  ly: number;
+  rx: number;
+  ry: number;
+  radX: number;
+  radY: number;
+  irisRad: number;
+}
+
+export interface EyeAnimConfig {
+  mode: number; // 0 = Disabled, 1 = Option A (Shader Ellipse Warp), 2 = Option B (Mask Tagged)
+  gazeStrength: number; // multiplier, default 1.0
+  blinkFrequency: number; // average seconds between blinks
+}
+
 export interface ParticleConfig {
   imageLayouts: ImageLayout[];
   interactiveMode: number;
@@ -24,7 +40,40 @@ export interface ParticleConfig {
   morphPlateau: number;
   morphStyle: number;
   images: string[];
+  eyeAnim: EyeAnimConfig;
+  eyeDescriptors: EyeDescriptor[];
 }
+
+export const DEFAULT_EYE_DESCRIPTORS: EyeDescriptor[] = [
+  {
+    // Amir portrait luxury (1800x1800): Left pupil (-0.1806, -0.1639), Right pupil (-0.0306, -0.1806)
+    lx: -0.1806,
+    ly: -0.1639,
+    rx: -0.0306,
+    ry: -0.1806,
+    radX: 0.038,
+    radY: 0.022,
+    irisRad: 0.017,
+  },
+  {
+    lx: -0.10,
+    ly: -0.15,
+    rx: 0.08,
+    ry: -0.15,
+    radX: 0.04,
+    radY: 0.025,
+    irisRad: 0.018,
+  },
+  {
+    lx: -0.10,
+    ly: -0.15,
+    rx: 0.08,
+    ry: -0.15,
+    radX: 0.04,
+    radY: 0.025,
+    irisRad: 0.018,
+  },
+];
 
 export const DEFAULT_IMAGE_LAYOUTS: ImageLayout[] = [
   {
@@ -68,6 +117,12 @@ export const PARTICLE_CONFIG: ParticleConfig = {
     "/images/3.jpg",
     "/images/4.jpg",
   ],
+  eyeAnim: {
+    mode: 1, // Default: Option A (Shader Ellipse Warp)
+    gazeStrength: 1.0,
+    blinkFrequency: 4.2,
+  },
+  eyeDescriptors: JSON.parse(JSON.stringify(DEFAULT_EYE_DESCRIPTORS)),
 };
 
 export function restoreSavedSettings(): void {
@@ -85,6 +140,19 @@ export function restoreSavedSettings(): void {
     }
 
     localStorage.removeItem("luxury_particle_mode");
+
+    const savedEyeMode = localStorage.getItem("luxury_particle_eye_mode");
+    if (savedEyeMode !== null) {
+      PARTICLE_CONFIG.eyeAnim.mode = parseInt(savedEyeMode, 10);
+    }
+    const savedGazeStrength = localStorage.getItem("luxury_particle_gaze_strength");
+    if (savedGazeStrength !== null) {
+      PARTICLE_CONFIG.eyeAnim.gazeStrength = parseFloat(savedGazeStrength);
+    }
+    const savedBlinkFreq = localStorage.getItem("luxury_particle_blink_freq");
+    if (savedBlinkFreq !== null) {
+      PARTICLE_CONFIG.eyeAnim.blinkFrequency = parseFloat(savedBlinkFreq);
+    }
 
     const raw = localStorage.getItem("luxury_particle_layouts");
     if (raw) {
@@ -120,6 +188,18 @@ export function saveSettingsToStorage(): void {
     } else {
       localStorage.removeItem("luxury_particle_locked_mode");
     }
+    localStorage.setItem(
+      "luxury_particle_eye_mode",
+      String(PARTICLE_CONFIG.eyeAnim.mode),
+    );
+    localStorage.setItem(
+      "luxury_particle_gaze_strength",
+      String(PARTICLE_CONFIG.eyeAnim.gazeStrength),
+    );
+    localStorage.setItem(
+      "luxury_particle_blink_freq",
+      String(PARTICLE_CONFIG.eyeAnim.blinkFrequency),
+    );
   } catch (e) {
     console.warn("Could not save particle settings to localStorage", e);
   }

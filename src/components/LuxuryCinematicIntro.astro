@@ -169,6 +169,7 @@
     studioGizmoVisible: true,
     selectedImageIdx: 0,
     studioManualMorph: null,
+    studioManualBlink: null,
     activeImageAspects: [],
     switchMode: (m: number) => {
       if (m !== PARTICLE_CONFIG.interactiveMode) {
@@ -407,12 +408,32 @@
     const uSizeBLoc = gl.getUniformLocation(program, "u_sizeB");
     const uHeroAreaLoc = gl.getUniformLocation(program, "u_hero_area");
 
+    // Eye Gaze & Blinking Uniforms
+    const uEyeModeLoc = gl.getUniformLocation(program, "u_eye_mode");
+    const uEyeLeftLoc = gl.getUniformLocation(program, "u_eye_left");
+    const uEyeRightLoc = gl.getUniformLocation(program, "u_eye_right");
+    const uEyeIrisRadLoc = gl.getUniformLocation(program, "u_eye_iris_rad");
+    const uGazeOffsetLoc = gl.getUniformLocation(program, "u_gaze_offset");
+    const uBlinkTLoc = gl.getUniformLocation(program, "u_blink_t");
+
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     let startTime: number | null = null;
     let dimStartTime: number | null = null;
     let elementsRevealed = false;
+
+    let interpGazeX = 0;
+    let interpGazeY = 0;
+    let nextBlinkTime = performance.now() + 2500;
+    let blinkStartTime = 0;
+    let isBlinking = false;
+    let blinkDuration = 180;
+    let instantBlinkRequested = false;
+
+    state.triggerBlink = () => {
+      instantBlinkRequested = true;
+    };
 
     function render(timestamp: number) {
       if (!startTime) startTime = timestamp;
@@ -542,6 +563,76 @@
       const centerBX = curW * layoutB.alignX;
       const centerBY = curH * layoutB.alignY;
 
+      // Eye Gaze Tracking & Procedural Blinking
+      const eyeDesc =
+        PARTICLE_CONFIG.eyeDescriptors[imgIndexA] ||
+        PARTICLE_CONFIG.eyeDescriptors[0];
+      let currentBlinkT = 0.0;
+      let targetGazeX = 0;
+      let targetGazeY = 0;
+
+      if (PARTICLE_CONFIG.eyeAnim.mode !== 0 && eyeDesc) {
+        // Gaze Vector calculation from eye mid-point to effective mouse target
+        const leftEyeScreenX = centerAX + eyeDesc.lx * sizeA;
+        const leftEyeScreenY = centerAY + eyeDesc.ly * sizeA;
+        const rightEyeScreenX = centerAX + eyeDesc.rx * sizeA;
+        const rightEyeScreenY = centerAY + eyeDesc.ry * sizeA;
+        const midEyeX = (leftEyeScreenX + rightEyeScreenX) * 0.5;
+        const midEyeY = (leftEyeScreenY + rightEyeScreenY) * 0.5;
+
+        if (effectiveTargetX > -5000) {
+          const gdx = effectiveTargetX - midEyeX;
+          const gdy = effectiveTargetY - midEyeY;
+          const gdist = Math.hypot(gdx, gdy);
+          if (gdist > 1.0) {
+            // Ultra-subtle micro-saccade only (max 1.5 - 2.0px on screen)
+            const maxGaze =
+              Math.min(2.0, sizeA * 0.0035) *
+              PARTICLE_CONFIG.eyeAnim.gazeStrength;
+            const travel = Math.min(
+              maxGaze,
+              (gdist / (gdist + 200)) * maxGaze,
+            );
+            targetGazeX = (gdx / gdist) * travel;
+            targetGazeY = (gdy / gdist) * travel;
+          }
+        }
+
+        interpGazeX += (targetGazeX - interpGazeX) * 0.12;
+        interpGazeY += (targetGazeY - interpGazeY) * 0.12;
+
+        // Procedural & Triggered Blinking Cycle
+        if (state.studioManualBlink !== null) {
+          currentBlinkT = state.studioManualBlink;
+        } else {
+          const now = performance.now();
+          if (instantBlinkRequested || (now >= nextBlinkTime && !isBlinking)) {
+            isBlinking = true;
+            blinkStartTime = now;
+            blinkDuration = 160 + Math.random() * 50;
+            instantBlinkRequested = false;
+          }
+
+          if (isBlinking) {
+            const bp = (now - blinkStartTime) / blinkDuration;
+            if (bp >= 1.0) {
+              isBlinking = false;
+              currentBlinkT = 0.0;
+              const intervalSec = Math.max(
+                1.5,
+                PARTICLE_CONFIG.eyeAnim.blinkFrequency,
+              );
+              nextBlinkTime =
+                now + intervalSec * 1000 * (0.65 + Math.random() * 0.7);
+            } else {
+              // Asymmetric natural blink: fast closure (~36%), slightly slower opening (~64%)
+              const phase = bp < 0.36 ? bp / 0.36 : (1.0 - bp) / 0.64;
+              currentBlinkT = Math.sin(phase * Math.PI * 0.5);
+            }
+          }
+        }
+      }
+
       gl.viewport(0, 0, curW, curH);
       gl.clearColor(0.0, 0.0, 0.0, 0.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
@@ -565,6 +656,28 @@
       gl.uniform2f(uCenterBLoc, centerBX, centerBY);
       gl.uniform1f(uSizeBLoc, sizeB);
       gl.uniform2f(uHeroAreaLoc, curW * 0.5, 0.0);
+
+      // Eye Uniforms
+      gl.uniform1i(uEyeModeLoc, PARTICLE_CONFIG.eyeAnim.mode);
+      if (eyeDesc) {
+        gl.uniform4f(
+          uEyeLeftLoc,
+          eyeDesc.lx,
+          eyeDesc.ly,
+          eyeDesc.radX,
+          eyeDesc.radY,
+        );
+        gl.uniform4f(
+          uEyeRightLoc,
+          eyeDesc.rx,
+          eyeDesc.ry,
+          eyeDesc.radX,
+          eyeDesc.radY,
+        );
+        gl.uniform2f(uEyeIrisRadLoc, eyeDesc.irisRad, eyeDesc.irisRad);
+      }
+      gl.uniform2f(uGazeOffsetLoc, interpGazeX, interpGazeY);
+      gl.uniform1f(uBlinkTLoc, currentBlinkT);
 
       // Bind VBOs
       gl.bindBuffer(gl.ARRAY_BUFFER, targetVBOs[imgIndexA]);

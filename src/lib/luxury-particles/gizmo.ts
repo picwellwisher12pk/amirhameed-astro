@@ -5,8 +5,10 @@ export interface GizmoState {
   studioGizmoVisible: boolean;
   selectedImageIdx: number;
   studioManualMorph: number | null;
+  studioManualBlink: number | null;
   activeImageAspects: number[];
   switchMode: (m: number) => void;
+  triggerBlink?: () => void;
 }
 
 export function updateGizmoPosition(
@@ -218,15 +220,39 @@ export function registerLuxuryParticleStudioApi(state: GizmoState): void {
     getCurrentMode: () => PARTICLE_CONFIG.interactiveMode,
     isRandomMode: () => PARTICLE_CONFIG.isRandomMode,
     isLocked: () => !!localStorage.getItem("luxury_particle_locked_mode"),
+    setEyeMode: (mode: number) => {
+      PARTICLE_CONFIG.eyeAnim.mode = mode;
+      saveSettingsToStorage();
+    },
+    setGazeStrength: (val: number) => {
+      PARTICLE_CONFIG.eyeAnim.gazeStrength = val;
+      saveSettingsToStorage();
+    },
+    setBlinkFrequency: (val: number) => {
+      PARTICLE_CONFIG.eyeAnim.blinkFrequency = val;
+      saveSettingsToStorage();
+    },
+    setManualBlink: (val: number | null) => {
+      state.studioManualBlink = val;
+    },
+    triggerBlink: () => {
+      if (state.triggerBlink) state.triggerBlink();
+    },
     resetDefaults: () => {
       localStorage.removeItem("luxury_particle_layouts");
       localStorage.removeItem("luxury_particle_mode");
       localStorage.removeItem("luxury_particle_locked_mode");
+      localStorage.removeItem("luxury_particle_eye_mode");
+      localStorage.removeItem("luxury_particle_gaze_strength");
+      localStorage.removeItem("luxury_particle_blink_freq");
       PARTICLE_CONFIG.imageLayouts = JSON.parse(
         JSON.stringify(DEFAULT_IMAGE_LAYOUTS),
       );
       PARTICLE_CONFIG.interactiveMode = 1;
       PARTICLE_CONFIG.morphStyle = 1;
+      PARTICLE_CONFIG.eyeAnim.mode = 1;
+      PARTICLE_CONFIG.eyeAnim.gazeStrength = 1.0;
+      PARTICLE_CONFIG.eyeAnim.blinkFrequency = 4.2;
       updateGizmoPosition(state, window.innerWidth, window.innerHeight);
     },
     saveSettings: () => saveSettingsToStorage(),

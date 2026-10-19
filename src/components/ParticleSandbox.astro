@@ -251,6 +251,136 @@
         </div>
       </div>
 
+      <!-- 3. INTERACTIVE EYELID BLINK & GAZE TRANSITION LAB -->
+      <div class="space-y-4 pt-4 border-t border-zinc-800/80 bg-zinc-950/60 -mx-5 px-5 py-4 border-b border-zinc-800/80">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 text-sm">👁</span>
+            <span class="text-xs font-bold text-white uppercase tracking-wider font-mono">
+              Eyelid Blink &amp; Gaze Lab
+            </span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
+            Live Scrub
+          </span>
+        </div>
+
+        <p class="text-[11px] text-zinc-400 leading-relaxed">
+          Compare the two approaches: <strong>Option 2 (Asset Morph)</strong> morphs to genuine closed eyelids and eyelashes, while <strong>Option 4 (Micro-Shader)</strong> applies subtle micro-saccades and soft lid dissolve.
+        </p>
+
+        <!-- Method Selector: Option 2 (Morph) vs Option 4 (Shader) -->
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-900 border border-zinc-800">
+          <button
+            type="button"
+            id="sandbox-btn-mode-asset"
+            class="flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-amber-500/20 text-amber-300 border border-amber-500/40"
+          >
+            ✦ Option 2: Asset Morph
+          </button>
+          <button
+            type="button"
+            id="sandbox-btn-mode-shader"
+            class="flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-zinc-800 text-zinc-400 border border-transparent hover:text-white"
+          >
+            ✦ Option 4: Micro-Shader
+          </button>
+        </div>
+
+        <!-- Main Blink Transition Slider -->
+        <div class="p-3.5 rounded-2xl bg-zinc-900 border border-[#d4af37]/50 shadow-lg space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-white font-bold flex items-center gap-1.5">
+              <span class="text-amber-400">✦</span> Eyelid Transition:
+            </span>
+            <span id="sandbox-blink-pct" class="text-amber-300 font-bold px-2 py-0.5 rounded bg-zinc-950 border border-zinc-800">
+              0.0% (Open)
+            </span>
+          </div>
+
+          <input
+            type="range"
+            id="sandbox-slider-blink"
+            min="0"
+            max="1"
+            step="0.005"
+            value="0"
+            class="w-full accent-amber-400 h-3 bg-zinc-950 rounded-lg cursor-pointer"
+          />
+
+          <!-- Quick State Presets -->
+          <div class="grid grid-cols-3 gap-1.5 pt-1">
+            <button
+              type="button"
+              id="sandbox-btn-blink-0"
+              class="py-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-[10px] font-mono text-zinc-300 hover:text-white transition-all cursor-pointer text-center font-bold"
+            >
+              0% (Open)
+            </button>
+            <button
+              type="button"
+              id="sandbox-btn-blink-50"
+              class="py-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-[10px] font-mono text-zinc-300 hover:text-white transition-all cursor-pointer text-center font-bold"
+            >
+              50% (Half-Lid)
+            </button>
+            <button
+              type="button"
+              id="sandbox-btn-blink-100"
+              class="py-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-[10px] font-mono text-zinc-300 hover:text-white transition-all cursor-pointer text-center font-bold"
+            >
+              100% (Closed)
+            </button>
+          </div>
+        </div>
+
+        <!-- Automation & Trigger -->
+        <div class="flex items-center justify-between gap-2 pt-1">
+          <button
+            type="button"
+            id="sandbox-btn-auto-blink"
+            class="flex-1 py-2 px-3 rounded-xl border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white text-xs font-mono transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span id="sandbox-auto-blink-indicator" class="w-2 h-2 rounded-full bg-zinc-600"></span>
+            <span id="sandbox-auto-blink-text">Auto-Blink: OFF</span>
+          </button>
+          <button
+            type="button"
+            id="sandbox-btn-play-blink"
+            class="py-2 px-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-zinc-950 font-bold text-xs font-mono transition-all cursor-pointer active:scale-95 shadow-md flex items-center gap-1.5"
+          >
+            <span>▶ Play Blink</span>
+          </button>
+        </div>
+
+        <!-- Gaze Tracking Controls -->
+        <div class="space-y-2 pt-2 border-t border-zinc-800/60 font-mono text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-zinc-400">Cursor Gaze Follow:</span>
+            <button
+              type="button"
+              id="sandbox-btn-toggle-gaze"
+              class="text-[11px] px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 cursor-pointer font-bold"
+            >
+              Active
+            </button>
+          </div>
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="text-zinc-500">Gaze Sensitivity:</span>
+            <span id="sandbox-val-gaze-str" class="text-amber-400 font-bold">1.0x</span>
+          </div>
+          <input
+            type="range"
+            id="sandbox-slider-gaze-str"
+            min="0"
+            max="2.5"
+            step="0.1"
+            value="1.0"
+            class="w-full accent-amber-400 h-1.5 bg-zinc-800 rounded-lg cursor-pointer"
+          />
+        </div>
+      </div>
+
       <!-- Quick Action Buttons: Snapshot & Reset -->
       <div class="pt-4 border-t border-zinc-800/80 flex items-center gap-2">
         <button 
@@ -273,7 +403,7 @@
 
 <script>
   import { VS_SOURCE, FS_SOURCE } from "../lib/luxury-particles/shaders";
-  import { sampleImageTargets, type ConstellationNode } from "../lib/luxury-particles/sampler";
+  import { sampleImageTargets, sampleDualStateTargets, type ConstellationNode } from "../lib/luxury-particles/sampler";
 
   function initParticleSandbox() {
     const canvas = document.getElementById("sandbox-canvas") as HTMLCanvasElement | null;
@@ -323,8 +453,11 @@
     };
 
     let currentImage = new Image();
+    let secondaryImage = new Image();
     let isImageLoaded = false;
+    let isSecondaryLoaded = false;
     let targetVBO: WebGLBuffer | null = null;
+    let targetVBO_B: WebGLBuffer | null = null;
     let baseVBO: WebGLBuffer | null = null;
     let constellationNodes: ConstellationNode[] = [];
 
@@ -391,6 +524,37 @@
     const uSizeBLoc = gl.getUniformLocation(program, "u_sizeB");
     const uHeroAreaLoc = gl.getUniformLocation(program, "u_hero_area");
 
+    // Eye Gaze & Eyelid Uniform Locations
+    const uEyeModeLoc = gl.getUniformLocation(program, "u_eye_mode");
+    const uEyeLeftLoc = gl.getUniformLocation(program, "u_eye_left");
+    const uEyeRightLoc = gl.getUniformLocation(program, "u_eye_right");
+    const uEyeIrisRadLoc = gl.getUniformLocation(program, "u_eye_iris_rad");
+    const uGazeOffsetLoc = gl.getUniformLocation(program, "u_gaze_offset");
+    const uBlinkTLoc = gl.getUniformLocation(program, "u_blink_t");
+
+    const EYE_STATE = {
+      enabled: true,
+      mode: 2, // 2 = Option 2 (Asset Morph), 1 = Option 4 (Micro-Shader)
+      blinkT: 0.0,
+      autoBlink: false,
+      gazeActive: true,
+      gazeStrength: 1.0,
+      interpGazeX: 0,
+      interpGazeY: 0,
+      nextBlinkTime: performance.now() + 3000,
+      isAutoBlinking: false,
+      blinkStartTime: 0,
+      blinkDuration: 220,
+      // Default coordinates for Amir's portrait:
+      lx: -0.1806,
+      ly: -0.1639,
+      rx: -0.0306,
+      ry: -0.1806,
+      radX: 0.038,
+      radY: 0.022,
+      irisRad: 0.017,
+    };
+
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -399,11 +563,32 @@
       if (!gl || !isImageLoaded) return;
       constellationNodes = [];
 
-      const buffer = sampleImageTargets(currentImage, PARAMS.particleCount, constellationNodes);
-      if (targetVBO) gl.deleteBuffer(targetVBO);
-      targetVBO = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
-      gl.bufferData(gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW);
+      if (isSecondaryLoaded) {
+        const { bufferA, bufferB } = sampleDualStateTargets(
+          currentImage,
+          secondaryImage,
+          PARAMS.particleCount,
+          constellationNodes,
+        );
+        if (targetVBO) gl.deleteBuffer(targetVBO);
+        targetVBO = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
+        gl.bufferData(gl.ARRAY_BUFFER, bufferA, gl.STATIC_DRAW);
+
+        if (targetVBO_B) gl.deleteBuffer(targetVBO_B);
+        targetVBO_B = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO_B);
+        gl.bufferData(gl.ARRAY_BUFFER, bufferB, gl.STATIC_DRAW);
+      } else {
+        const bufferA = sampleImageTargets(currentImage, PARAMS.particleCount, constellationNodes);
+        if (targetVBO) gl.deleteBuffer(targetVBO);
+        targetVBO = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
+        gl.bufferData(gl.ARRAY_BUFFER, bufferA, gl.STATIC_DRAW);
+
+        if (targetVBO_B) gl.deleteBuffer(targetVBO_B);
+        targetVBO_B = null;
+      }
 
       const STRIDE = 7;
       const baseBuffer = new Float32Array(PARAMS.particleCount * STRIDE);
@@ -436,18 +621,35 @@
       }
     }
 
-    function loadImage(src: string) {
+    function loadImage(src: string, secondarySrc?: string) {
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
         currentImage = img;
         isImageLoaded = true;
-        rebuildBuffers();
+
+        if (secondarySrc) {
+          const sec = new Image();
+          sec.crossOrigin = "anonymous";
+          sec.onload = () => {
+            secondaryImage = sec;
+            isSecondaryLoaded = true;
+            rebuildBuffers();
+          };
+          sec.onerror = () => {
+            isSecondaryLoaded = false;
+            rebuildBuffers();
+          };
+          sec.src = secondarySrc;
+        } else {
+          isSecondaryLoaded = false;
+          rebuildBuffers();
+        }
       };
       img.src = src;
     }
 
-    loadImage("/images/amir-portrait-luxury.jpg");
+    loadImage("/images/amir-portrait-luxury.jpg", "/images/amir-portrait-luxury-closed.jpg");
 
     // File upload handler
     uploadBtn?.addEventListener("click", () => fileInput?.click());
@@ -485,7 +687,11 @@
       btn.addEventListener("click", () => {
         const preset = btn.getAttribute("data-preset");
         if (preset) {
-          loadImage(preset);
+          if (preset === "/images/amir-portrait-luxury.jpg") {
+            loadImage(preset, "/images/amir-portrait-luxury-closed.jpg");
+          } else {
+            loadImage(preset);
+          }
           document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active-preset", "bg-zinc-800", "text-white"));
           btn.classList.add("active-preset", "bg-zinc-800", "text-white");
         }
@@ -543,6 +749,137 @@
     sliderIntensity?.addEventListener("input", () => {
       PARAMS.effectIntensity = parseFloat(sliderIntensity.value);
       if (valIntensity) valIntensity.textContent = `${PARAMS.effectIntensity.toFixed(1)}x`;
+    });
+
+    // =====================================================================
+    // EYELID BLINK & GAZE LAB CONTROLS
+    // =====================================================================
+    const btnModeAsset = document.getElementById("sandbox-btn-mode-asset");
+    const btnModeShader = document.getElementById("sandbox-btn-mode-shader");
+    const sliderBlink = document.getElementById("sandbox-slider-blink") as HTMLInputElement | null;
+    const txtBlinkPct = document.getElementById("sandbox-blink-pct");
+    const btnBlink0 = document.getElementById("sandbox-btn-blink-0");
+    const btnBlink50 = document.getElementById("sandbox-btn-blink-50");
+    const btnBlink100 = document.getElementById("sandbox-btn-blink-100");
+    const btnAutoBlink = document.getElementById("sandbox-btn-auto-blink");
+    const indAutoBlink = document.getElementById("sandbox-auto-blink-indicator");
+    const txtAutoBlink = document.getElementById("sandbox-auto-blink-text");
+    const btnPlayBlink = document.getElementById("sandbox-btn-play-blink");
+    const btnToggleGaze = document.getElementById("sandbox-btn-toggle-gaze");
+    const sliderGazeStr = document.getElementById("sandbox-slider-gaze-str") as HTMLInputElement | null;
+    const valGazeStr = document.getElementById("sandbox-val-gaze-str");
+
+    function updateModeButtons() {
+      if (btnModeAsset && btnModeShader) {
+        if (EYE_STATE.mode === 2) {
+          btnModeAsset.className = "flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-amber-500/20 text-amber-300 border border-amber-500/40";
+          btnModeShader.className = "flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-zinc-800 text-zinc-400 border border-transparent hover:text-white";
+        } else {
+          btnModeShader.className = "flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-amber-500/20 text-amber-300 border border-amber-500/40";
+          btnModeAsset.className = "flex-1 py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer text-center bg-zinc-800 text-zinc-400 border border-transparent hover:text-white";
+        }
+      }
+    }
+
+    btnModeAsset?.addEventListener("click", () => {
+      EYE_STATE.mode = 2;
+      updateModeButtons();
+    });
+
+    btnModeShader?.addEventListener("click", () => {
+      EYE_STATE.mode = 1;
+      updateModeButtons();
+    });
+
+    function updateBlinkUI(val: number) {
+      EYE_STATE.blinkT = Math.max(0.0, Math.min(1.0, val));
+      if (sliderBlink && document.activeElement !== sliderBlink) {
+        sliderBlink.value = EYE_STATE.blinkT.toFixed(3);
+      }
+      if (txtBlinkPct) {
+        const pct = (EYE_STATE.blinkT * 100).toFixed(1);
+        let label = "Open";
+        if (EYE_STATE.blinkT >= 0.95) label = "Fully Shut";
+        else if (EYE_STATE.blinkT >= 0.45 && EYE_STATE.blinkT <= 0.55) label = "Half-Lid";
+        else if (EYE_STATE.blinkT > 0.05) label = "Closing...";
+        txtBlinkPct.textContent = `${pct}% (${label})`;
+      }
+    }
+
+    sliderBlink?.addEventListener("input", () => {
+      EYE_STATE.autoBlink = false;
+      updateAutoBlinkUI();
+      updateBlinkUI(parseFloat(sliderBlink.value));
+    });
+
+    btnBlink0?.addEventListener("click", () => {
+      EYE_STATE.autoBlink = false;
+      updateAutoBlinkUI();
+      updateBlinkUI(0.0);
+    });
+
+    btnBlink50?.addEventListener("click", () => {
+      EYE_STATE.autoBlink = false;
+      updateAutoBlinkUI();
+      updateBlinkUI(0.5);
+    });
+
+    btnBlink100?.addEventListener("click", () => {
+      EYE_STATE.autoBlink = false;
+      updateAutoBlinkUI();
+      updateBlinkUI(1.0);
+    });
+
+    function updateAutoBlinkUI() {
+      if (indAutoBlink) {
+        indAutoBlink.className = EYE_STATE.autoBlink
+          ? "w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+          : "w-2 h-2 rounded-full bg-zinc-600";
+      }
+      if (txtAutoBlink) {
+        txtAutoBlink.textContent = EYE_STATE.autoBlink ? "Auto-Blink: ON" : "Auto-Blink: OFF";
+      }
+    }
+
+    btnAutoBlink?.addEventListener("click", () => {
+      EYE_STATE.autoBlink = !EYE_STATE.autoBlink;
+      EYE_STATE.nextBlinkTime = performance.now() + 1000;
+      updateAutoBlinkUI();
+    });
+
+    btnPlayBlink?.addEventListener("click", () => {
+      EYE_STATE.autoBlink = false;
+      updateAutoBlinkUI();
+      const start = performance.now();
+      const duration = 280; // ms
+      function step(now: number) {
+        const elapsed = now - start;
+        const progress = Math.min(1.0, elapsed / duration);
+        const phase = progress < 0.38 ? progress / 0.38 : (1.0 - progress) / 0.62;
+        const curve = Math.sin(phase * Math.PI * 0.5);
+        updateBlinkUI(curve);
+        if (progress < 1.0) {
+          requestAnimationFrame(step);
+        } else {
+          updateBlinkUI(0.0);
+        }
+      }
+      requestAnimationFrame(step);
+    });
+
+    btnToggleGaze?.addEventListener("click", () => {
+      EYE_STATE.gazeActive = !EYE_STATE.gazeActive;
+      if (btnToggleGaze) {
+        btnToggleGaze.textContent = EYE_STATE.gazeActive ? "Active" : "Paused";
+        btnToggleGaze.className = EYE_STATE.gazeActive
+          ? "text-[11px] px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 cursor-pointer font-bold"
+          : "text-[11px] px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700 cursor-pointer font-bold";
+      }
+    });
+
+    sliderGazeStr?.addEventListener("input", () => {
+      EYE_STATE.gazeStrength = parseFloat(sliderGazeStr.value);
+      if (valGazeStr) valGazeStr.textContent = `${EYE_STATE.gazeStrength.toFixed(1)}x`;
     });
 
     // Reset button
@@ -701,6 +1038,59 @@
       gl.uniform1f(uSizeBLoc, targetH);
       gl.uniform2f(uHeroAreaLoc, 0.0, 0.0);
 
+      // Gaze Tracking Vector
+      let targetGazeX = 0;
+      let targetGazeY = 0;
+      if (EYE_STATE.gazeActive && mouseX > -5000) {
+        const leftEyeScreenX = centerCX + EYE_STATE.lx * targetH;
+        const leftEyeScreenY = centerCY + EYE_STATE.ly * targetH;
+        const rightEyeScreenX = centerCX + EYE_STATE.rx * targetH;
+        const rightEyeScreenY = centerCY + EYE_STATE.ry * targetH;
+        const midEyeX = (leftEyeScreenX + rightEyeScreenX) * 0.5;
+        const midEyeY = (leftEyeScreenY + rightEyeScreenY) * 0.5;
+
+        const gdx = mouseX - midEyeX;
+        const gdy = mouseY - midEyeY;
+        const gdist = Math.hypot(gdx, gdy);
+        if (gdist > 1.0) {
+          // Ultra-subtle micro-saccade only (max 1.5 - 2.0px on screen)
+          const maxGaze = Math.min(2.0, targetH * 0.0035) * EYE_STATE.gazeStrength;
+          const travel = Math.min(maxGaze, (gdist / (gdist + 200)) * maxGaze);
+          targetGazeX = (gdx / gdist) * travel;
+          targetGazeY = (gdy / gdist) * travel;
+        }
+      }
+      EYE_STATE.interpGazeX += (targetGazeX - EYE_STATE.interpGazeX) * 0.15;
+      EYE_STATE.interpGazeY += (targetGazeY - EYE_STATE.interpGazeY) * 0.15;
+
+      // Auto Blink Loop (if enabled)
+      const now = performance.now();
+      if (EYE_STATE.autoBlink) {
+        if (!EYE_STATE.isAutoBlinking && now >= EYE_STATE.nextBlinkTime) {
+          EYE_STATE.isAutoBlinking = true;
+          EYE_STATE.blinkStartTime = now;
+          EYE_STATE.blinkDuration = 220 + Math.random() * 50;
+        }
+        if (EYE_STATE.isAutoBlinking) {
+          const bp = (now - EYE_STATE.blinkStartTime) / EYE_STATE.blinkDuration;
+          if (bp >= 1.0) {
+            EYE_STATE.isAutoBlinking = false;
+            updateBlinkUI(0.0);
+            EYE_STATE.nextBlinkTime = now + 2800 + Math.random() * 2500;
+          } else {
+            const phase = bp < 0.38 ? bp / 0.38 : (1.0 - bp) / 0.62;
+            updateBlinkUI(Math.sin(phase * Math.PI * 0.5));
+          }
+        }
+      }
+
+      gl.uniform1i(uEyeModeLoc, EYE_STATE.enabled ? EYE_STATE.mode : 0);
+      gl.uniform4f(uEyeLeftLoc, EYE_STATE.lx, EYE_STATE.ly, EYE_STATE.radX, EYE_STATE.radY);
+      gl.uniform4f(uEyeRightLoc, EYE_STATE.rx, EYE_STATE.ry, EYE_STATE.radX, EYE_STATE.radY);
+      gl.uniform2f(uEyeIrisRadLoc, EYE_STATE.irisRad, EYE_STATE.irisRad);
+      gl.uniform2f(uGazeOffsetLoc, EYE_STATE.interpGazeX, EYE_STATE.interpGazeY);
+      gl.uniform1f(uBlinkTLoc, EYE_STATE.blinkT);
+
       // Bind VBOs
       gl.bindBuffer(gl.ARRAY_BUFFER, targetVBO);
       gl.enableVertexAttribArray(aTargetALoc);
@@ -708,6 +1098,8 @@
       gl.enableVertexAttribArray(aColorALoc);
       gl.vertexAttribPointer(aColorALoc, 3, gl.FLOAT, false, 5 * 4, 2 * 4);
 
+      const vboB = targetVBO_B || targetVBO;
+      gl.bindBuffer(gl.ARRAY_BUFFER, vboB);
       gl.enableVertexAttribArray(aTargetBLoc);
       gl.vertexAttribPointer(aTargetBLoc, 2, gl.FLOAT, false, 5 * 4, 0);
       gl.enableVertexAttribArray(aColorBLoc);

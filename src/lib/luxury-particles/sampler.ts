@@ -181,3 +181,111 @@ export function sampleImageTargets(
 
   return sortedBuffer;
 }
+
+export interface DualStateBuffers {
+  bufferA: Float32Array;
+  bufferB: Float32Array;
+}
+
+// 1:1 Coherent Dual-State Sampling:
+// Particle i in bufferA is mapped EXACTLY to particle i in bufferB.
+// Particles outside the eye socket are 100% frozen (forehead, glasses, beard NEVER move).
+// Particles inside the eye socket descend smoothly down to the natural lash line,
+// sampling authentic closed-eyelid skin tone & eyelashes from the closed portrait.
+export function sampleDualStateTargets(
+  openImg: HTMLImageElement,
+  closedImg: HTMLImageElement,
+  particleCount: number,
+  constellationNodes?: ConstellationNode[],
+): DualStateBuffers {
+  const bufferA = sampleImageTargets(openImg, particleCount, constellationNodes);
+
+  const imgW = closedImg.naturalWidth || 1800;
+  const imgH = closedImg.naturalHeight || 1800;
+  const imgAspect = imgW / imgH;
+
+  const sampleW = 400;
+  const sampleH = Math.max(250, Math.round(400 / imgAspect));
+  const offscreen = document.createElement("canvas");
+  offscreen.width = sampleW;
+  offscreen.height = sampleH;
+  const offCtx = offscreen.getContext("2d");
+
+  const bufferB = new Float32Array(particleCount * 5);
+
+  const lx = -0.1806;
+  const ly = -0.1639;
+  const rx = -0.0306;
+  const ry = -0.1806;
+  const radX = 0.040;
+  const radY = 0.024;
+
+  let closedData: Uint8ClampedArray | null = null;
+  if (offCtx && imgW > 0 && imgH > 0) {
+    offCtx.drawImage(closedImg, 0, 0, sampleW, sampleH);
+    closedData = offCtx.getImageData(0, 0, sampleW, sampleH).data;
+  }
+
+  for (let i = 0; i < particleCount; i++) {
+    const base = i * 5;
+    const nx = bufferA[base];
+    const ny = bufferA[base + 1];
+    const rA = bufferA[base + 2];
+    const gA = bufferA[base + 3];
+    const bA = bufferA[base + 4];
+
+    const dLx = (nx - lx) / radX;
+    const dLy = (ny - ly) / radY;
+    const distL = dLx * dLx + dLy * dLy;
+
+    const dRx = (nx - rx) / radX;
+    const dRy = (ny - ry) / radY;
+    const distR = dRx * dRx + dRy * dRy;
+
+    const inEye = distL < 1.0 || distR < 1.0;
+
+    if (!inEye || !closedData) {
+      // 100% IDENTICAL outside eyes: zero movement, zero checkerboard
+      bufferB[base] = nx;
+      bufferB[base + 1] = ny;
+      bufferB[base + 2] = rA;
+      bufferB[base + 3] = gA;
+      bufferB[base + 4] = bA;
+    } else {
+      const isLeft = distL < distR;
+      const uRel = Math.max(-1.0, Math.min(1.0, isLeft ? dLx : dRx));
+      const vRel = Math.max(-1.0, Math.min(1.0, isLeft ? dLy : dRy));
+      const currentRadY = radY;
+
+      // Natural lash seam line where upper and lower eyelids meet
+      const seamV = 0.22 + 0.08 * (1.0 - uRel * uRel);
+
+      // Upper lid rolls downward to seamV; lower lid lifts slightly
+      let targetNy = ny;
+      if (vRel < seamV) {
+        targetNy = ny + (seamV - vRel) * currentRadY * 0.95;
+      } else {
+        targetNy = ny + (seamV - vRel) * currentRadY * 0.18;
+      }
+
+      // Sample color from closed portrait image
+      const px = Math.min(sampleW - 1, Math.max(0, Math.floor((nx / imgAspect + 0.5) * sampleW)));
+      const py = Math.min(sampleH - 1, Math.max(0, Math.floor((targetNy + 0.5) * sampleH)));
+      const byteIdx = (py * sampleW + px) * 4;
+
+      const rClosed = closedData[byteIdx] / 255;
+      const gClosed = closedData[byteIdx + 1] / 255;
+      const bClosed = closedData[byteIdx + 2] / 255;
+
+      const isGold = rA > 0.94 && gA > 0.80 && bA < 0.48;
+
+      bufferB[base] = nx;
+      bufferB[base + 1] = targetNy;
+      bufferB[base + 2] = isGold ? 0.96 : rClosed;
+      bufferB[base + 3] = isGold ? 0.84 : gClosed;
+      bufferB[base + 4] = isGold ? 0.43 : bClosed;
+    }
+  }
+
+  return { bufferA, bufferB };
+}
