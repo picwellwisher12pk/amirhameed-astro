@@ -17,7 +17,7 @@ try {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://amirhameed.com',
-  output: 'server',
+  output: 'static',
   adapter: vercel({
     webAnalytics: {
       enabled: true,
