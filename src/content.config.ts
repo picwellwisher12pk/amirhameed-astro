@@ -12,6 +12,7 @@ const projects = defineCollection({
     heroImage: z.string().optional(),
     demoUrl: z.string().optional(),
     repoUrl: z.string().optional(),
+    downloadUrl: z.string().optional(),
     featured: z.boolean().default(false),
     status: z.enum(['completed', 'in-progress', 'concept']).default('completed'),
   }),

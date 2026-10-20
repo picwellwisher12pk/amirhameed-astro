@@ -11,6 +11,7 @@ interface Props {
       heroImage?: string;
       demoUrl?: string;
       repoUrl?: string;
+      downloadUrl?: string;
       featured?: boolean;
       status?: string;
     };
@@ -79,6 +80,20 @@ const isWide = metroSpan === 'wide';
         </div>
 
         <div class="flex items-center gap-3 z-20">
+          {data.downloadUrl && (
+            <a 
+              href={data.downloadUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition-colors shadow-sm"
+              title="Download App Installer"
+            >
+              <span>{data.category.toLowerCase().includes('extension') ? 'Install' : 'Download'}</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+            </a>
+          )}
           {data.demoUrl && (
             <a 
               href={data.demoUrl} 
@@ -162,6 +177,19 @@ const isWide = metroSpan === 'wide';
         </div>
 
         <div class="flex items-center gap-3">
+          {data.downloadUrl && (
+            <a 
+              href={data.downloadUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:underline font-semibold"
+            >
+              <span>{data.category.toLowerCase().includes('extension') ? 'Install' : 'Download'}</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+            </a>
+          )}
           {data.demoUrl && (
             <a 
               href={data.demoUrl} 
@@ -223,16 +251,28 @@ const isWide = metroSpan === 'wide';
           {data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
         </span>
 
-        {data.demoUrl && (
-          <a 
-            href={data.demoUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:underline"
-          >
-            <span>Demo &rarr;</span>
-          </a>
-        )}
+        <div class="flex items-center gap-2">
+          {data.downloadUrl && (
+            <a 
+              href={data.downloadUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs font-semibold hover:underline"
+            >
+              <span>{data.category.toLowerCase().includes('extension') ? 'Install' : 'Get App'}</span>
+            </a>
+          )}
+          {data.demoUrl && (
+            <a 
+              href={data.demoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:underline"
+            >
+              <span>Demo &rarr;</span>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   </div>

@@ -1,24 +1,49 @@
 ---
 heroImage: /images/projects/paxamir.jpg
 title: Paxamir — Multilingual Examination & Quiz Engine
-description: A robust quizzing and examination platform supporting multiple question formats, multilingual tests, instant grading, and MongoDB storage.
+description: Enterprise examination platform with Next.js, NestJS backend, TipTap KaTeX math authoring, Socket.io live proctoring, and Prisma ORM.
 pubDate: '2026-04-12'
 category: Web & Educational Platforms
 tags:
   - Next.js
+  - NestJS
   - React
-  - MongoDB
-  - Node.js
+  - Prisma
+  - KaTeX
+  - Socket.io
+  - Redis
   - Tailwind CSS
 featured: false
 status: completed
-repoUrl: https://github.com/picwellwisher12pk/paxamir
+repoUrl: https://github.com/picwellwisher12pk/paxamer
 ---
 
 ### Overview
-**Paxamir** is a comprehensive digital examination and quizzing platform engineered to facilitate online assessments, competitive testing, and automated knowledge evaluation with multilingual question rendering.
+
+**Paxamir** (v1.0.1) is an enterprise-grade digital examination and assessment workstation engineered for online competitive testing, multi-lingual evaluations, and rich STEM problem authoring.
+
+Architected as a unified Bun monorepo, Paxamir pairs a **Next.js** student/instructor application with a **NestJS** backend API, real-time **Socket.io** event distribution, and a **TipTap** LaTeX/KaTeX mathematics editor.
+
+---
 
 ### Key Architecture & Capabilities
-- **Flexible Question Modalities**: Supports multiple-choice, true/false, fill-in-the-blank, and multi-lingual RTL/LTR question sheets.
-- **Scalable Document Store**: Powered by MongoDB for flexible exam schemas, dynamic answer key validation, and student attempt histories.
-- **Real-Time Assessment**: Instant scoring algorithms, timer enforcement, and performance review breakdown.
+
+- **📐 Advanced STEM & Code Authoring**:
+  - Live LaTeX / KaTeX mathematical formula rendering directly inside rich text TipTap input nodes.
+  - Interactive Ace code syntax editor for grading computer science tests and coding challenges.
+- **🌐 Native Multi-Language & RTL Layouts**:
+  - First-class i18n support with bidirectional typography (English, Urdu, Arabic) and context-aware punctuation handling.
+- **⏱️ Automated Grading & Proctoring**:
+  - Instantaneous scoring pipelines, randomized question banks, negative marking rules, and time-restricted exam attempts.
+  - Real-time exam sync and student submission telemetry powered by **Socket.io** and **Redis**.
+- **🛡️ Secure Enterprise Backend**:
+  - NestJS Fastify/Express API with Prisma ORM, Redis session store, Google OAuth 2.0 authentication, and automated OpenAPI/Swagger documentation.
+
+---
+
+### Tech Stack
+
+- **Monorepo Runtime**: Bun
+- **Student & Instructor Web**: Next.js, React 19, NextAuth, Tailwind CSS, Canvas-Confetti
+- **Assessment Studio**: React, TipTap Editor, KaTeX, Dnd-Kit, Ant Design
+- **API & Storage**: NestJS, Prisma ORM, Redis, PostgreSQL / MongoDB, Socket.io
